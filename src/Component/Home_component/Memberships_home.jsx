@@ -53,9 +53,9 @@ const Memberships_home = () => {
             </ul>
 
             <button
-              className={`my-8 py-2 px-4 rounded-xl font-bold text-white ${
+              className={`my-8 py-2 px-4 rounded-xl font-bold ${
                 e.popular
-                  ? 'bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F]'
+                  ? 'bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F] text-white'
                   : 'border border-[#08AC85DB] text-[#08AC85DB] hover:bg-[#08AC85DB] hover:text-white'
               }`}
             >
