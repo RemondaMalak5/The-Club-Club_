@@ -9,3 +9,7 @@
 .container{
    @apply lg:px-10 lg:py-10; 
 }
+
+body {
+  font-family: "Cairo", sans-serif;
+}

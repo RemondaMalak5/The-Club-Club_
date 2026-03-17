@@ -5,10 +5,10 @@ import { Outlet } from 'react-router-dom'
 
 const Main_layout = () => {
   return (
-    <div>
+    <div >
       <Navbar/>
-      <Outlet/>
-      <Footer/>
+      <Outlet/> 
+     <Footer/>
     </div>
   )
 }
