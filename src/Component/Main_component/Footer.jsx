@@ -4,9 +4,8 @@
 // import { MdLocalPhone } from "react-icons/md";
 // import { Link } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
-// import Social_Media from "../../../components/Shared_Componant/Social_Media";
-// import Line from "../../../components/Shared_Componant/Line";
 // import { assets } from "../../assets/assets";
+// import Line from "../Shared_component/Line";
 
 
 // const Footer = () => {
@@ -70,12 +69,14 @@
 
 // export default Footer;
  
+
 import React from 'react'
 
 const Footer = () => {
   return (
     <div>
       footer
+      
     </div>
   )
 }
