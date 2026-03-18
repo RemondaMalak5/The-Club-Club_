@@ -28,7 +28,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-7 text-[#364153] font-medium text-[18px]">
             <ul className="flex gap-7">
               <li><Link to="/">الرئيسيه</Link></li>
-              <li><Link to="/">فروعنا</Link></li>
+              <li><Link to="/branches">فروعنا</Link></li>
               <li><Link to="/about">عن النادى</Link></li>
               <li><Link to="/">الاخبار</Link></li>
               <li><Link to="/">الخدمات</Link></li>

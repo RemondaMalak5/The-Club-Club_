@@ -18,7 +18,7 @@ const Home = () => {
       <About_home/>
       <Branches_home/>
       <Result_year_home/>
-      {/* <Memberships_home/> */}
+      <Memberships_home/>
       <Booking_home/>
       {/* <Statistics_home/> */}
       {/* <Academy_home/> */}
