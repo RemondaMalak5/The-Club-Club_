@@ -30,7 +30,7 @@ const Navbar = () => {
               <li><Link to="/">الرئيسيه</Link></li>
               <li><Link to="/branches">فروعنا</Link></li>
               <li><Link to="/about">عن النادى</Link></li>
-              <li><Link to="/">الاخبار</Link></li>
+              <li><Link to="/news">الاخبار</Link></li>
               <li><Link to="/">الخدمات</Link></li>
               <li><Link to="/">الاكاديميات</Link></li>
               <li><Link to="/">البطولات</Link></li>

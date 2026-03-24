@@ -21,7 +21,7 @@ const Map_component = () => {
   ];
 
   return (
-    <div className="w-[50%] h-[500px] sticky rounded-2xl overflow-hidden px-5">
+    <div className=" w-full h-full ">
       <MapContainer
         center={[30.0444, 31.2357]}
         zoom={11}

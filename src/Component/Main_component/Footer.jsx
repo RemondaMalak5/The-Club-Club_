@@ -93,7 +93,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="bg-[#0c5f54] text-center text-xs sm:text-sm py-4 text-gray-300 px-4">
+      <div className="bg-[#0c5f54] text-end text-xs sm:text-sm py-4 text-gray-300 px-4">
         © 2026 نادي النادي - جميع الحقوق محفوظة
       </div>
     </footer>

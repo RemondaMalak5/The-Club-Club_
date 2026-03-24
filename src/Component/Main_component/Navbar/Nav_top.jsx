@@ -9,7 +9,7 @@ const Nav_top = () => {
 
  
     return (
-        <div className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] hidden w-full lg:flex justify-between items-center px-5 py-2'>
+        <div className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] hidden w-full lg:flex justify-between items-center px-16 py-2'>
             <div className='flex  gap-3  font-[400] text-[16px] leading-[10px] tracking-[0px]  '>
                 <span className='text-white  flex items-center gap-1 '>
                     <GiTrophyCup />
