@@ -31,8 +31,8 @@ const Navbar = () => {
               <li><Link to="/branches">فروعنا</Link></li>
               <li><Link to="/about">عن النادى</Link></li>
               <li><Link to="/news">الاخبار</Link></li>
-              <li><Link to="/">الخدمات</Link></li>
-              <li><Link to="/">الاكاديميات</Link></li>
+              <li><Link to="/services">الخدمات</Link></li>
+              <li><Link to="/academy">الاكاديميات</Link></li>
               <li><Link to="/">البطولات</Link></li>
               <li><Link to="/contact">تواصل معنا</Link></li>
             </ul>

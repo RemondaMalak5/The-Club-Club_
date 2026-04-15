@@ -13,12 +13,11 @@ import image_1 from './image_1.jpg';
 import image_2 from './image_2.jpg';
 import image_3 from './image_3.jpg';
 import image_4 from './image_4.jpg';
-
+import about_us from './about_us.jpg';
+import about from './about.jpg';
 export const assets = {
   logo, slide_1, slide_2 , theClub_Logo, october, elasma, sheraton,
  news_1, news_2, news_3, v,
-  image_1, image_2, image_3, image_4, 
-
-
+  image_1, image_2, image_3, image_4,about_us,about,
 
 };
