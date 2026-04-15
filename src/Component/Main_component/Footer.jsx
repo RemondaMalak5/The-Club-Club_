@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-[#1aa085] to-[#0f7c6c] text-white mt-10">
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-red-500">
         
         {/* Grid */}
         <div className="
@@ -88,6 +88,7 @@ const Footer = () => {
               <li>الأكاديميات</li>
             </ul>
           </div>
+          
 
         </div>
       </div>
