@@ -25,13 +25,12 @@ const Nav_top = () => {
                 </span>
             </div>
             <div className='flex gap-3'>
-                <button className='rounded-full border px-3 bg-transparent hover:bg-white text-white hover:text-black'  onClick={() =>
+                <button className='rounded-full border px-5 py-1 bg-transparent hover:bg-white text-white hover:text-black'  onClick={() =>
               i18n.changeLanguage(i18n.language === "en" ? "ar" : "en")
             }>
                            {i18n.language === "en" ? "العربية" : "English"}
 
             </button>
-                <button className='rounded-full border px-3 py-2 bg-white hover:bg-transparent hover:text-white'>تسجيل الدخول</button>
             </div>
 
 

@@ -4,21 +4,23 @@ import Home from "../Pages/Home";
 import Branches from "../Pages/Branches";
 import News from "../Pages/News";
 import AboutUs from "../Pages/AboutUs";
+import Champions from "../Pages/Champions";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main_layout/>,
+    element: <Main_layout />,
     children: [
-      { index: true, element: <Home/> },
+      { index: true, element: <Home /> },
 
-      {path:"branches", element: <Branches/>},
-            {path:"news", element: <News/>},
-                        {path:"about", element: <AboutUs/>},
+      { path: "branches", element: <Branches /> },
+      { path: "news", element: <News /> },
+      { path: "about", element: <AboutUs /> },
+      { path: "champions", element: <Champions /> },
 
 
-  
+
     ]
   }
 ]);
