@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegCalendarCheck, FaBars, FaTimes } from "react-icons/fa";
 import { assets } from "../../../assets/assets";
 import Nav_top from "../Navbar/Nav_top";
@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
-
+   const navigate = useNavigate();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -41,7 +41,7 @@ const Navbar = () => {
           <div className="hidden lg:flex gap-2">
 
             <button className='rounded-full border px-3 py-2 bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white hover:bg-transparent hover:text-white'>تسجيل الدخول</button>
-            <button className='rounded-full border px-3 py-2 bg-white hover:bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-[#00454CDB] hover:text-white'>تسجيل جديد</button>
+            <button className='rounded-full border px-3 py-2 bg-white hover:bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-[#00454CDB] hover:text-white ' onClick={() => navigate('/register')}>تسجيل جديد</button>
 
           </div>
 

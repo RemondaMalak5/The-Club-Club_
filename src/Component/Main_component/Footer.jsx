@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-[#1aa085] to-[#0f7c6c] text-white mt-10">
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-red-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 ">
         
         {/* Grid */}
         <div className="
@@ -95,8 +95,10 @@ const Footer = () => {
 
       {/* Bottom */}
       <div className="bg-[#0c5f54] text-end text-xs sm:text-sm py-4 text-gray-300 px-4">
-        © 2026 نادي النادي - جميع الحقوق محفوظة
+       <span className="flex justify-end"> © 2026 نادي النادي - جميع الحقوق محفوظة</span> 
+       <span className="flex justify-start"> سياسة الخصوصية  | الشروط والأحكام  |  خريطة الموقع  </span>
       </div>
+
     </footer>
   );
 };
