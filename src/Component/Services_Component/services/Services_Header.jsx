@@ -1,64 +1,52 @@
 import React from "react";
 import { Users, Activity, Layers } from "lucide-react";
+import H_1 from "../../Shared_component/H_1";
+import SubTitle from "../../Shared_Component/SubTitle";
+import Title_1 from "../../Shared_Component/Title_1";
 
 const Services_Header = () => {
   const stats = [
     {
       title: "المشتركين",
       value: 320,
-      icon: <Users size={20} />,
+      icon: <Users />,
     },
     {
       title: "الخدمات النشطة",
       value: 12,
-      icon: <Activity size={20} />,
+      icon: <Activity />,
     },
     {
       title: "إجمالي عدد الخدمات",
       value: 13,
-      icon: <Layers size={20} />,
+      icon: <Layers/>,
     },
   ];
 
   return (
-    <div className="px-14 py-6 ">
-        <div className="bg-[#E9F2EF] rounded-2xl  md:p-10 mb-6">
-
-      {/* Top Text */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-        <div className="text-right">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-            خدمات النادي
-          </h1>
-          <p className="text-gray-500 mt-2">
-            اكتشف باقة متنوعة من الخدمات والأنشطة المميزة
-          </p>
+   <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
+      <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
+        <H_1 text={"خدمات النادي"} />
+        <SubTitle SubTitle={"اكتشف باقة متنوعة من الخدمات والأنشطة المميزة"} />
+        <div className="flex flex-wrap gap-7 mt-2">
+          {stats.map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-col xl:w-1/4 w-full md:w-1/2 bg-white border  gap-1 px-6 py-3 rounded-2xl shadow-md"
+            >
+              <div className="flex gap-3 items-center">
+                <div className="bg-teal-600 text-white p-4 rounded-lg">
+                  {item.icon}
+                </div>
+                <div>
+                  <span className="text-[#4A5565]">{item.title}</span>
+                  <Title_1 title={item.value} />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-        {stats.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-xl p-5 flex items-center justify-between shadow-sm"
-          >
-            <div className="text-right">
-              <p className="text-gray-500 text-sm">{stat.title}</p>
-              <h2 className="text-2xl font-bold text-teal-600">
-                {stat.value}
-              </h2>
-            </div>
-
-            <div className="bg-teal-600 text-white p-3 rounded-lg">
-              {stat.icon}
-            </div>
-          </div>
-        ))}
-
-      </div>
-    </div> 
     </div>
    
   );

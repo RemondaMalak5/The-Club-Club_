@@ -4,10 +4,8 @@ import Stepper_orange from "../../Shared_Component/Stepper_orange";
 import H_one_register from "../../Shared_Component/H_one_register";
 import { LuShield } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
-import Stepper_green from "../../Shared_Component/Stepper_green";
-import { IoIosArrowRoundBack } from "react-icons/io";
 
-const Send_Otp = ({ length=6 }) => {
+const Otp_Geust = ({ length=6 }) => {
   const inputsRef = useRef([]);
  const navigation = useNavigate();
 
@@ -31,9 +29,9 @@ const Send_Otp = ({ length=6 }) => {
   };
   return (
     <div className="flex flex-col justify-center items-center">
-      <Stepper_green title="تحقق بالرمز " currentStep={3} />
+      <Stepper_orange title="تحقق الهويه " currentStep={2} />
       <div className="border p-7 w-[50%] flex flex-col gap-3 justify-center items-center rounded-xl shadow-2xl">
-        <span className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]">
+        <span className="bg-gradient-to-r from-[#FFA811] to-[#FF683B] text-white p-5 rounded-full text-[30px]">
           <LuShield />
         </span>
         <H_one_register title="تحقق الهويه " />
@@ -55,11 +53,10 @@ const Send_Otp = ({ length=6 }) => {
           ))}
         </div>
         <p>يمكنك إعادة إرسال الرمز بعد 56 ثانية</p>
-          <button onClick={()=>{navigation("/account-setup-member")}}   className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-3 rounded-lg w-full mb-1 mt-5 flex justify-center items-center gap-1">
+          <button onClick={()=>{navigation("/account-setup")}}   className="bg-gradient-to-r from-[#FFA811] to-[#FF683B] text-white p-3 rounded-lg w-full mb-1 mt-5 ">
             تحقيق
-            <span className="text-[19px] "> <IoIosArrowRoundBack/> </span>
           </button>
-          <button className=" text-[#5B626E] border border-[#00786F] font-bold py-3 px-5 rounded-lg w-full bg-gradient-to-r from-[#00786F] to-[#00BFA6] bg-clip-text text-transparent ">
+          <button className=" text-[#5B626E] border border-[#FF683B] font-bold py-3 px-5 rounded-lg w-full ">
             اعادة ارسال الرمز
           </button>
         </div>
@@ -67,4 +64,4 @@ const Send_Otp = ({ length=6 }) => {
   );
 };
 
-export default Send_Otp ;
+export default Otp_Geust;

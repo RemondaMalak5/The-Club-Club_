@@ -25,7 +25,6 @@ const Home = () => {
       {/* <Photos_home/> */}
       <News_home/>
       <Ready_home/>
-
     </div>
   )
 }

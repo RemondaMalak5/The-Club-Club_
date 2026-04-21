@@ -1,15 +1,19 @@
 import React from 'react'
 import { IoIosArrowRoundBack, IoMdCheckmarkCircleOutline } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom';
+import Already_Have_Account from '../../Shared_Component/Already_Have_Account';
+import H_one_register from './../../Shared_Component/H_one_register';
+import Stepper_green from './../../Shared_Component/Stepper_green';
 
 const Confirm_data = () => {
      const navigate = useNavigate();
     return (
-        <div className='py-10 flex justify-center '>
+        <div className='py-4 flex flex-col items-center justify-center '>
+            <Stepper_green currentStep={2} title={"التحقق من البيانات"}/>
             <div className='border p-7 w-[50%] flex flex-col gap-3 items-center justify-center rounded-xl shadow-2xl'>
                 <span className='bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]'><IoMdCheckmarkCircleOutline />
                 </span>
-                <h1 className='text-[33px] font-bold text-center'> تأكيد البيانات </h1>
+<H_one_register title="تأكيد البيانات" />
                 <p className='font-semibold text-[16px] text-[#5B626E]'> هل هذه بياناتك الصحيحة؟ </p>
                 <div className='bg-[#EBF1F166] w-full p- rounded-xl flex flex-col gap-3'>
                     <p className='font-medium text-[15px] text-[#364153] px-1 py-3'> الاسم   : احمد محمد</p>
@@ -30,8 +34,7 @@ const Confirm_data = () => {
                 </button>
                 </div>
               
-                <p className='text-[14px] text-[#5B626E] pt-9 flex justify-center gap-1'> لديك حساب بالفعل؟ <a href="#" className='text-[#00786F] font-semibold underline'>تسجيل الدخول</a></p>
-
+<Already_Have_Account/>
             </div>
         </div>
     )

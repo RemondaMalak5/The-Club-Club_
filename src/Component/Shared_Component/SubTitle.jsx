@@ -2,7 +2,7 @@ import React from 'react'
 
 const SubTitle = ({SubTitle}) => {
   return (
-    <div className='font-medium text-[18px] text-[#6A7282]'>
+    <div className='font-regular text-[18px] text-[#4A5565]'>
      {SubTitle}
     </div>
   )

@@ -29,13 +29,13 @@ const Championship_component = () => {
         },
     ]
     return (
-        <div className='py-10 px-20'>
+        <div className='xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10'>
             <div className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>
                 <H_1 text={"البطولات والإنجازات"} />
                 <SubTitle SubTitle={"سجل حافل بالإنجازات الرياضية والبطولات المحلية والدولية"} />
-                <div className='flex gap-5 mt-2'>
+                <div className='flex flex-wrap gap-5 mt-2'>
                     {Champions.map((champion, index) => (
-                        <div key={index} className='flex flex-col w-1/3 bg-white border  gap-2   px-7 py-5 rounded-2xl shadow-md'>
+                        <div key={index} className='flex flex-col xl:w-1/4 w-full md:w-1/2 bg-white border  gap-1 px-6 py-3 rounded-2xl shadow-md'>
                             <div className='flex gap-2 items-center'>
                                 <span className=' text-[#F0B100] text-[20px]'>{champion.icon}</span>
                                 <span className='text-[#4A5565]'>{champion.title}</span>

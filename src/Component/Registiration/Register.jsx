@@ -34,7 +34,8 @@ const Register = () => {
                     </div>
                     <p className='font-bold text-[24px]'> متابعه كضيف  </p>
                     <p className='font-medium text-[16px] text-[#4A5565]'>ليس لديك عضوية حالياً</p>
-                    <button className='bg-gradient-to-r from-[#FFA811] to-[#FF683B] text-white font-semibold py-1 px-5 rounded-xl hover:bg-[#005f5a] flex gap-3'>
+                    <button onClick={() => navigate('/new-guest')}
+                     className='bg-gradient-to-r from-[#FFA811] to-[#FF683B] text-white font-semibold py-1 px-5 rounded-xl hover:bg-[#005f5a] flex gap-3'>
                         متابعه
                         <span className='py-1 '> <IoMdArrowBack /> </span>
                     </button>

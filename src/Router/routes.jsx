@@ -12,6 +12,12 @@ import Register from "../Component/Registiration/Register";
 import Member_Register from "../Component/Registiration/Member/Member_Register";
 import Confirm_data from "../Component/Registiration/Member/Confirm_data";
 import Send_Otp from "../Component/Registiration/Member/Send_Otp";
+import Register_Geust from "../Component/Registiration/New_Member/Register_Geust";
+import Otp_Geust from "../Component/Registiration/New_Member/Otp_Geust";
+import  Account_setup  from "../Component/Registiration/New_Member/Account_setup";
+import Account_setup_member from "../Component/Registiration/Member/Account_setup_member";
+import Login from "../Component/Login/Login";
+import Proflie from "../Component/Profile/Proflie";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +35,13 @@ export const router = createBrowserRouter([
       {path: "register", element: <Register/>},
       {path: "member-register", element: <Member_Register/>},
       {path: "confirm-data", element: <Confirm_data/>},
-      {path: "send-otp", element: <Send_Otp/>}
+      {path: "send-otp", element: <Send_Otp/>},
+      {path: "new-guest", element: <Register_Geust/>},
+      {path: "otp-guest", element: <Otp_Geust/>},
+      {path: "account-setup", element: <Account_setup/>} ,
+      {path:"account-setup-member", element: <Account_setup_member/>} ,
+      {path:"login", element: <Login/>},
+      {path:"profile", element: <Proflie/>}
     ]
   }
 ]);
