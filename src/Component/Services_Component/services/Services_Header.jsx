@@ -1,8 +1,8 @@
 import React from "react";
 import { Users, Activity, Layers } from "lucide-react";
-import H_1 from "../../Shared_component/H_1";
 import SubTitle from "../../Shared_Component/SubTitle";
 import Title_1 from "../../Shared_Component/Title_1";
+import H_1 from './../../Shared_Component/H_1';
 
 const Services_Header = () => {
   const stats = [
