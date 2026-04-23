@@ -8,6 +8,7 @@ import {
 import { assets } from "../../assets/assets";
 import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import SocialMedia from "../Shared_Component/SocialMedia";
 
 const Footer = () => {
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
@@ -61,20 +62,7 @@ const Footer = () => {
           </p>
     <p className="py-5 font-bold"> تابعنا</p>
           {/* Social */}
-          <div className="flex justify-center sm:justify-start gap-3 pt-2 text-[18px]">
-            <span className="bg-white/20 p-3 rounded-full hover:bg-white/30 cursor-pointer">
-              <FaFacebookF />
-            </span>
-            <span className="bg-white/20 p-3 rounded-full hover:bg-white/30 cursor-pointer">
-              <FaInstagram />
-            </span>
-            <span className="bg-white/20 p-3 rounded-full hover:bg-white/30 cursor-pointer">
-              <FaXTwitter />
-            </span>
-            <span className="bg-white/20 p-3 rounded-full hover:bg-white/30 cursor-pointer">
-              <FaWhatsapp />
-            </span>
-          </div>
+        <SocialMedia/>
         </div>
 
         <div className="xl:w-[80%] w-full flex flex-wrap justify-center xl:ps-10 ">

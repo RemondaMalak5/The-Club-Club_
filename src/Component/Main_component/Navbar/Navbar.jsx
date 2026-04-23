@@ -44,12 +44,12 @@ const Navbar = () => {
       <Nav_top />
 
       <nav className="bg-white shadow-md sticky top-0 w-full z-50">
-        <div className="max-w-7xl mx-auto px-10 py-3 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-10 py-1 flex justify-between items-center">
           <NavLink to="/" className="flex items-center gap-2">
             <img src={assets.logo} alt="logo" className="w-14 h-14" />
           </NavLink>
 
-          <div className="hidden lg:flex items-center gap-7 font-medium text-[18px]">
+          <div className="hidden lg:flex items-center gap-7  font-medium text-[17px]">
             <ul className="flex gap-6">
               {navItems.map((item) => (
                 <li key={item.path}>

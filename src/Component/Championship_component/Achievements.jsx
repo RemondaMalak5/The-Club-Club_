@@ -41,16 +41,17 @@ const Achievements = () => {
       </h2>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {[...achievements, ...achievements].map((item, index) => (
-          
-          <div
-            key={index}
-            className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md hover:-translate-y-1 transition duration-300"
+      <div className="flex flex-wrap px-5">
+        {achievements.map((item, index) => (
+          <div key={index} className="w-full md:w-1/2 lg:w-[300px] px-3">
+<div
+            className="  bg-white rounded-xl border shadow-sm p-5 hover:shadow-md hover:-translate-y-1 transition duration-300"
           >
             
             {/* Top */}
             <div className="flex justify-between items-center">
+                            <div className="text-3xl">{item.icon}</div>
+
               <div>
                 <h2 className="text-2xl font-bold text-teal-600">
                   {item.total}
@@ -58,7 +59,6 @@ const Achievements = () => {
                 <p className="text-sm text-gray-400">بطولة</p>
               </div>
 
-              <div className="text-3xl">{item.icon}</div>
             </div>
 
             {/* Title */}
@@ -67,19 +67,24 @@ const Achievements = () => {
             </h3>
 
             {/* Bottom */}
-            <div className="flex gap-3 mt-4 justify-end">
+            <div className="flex gap-3 mt-4 w-full justify-between ">
               
-              <div className="bg-orange-100 text-orange-500 px-4 py-2 rounded-lg text-sm">
-                {item.outdoor} خارجية
+              <div className=" bg-[#FFF7ED]  px-4 py-2 rounded-lg flex flex-col items-center justify-center">
+               <span className="text-orange-500 "> {item.outdoor}</span>  
+               <p>خارجية</p>
+              </div>
+              <div className=" bg-[#F0FDFA]  px-4 py-2 rounded-lg flex flex-col items-center justify-center">
+               <span className="text-teal-600 "> {item.indoor}</span>  
+               <p>داخلية</p>
               </div>
 
-              <div className="bg-teal-100 text-teal-600 px-4 py-2 rounded-lg text-sm">
-                {item.indoor} داخلية
-              </div>
+            
 
             </div>
 
           </div>
+          </div>
+          
 
         ))}
       </div>

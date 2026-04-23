@@ -1,12 +1,12 @@
 import React from 'react'
-import Title_1 from './../Shared_Component/Title_1';
-import SubTitle from './../Shared_Component/SubTitle';
-import H_1 from './../Shared_Component/H_1';
+import Title_1 from '../Shared_Component/Title_1';
+import SubTitle from '../Shared_Component/SubTitle';
+import H_1 from '../Shared_Component/H_1';
 import { IoFlashOutline } from 'react-icons/io5';
 import { LuPhoneCall } from 'react-icons/lu';
 import { TbUserStar } from 'react-icons/tb';
 
-const Contact_Us = () => {
+const Header_Contact_Us = () => {
   const contact = [
     { title: "استجابة سريعة", icon:<IoFlashOutline/>},
    { title: "دعم مستمر", icon:<LuPhoneCall/>},
@@ -15,7 +15,7 @@ const Contact_Us = () => {
 
     ]
   return (
-       <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
+       <div>
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
         <H_1 text={"تواصل معنا"} />
         <SubTitle SubTitle={"نسعد بتواصلك معنا للإجابة على استفساراتك ومساعدتك في الحصول على أفضل الخدمات الرياضية"} />
@@ -38,8 +38,9 @@ const Contact_Us = () => {
           ))}
         </div>
       </div>
+      
     </div>
   )
 }
 
-export default Contact_Us
+export default Header_Contact_Us
