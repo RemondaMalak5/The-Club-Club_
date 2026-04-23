@@ -51,7 +51,8 @@ const Achievements = () => {
             {/* Top */}
             <div className="flex justify-between items-center">
                             <div className="text-3xl">{item.icon}</div>
-
+  
+  
               <div>
                 <h2 className="text-2xl font-bold text-teal-600">
                   {item.total}
