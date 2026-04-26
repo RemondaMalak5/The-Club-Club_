@@ -3,7 +3,8 @@ import { assets } from "../../assets/assets";
 
 const About_component = () => {
   return (
-    <div className="px-14 py-10  ">
+    <> 
+     <div className="xl:px-14 xl:py-10 p-5  ">
       <div className="w-full flex flex-wrap  ">
         <div className="w-full md:w-1/2">
           <h2 className="text-[44px] font-bold text-[#00786F]"> عن النادى</h2>
@@ -37,8 +38,26 @@ const About_component = () => {
           </div>
         </div>
       </div>
-      
     </div>
+
+     <div className="w-full bg-slate-800 flex flex-wrap my-10 relative h-[250px]">
+  <img 
+    src={assets.background} 
+    alt="About Us" 
+    className="w-full h-full object-cover absolute top-0 left-0 z-0"
+  />
+
+  <div className="absolute top-0 left-0 w-full h-full bg-[#EBF1F1]/70 z-10"></div>
+
+  {/* محتوى فوق الاتنين */}
+  <div className="relative z-20 flex justify-center items-center h-full w-full px-4">
+  <p className="text-black text-center px-24 font-semibold text-[20px] md:text-[26px] lg:text-[30px]">
+    "أول مشروع تجاري تابع لوزارة الشباب والرياضة، يُدار بواسطة القطاع الخاص (UFC GYM Egypt)، مع خطط للتوسع في مختلف أنحاء مصر."
+  </p>
+</div>
+</div>
+    </>
+  
   );
 };
 

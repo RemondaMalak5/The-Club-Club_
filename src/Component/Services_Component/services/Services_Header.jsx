@@ -9,7 +9,7 @@ const Services_Header = () => {
     {
       title: "المشتركين",
       value: 320,
-      icon: <Users />,
+      icon: <Users />, 
     },
     {
       title: "الخدمات النشطة",
@@ -41,7 +41,7 @@ const Services_Header = () => {
                 <div>
                   <span className="text-[#4A5565]">{item.title}</span>
                   <Title_1 title={item.value} />
-                </div>
+                </div> 
               </div>
             </div>
           ))}
