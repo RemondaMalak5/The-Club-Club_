@@ -138,15 +138,21 @@
 // };
 
 // export default Academy_filter;
-import React, { useMemo, useState } from "react";
+import React, { use, useEffect, useMemo, useState } from "react";
 import { LayoutGrid, List } from "lucide-react";
 import { assets } from "../../../assets/assets";
 import { FaStar } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { LiaAwardSolid } from "react-icons/lia";
+import Academy from './../../../Pages/Academy';
+import { Academylist } from "../../../axiosConfig/APIs/Academy/Academy_list";
+import i18next from "i18next";
+import { useNavigate } from "react-router-dom";
+
 
 const Academy_filter = () => {
+  const navigation = useNavigate();
   const tabs = [
     "كل الأكاديميات",
     "رياضات جماعية",
@@ -155,54 +161,55 @@ const Academy_filter = () => {
     "مراكز اللياقة",
     "ملاعب متاحة",
   ];
+   
 
-  const academies = [
-    {
-      img: assets.acdemy,
-      name: "أكاديمية كرة القدم",
-      rate: 4.5,
-      category: "رياضات جماعية",
-      branch: "الفرع 6 أكتوبر",
-      count: 5,
-      proftiprofessional: 3,
-      discription:
-        "تقدم أكاديمية كرة القدم برامج تدريبية شاملة لجميع الأعمار والمستويات، مع مدربين محترفين ومرافق حديثة لتطوير مهارات اللاعبين.",
-    },
-    {
-      img: assets.acdemy,
-      name: "أكاديمية السباحة",
-      rate: 4.0,
-      category: "رياضات فردية",
-      branch: "فرع  العاصمه",
-      count: 2,
-      proftiprofessional: 4,
-      discription:
-        "أكاديمية متخصصة في تعليم السباحة لجميع الفئات العمرية مع مدربين محترفين وبرامج تدريبية متقدمة.",
-    },
+  // const academies = [
+  //   {
+  //     img: assets.acdemy,
+  //     name: "أكاديمية كرة القدم",
+  //     rate: 4.5,
+  //     category: "رياضات جماعية",
+  //     branch: "الفرع 6 أكتوبر",
+  //     count: 5,
+  //     proftiprofessional: 3,
+  //     discription:
+  //       "تقدم أكاديمية كرة القدم برامج تدريبية شاملة لجميع الأعمار والمستويات، مع مدربين محترفين ومرافق حديثة لتطوير مهارات اللاعبين.",
+  //   },
+  //   {
+  //     img: assets.acdemy,
+  //     name: "أكاديمية السباحة",
+  //     rate: 4.0,
+  //     category: "رياضات فردية",
+  //     branch: "فرع  العاصمه",
+  //     count: 2,
+  //     proftiprofessional: 4,
+  //     discription:
+  //       "أكاديمية متخصصة في تعليم السباحة لجميع الفئات العمرية مع مدربين محترفين وبرامج تدريبية متقدمة.",
+  //   },
     
    
-    {
-      img: assets.acdemy,
-      name: "أكاديمية الكرة الطائرة",
-      rate: 4.3,
-      category: "رياضات جماعية",
-      branch:"فرع شيراتون",
-      count: 3,
-      proftiprofessional: 2,
-      discription:
-        "برامج تدريبية متكاملة لتعليم الكرة الطائرة للمبتدئين والمحترفين في بيئة رياضية مميزة.",
-    },
-  ];
-
+  //   {
+  //     img: assets.acdemy,
+  //     name: "أكاديمية الكرة الطائرة",
+  //     rate: 4.3,
+  //     category: "رياضات جماعية",
+  //     branch:"فرع شيراتون",
+  //     count: 3,
+  //     proftiprofessional: 2,
+  //     discription:
+  //       "برامج تدريبية متكاملة لتعليم الكرة الطائرة للمبتدئين والمحترفين في بيئة رياضية مميزة.",
+  //   },
+  // ];
+ const[data ,setData]=useState([]);
   const [activeTab, setActiveTab] = useState("كل الأكاديميات");
   const [selectedBranch, setSelectedBranch] = useState("كل الفروع");
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState("grid");
 
-  const branches = ["كل الفروع", ...new Set(academies.map((item) => item.branch))];
+  const branches = ["كل الفروع", ...new Set(data.map((item) => item.branch))];
 
   const filteredAcademies = useMemo(() => {
-    return academies.filter((academy) => {
+    return data.filter((academy) => {
       const matchesTab =
         activeTab === "كل الأكاديميات" || academy.category === activeTab;
 
@@ -216,7 +223,30 @@ const Academy_filter = () => {
 
       return matchesTab && matchesBranch && matchesSearch;
     });
-  }, [academies, activeTab, selectedBranch, searchTerm]);
+  }, [data, activeTab, selectedBranch, searchTerm]);
+
+ const Get_Academy_List = async () => {
+        const params = {
+            "language": i18next.language,
+            "branchId":"new_capital",
+            "limit": 6,  
+        }
+        try {
+            const response = await Academylist(params);
+            setData(response.message.data);
+            console.log(response.message.data);
+        }
+        catch (error) {
+            setError(true) ;
+            console.error("Error fetching news:", error);
+        }
+        // finally{
+        //     setLoading(false)
+        // }
+    }
+    useEffect(() => {
+        Get_Academy_List();
+    }, [i18next.language])
 
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4" dir="rtl">
@@ -303,7 +333,7 @@ const Academy_filter = () => {
                 }`}
               >
                 <img
-                  src={academy.img}
+                  src={academy.image}
                   alt={academy.name}
                   className={`object-cover ${
                     viewMode === "grid"
@@ -320,13 +350,13 @@ const Academy_filter = () => {
                       <span className="text-[#F0B100]">
                         <FaStar />
                       </span>
-                      {academy.rate}
+                      {academy.rating}
                     </div>
                   </div>
 
                   <div className="px-4">
                     <p className="text-[#6A7282] font-medium text-[16px] leading-7">
-                      {academy.discription}
+                      {academy.description}
                     </p>
                   </div>
 
@@ -342,19 +372,19 @@ const Academy_filter = () => {
                       <span className="text-[#08AC85DB]">
                         <MdOutlineSportsSoccer />
                       </span>
-                      {academy.count} ملاعب
+                      {academy.reviewCount} ملاعب
                     </p>
 
                     <p className="flex items-center gap-2">
                       <span className="text-[#08AC85DB]">
                         <LiaAwardSolid />
                       </span>
-                      {academy.proftiprofessional} مدربين محترفين
+                      {academy.trainersCount} مدربين محترفين
                     </p>
                   </div>
 
                   <div className="px-4 py-3">
-                    <button className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
+                    <button onClick={() => navigation(`/academy/${academy.id}`)} className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
                       عرض التفاصيل
                     </button>
                   </div>

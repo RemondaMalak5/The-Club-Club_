@@ -17,7 +17,8 @@ import Otp_Geust from "../Component/Registiration/New_Member/Otp_Geust";
 import  Account_setup  from "../Component/Registiration/New_Member/Account_setup";
 import Account_setup_member from "../Component/Registiration/Member/Account_setup_member";
 import Login from "../Component/Login/Login";
-import Proflie from "../Component/Profile/Proflie";
+import Profile from "../Pages/Profile";
+import Header_academy_details from "../Component/Academy_Component/Academy_details/Header_academy_details";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +42,8 @@ export const router = createBrowserRouter([
       {path: "account-setup", element: <Account_setup/>} ,
       {path:"account-setup-member", element: <Account_setup_member/>} ,
       {path:"login", element: <Login/>},
-      {path:"profile", element: <Proflie/>}
+      {path:"profile", element: <Profile/>},
+      {path:"academy/:id", element: <Header_academy_details/>}
     ]
   }
 ]);

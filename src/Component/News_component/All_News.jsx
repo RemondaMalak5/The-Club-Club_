@@ -1,37 +1,64 @@
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { assets } from '../../assets/assets';
 import { GoArrowUpRight } from 'react-icons/go';
 import { CgCalendarDates } from 'react-icons/cg';
+import { Newslist } from '../../axiosConfig/APIs/News/News_list';
+import i18next from 'i18next';
 
 const All_News = () => {
-     const news = [
-            {
-                img: assets.news_1,
-                date: "30 مايو 2025",
-                tag: "خدمات",
-                title: "تطوير منطقة الخدمات",
-                desc: "تحسين شامل للمرافق لتقديم أفضل تجربة للأعضاء",
-            },
-            {
-                img: assets.news_2,
-                date: "30 مايو 2025",
-                tag: "بطولات",
-                title: "مباريات ودية نهاية الأسبوع",
-                desc: "مباريات حماسية بين فرق النادي المختلفة",
-            },
-            {
-                img: assets.news_3,
-                date: "30 مايو 2025",
-                tag: "أنشطة",
-                title: "برنامج لياقة جديد للأعضاء",
-                desc: "برنامج متكامل للياقة البدنية والصحة",
-            },
-        ];
+    const [data ,setData]=useState([]);
+    const [error ,setError]=useState(false);
+     const News_API = async () => {
+        const params = {
+            "language": i18next.language,
+            "branchId":"master",
+            "limit": 6,
+            
+        }
+        try {
+            const response = await Newslist(params);
+            setData(response.message.data);
+            console.log(response.message.data);
+        }
+        catch (error) {
+            setError(true) ;
+            console.error("Error fetching news:", error);
+        }
+        // finally{
+        //     setLoading(false)
+        // }
+    }
+    useEffect(() => {
+        News_API();
+    }, [i18next.language])
+    //  const news = [
+    //         {
+    //             img: assets.news_1,
+    //             date: "30 مايو 2025",
+    //             tag: "خدمات",
+    //             title: "تطوير منطقة الخدمات",
+    //             desc: "تحسين شامل للمرافق لتقديم أفضل تجربة للأعضاء",
+    //         },
+    //         {
+    //             img: assets.news_2,
+    //             date: "30 مايو 2025",
+    //             tag: "بطولات",
+    //             title: "مباريات ودية نهاية الأسبوع",
+    //             desc: "مباريات حماسية بين فرق النادي المختلفة",
+    //         },
+    //         {
+    //             img: assets.news_3,
+    //             date: "30 مايو 2025",
+    //             tag: "أنشطة",
+    //             title: "برنامج لياقة جديد للأعضاء",
+    //             desc: "برنامج متكامل للياقة البدنية والصحة",
+    //         },
+    //     ];
   return (
     <div className='px-14 py-5'>
         <div className="grid md:grid-cols-3 gap-6">
         
-                            {news.map((item, index) => (
+                            {data.map((item, index) => (
                                 <div
                                     key={index}
                                     className="bg-white rounded-2xl shadow-md overflow-hidden"
@@ -47,10 +74,10 @@ const All_News = () => {
                                         <div className="flex justify-between items-center text-sm text-gray-500">
         
                                             <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
-                                                {item.tag}
+                                                {item.category}
                                             </span>
                                             <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 justify-items-center"> <span className="text-[16px] "> <CgCalendarDates /> </span>
-                                                {item.date}</p>
+                                                {item.publishDate}</p>
         
                                         </div>
         

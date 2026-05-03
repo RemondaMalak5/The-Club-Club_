@@ -1,35 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Btn_bg from "../Shared_Component/Btn_bg";
 import { LuClock } from "react-icons/lu";
 import { FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import Map_component from "./Map_component";
+import i18next from "i18next";
+import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 
 const Branches_component = () => {
-  const Branches = [
-    {
-      name: "العاصمة الإدارية الجديدة",
-      address: "شارع 6 أكتوبر، الجيزة",
-      phone: "+20123456789",
-    },
-    {
-      name: "شيراتون المطار",
-      address: "شارع 6 أكتوبر، الجيزة",
-      phone: "+20123456789",
-    },
-    {
-      name: "6 أكتوبر",
-      address: "شارع 6 أكتوبر، الجيزة",
-      phone: "+20123456789",
-    },
-  ];
-
+  // const Branches = [
+  //   {
+  //     name: "العاصمة الإدارية الجديدة",
+  //     address: "شارع 6 أكتوبر، الجيزة",
+  //     phone: "+20123456789",
+  //   },
+  //   {
+  //     name: "شيراتون المطار",
+  //     address: "شارع 6 أكتوبر، الجيزة",
+  //     phone: "+20123456789",
+  //   },
+  //   {
+  //     name: "6 أكتوبر",
+  //     address: "شارع 6 أكتوبر، الجيزة",
+  //     phone: "+20123456789",
+  //   },
+  // ];
+ const[data,setData]=useState([]);
+const[error,setError]=useState(false);
   const timeWork = [
     { day: "الجمعة", hours: "7:00 ص - 12:00 م" },
     { day: "السبت", hours: "6:00 ص - 12:00 م" },
     { day: "الأحد - الخميس", hours: "6:00 ص - 11:00 م" },
   ];
-
+ const Get_Branch_List = async () => {
+        const params = {
+            "language": i18next.language,
+            "branchId":"new_capital",
+            
+        }
+        try {
+            const response = await AllBranches(params);
+            setData(response.message.data);
+            console.log(response.message.data);
+        }
+        catch (error) {
+            setError(true) ;
+            console.error("Error fetching news:", error);
+        }
+        // finally{
+        //     setLoading(false)
+        // }
+    }
+    useEffect(() => {
+        Get_Branch_List();
+    }, [i18next.language])
   return (
     <div className="px-6 md:px-14 py-5">
       <h1 className="text-[28px] md:text-[32px] font-bold text-[#11181C] pb-5">
@@ -42,7 +66,7 @@ const Branches_component = () => {
             فروعنا
           </h2>
 
-          {Branches.map((branch, index) => (
+          {data.map((branch, index) => (
             <div
               key={index}
               className="border rounded-xl my-2 border-[#E5E7EB] p-4 flex flex-col md:flex-row md:justify-between gap-3"
@@ -85,7 +109,7 @@ const Branches_component = () => {
       </div>
 
       <div className="w-full flex flex-wrap justify-center gap-6 mt-10">
-        {Branches.map((branch, index) => (
+        {data.map((branch, index) => (
           <div
             key={index}
             className="bg-white rounded-2xl shadow-md p-5 max-w-sm w-full relative hover:scale-105 transition border border-[#E5E7EB]"

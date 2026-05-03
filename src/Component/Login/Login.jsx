@@ -4,8 +4,10 @@ import Already_Have_Account from '../Shared_Component/Already_Have_Account'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import { TbLogin } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate =useNavigate();
     const arr=[{label:'رقم العضوية أو البريد الإلكتروني', description:'أدخل رقم العضوية أو البريد الإلكتروني '},
     {label:'كلمة المرور', description:'أدخل كلمة المرور '},
   ]
@@ -25,7 +27,7 @@ const Login = () => {
                             <input type={item.label === 'كلمة المرور' ? 'password' : 'text'} placeholder={item.description} className='border p-3 my-1 rounded-lg w-full text-[14px] text-[#9A9FA8]' />
                         </div>
                     ))}
-                    <button onClick={()=>navigate('/')} className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white font-semibold py-3 px-5 rounded-xl hover:bg-[#005f5a] w-full mt-5 flex justify-center gap-3'>
+                    <button onClick={()=>navigate('/profile')} className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white font-semibold py-3 px-5 rounded-xl hover:bg-[#005f5a] w-full mt-5 flex justify-center gap-3'>
                         تسجيل الدخول 
                          </button>
                <p className='text-[14px] text-[#5B626E] pt-3 flex justify-center gap-1'>  ليس لديك حساب؟   <Link to="/register" className='text-[#00786F] font-semibold underline'> سجل الآن </Link></p>
