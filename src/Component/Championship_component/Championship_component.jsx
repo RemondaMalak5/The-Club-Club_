@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import H_1 from '../Shared_component/H_1'
 import SubTitle from '../Shared_Component/SubTitle'
 import Champions from '../../Pages/Champions'
@@ -7,27 +7,54 @@ import { FaAward, FaMedal } from 'react-icons/fa'
 import { GiTrophyCup } from 'react-icons/gi'
 import Title_1 from '../Shared_Component/Title_1'
 import Achievements from './Achievements'
+import i18next from 'i18next'
+import { Champins_State } from '../../axiosConfig/APIs/Champanship/Champins_State'
 
 const Championship_component = () => {
+    const [data, setData] = useState([]);
+    const [error, setError] = useState(false);
     const Champions = [
         {
             title: "إجمالي البطولات",
             icon: <FaAward />,
-            count: 9
+            count: data.totalTrophies
 
         },
         {
             title: "مراكز متقدمة",
             icon: <FaMedal />,
-            count: 7
+            count: data.totalAdvancedPositions
 
         },
         {
             title: "كؤوس ذهبية",
             icon: <GiTrophyCup />,
-            count: 13
+            count: data.totalGold
         },
     ]
+    const Get_champinship_state = async () => {
+        const params = {
+            "language": i18next.language,
+            "branchId":"master",
+            
+        }
+        try {
+            const response = await Champins_State (params);
+            setData(response.message.data);
+            console.log(response.message);
+            setTotalPages(response.message.total_pages);
+        }
+        catch (error) {
+            setError(true) ;
+            console.error("Error fetching news:", error);
+        }
+        // finally{
+        //     setLoading(false)
+        // }
+    }
+    useEffect(() => {
+        Get_champinship_state();
+    }, [i18next.language]);
     return (
         <div className='xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10'>
             <div className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>

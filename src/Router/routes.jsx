@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
       {path:"account-setup-member", element: <Account_setup_member/>} ,
       {path:"login", element: <Login/>},
       {path:"profile", element: <Profile/>},
-      {path:"academy/:id", element: <Header_academy_details/>}
+      {path:"academy/:id", element: <Header_academy_details/>} ,
     ]
   }
 ]);

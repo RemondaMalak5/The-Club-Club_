@@ -1,24 +1,31 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import { assets } from '../../assets/assets';
 import { GoArrowUpRight } from 'react-icons/go';
 import { CgCalendarDates } from 'react-icons/cg';
 import { Newslist } from '../../axiosConfig/APIs/News/News_list';
 import i18next from 'i18next';
+import { Pagination } from '@mui/material';
+import PaginationComponent from '../Shared_component/paginations';
 
 const All_News = () => {
     const [data ,setData]=useState([]);
     const [error ,setError]=useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const paginationRef = useRef();
      const News_API = async () => {
         const params = {
             "language": i18next.language,
             "branchId":"master",
             "limit": 6,
+            "page": currentPage,
             
         }
         try {
             const response = await Newslist(params);
             setData(response.message.data);
             console.log(response.message.data);
+            setTotalPages(response.message.total_items); 
         }
         catch (error) {
             setError(true) ;
@@ -30,7 +37,7 @@ const All_News = () => {
     }
     useEffect(() => {
         News_API();
-    }, [i18next.language])
+    }, [i18next.language ,currentPage]);
     //  const news = [
     //         {
     //             img: assets.news_1,
@@ -64,7 +71,7 @@ const All_News = () => {
                                     className="bg-white rounded-2xl shadow-md overflow-hidden"
                                 >
                                     <img
-                                        src={item.img}
+                                        src={item.image}
                                         alt=""
                                         className="w-full h-52 object-cover"
                                     />
@@ -100,7 +107,8 @@ const All_News = () => {
                             ))}
         
                         </div>
-    </div>
+ <PaginationComponent currentPage={currentPage} totalPages={totalPages} 
+             setCurrentPage={setCurrentPage} paginationRef={paginationRef} />    </div>
   )
 }
 

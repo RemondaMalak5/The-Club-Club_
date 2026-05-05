@@ -138,7 +138,7 @@
 // };
 
 // export default Academy_filter;
-import React, { use, useEffect, useMemo, useState } from "react";
+import React, { use, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutGrid, List } from "lucide-react";
 import { assets } from "../../../assets/assets";
 import { FaStar } from "react-icons/fa";
@@ -149,6 +149,7 @@ import Academy from './../../../Pages/Academy';
 import { Academylist } from "../../../axiosConfig/APIs/Academy/Academy_list";
 import i18next from "i18next";
 import { useNavigate } from "react-router-dom";
+import PaginationComponent from "../../Shared_component/paginations";
 
 
 const Academy_filter = () => {
@@ -175,39 +176,17 @@ const Academy_filter = () => {
   //     discription:
   //       "تقدم أكاديمية كرة القدم برامج تدريبية شاملة لجميع الأعمار والمستويات، مع مدربين محترفين ومرافق حديثة لتطوير مهارات اللاعبين.",
   //   },
-  //   {
-  //     img: assets.acdemy,
-  //     name: "أكاديمية السباحة",
-  //     rate: 4.0,
-  //     category: "رياضات فردية",
-  //     branch: "فرع  العاصمه",
-  //     count: 2,
-  //     proftiprofessional: 4,
-  //     discription:
-  //       "أكاديمية متخصصة في تعليم السباحة لجميع الفئات العمرية مع مدربين محترفين وبرامج تدريبية متقدمة.",
-  //   },
-    
-   
-  //   {
-  //     img: assets.acdemy,
-  //     name: "أكاديمية الكرة الطائرة",
-  //     rate: 4.3,
-  //     category: "رياضات جماعية",
-  //     branch:"فرع شيراتون",
-  //     count: 3,
-  //     proftiprofessional: 2,
-  //     discription:
-  //       "برامج تدريبية متكاملة لتعليم الكرة الطائرة للمبتدئين والمحترفين في بيئة رياضية مميزة.",
-  //   },
   // ];
  const[data ,setData]=useState([]);
   const [activeTab, setActiveTab] = useState("كل الأكاديميات");
   const [selectedBranch, setSelectedBranch] = useState("كل الفروع");
   const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState("grid");
-
+const [currentPage, setCurrentPage] = useState(1);
   const branches = ["كل الفروع", ...new Set(data.map((item) => item.branch))];
-
+const [totalPages, setTotalPages] = useState();
+  const paginationRef = useRef();
+  
   const filteredAcademies = useMemo(() => {
     return data.filter((academy) => {
       const matchesTab =
@@ -229,12 +208,14 @@ const Academy_filter = () => {
         const params = {
             "language": i18next.language,
             "branchId":"new_capital",
-            "limit": 6,  
+            "per_page": 6, 
+            "page": currentPage
         }
         try {
             const response = await Academylist(params);
             setData(response.message.data);
-            console.log(response.message.data);
+            console.log(response.message);
+            setTotalPages(response.message.total_pages);
         }
         catch (error) {
             setError(true) ;
@@ -246,7 +227,7 @@ const Academy_filter = () => {
     }
     useEffect(() => {
         Get_Academy_List();
-    }, [i18next.language])
+    }, [i18next.language , currentPage]);
 
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4" dir="rtl">
@@ -398,6 +379,8 @@ const Academy_filter = () => {
           </div>
         )}
       </div>
+            <PaginationComponent currentPage={currentPage} totalPages={totalPages} 
+             setCurrentPage={setCurrentPage} paginationRef={paginationRef} />
     </div>
   );
 };

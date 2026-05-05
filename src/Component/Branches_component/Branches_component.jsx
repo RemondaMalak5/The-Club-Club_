@@ -35,7 +35,7 @@ const[error,setError]=useState(false);
  const Get_Branch_List = async () => {
         const params = {
             "language": i18next.language,
-            "branchId":"new_capital",
+            "branchId":"all",
             
         }
         try {

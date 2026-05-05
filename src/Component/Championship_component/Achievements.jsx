@@ -43,7 +43,7 @@ const Achievements = () => {
       {/* Grid */}
       <div className="flex flex-wrap px-5">
         {achievements.map((item, index) => (
-          <div key={index} className="w-full md:w-1/2 lg:w-[300px] px-3">
+          <div key={index} className="w-full md:w-1/2 lg:w-[280px] px-3">
 <div
             className="  bg-white rounded-xl border shadow-sm p-5 hover:shadow-md hover:-translate-y-1 transition duration-300"
           >
