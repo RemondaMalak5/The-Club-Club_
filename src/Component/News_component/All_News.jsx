@@ -17,7 +17,7 @@ const All_News = () => {
         const params = {
             "language": i18next.language,
             "branchId":"master",
-            "limit": 6,
+            "per_page": 6,
             "page": currentPage,
             
         }

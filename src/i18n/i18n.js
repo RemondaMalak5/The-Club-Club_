@@ -11,7 +11,7 @@ i18n
       en: { translation: en },
       ar: { translation: ar }
     },
-    lng: 'ar', 
+    lng: localStorage.getItem("lang") || "ar", 
     fallbackLng: 'en',
     interpolation: { escapeValue: false }
   });

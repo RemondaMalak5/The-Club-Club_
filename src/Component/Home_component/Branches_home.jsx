@@ -1,11 +1,13 @@
-import React from "react";
+import React, { use } from "react";
 import Title_1 from "../Shared_Component/Title_1";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import SubTitle from "../Shared_Component/SubTitle";
 import { assets } from "./../../assets/assets";
 import Btn_bg from "../Shared_Component/Btn_bg";
+import { useNavigate } from "react-router-dom";
 
 const Branches_home = () => {
+  const navigate = useNavigate();
   const branch = [
     {
       name: "فرع اكتوبر",
@@ -34,7 +36,7 @@ const Branches_home = () => {
           <Title_1 title={"فروعنا"} />
           <SubTitle SubTitle={"اختار الفرع الأقرب وتصفح الخريطة"} />
         </div>
-        <button className="border border-[#00786F] px-5 rounded-full flex justify-center items-center gap-3">
+        <button onClick={() => navigate('/branches')} className="border border-[#00786F] px-5 rounded-full flex justify-center items-center gap-3">
           عرض خريطه الفروع
           <span className="py-3">
             <FaArrowLeftLong />

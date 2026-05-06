@@ -1,35 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { CgCalendarDates } from "react-icons/cg";
 import { GoArrowUpRight } from "react-icons/go";
 import { IoArrowBack } from "react-icons/io5";
+import i18next from "i18next";
+import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 
 const News_home = () => {
+    const [data, setData] = useState([]);
+    const [error, setError] = useState(false);
+  
+   
+  const Get_News_List = async () => {
+     const params = {
+        "language": i18next.language, 
+        "branchId":"all",
+        "per_page": 3,
+          
+    }
+    try {
+      const response = await Newslist(params);
+      setData(response.message.data);
+      console.log(response.message.data);
+    }   
+    catch (error) {
+      setError(true);
+      console.error("Error fetching news:", error);
+    }
+}     
 
-const news = [
-    {
-        img: assets.news_1,
-        date: "30 مايو 2025",
-        tag: "خدمات",
-        title: "تطوير منطقة الخدمات",
-        desc: "تحسين شامل للمرافق لتقديم أفضل تجربة للأعضاء",
-    },
-    {
-        img: assets.news_2,
-        date: "30 مايو 2025",
-        tag: "بطولات",
-        title: "مباريات ودية نهاية الأسبوع",
-        desc: "مباريات حماسية بين فرق النادي المختلفة",
-    },
-    {
-        img: assets.news_3,
-        date: "30 مايو 2025",
-        tag: "أنشطة",
-        title: "برنامج لياقة جديد للأعضاء",
-        desc: "برنامج متكامل للياقة البدنية والصحة",
-    },
-];
-
+  useEffect(() => {
+    Get_News_List();
+  }, [i18next.language]);
+  
     return (
         <section className="w-full py-16 ">
 
@@ -55,13 +58,13 @@ const news = [
                 {/* Cards */}
                 <div className="grid md:grid-cols-3 gap-6">
 
-                    {news.map((item, index) => (
+                    {data.map((item, index) => (
                         <div
                             key={index}
                             className="bg-white rounded-2xl shadow-md overflow-hidden"
                         >
                             <img
-                                src={item.img}
+                                src={item.image}
                                 alt=""
                                 className="w-full h-52 object-cover"
                             />
@@ -71,10 +74,10 @@ const news = [
                                 <div className="flex justify-between items-center text-sm text-gray-500">
 
                                     <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
-                                        {item.tag}
+                                        {item.category}
                                     </span>
                                     <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 justify-items-center"> <span className="text-[16px] "> <CgCalendarDates /> </span>
-                                        {item.date}</p>
+                                        {item.publishDate}</p>
 
                                 </div>
 

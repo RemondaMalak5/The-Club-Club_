@@ -1,3 +1,37 @@
 {
-    "bvm":"hj"
+    "home": "الرئيسيه",
+    "branches": "فروعنا",
+    "about": "عن النادى",
+    "news": "الاخبار",
+    "champions": "البطولات",
+    "services": "الخدمات",
+    "academy": "الاكاديميات",
+    "contact": "تواصل معنا",
+    "login": "تسجيل الدخول",
+    "register": "تسجيل جديد",
+    "manage_membership": "ادارة العضويه",
+    "book_activities": "حجز الانشطه",
+    "privacy_policy": "سياسة الخصوصية",
+    "terms_and_conditions": "الشروط والأحكام",
+    "site_map": "خريطة الموقع",
+    "book_courts": "حجز الملاعب",
+    "membership": "العضويات",
+    "trips": "الرحلات",
+    "tournaments": "المسابقات",
+    "events": "الفعاليات",
+    "academies": "الأكاديميات" ,
+    "member_services": "خدمات الأعضاء" ,
+    "club_services": "خدمات النادي",
+    "quick_links": "روابط سريعة",
+        "contact_us": "تواصل معنا",
+        "club_name": "نادى النادى",
+        "club_description": "  نادي رياضي متكامل يقدم أفضل الخدمات الرياضية والترفيهية بأحدث التقنيات وفي بيئة آمنة ومريحة" ,
+        "branch_6_october": "فرع 6 أكتوبر",
+        "branch_shiraton": "فرع شيراتون",   
+        "branch_capital": "فرع العاصمة الإدارية",
+        "follow_us": "تابعنا",
+        "all_rights_reserved": "جميع الحقوق محفوظة",
+        "site_copyright": "© 2026 نادي النادي - جميع الحقوق محفوظة"
+
+
 }

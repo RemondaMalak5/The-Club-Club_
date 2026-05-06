@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -15,14 +15,14 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: "الرئيسيه", path: "/" },
-    { name: "فروعنا", path: "/branches" },
-    { name: "عن النادى", path: "/about" },
-    { name: "الاخبار", path: "/news" },
-    { name: "البطولات", path: "/champions" },
-    { name: "الخدمات", path: "/services" },
-    { name: "الاكاديميات", path: "/academy" },
-    { name: "تواصل معنا", path: "/contact" },
+    { name: t("home"), path: "/" },
+    { name: t("branches"), path: "/branches" },
+    { name: t("about"), path: "/about" },
+    { name: t("news"), path: "/news" },
+    { name: t("champions"), path: "/champions" },
+    { name: t("services"), path: "/services" },
+    { name: t("academy"), path: "/academy" },
+    { name: t("contact"), path: "/contact" },
   ];
 
   const navLinkClass = ({ isActive }) =>
@@ -70,14 +70,14 @@ const Navbar = () => {
               className="rounded-full border px-3 py-2 bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white hover:bg-transparent hover:text-white"
               onClick={() => navigate("/login")}
             >
-              تسجيل الدخول
+              {t("login")}
             </button>
 
             <button
               className="rounded-full border px-3 py-2 bg-white hover:bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-[#00454CDB] hover:text-white"
               onClick={() => navigate("/register")}
             >
-              تسجيل جديد
+              {t("register")}
             </button>
           </div>
 

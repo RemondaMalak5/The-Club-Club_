@@ -1,11 +1,233 @@
-import React from 'react'
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+import { Champins_list } from "../../axiosConfig/APIs/Champanship/Champins_list";
+import i18next from "i18next";
+import { LayoutGrid, List } from "lucide-react";
+import PaginationComponent from "../Shared_component/paginations";
+import { FaStar } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { MdOutlineSportsSoccer } from "react-icons/md";
+import { LiaAwardSolid } from "react-icons/lia";  
+
 
 const Champinship_filter = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const navigation = useNavigate();
+  const [data, setData] = useState([]);
+  const [activecategory, setActiveCategory] = useState("all");
+  const [selectedBranch, setSelectedBranch] = useState("all");
+  const [searchTerm, setSearchTerm] = useState();
+  const [viewMode, setViewMode] = useState("grid");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const paginationRef = useRef();
+  const [Categories, setCategories] = useState([]);
+  const [error, setError] = useState(false);
+  const [branches, setBranches] = useState([]);
 
-export default Champinship_filter
+  const Get_Branches = async () => {
+    const params = {
+      "language": i18next.language,
+    }
+    try {
+      const response = await AllBranches (params);
+      setBranches(response.message.data);
+      console.log("branches:", response.message.data);
+
+    } catch (error) {
+      console.error("Error fetching branches:", error);
+    }
+  };
+
+  
+
+  const Get_Champins_List = async () => {
+    const params = {
+      "language": i18next.language,
+      "branchId": selectedBranch,
+      "per_page": 6,
+      "page": currentPage,
+      "search": searchTerm,
+    }
+    try {
+      const response = await Champins_list (params);
+      setData(response.message.data);
+      console.log(response.message);
+      setTotalPages(response.message.total_pages);
+      console.log(assets.academy);
+    }
+    catch (error) {
+      setError(true);
+      console.error("Error fetching news:", error);
+    }
+    // finally{
+    //     setLoading(false)
+    // }
+  }
+  useEffect(() => {
+    Get_Branches();
+  }, [i18next.language]);
+
+
+
+  useEffect(() => {
+    Get_Champins_List();
+  }, [i18next.language, currentPage, activecategory, selectedBranch, searchTerm]);
+
+  return (
+    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4" dir="rtl">
+      <div className="flex flex-wrap gap-3 mb-4 justify-center">
+      
+        {Categories.map((e, index) => (
+          <button
+            key={index}
+            onClick={() => { setActiveCategory(e.id); setCurrentPage(1); }}
+            className={`px-4 py-2 rounded-full border text-sm transition ${activecategory === e.id
+              ? "bg-teal-600 text-white border-teal-600"
+              : "bg-white text-gray-600 border-gray-300"
+              }`}
+          >
+            {e.title}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-3 mb-6 items-center">
+        <input
+          type="text"
+          placeholder="ابحث في ..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
+        />
+
+        <select
+          value={selectedBranch}
+          onChange={(e) => {
+            setSelectedBranch(e.target.value);
+            setCurrentPage(1);
+          }}
+        >
+          <option value="all">كل الفروع</option>
+
+          {branches.map((e) => (
+            <option key={e.id} value={e.registryId}>
+              {e.name}
+            </option>
+          ))}
+        </select>
+
+        <button
+          onClick={() => setViewMode("grid")}
+          className={`p-2 rounded-lg border transition ${viewMode === "grid"
+            ? "bg-teal-600 text-white border-teal-600"
+            : "bg-white text-gray-600 border-gray-300"
+            }`}
+        >
+          <LayoutGrid  size={18} />
+        </button>
+
+        <button
+          onClick={() => setViewMode("list")}
+          className={`p-2 rounded-lg border transition ${viewMode === "list"
+            ? "bg-teal-600 text-white border-teal-600"
+            : "bg-white text-gray-600 border-gray-300"
+            }`}
+        >
+          <List size={18} />
+        </button>
+      </div>
+
+      <div
+        className={`w-full flex flex-wrap ${viewMode === "list" ? "flex-col" : ""
+          }`}
+      >
+        {data.length > 0 ? (
+          data.map((e, index) => (
+            <div
+              key={index}
+              className={
+                viewMode === "grid"
+                  ? "w-full sm:w-1/2 lg:w-1/3 px-3 mb-6"
+                  : "w-full mb-6"
+              }
+            >
+              <div
+                className={`border rounded-lg shadow-md overflow-hidden bg-white ${viewMode === "list"
+                  ? "flex flex-col md:flex-row"
+                  : ""
+                  }`}
+              >
+
+                <img
+                  src={e.image }
+                  alt={e.name}
+                  className={`object-cover ${viewMode === "grid"
+                    ? "w-full h-40"
+                    : "w-full md:w-[320px] h-52 md:h-auto"
+                    }`}
+                />
+
+                <div className="flex-1">
+                  <div className="p-4 flex justify-between items-center flex-wrap gap-3">
+                    <h3 className="text-lg font-bold">{e.name}</h3>
+
+                    <div className="border px-2 py-1 text-sm rounded-xl font-bold flex items-center gap-1">
+                      <span className="text-[#F0B100]">
+<FaStar/>
+                      </span>
+                      {e.rating}
+                    </div>
+                  </div>
+
+                  <div className="px-4">
+                    <p className="text-[#6A7282] font-medium text-[16px] leading-7">
+                      {e.description}
+                    </p>
+                  </div>
+
+                  <div className="text-[#6A7282] font-medium text-[14px] flex flex-col gap-1 p-4">
+                    <p className="flex items-center gap-2">
+                      <span className="text-[#08AC85DB]">
+                        <IoLocationOutline/>
+                      </span>
+                      {e.branchName}
+                    </p>
+
+                    <p className="flex items-center gap-2">
+                      <span className="text-[#08AC85DB]">
+                        <MdOutlineSportsSoccer />
+                      </span>
+                      {e.reviewCount} ملاعب
+                    </p>
+
+                    <p className="flex items-center gap-2">
+                      <span className="text-[#08AC85DB]">
+                        <LiaAwardSolid />
+                      </span>
+                      {e.trainersCount} مدربين محترفين
+                    </p>
+                  </div>
+
+                  <div className="px-4 py-3">
+                    <button onClick={() => navigation(`/academy/${e.id}`)} className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
+                      عرض التفاصيل
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="w-full text-center py-10 text-gray-500 text-lg">
+            لا توجد أكاديميات مطابقة
+          </div>
+        )}
+      </div>
+      <PaginationComponent currentPage={currentPage} totalPages={totalPages}
+        setCurrentPage={setCurrentPage} paginationRef={paginationRef} />
+    </div>
+  );
+};
+
+export default Champinship_filter;

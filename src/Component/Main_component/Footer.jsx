@@ -10,40 +10,41 @@ import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import SocialMedia from "../Shared_Component/SocialMedia";
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const {t}=useTranslation();
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
   const branches = [
-    { value: "فرع 6 أكتوبر" },
-    { value: "فرع  شيراتون" },
-    { value: "فرع العاصمة الإدارية" },
+    { value: t("branch_6_october") },
+    { value: t("branch_shiraton") },
+    { value: t("branch_capital") },
   ];
   const quick_links = [
-    { value: "الرئيسيه " }, 
-    { value: "عن النادي", link:"/about" },
-    { value: "فروعنا", link: "/branches" },
-    { value: "الاخبار", link: "/news" },
-    { value: "البطولات", link: "/champions" },
-    { value: "الخدمات", link: "/services" },
-    { value: "الاكاديميات", link: "/academy" },
-    { value: "تواصل معنا", link: "/contact" },
-
+    { value: t("home") }, 
+    { value: t("about"), link:"/about" },
+    { value: t("branches"), link: "/branches" },
+    { value: t("news"), link: "/news" },
+    { value: t("champions"), link: "/champions" },
+    { value: t("services"), link: "/services" },
+    { value: t("academy"), link: "/academy" },
+    { value: t("contact"), link: "/contact" },
   ];
   const services_club = [
-    { value: "حجز الملاعب" , link: "/" },
-    { value: "العضويات" , link: "/services", },
-    { value: "الرحلات " , link: "/" },
-    { value: "المسابقات" , link: "/" },
-    { value: "الفعاليات" , link: "/" },
-    { value: "الأكاديميات" , link: "/academy" },
+    { value: t("book_courts"), link: "/" },
+    { value: t("membership"), link: "/services", },
+    { value: t("trips"), link: "/" },
+    { value: t("tournaments"), link: "/" },
+    { value: t("events"), link: "/" },
+    { value: t("academies"), link: "/academy" },
   ];
   const Services_member = [
-    { value: "تسجيل الدخول" , link: "/login" },
-    { value: "انشاء حساب" , link: "/register" },
-    { value: "ادارة العضويه" , link: "/" },
-    { value: "حجز الانشطه" , link: "/" },
+    { value: t("login"), link: "/login" },
+    { value: t("register"), link: "/register" },
+    { value: t("manage_membership"), link: "/" },
+    { value: t("book_activities"), link: "/" },
   ];
-  const bottom=[{ value: "سياسة الخصوصية" }, { value: "الشروط والأحكام" }, { value: "خريطة الموقع" }]
+  const bottom=[{ value: t("privacy_policy") }, { value: t("terms_and_conditions") }, { value: t("site_map") }]
   return (
     <footer className="bg-gradient-to-r from-[#1aa085] to-[#0f7c6c] text-white mt-10">
       <div className="xl:ps-20 px-5 py-10 flex flex-wrap  justify-between">
@@ -51,24 +52,23 @@ const Footer = () => {
           <div className="flex items-center justify-center sm:justify-start gap-2">
             <img
               src={assets.theClub_Logo}
-              alt="نادي النادي"
+              alt={t("club_name")}
               className="w-20 h-20"
             />
-            <h2 className="font-bold text-lg">نادي النادي</h2>
+            <h2 className="font-bold text-lg">{t("club_name")}</h2>
           </div>
 
           <p className="text-sm leading-6 text-gray-200">
-            نادي رياضي متكامل يقدم أفضل الخدمات الرياضية والترفيهية بأحدث
-            التقنيات وفي بيئة آمنة ومريحة.
+                {t("club_description")}
           </p>
-    <p className="py-5 font-bold"> تابعنا</p>
+    <p className="py-5 font-bold"> {t("follow_us")} </p>
           {/* Social */}
         <SocialMedia/>
         </div>
 
         <div className="xl:w-[80%] w-full flex flex-wrap justify-center xl:ps-10 ">
           <div className="xl:w-1/5 md:w-1/2 w-full ">
-            <h3 className="font-bold text-[20px] mb-4">التواصل</h3>
+            <h3 className="font-bold text-[20px] mb-4">{t("contact")}</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               {contact.map((item, index) => (
                 <li key={index}>
@@ -80,7 +80,7 @@ const Footer = () => {
 
           {/* Branches */}
           <div className="xl:w-1/5 md:w-1/2 w-full  ">
-            <h3 className="font-bold text-[20px] mb-4">الفروع</h3>
+            <h3 className="font-bold text-[20px] mb-4">{t("branches")}</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               {branches.map((item, index) => (
                 <li
@@ -97,7 +97,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="xl:w-1/5 md:w-1/2 w-full  "  >
-            <h3 className="font-bold text-[20px] mb-4">روابط سريعة</h3>
+            <h3 className="font-bold text-[20px] mb-4">{t("quick_links")}</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               {quick_links.map((item, index) => (
                 <li
@@ -115,7 +115,7 @@ const Footer = () => {
 
           {/* Services */}
           <div className="xl:w-1/5 md:w-1/2 w-full  "  >
-            <h3 className="font-bold text-[20px] mb-4">خدمات النادي</h3>
+            <h3 className="font-bold text-[20px] mb-4">{t("club_services")}</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               {services_club.map((item, index) => (
                 <li
@@ -132,7 +132,7 @@ const Footer = () => {
             </ul>
           </div>
           <div className="xl:w-1/5 md:w-1/2 w-full  "  >
-            <h3 className="font-bold text-[20px] mb-4">خدمات الأعضاء</h3>
+            <h3 className="font-bold text-[20px] mb-4">{t("member_services")}</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               {Services_member.map((item, index) => (
                 <li
@@ -164,9 +164,8 @@ const Footer = () => {
 ))}
         </span>
         <span className="flex justify-end">
-     
-          © 2026 نادي النادي - جميع الحقوق محفوظة
-        </span>
+{t("site_copyright")}  
+      </span>
       </div>
     </footer>
   );

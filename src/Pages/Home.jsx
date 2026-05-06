@@ -21,7 +21,7 @@ const Home = () => {
       <Memberships_home/>
       <Booking_home/>
       {/* <Statistics_home/> */}
-      {/* <Academy_home/> */}
+      <Academy_home/>
       {/* <Photos_home/> */}
       <News_home/>
       <Ready_home/>
