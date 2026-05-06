@@ -9,6 +9,7 @@ import { assets } from "../../assets/assets";
 import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import SocialMedia from "../Shared_Component/SocialMedia";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
@@ -19,28 +20,28 @@ const Footer = () => {
   ];
   const quick_links = [
     { value: "الرئيسيه " }, 
-    { value: "عن النادي" },
-    { value: "فروعنا" },
-    { value: "الاخبار" },
-    { value: "البطولات" },
-    { value: "الخدمات" },
-    { value: "الاكاديميات" },
-    { value: "تواصل معنا" },
+    { value: "عن النادي", link:"/about" },
+    { value: "فروعنا", link: "/branches" },
+    { value: "الاخبار", link: "/news" },
+    { value: "البطولات", link: "/champions" },
+    { value: "الخدمات", link: "/services" },
+    { value: "الاكاديميات", link: "/academy" },
+    { value: "تواصل معنا", link: "/contact" },
 
   ];
   const services_club = [
     { value: "حجز الملاعب" , link: "/" },
     { value: "العضويات" , link: "/services", },
-    { value: "الرحلات " },
-    { value: "المسابقات" },
-    { value: "الفعاليات" },
-    { value: "الأكاديميات" },
+    { value: "الرحلات " , link: "/" },
+    { value: "المسابقات" , link: "/" },
+    { value: "الفعاليات" , link: "/" },
+    { value: "الأكاديميات" , link: "/academy" },
   ];
   const Services_member = [
-    { value: "تسجيل الدخول" },
-    { value: "انشاء حساب" },
-    { value: "ادارة العضويه" },
-    { value: "حجز الانشطه" },
+    { value: "تسجيل الدخول" , link: "/login" },
+    { value: "انشاء حساب" , link: "/register" },
+    { value: "ادارة العضويه" , link: "/" },
+    { value: "حجز الانشطه" , link: "/" },
   ];
   const bottom=[{ value: "سياسة الخصوصية" }, { value: "الشروط والأحكام" }, { value: "خريطة الموقع" }]
   return (
@@ -70,7 +71,9 @@ const Footer = () => {
             <h3 className="font-bold text-[20px] mb-4">التواصل</h3>
             <ul className="space-y-2 text-sm text-gray-200">
               {contact.map((item, index) => (
-                <li key={index}>{item.value}</li>
+                <li key={index}>
+                 {item.value}
+                </li>
               ))}
             </ul>
           </div>
@@ -101,8 +104,10 @@ const Footer = () => {
                   key={index}
                   className="hover:text-white cursor-pointer transition flex items-center gap-1 text-[#FFFFFFCC]"
                 >
-                  <span> <MdOutlineKeyboardArrowLeft /></span>
-                  {item.value}
+                  <Link to={item.link } className="flex items-center gap-1">
+                    <span> <MdOutlineKeyboardArrowLeft /></span>
+                    {item.value}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -117,8 +122,11 @@ const Footer = () => {
                   key={index}
                   className="hover:text-white cursor-pointer transition flex items-center gap-1 text-[#FFFFFFCC]"
                 >
+                    <Link to={item.link} className="flex items-center gap-1"> 
+
                   <span> <MdOutlineKeyboardArrowLeft /></span>
                   {item.value}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -131,8 +139,10 @@ const Footer = () => {
                   key={index}
                   className="hover:text-white cursor-pointer transition flex items-center gap-1 text-[#FFFFFFCC]"
                 >
+                      <Link to={item.link} className="flex items-center gap-1">
                   <span> <MdOutlineKeyboardArrowLeft /></span>  
                   {item.value}
+                  </Link>
                 </li>
               ))}
             </ul>
