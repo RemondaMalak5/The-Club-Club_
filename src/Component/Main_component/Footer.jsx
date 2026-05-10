@@ -11,6 +11,7 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import SocialMedia from './../Shared_Component/SocialMedia';
+import Social_Media from "../Shared_Component/Social_Media";
 
 const Footer = () => {
   const {t}=useTranslation();
@@ -63,7 +64,7 @@ const Footer = () => {
           </p>
     <p className="py-5 font-bold"> {t("follow_us")} </p>
           {/* Social */}
-        <SocialMedia/>
+        <Social_Media/>
         </div>
 
         <div className="xl:w-[80%] w-full flex flex-wrap justify-center xl:ps-10 ">

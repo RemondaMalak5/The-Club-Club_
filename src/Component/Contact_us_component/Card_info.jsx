@@ -1,8 +1,8 @@
 import React from 'react'
 import { LuMail, LuPhone } from 'react-icons/lu'
-import SocialMedia from '../Shared_Component/SocialMedia'
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import Social_Media from '../Shared_Component/Social_Media'
 
 
 const Card_info = () => {
@@ -34,7 +34,7 @@ const Card_info = () => {
             </div>
             <div className='flex flex-col gap-2 w-full'>
                 <p> تابعنا </p>
-              <SocialMedia/>
+              <Social_Media/>
                </div>
         </div>
       )
