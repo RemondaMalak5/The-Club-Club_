@@ -10,7 +10,6 @@ import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
-import SocialMedia from './../Shared_Component/SocialMedia';
 import Social_Media from "../Shared_Component/Social_Media";
 
 const Footer = () => {
