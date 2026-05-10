@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Users, Activity, ClipboardList } from "lucide-react";
-import H_1 from "../../Shared_component/H_1";
 import SubTitle from "../../Shared_Component/SubTitle";
 import Title_1 from "../../Shared_Component/Title_1";
 import i18next from "i18next";
 import { Academy_Stats } from "../../../axiosConfig/APIs/Academy/Academy_state";
+import H_one from "../../Shared_Component/H_one";
 
 const Academy_headers = () => {
  const [data, setData] = useState({});
@@ -50,7 +50,7 @@ const Academy_headers = () => {
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <H_1 text={"الأكاديميات الرياضية"} />
+        <H_one text={"الأكاديميات الرياضية"} />
         <SubTitle SubTitle={"برامج تدريبية متخصصة لجميع الأعمار والمستويات"} />
         <div className="flex flex-wrap gap-7 mt-2">
           {stats.map((item, index) => (

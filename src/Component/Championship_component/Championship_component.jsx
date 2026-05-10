@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import H_1 from '../Shared_component/H_1'
 import SubTitle from '../Shared_Component/SubTitle'
 import Champions from '../../Pages/Champions'
 import { icon } from 'leaflet'
@@ -9,6 +8,7 @@ import Title_1 from '../Shared_Component/Title_1'
 import Achievements from './Achievements'
 import i18next from 'i18next'
 import { Champins_State } from '../../axiosConfig/APIs/Champanship/Champins_State'
+import H_one from '../Shared_Component/H_one'
 
 const Championship_component = () => {
     const [data, setData] = useState([]);
@@ -58,7 +58,7 @@ const Championship_component = () => {
     return (
         <div className='xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10'>
             <div className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>
-                <H_1 text={"البطولات والإنجازات"} />
+                <H_one text={"البطولات والإنجازات"} />
                 <SubTitle SubTitle={"سجل حافل بالإنجازات الرياضية والبطولات المحلية والدولية"} />
                 <div className='flex flex-wrap gap-5 mt-2'>
                     {Champions.map((champion, index) => (

@@ -2,7 +2,7 @@ import React from "react";
 import { Users, Activity, Layers } from "lucide-react";
 import SubTitle from "../../Shared_Component/SubTitle";
 import Title_1 from "../../Shared_Component/Title_1";
-import H_1 from './../../Shared_Component/H_1';
+import H_one from "../../Shared_Component/H_one";
 
 const Services_Header = () => {
   const stats = [
@@ -26,7 +26,7 @@ const Services_Header = () => {
   return (
    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <H_1 text={"خدمات النادي"} />
+        <H_one text={"خدمات النادي"} />
         <SubTitle SubTitle={"اكتشف باقة متنوعة من الخدمات والأنشطة المميزة"} />
         <div className="flex flex-wrap gap-7 mt-2">
           {stats.map((item, index) => (

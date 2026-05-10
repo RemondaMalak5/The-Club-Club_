@@ -1,9 +1,10 @@
 import React from 'react'
+import H_one from './H_one'
 
 const Highlights_Section = () => {
   return (
    <div className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>
-                <H_1 text={"البطولات والإنجازات"} />
+                <H_one text={"البطولات والإنجازات"} />
                 <SubTitle SubTitle={"سجل حافل بالإنجازات الرياضية والبطولات المحلية والدولية"} />
                 <div className='flex gap-5 mt-2'>
                     {Champions.map((champion, index) => (

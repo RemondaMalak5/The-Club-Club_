@@ -1,10 +1,10 @@
 import React from 'react'
 import Title_1 from '../Shared_Component/Title_1';
 import SubTitle from '../Shared_Component/SubTitle';
-import H_1 from '../Shared_Component/H_1';
 import { IoFlashOutline } from 'react-icons/io5';
 import { LuPhoneCall } from 'react-icons/lu';
 import { TbUserStar } from 'react-icons/tb';
+import H_one from '../Shared_Component/H_one';
 
 const Header_Contact_Us = () => {
   const contact = [
@@ -17,7 +17,7 @@ const Header_Contact_Us = () => {
   return (
        <div>
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <H_1 text={"تواصل معنا"} />
+        <H_one text={"تواصل معنا"} />
         <SubTitle SubTitle={"نسعد بتواصلك معنا للإجابة على استفساراتك ومساعدتك في الحصول على أفضل الخدمات الرياضية"} />
         <div className="flex flex-wrap gap-5 mt-2">
           {contact.map((item, index) => (

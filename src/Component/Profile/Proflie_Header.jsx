@@ -1,5 +1,4 @@
 import React from "react";
-import H_1 from "./../Shared_Component/H_1";
 import SubTitle from "./../Shared_Component/SubTitle";
 import { assets } from "./../../assets/assets";
 import { Type } from "lucide-react";
@@ -7,6 +6,7 @@ import { RiShieldUserLine } from "react-icons/ri";
 import { CiLocationOn, CiStar } from "react-icons/ci";
 import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaArrowRightToBracket } from "react-icons/fa6";
+import H_one from "../Shared_Component/H_one";
 
 const Proflie_Header = () => {
   return (
@@ -15,7 +15,7 @@ const Proflie_Header = () => {
         <div className="flex gap-4 items-center xl:w-1/2 w-full">
           <img src={assets.logo} className="w-20 h-20 rounded-full" />
           <div className=" flex flex-col gap-2">
-            <H_1 text={"ريموندا ملاك "} />
+            <H_one text={"ريموندا ملاك "} />
             <div className="flex text-[#6A7282] font-medium gap-4 ">
               <p className="flex items-center gap-1">
                 <span>
