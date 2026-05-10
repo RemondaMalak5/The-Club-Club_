@@ -26,7 +26,7 @@ const Result_year_home = () => {
   const circumference = normalizedRadius * 2 * Math.PI;
 
   return (
-    <div className="w-full flex flex-col items-center py-16 bg-white">
+    <div className="w-full flex flex-col items-center py-16 bg-white px-10 sm:px-10 lg:px-14">
       <h2 className="text-[36px] font-bold text-gray-800 text-center py-2">
         نتائج   <span className="text-[#0A8F7A]"> رائعة ومُلهه </span>لهذا العام
       </h2>
@@ -34,8 +34,8 @@ const Result_year_home = () => {
         إحصائيات الأداء السنوي للنادي
       </p>
 
-      <div className="flex flex-wrap justify-center gap-8  w-full">
-        {data.map((item, index) => {
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+          {data.map((item, index) => {
           const strokeDashoffset =
             circumference - (item.percent / 100) * circumference;
 

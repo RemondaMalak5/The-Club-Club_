@@ -50,7 +50,7 @@ const Academy_filter = () => {
       };
       const response = await Academy_Category(params);
       setCategories(response.message.data);
-      console.log(response.message.data);
+      console.log("categories:", response.message.data);
     } catch (error) {
       console.error("Error fetching academy categories:", error);
     }

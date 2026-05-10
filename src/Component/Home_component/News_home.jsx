@@ -34,12 +34,11 @@ const News_home = () => {
   }, [i18next.language]);
   
     return (
-        <section className="w-full py-16 ">
+        <section className=" py-16 px-10 sm:px-10 lg:px-20">
 
-            <div className="max-w-7xl mx-auto px-6">
 
                 {/* Header */}
-                <div className="flex justify-between items-center mb-10">
+                <div className="flex justify-between items-center mb-10 flex-wrap">
                     <div>
                         <h1 className="text-[36px] font-medium bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
                             الأخبار
@@ -56,7 +55,7 @@ const News_home = () => {
                 </div>
 
                 {/* Cards */}
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
 
                     {data.map((item, index) => (
                         <div
@@ -100,7 +99,6 @@ const News_home = () => {
                     ))}
 
                 </div>
-            </div>
         </section>
     );
 };

@@ -13,12 +13,12 @@ import Statistics_home from '../Component/Home_component/Statistics_home'
 
 const Home = () => {
   return (
-    <div>
+    <div >
       <Slider_home/>
       <About_home/>
       <Branches_home/>
       <Result_year_home/>
-      <Memberships_home/>
+      {/* <Memberships_home/> */}
       <Booking_home/>
       {/* <Statistics_home/> */}
       <Academy_home/>

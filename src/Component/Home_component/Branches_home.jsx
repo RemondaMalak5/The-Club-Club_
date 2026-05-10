@@ -29,7 +29,7 @@ const Branches_home = () => {
 
   ];
   return (
-    <div className="px-14 py-10  ">
+    <div className="px-10 sm:px-10 py-10  ">
 
       <div className="flex justify-between items-center  rounded-2xl  px-5 py-1">
         <div>

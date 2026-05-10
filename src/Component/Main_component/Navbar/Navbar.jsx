@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation();
+  const { t , i18n} = useTranslation();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
