@@ -8,9 +8,9 @@ import {
 import { assets } from "../../assets/assets";
 import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import SocialMedia from "../Shared_Component/SocialMedia";
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import SocialMedia from './../Shared_Component/SocialMedia';
 
 const Footer = () => {
   const {t}=useTranslation();
