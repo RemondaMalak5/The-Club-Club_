@@ -4,11 +4,11 @@ import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import { Champins_list } from "../../axiosConfig/APIs/Champanship/Champins_list";
 import i18next from "i18next";
 import { LayoutGrid, List } from "lucide-react";
-import PaginationComponent from "../Shared_component/paginations";
 import { FaStar } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { LiaAwardSolid } from "react-icons/lia";  
+import Pagination_Component from "../Shared_Component/Pagination_Component";
 
 
 const Champinship_filter = () => {
@@ -224,7 +224,7 @@ const Champinship_filter = () => {
           </div>
         )}
       </div>
-      <PaginationComponent currentPage={currentPage} totalPages={totalPages}
+      <Pagination_Component currentPage={currentPage} totalPages={totalPages}
         setCurrentPage={setCurrentPage} paginationRef={paginationRef} />
     </div>
   );

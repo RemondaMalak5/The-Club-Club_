@@ -9,9 +9,9 @@ import Academy from './../../../Pages/Academy';
 import { Academylist } from "../../../axiosConfig/APIs/Academy/Academy_list";
 import i18next from "i18next";
 import { useNavigate } from "react-router-dom";
-import PaginationComponent from "../../Shared_component/paginations";
 import { Academy_Category } from "../../../axiosConfig/APIs/Academy/Academy_Category";
 import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
+import Pagination_Component from "../../Shared_Component/Pagination_Component";
 
 
 const Academy_filter = () => {
@@ -76,9 +76,7 @@ const Academy_filter = () => {
       setError(true);
       console.error("Error fetching news:", error);
     }
-    // finally{
-    //     setLoading(false)
-    // }
+ 
   }
   useEffect(() => {
     Get_Branches();
@@ -249,7 +247,7 @@ const Academy_filter = () => {
           </div>
         )}
       </div>
-      <PaginationComponent currentPage={currentPage} totalPages={totalPages}
+      <Pagination_Component currentPage={currentPage} totalPages={totalPages}
         setCurrentPage={setCurrentPage} paginationRef={paginationRef} />
     </div>
   );

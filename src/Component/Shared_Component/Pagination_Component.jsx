@@ -6,7 +6,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useEffect, useLayoutEffect, useState } from "react";
 import i18next from "i18next";
 
-const PaginationComponent = ({
+const Pagination_Component = ({
   currentPage,
   setCurrentPage,
   totalPages,
@@ -77,4 +77,6 @@ const PaginationComponent = ({
   );
 };
 
-export default PaginationComponent;
+export default Pagination_Component;
+
+
