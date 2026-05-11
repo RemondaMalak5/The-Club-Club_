@@ -1,11 +1,32 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+// import { Branch_annual_stats } from "../../axiosConfig/APIs/Home/Branch_Annual_Stats";
+import i18next from "i18next";
 
 const Result_year_home = () => {
-  const data = [
-    {
-      title: "في الاستيعاب والقراءة الجيدة",
-      percent: 88,
+// const [data, setData] = useState([]);
+ 
+// const fetchData = async () => {
+//   const params ={
+//     "language": i18next.language,
+//     "branchId": "",
+//   }
+//   try {
+//     const response = await Branch_annual_stats(params);
+//     setData(response);
+//   } catch (error) {
+//     console.error("Error fetching branch annual stats:", error);
+//   }
+// };
+
+// useEffect(() => {
+//   fetchData();
+// }, [i18next]);
+
+const data = [
+  {
+    title: "في الاستيعاب والقراءة الجيدة",
+    percent: 88,
       description: "الإجابات: 810 من أصل 1000 على مستوى العالم",
     },
     {

@@ -1,32 +1,63 @@
 
-import React from "react";
+import i18next from "i18next";
+import React, { useEffect, useState } from "react";
 import { FaFutbol, FaSwimmer, FaRunning } from "react-icons/fa";
 import { IoArrowBack } from "react-icons/io5";
+import { Academylist } from "../../axiosConfig/APIs/Academy/Academy_list";
 
-const academies = [
-  {
-    title: "أكاديمية كرة السلة",
-    desc: "مهارات • مباريات • منافسات عربية",
-    icon: <FaRunning />,
-  },
-  {
-    title: "أكاديمية السباحة",
-    desc: "مهارات • تمارين • منافسات",
-    icon: <FaSwimmer />,
-  },
-  {
-    title: "أكاديمية كرة القدم",
-    desc: "مهارات • لياقة • منافسات",
-    icon: <FaFutbol />,
-  },
-  {
-    title: "أكاديمية السباحة",
-    desc: "مهارات • تمارين • منافسات",
-    icon: <FaSwimmer />,
-  },
-];
+// const academies = [
+//   {
+//     title: "أكاديمية كرة السلة",
+//     desc: "مهارات • مباريات • منافسات عربية",
+//     icon: <FaRunning />,
+//   },
+//   {
+//     title: "أكاديمية السباحة",
+//     desc: "مهارات • تمارين • منافسات",
+//     icon: <FaSwimmer />,
+//   },
+//   {
+//     title: "أكاديمية كرة القدم",
+//     desc: "مهارات • لياقة • منافسات",
+//     icon: <FaFutbol />,
+//   },
+//   {
+//     title: "أكاديمية السباحة",
+//     desc: "مهارات • تمارين • منافسات",
+//     icon: <FaSwimmer />,
+//   },
+// ];
+
 
 const Academy_home = () => {
+   const [data, setData] = useState([]);
+    const [selectedBranch, setSelectedBranch] = useState("all");
+    const [error, setError] = useState(false);
+    const [branches, setBranches] = useState([]);
+
+
+   const Get_Academy_List = async () => {
+    const params = {
+      "language": i18next.language,
+      "branchId": selectedBranch,
+      
+    }
+    try {
+      const response = await Academylist(params);
+      setData(response.message.data);
+      console.log(response.message);
+      setTotalPages(response.message.total_pages);
+      console.log(assets.academy);
+    }
+    catch (error) {
+      setError(true);
+      console.error("Error fetching news:", error);
+    }
+ 
+  };
+  useEffect(() => { 
+    Get_Academy_List();
+  }, [i18next.language,selectedBranch]);
   return (
     <div className="px-4 sm:px-10 lg:px-10 py-6" dir="rtl">
       <div className="w-full bg-[#F2F6F5] p-4 sm:p-6 lg:p-8 rounded-2xl">
@@ -73,7 +104,7 @@ const Academy_home = () => {
 
         {/* Academies list */}
         <div className="flex flex-col gap-4">
-          {academies.map((academy, index) => (
+          {data.map((academy, index) => (
             <div
               key={index}
               className="bg-white rounded-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-sm"
@@ -87,10 +118,10 @@ const Academy_home = () => {
 
                 <div className="text-right">
                   <h3 className="font-semibold text-gray-800">
-                    {academy.title}
+                    {academy.name}
                   </h3>
                   <p className="text-gray-500 text-sm">
-                    {academy.desc}
+                    {academy.category}
                   </p>
                 </div>
               </div>
