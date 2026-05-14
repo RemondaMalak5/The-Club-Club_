@@ -13,7 +13,7 @@ const Academy_headers = () => {
   const Get_Academy_Stats = async () => {
         const params = {
             "language": i18next.language,
-            "branchId":"all",
+            // "branchId":"all",
         }
         try {
             const response = await Academy_Stats(params);

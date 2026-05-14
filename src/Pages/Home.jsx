@@ -20,9 +20,9 @@ const Home = () => {
       <Result_year_home/>
       <Memberships_home/>
       <Booking_home/>
-      {/* <Statistics_home/> */}
+      <Statistics_home/>
       <Academy_home/>
-      {/* <Photos_home/> */}
+      <Photos_home/>
       <News_home/>
       <Ready_home/>
     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import Title_1 from '../Shared_Component/Title_1'
 import { assets } from '../../assets/assets'
 
-const About_us_goals = () => {
+const About_us_goals = (data) => {
   const goals = [
     { goal: "بناء مجتمع رياضي واجتماعي إيجابي يخدم المجتمع المصري." },
     { goal: "تقديم أنشطة ومرافق رياضية واجتماعية عالية الجودة." },

@@ -7,6 +7,7 @@ import Btn_bg from "../Shared_Component/Btn_bg";
 import { useNavigate } from "react-router-dom";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
+import { apiUrl_main } from "../../axiosConfig/Instance";
 
 const Branches_home = () => {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ const Branches_home = () => {
         {branch?.map((e, index) => (
           <div key={index} className="w-full md:w-1/3 px-3 py-3 ">
             <div className="border rounded-xl shadow-2xl   ">
-              <img src={e.img} className="h-60 w-full object-cover rounded-xl" />
+              <img src={`${apiUrl_main}${e.image}`} className="h-60 w-full object-cover rounded-xl" />
 
               <div className="px-5 py-5 flex flex-col gap-3">
                 <p className="font-bold text-[18px]">{e.name}</p>
@@ -77,7 +78,7 @@ const Branches_home = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-5">
-                  <Btn_bg btn={e.button} />
+                  <Btn_bg btn={"الاكاديميات"} onClick={() => navigate(`/academy`)} />
 
                   <button className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
                     التفاصيل
