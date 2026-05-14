@@ -5,8 +5,10 @@ import { GoArrowUpRight } from "react-icons/go";
 import { IoArrowBack } from "react-icons/io5";
 import i18next from "i18next";
 import { Newslist } from "../../axiosConfig/APIs/News/News_list";
+import { useNavigate } from "react-router-dom";
 
 const News_home = () => {
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [error, setError] = useState(false);
   
@@ -48,7 +50,8 @@ const News_home = () => {
                         </p>
                     </div>
 
-                    <button className="border border-[#00786F] text-black font-bold text-[18px] px-6 py-2 rounded-full hover:bg-[#00786F] hover:text-white transition flex  items-center gap-2">
+                    <button   onClick={() => navigate('/news')}
+                    className="border border-[#00786F] text-black font-bold text-[18px] px-6 py-2 rounded-full hover:bg-[#00786F] hover:text-white transition flex  items-center gap-2">
                         عرض جميع الأخبار
                         <span> <IoArrowBack /></span>
                     </button>

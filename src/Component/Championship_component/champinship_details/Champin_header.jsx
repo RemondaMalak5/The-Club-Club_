@@ -1,67 +1,69 @@
-import i18next from 'i18next';
-import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom';
-import { Academy_Detail } from '../../../axiosConfig/APIs/Academy/Academy_Details';
-// import Left_side from './Left_side';
-// import Right_side from './Right_side';
-import { Champins_details } from '../../../axiosConfig/APIs/Champanship/Champins_details';
+import i18next from "i18next";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { Champins_details } from "../../../axiosConfig/APIs/Champanship/Champins_details";
+
+import Left_side_chamin from "./Left_side_chamin";
+import Right_side_champin from "./Right_side_champin";
 
 const Champin_header = () => {
-    const [data, setData] = useState();
-    const [error, setError] = useState(false);
-    const { id } = useParams();
-    const location = useLocation();
+  const [data, setData] = useState();
+  const [error, setError] = useState(false);
 
+  const { id } = useParams();
+  const location = useLocation();
 
-    const branchId = location.state?.branchId;
-    console.log("branchId11111111111111:", branchId);
-    console.log("branchId11111111111111:", branchId);
+  const branchId = location.state?.branchId;
 
-    const params = {
-        "language": i18next.language,
-        "id": id,
-        "branchId": branchId,
+  const params = {
+    language: i18next.language,
+    id: id,
+    branchId: branchId,
+  };
+
+  const Get_Champins_Details = async () => {
+    try {
+      const response = await Champins_details(params);
+      setData(response.message);
+    } catch (error) {
+      setError(true);
+      console.error("Error fetching championship:", error);
     }
+  };
 
-    console.log("params:", params);
-
-    const Get_Champins_Details = async () => {
-        try {
-            const response = await Champins_details(params);
-            setData(response.message);
-            console.log(response.message);
-            console.log(id)
-        }
-        catch (error) {
-            setError(true);
-            console.error("Error fetching news:", error);
-        }
+  useEffect(() => {
+    if (id) {
+      Get_Champins_Details();
     }
+  }, [id, i18next.language, branchId]);
 
-    useEffect(() => {
-        if (id) {
-            Get_Champins_Details();
-        }
-    }, [id, i18next.language, branchId]);
+  return (
+    <div className="bg-[#f8f8f8] min-h-screen pb-10">
+      {/* Hero Image */}
+      <img
+        src={data?.image}
+        alt="championship"
+        className="w-full h-[300px] object-cover"
+      />
 
-    return (
-        <div>
-            <img src={data?.image} alt="Academy" className='w-full h-[300px]' />
-            <div className='grid grid-cols-1 lg:grid-cols-12 gap-5 px-14 '>
-                <div className='lg:col-span-9 grid grid-cols-9 gap-5'>
-                    {/* <Left_side/> */}
-                </div>
+      {/* Layout */}
+      <div className="max-w-[1400px] mx-auto px-4 lg:px-10 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          {/* LEFT */}
+          <div className="lg:col-span-8">
+            <Left_side_chamin data={data} />
+          </div>
 
-                <div className='lg:col-span-3 grid grid-cols-3 gap-5'>
-                    {/* <Right_side/> */}
-                </div>
-
-            </div>
+          {/* RIGHT */}
+          <div className="lg:col-span-4">
+            <Right_side_champin data={data} />
+          </div>
 
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Champin_header
-
-
+export default Champin_header;

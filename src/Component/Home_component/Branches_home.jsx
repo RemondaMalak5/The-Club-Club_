@@ -80,7 +80,7 @@ const Branches_home = () => {
                 <div className="flex flex-wrap gap-5">
                   <Btn_bg btn={"الاكاديميات"} onClick={() => navigate(`/academy`)} />
 
-                  <button className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
+                  <button onClick={()=>navigate(`/about`)} className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
                     التفاصيل
                   </button>
                 </div>
