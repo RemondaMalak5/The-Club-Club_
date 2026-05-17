@@ -3,8 +3,9 @@
 import React from "react";
 import { assets } from "../../assets/assets";
 import Title_1 from "../Shared_Component/Title_1";
+import { apiUrl_main } from "../../axiosConfig/Instance";
 
-const Vision_Mission = () => {
+const Vision_Mission = ({ data }) => {
   return (
     <section className="w-full bg-white py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-14">
       <Title_1 title="رؤيتنا ورسالتنا" />
@@ -17,21 +18,20 @@ const Vision_Mission = () => {
           {/* Text */}
           <div className="flex-1 bg-[#EEF6F5] rounded-3xl shadow-md p-6 sm:p-8 text-center lg:text-right">
             <h2 className="text-[#0A8F7A] text-3xl sm:text-4xl font-bold mb-4">
-              رؤيتنا
+              {data?.vision?.title}
             </h2>
 
             <p className="text-gray-800 leading-8 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0">
-              أن نكون روادًا وقادةً في المجال الرياضي، ووجهةً مفضلةً لإعداد
-              الأبطال، والنشر في الرياضات المختلفة، وتحقيق المراكز الأولى.
+              {data?.vision?.description}
             </p>
           </div>
 
           {/* Image */}
-          <div className="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] bg-white rounded-3xl shadow-2xl flex items-center justify-center shrink-0">
+          <div className="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px]  rounded-3xl shadow-2xl flex items-center justify-center shrink-0">
             <img
-              src={assets.vision}
+              src={`${apiUrl_main}${data?.vision?.image}`}
               alt="Vision"
-              className="w-[110px] sm:w-[130px] object-contain"
+              className="w-full h-full  rounded-3xl "
             />
           </div>
         </div>
@@ -44,20 +44,18 @@ const Vision_Mission = () => {
           {/* Text */}
           <div className="flex-1 bg-[#EEF6F5] rounded-3xl shadow-md p-6 sm:p-8 text-center lg:text-right">
             <h2 className="text-[#0A8F7A] text-3xl sm:text-4xl font-bold mb-4">
-              رسالتنا
+{data?.mission?.title }
             </h2>
 
             <p className="text-gray-800 leading-8 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0">
-              نقدم تجربة متميزة في إدارة الأكاديميات الرياضية الدولية وتطوير
-              الأبطال في مختلف الرياضات لجميع اللاعبين والعائلات من جميع
-              الأعمار والقدرات.
+                      {data?.mission?.description }
             </p>
           </div>
-            <div className="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] bg-white rounded-3xl shadow-2xl flex items-center justify-center shrink-0">
+            <div className="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px]  rounded-3xl shadow-2xl flex items-center justify-center shrink-0">
             <img
-              src={assets.mission}
+              src={`${apiUrl_main}${data?.mission?.image}`}
               alt="Mission"
-              className="w-[110px] sm:w-[130px] object-contain"
+              className="w-full h-full  rounded-3xl "
             />
           </div>
 

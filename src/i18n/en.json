@@ -31,7 +31,22 @@
         "branch_shiraton": "Shiraton Branch",   
         "branch_capital": "Capital Branch",
         "follow_us": "Follow Us",
-        "site_copyright": "© 2026 The Club Club - All rights reserved"
+        "site_copyright": "© 2026 The Club Club - All rights reserved",
+        "all": "All",
+        "sport": "Sports ",
+        "search_hint": "Choose the sport you want and book easily",
+        "book": "Book",
+        "schedule": "Schedule",
+        "details": "Details",
+        "view_all_academies": "View All Academies",
+        "sports_academies": "Sports Academies",
+        "academy_description": "Specialized training programs for all ages and levels" ,
+        "total_academies": "Total Academies",
+        "active_academies": "Active Academies", 
+        "total_trainees": "Total Trainees",
+        "all_academies": "All Academies",
+        "all_branches": "All Branches",
+        "search_academies": "Search in academies..."
     
 
 }

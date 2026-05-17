@@ -5,13 +5,15 @@ import Title_1 from "../../Shared_Component/Title_1";
 import i18next from "i18next";
 import { Academy_Stats } from "../../../axiosConfig/APIs/Academy/Academy_state";
 import H_one from "../../Shared_Component/H_one";
+import { useTranslation } from "react-i18next";
 
 const Academy_headers = () => {
+  const {t} = useTranslation();
  const [data, setData] = useState({});
   const Get_Academy_Stats = async () => {
         const params = {
             "language": i18next.language,
-            "branchId":"all",
+            // "branchId":"all",
         }
         try {
             const response = await Academy_Stats(params);
@@ -32,17 +34,17 @@ const Academy_headers = () => {
 
       const stats = [
     {
-      title: " اجمالى عدد الأكاديميات ",
+      title: t("total_academies"),
       value: data.totalAcademies ,
       icon: <ClipboardList/>,
     },
     {
-      title: "إجمالي المشتركين",
+      title: t("total_trainees"),
       value: data.certifiedTrainers ,
       icon: <Users  />,
     },
     {
-      title: "الأكاديميات النشطة",
+      title: t("active_academies"),
       value: data.totalStudents ,
       icon: <Activity />,
     },
@@ -50,8 +52,8 @@ const Academy_headers = () => {
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <H_one text={"الأكاديميات الرياضية"} />
-        <SubTitle SubTitle={"برامج تدريبية متخصصة لجميع الأعمار والمستويات"} />
+        <H_one text={t("sports_academies")} />
+        <SubTitle SubTitle={t("academy_description")} />
         <div className="flex flex-wrap gap-7 mt-2">
           {stats.map((item, index) => (
             <div

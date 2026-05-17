@@ -12,9 +12,11 @@ import { useNavigate } from "react-router-dom";
 import { Academy_Category } from "../../../axiosConfig/APIs/Academy/Academy_Category";
 import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import Pagination_Component from "../../Shared_Component/Pagination_Component";
+import { useTranslation } from "react-i18next";
 
 
 const Academy_filter = () => {
+  const { t } = useTranslation();
   const navigation = useNavigate();
   const [data, setData] = useState([]);
   const [activecategory, setActiveCategory] = useState("all");
@@ -62,13 +64,13 @@ const Academy_filter = () => {
       "branchId": selectedBranch,
       "per_page": 6,
       "page": currentPage,
-      "category": activecategory ,
+      "category": activecategory,
       "search": searchTerm,
     }
     try {
       const response = await Academylist(params);
       setData(response.message.data);
-      console.log(response.message);
+      console.log("2222222######################", response.message);
       setTotalPages(response.message.total_pages);
       console.log(assets.academy);
     }
@@ -76,7 +78,7 @@ const Academy_filter = () => {
       setError(true);
       console.error("Error fetching news:", error);
     }
- 
+
   }
   useEffect(() => {
     Get_Branches();
@@ -90,7 +92,7 @@ const Academy_filter = () => {
   }, [i18next.language, currentPage, activecategory, selectedBranch, searchTerm]);
 
   return (
-    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4" dir="rtl">
+    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4" >
       <div className="flex flex-wrap gap-3 mb-4 justify-center">
         <button
           onClick={() => setActiveCategory("all")}
@@ -99,7 +101,7 @@ const Academy_filter = () => {
             : "bg-white text-gray-600 border-gray-300"
             }`}
         >
-          كل الأكاديميات
+          {t("all_academies")}
         </button>
         {Categories.map((e, index) => (
           <button
@@ -118,7 +120,7 @@ const Academy_filter = () => {
       <div className="flex flex-wrap gap-3 mb-6 items-center">
         <input
           type="text"
-          placeholder="ابحث في الأكاديميات..."
+          placeholder={t("search_academies")}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
@@ -131,7 +133,7 @@ const Academy_filter = () => {
             setCurrentPage(1);
           }}
         >
-          <option value="all">كل الفروع</option>
+          <option value="all">{t("all_branches")}</option>
 
           {branches.map((e) => (
             <option key={e.id} value={e.registryId}>
@@ -233,7 +235,16 @@ const Academy_filter = () => {
                   </div>
 
                   <div className="px-4 py-3">
-                    <button onClick={() => navigation(`/academy/${academy.id}`)} className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
+                    <button
+                      onClick={() =>
+                        navigation(`/academy/${academy.id}`, {
+                          state: {
+                            branchId: academy.branchId,
+                            branchName: academy.branchName,
+                          },
+                        })
+                      }
+                      className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
                       عرض التفاصيل
                     </button>
                   </div>

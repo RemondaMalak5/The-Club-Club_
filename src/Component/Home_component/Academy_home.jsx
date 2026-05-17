@@ -2,52 +2,59 @@
 import i18next from "i18next";
 import React, { useEffect, useState } from "react";
 import { FaFutbol, FaSwimmer, FaRunning } from "react-icons/fa";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import { Academylist } from "../../axiosConfig/APIs/Academy/Academy_list";
+import { useNavigate } from "react-router-dom";
+import { Academy_Category } from "../../axiosConfig/APIs/Academy/Academy_Category";
+import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+import { useTranslation } from "react-i18next";
 
-// const academies = [
-//   {
-//     title: "أكاديمية كرة السلة",
-//     desc: "مهارات • مباريات • منافسات عربية",
-//     icon: <FaRunning />,
-//   },
-//   {
-//     title: "أكاديمية السباحة",
-//     desc: "مهارات • تمارين • منافسات",
-//     icon: <FaSwimmer />,
-//   },
-//   {
-//     title: "أكاديمية كرة القدم",
-//     desc: "مهارات • لياقة • منافسات",
-//     icon: <FaFutbol />,
-//   },
-//   {
-//     title: "أكاديمية السباحة",
-//     desc: "مهارات • تمارين • منافسات",
-//     icon: <FaSwimmer />,
-//   },
-// ];
 
 
 const Academy_home = () => {
-   const [data, setData] = useState([]);
-    const [selectedBranch, setSelectedBranch] = useState("all");
-    const [error, setError] = useState(false);
-    const [branches, setBranches] = useState([]);
+  const {t} = useTranslation();
+  const navigation = useNavigate();
+  const [data, setData] = useState([]);
+  const [activecategory, setActiveCategory] = useState("all");
+  const [selectedBranch, setSelectedBranch] = useState("all");
+  const [searchTerm, setSearchTerm] = useState();
+  const [viewMode, setViewMode] = useState("grid");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const [Categories, setCategories] = useState([]);
+  const [error, setError] = useState(false);
+  const [branches, setBranches] = useState([]);
 
-
-   const Get_Academy_List = async () => {
+  const Get_Branches = async () => {
     const params = {
       "language": i18next.language,
-      "branchId": selectedBranch,
-      
     }
+    try {
+      const response = await AllBranches(params);
+      setBranches(response.message.data);
+      console.log("branches:", response.message.data);
+
+    } catch (error) {
+      console.error("Error fetching branches:", error);
+    }
+  };
+
+
+
+  const Get_Academy_List = async () => {
+    const params = {
+      "language": i18next.language,
+      "branchId": selectedBranch === "all" ? "" : selectedBranch,
+      "per_page": 4,
+      "page": currentPage,
+      "category": activecategory,
+      "search": searchTerm,
+    };
     try {
       const response = await Academylist(params);
       setData(response.message.data);
-      console.log(response.message);
+
       setTotalPages(response.message.total_pages);
-      console.log(assets.academy);
     }
     catch (error) {
       setError(true);
@@ -55,49 +62,83 @@ const Academy_home = () => {
     }
  
   };
+
+  useEffect(() => {
+  Get_Branches();
+}, [i18next.language]);
+
   useEffect(() => { 
     Get_Academy_List();
   }, [i18next.language,selectedBranch]);
+
   return (
-    <div className="px-4 sm:px-10 lg:px-10 py-6" dir="rtl">
+    <div className="px-4 sm:px-10 lg:px-10 py-6" >
       <div className="w-full bg-[#F2F6F5] p-4 sm:p-6 lg:p-8 rounded-2xl">
 
         {/* Header */}
         <div>
           <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-bold">
-            الأكاديميات{" "}
+            {t("academies")}
             <span className="bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
-              الرياضية
+              {t("sport")}
             </span>
           </h2>
 
           <p className="text-gray-500 text-sm mt-1">
-            اختر الرياضة التي تريدها واحجز بسهولة
-          </p>
+           {t("search_hint")}
+      </p>
         </div>
 
         {/* Branches + View All */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 py-4">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-4">
 
           <div className="flex flex-wrap gap-3">
-            <button className="bg-[#0A8F7A] text-white px-4 py-2 rounded-xl font-bold w-full sm:w-28 hover:bg-white hover:text-[#0A8F7A] border border-[#0A8F7A] transition">
-              فرع اكتوبر
+
+            <button
+              onClick={() => {
+                setSelectedBranch("all");
+                setCurrentPage(1);
+              }}
+              className={`px-4 py-2 rounded-xl font-bold w-fit border transition
+      ${selectedBranch === "all"
+                  ? "bg-[#0A8F7A] text-white border-[#0A8F7A]"
+                  : "border-[#0A8F7A] text-[#0A8F7A] hover:bg-[#0A8F7A] hover:text-white"
+                }`}
+            >
+              {t("all")}
             </button>
 
-            <button className="border border-[#0A8F7A] px-4 py-2 rounded-xl text-sm w-full sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
-              فرع العاصمه
-            </button>
+            {branches.map((branch) => (
+              <button
+                key={branch.id}
+                onClick={() => {
+                  setSelectedBranch(branch.registryId);
+                  setCurrentPage(1);
+                }}
+                className={`px-4 py-2 rounded-xl font-bold w-fit border transition
+        ${selectedBranch === branch.registryId
+                    ? "bg-[#0A8F7A] text-white border-[#0A8F7A]"
+                    : "border-[#0A8F7A] text-[#0A8F7A] hover:bg-[#0A8F7A] hover:text-white"
+                  }`}
+              >
+                {branch.name}
+              </button>
+            ))}
 
-            <button className="border border-[#0A8F7A] px-4 py-2 rounded-xl text-sm w-full sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
-              فرع شيراتون
-            </button>
           </div>
 
-          <button className="border border-[#0A8F7A] text-[#0A8F7A] px-4 py-2 rounded-full hover:bg-[#0A8F7A] hover:text-white transition font-bold flex items-center justify-center gap-1 w-full sm:w-fit">
-            عرض جميع الأكاديميات
+          <button
+            onClick={() => navigation(`/academy`)}
+            className="border border-[#0A8F7A] text-[#0A8F7A] px-4 py-2 rounded-full hover:bg-[#0A8F7A] hover:text-white transition font-bold flex items-center justify-center gap-1 w-full sm:w-fit"
+          >
+  {t("view_all_academies")}
             <span className="text-[18px]">
-              <IoArrowBack />
-            </span>
+  {i18next.language === "ar" ? (
+    <IoArrowBack />
+  ) : (
+    <IoArrowForward />
+  )}
+</span>
           </button>
 
         </div>
@@ -113,7 +154,7 @@ const Academy_home = () => {
               {/* right side */}
               <div className="flex items-center gap-3">
                 <div className="bg-gray-100 p-3 rounded-lg text-[#0A8F7A] text-lg shrink-0">
-                  {academy.icon}
+                  {academy.categoryIcon}
                 </div>
 
                 <div className="text-right">
@@ -129,15 +170,22 @@ const Academy_home = () => {
               {/* buttons */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full md:w-auto">
                 <button className="bg-[#0A8F7A] text-white px-4 py-2 rounded-2xl font-bold sm:w-28 hover:bg-white hover:text-[#0A8F7A] border border-[#0A8F7A] transition">
-                  حجز
+                  {t("book")}
                 </button>
 
                 <button className="border border-[#0A8F7A] px-4 py-2 rounded-2xl text-sm sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
-                  الجدول
+                  {t("schedule")}
                 </button>
 
-                <button className="border border-[#0A8F7A] px-4 py-2 rounded-2xl text-sm sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
-                  التفاصيل
+                <button  onClick={() =>
+                                        navigation(`/academy/${academy.id}`, {
+                                          state: {
+                                            branchId: academy.branchId,
+                                            branchName: academy.branchName,
+                                          },
+                                        })
+                                      } className="border border-[#0A8F7A] px-4 py-2 rounded-2xl text-sm sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
+                  {t("details")}
                 </button>
               </div>
 

@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
 
 const Map_component = () => {
   const locations = [
-    { name: "نادى النادى فرع 6th of October", position: [30.001793841482822, 30.94925201545602] },
+    { name: "نادى النادى فرع 6th of October", position: [29.992522526023507, 30.990678501853264] },
     { name: "نادى النادى فرع New Cairo", position: [30.045574816081423, 31.69354508301916] },
     { name: " نادى النادى فرع شيراتون ", position: [30.11056288315568, 31.377155795058588] },
   ];

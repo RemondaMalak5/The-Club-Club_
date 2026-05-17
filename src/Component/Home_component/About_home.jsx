@@ -5,8 +5,10 @@ import { TiGroupOutline } from "react-icons/ti";
 import { LuCalendarCheck } from "react-icons/lu";
 import { MdOutlineSportsSoccer, MdPersonAddAlt } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const About_home = () => {
+  const navigation = useNavigate();
   const topLinks = [
     { icon: <IoIosFlower />, text: "نادي رياضي عائلي" },
     { icon: <FaSquare />, text: "3 فروع" },
@@ -97,7 +99,7 @@ const About_home = () => {
   اشترك الآن
 </button>
 
-          <button className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
+          <button onClick={() => navigation("/branches")} className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
                      border border-[#00786F] text-black 
                      bg-white hover:bg-gradient-to-r hover:from-[rgba(8,172,133,0.86)] hover:to-[#00786F] 
                      hover:text-white transition-all duration-300">

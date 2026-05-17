@@ -210,7 +210,16 @@ const Champinship_filter = () => {
                   </div>
 
                   <div className="px-4 py-3">
-                    <button onClick={() => navigation(`/academy/${e.id}`)} className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
+                    <button  
+                     onClick={() =>
+                        navigation(`/champions/${e.id}`, {
+                          state: {
+                            branchId: e.branchId,
+                            branchName: e.branchName,
+                          },
+                        })
+                      }
+                    className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
                       عرض التفاصيل
                     </button>
                   </div>

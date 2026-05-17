@@ -31,7 +31,22 @@
         "branch_capital": "فرع العاصمة الإدارية",
         "follow_us": "تابعنا",
         "all_rights_reserved": "جميع الحقوق محفوظة",
-        "site_copyright": "© 2026 نادي النادي - جميع الحقوق محفوظة"
+        "site_copyright": "© 2026 نادي النادي - جميع الحقوق محفوظة",
+        "all": "الكل",
+        "sport": " الرياضية" ,
+        "search_hint": "اختر الرياضة التي تريدها واحجز بسهولة" ,
+        "book": "حجز",
+        "schedule": "الجدول",
+        "details": "التفاصيل",
+        "view_all_academies": "عرض جميع الاكاديميات",
+        "sports_academies": "الاكاديميات الرياضيه",
+        "academy_description": "برامج تدريبية متخصصة لجميع الأعمار والمستويات",
+        "total_academies": "اجمالى عدد الأكاديميات",
+        "active_academies": "الاكاديميات النشطة",
+        "total_trainees": "اجمالى عدد المتدربين",
+        "all_academies": "كل الأكاديميات",
+        "all_branches": "كل الفروع",
+        "search_academies": "ابحث في الأكاديميات..."
 
 
 }
