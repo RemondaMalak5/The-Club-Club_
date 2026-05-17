@@ -4,7 +4,6 @@ import { useLocation, useParams } from 'react-router-dom';
 import { Academy_Detail } from '../../../axiosConfig/APIs/Academy/Academy_Details';
 import Left_side from './Left_side';
 import Right_side from './Right_side';
-import Title_1 from '../../Shared_component/Title_1';
 import { FaStar } from 'react-icons/fa';
 
 const Header_academy_details = () => {
