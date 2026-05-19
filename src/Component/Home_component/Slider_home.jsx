@@ -1,8 +1,10 @@
 import React from 'react'
 import { assets } from '../../assets/assets';
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
+import { useTranslation } from 'react-i18next';
 
 const Slider_home = () => {
+  const {t} = useTranslation();
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const slides = [
     { id: 1, image: assets.slide_1 },
@@ -22,11 +24,11 @@ const Slider_home = () => {
       className="w-full h-[490px] object-cover brightness-50  "
     />
    <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          {("مسابح أوليمبية")}
+          {t("olympic_tournaments")}
         </h2>
         <p
        className='text-md md:text-l lg:text-xl  text-center  text-[#F3F4F6] absolute top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          {("تدريب احترافي في مسابح عالمية المستوى")}</p>
+          {t("professional_training")}</p>
     <button
       onClick={prevSlide}
       className="absolute left-3 top-1/2 text-[40px] text-[#FFFFFF4D]  px-3 py-1"

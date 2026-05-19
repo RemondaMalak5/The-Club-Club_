@@ -6,49 +6,51 @@ import { LuCalendarCheck } from "react-icons/lu";
 import { MdOutlineSportsSoccer, MdPersonAddAlt } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const About_home = () => {
+  const { t } = useTranslation();
   const navigation = useNavigate();
   const topLinks = [
-    { icon: <IoIosFlower />, text: "نادي رياضي عائلي" },
-    { icon: <FaSquare />, text: "3 فروع" },
-    { icon: <FaSquare />, text: "تجديد عضوية" },
-    { icon: <FaSquare />, text: "ملف عضو" },
+    { icon: <IoIosFlower />, text: t("family_club") },
+    { icon: <FaSquare />, text: t("three_branches") },
+    { icon: <FaSquare />, text: t("renew_membership") },
+    { icon: <FaSquare />, text: t("member_profile") },
   ];
 
   const services = [
     {
       icon: <TiGroupOutline />,
-      title: "عضويات عائلية",
-      desc: "تابعين • بطاقات",
+      title: t("family_memberships"),
+      desc: t("family_memberships_desc"),
     },
     {
       icon: <LuCalendarCheck />,
-      title: "حجز فوري",
-      desc: "أنشطة • ملاعب",
+      title: t("instant_booking"),
+      desc: t("instant_booking_desc"),
     },
     {
       icon: <MdOutlineSportsSoccer />,
-      title: "أكاديميات احترافية",
-      desc: "تدريبات • برامج",
+      title: t("professional_academies"),
+      desc: t("professional_academies_desc"),
     },
   ];
 
   const steps = [
     {
       num: "1",
-      title: "اختر العضوية",
-      desc: "سجل الآن",
+      title: t("choose_membership"),
+      desc: t("sign_up_now"),
     },
     {
       num: "2",
-      title: "اختر فرعًا أو خدمة",
-      desc: "حدد الفرع المناسب",
+      title: t("choose_branch_or_service"),
+      desc: t("select_appropriate_branch"),
     },
     {
       num: "3",
-      title: "أكمل الدفع واحجز",
-      desc: "وتمتع بعضوية النادي",
+      title: t("complete_payment_and_book"),
+      desc: t("enjoy_club_membership"),
     },
   ];
 
@@ -69,7 +71,7 @@ const About_home = () => {
         </div>
 
         {/* title */}
-        <h1 className="text-[38px] font-bold">أهلاً بك في نادي النادي</h1>
+        <h1 className="text-[38px] font-bold">{t("welcome_message")}</h1>
 
         {/* services */}
         <div className="flex flex-wrap gap-4">
@@ -96,7 +98,7 @@ const About_home = () => {
                    hover:from-white hover:to-white hover:text-[#00786F] 
                    transition-colors duration-300">
   <MdPersonAddAlt />
-  اشترك الآن
+  {t("sign_up_now")}
 </button>
 
           <button onClick={() => navigation("/branches")} className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
@@ -104,7 +106,7 @@ const About_home = () => {
                      bg-white hover:bg-gradient-to-r hover:from-[rgba(8,172,133,0.86)] hover:to-[#00786F] 
                      hover:text-white transition-all duration-300">
             <FaMapLocationDot />
-            عرض الفروع
+            {t("view_all_branches")}
           </button>
         </div>
       </div>
@@ -112,7 +114,7 @@ const About_home = () => {
       {/* right section */}
       <div className="bg-white border rounded-2xl shadow-md p-6 w-full lg:w-[35%]">
 
-        <h2 className="text-[18px] font-bold mb-4">ابدأ في 3 خطوات</h2>
+        <h2 className="text-[18px] font-bold mb-4">{t("start_in_3_steps")}</h2>
 
         <div className="flex flex-col gap-4">
           {steps.map((step, index) => (
@@ -134,7 +136,7 @@ const About_home = () => {
         </div>
 
         <button className="w-full mt-5 bg-[#00786F] text-white py-2 rounded-lg hover:bg-[#00645c] transition">
-          احجز نشاط / خدمة
+          {t("book_activity_or_service")}
         </button>
       </div>
     </div>

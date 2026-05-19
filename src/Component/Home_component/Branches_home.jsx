@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import Title_1 from "../Shared_Component/Title_1";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import SubTitle from "../Shared_Component/SubTitle";
 import { assets } from "./../../assets/assets";
 import Btn_bg from "../Shared_Component/Btn_bg";
@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { apiUrl_main } from "../../axiosConfig/Instance";
+import { useTranslation } from "react-i18next";
 
 const Branches_home = () => {
+  const {t}= useTranslation();
   const navigate = useNavigate();
   const [branch, setBranch] = useState();
    const Get_Branches = async () => {
@@ -28,39 +30,24 @@ const Branches_home = () => {
   useEffect(() => { 
     Get_Branches();
   }, [i18next.language]);
-  // const branch = [
-  //   {
-  //     name: "فرع اكتوبر",
-  //     title: " أكاديميات • أنشطة أطفال",
-  //     button: " الاكاديميات",
-  //     img: assets.october
-  //   },
-  //   {
-  //     name: "فرع شيرتون",
-  //     title: " أكاديميات • أنشطة أطفال",
-  //     button: " الاكاديميات",
-  //     img: assets.sheraton
-  //   }, {
-  //     name: " فرع العاصمه الاداريه الجديده",
-  //     title: " أكاديميات • أنشطة أطفال",
-  //     button: " الاكاديميات",
-  //     img: assets.elasma
-  //   },
 
-  // ];
   return (
     <div className="px-10 sm:px-10 py-10  ">
 
       <div className="flex justify-between items-center  rounded-2xl  px-5 py-1">
         <div>
-          <Title_1 title={"فروعنا"} />
-          <SubTitle SubTitle={"اختار الفرع الأقرب وتصفح الخريطة"} />
+          <Title_1 title={t("our_branches")} />
+          <SubTitle SubTitle={t("choose_branch")} />
         </div>
         <button onClick={() => navigate('/branches')} className="border border-[#00786F] px-5 rounded-full flex justify-center items-center gap-3">
-          عرض خريطه الفروع
-          <span className="py-3">
-            <FaArrowLeftLong />
-          </span>
+          {t("show_branch_map")}
+       <span className="py-3">
+  {i18next.language.startsWith("ar") ? (
+    <FaArrowLeftLong />
+  ) : (
+    <FaArrowRightLong/>
+  )}
+</span>
         </button>
       </div>
 
@@ -78,10 +65,10 @@ const Branches_home = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-5">
-                  <Btn_bg btn={"الاكاديميات"} onClick={() => navigate(`/academy`)} />
+                  <Btn_bg btn={t("academies")} onClick={() => navigate(`/academy`)} />
 
                   <button onClick={()=>navigate(`/about`)} className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
-                    التفاصيل
+                    {t("details")}
                   </button>
                 </div>
               </div>

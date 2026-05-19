@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Branch_annual_stats } from "../../axiosConfig/APIs/Home/Branch_Annual_Stats";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Result_year_home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+ const {t} = useTranslation();
 
   const radius = 60;
   const stroke = 10;
@@ -38,12 +39,12 @@ useEffect(() => {
   return (
     <div className="w-full flex flex-col items-center py-16 bg-white px-10 sm:px-10 lg:px-14">
       <h2 className="text-[36px] font-bold text-gray-800 text-center py-2">
-        نتائج <span className="text-[#0A8F7A]">رائعة ومُلهمة</span> لهذا العام
+        {t("excellent_results")}
       </h2>
 
       <p className="text-gray-500 mb-10 text-[18px] font-medium text-center">
-        إحصائيات الأداء السنوي للفروع
-      </p>
+  {        t("annual_stats")
+}      </p>
 
       {loading ? (
         <div className="text-center text-gray-500 text-lg">
@@ -104,14 +105,14 @@ useEffect(() => {
 
                 <div className="space-y-2 text-gray-600">
                   <p className="text-base">
-                    عدد الأعضاء الحالي:
-                    <span className="font-bold text-teal-700 mr-2">
+         {t("current_members")}         
+             <span className="font-bold text-teal-700 mr-2">
                       {item.currentMembers}
                     </span>
                   </p>
 
                   <p className="text-base">
-                    العدد المستهدف:
+                    {t("target_members")}
                     <span className="font-bold text-gray-800 mr-2">
                       {item.targetMembers}
                     </span>

@@ -46,7 +46,44 @@
         "total_trainees": "اجمالى عدد المتدربين",
         "all_academies": "كل الأكاديميات",
         "all_branches": "كل الفروع",
-        "search_academies": "ابحث في الأكاديميات..."
+        "search_academies": "ابحث في الأكاديميات...",
+        "olympic_tournaments": "مسابح أوليمبية",
+        "professional_training": "تدريب احترافي في مسابح عالمية المستوى",
+        "welcome_message": "أهلاً بك في نادي النادي",
+        "instant_booking": "حجز فوري",
+        "instant_booking_desc": "أنشطة • ملاعب",
+        "professional_academies": "أكاديميات احترافية",
+        "professional_academies_desc": "تدريبات • برامج",
+        "choose_membership": "اختر العضوية",
+        "sign_up_now": "سجل الآن",
+        "choose_branch_or_service": "اختر فرعًا أو خدمة",
+        "select_appropriate_branch": "حدد الفرع المناسب",
+        "complete_payment_and_book": "أكمل الدفع واحجز",
+        "enjoy_club_membership": "وتمتع بعضوية النادي",
+        "start_in_3_steps": "ابدأ في 3 خطوات",
+        "view_all_branches": "عرض الفروع",
+        "book_activity_or_service": "احجز نشاط / خدمة",
+        "our_branches": "فروعنا " ,
+        "choose_branch": "اختار الفرع الأقرب وتصفح الخريطة",
+        "show_branch_map": "عرض خريطة الفروع",
+        "excellent_results": "نتائج رائعة ومُلهمة لهذا العام",
+        "annual_stats": "   إحصائيات الأداء السنوي للفروع",
+        "current_members": "      عدد الأعضاء الحالي:  ",
+        "target_members": "  العدد المستهدف:  ",
+           "choose_plan": "اختر الخطة",
+           "plan_description": "  اختر الخطة الأنسب لك ولأسرتك",
+        "error_loading_photos": "حصل خطأ أثناء تحميل الصور",
+        "photos_and_videos": "الصور والفيديوهات",
+        "view_more": "عرض المزيد",
+        "family_memberships": "عضويات العائلة",
+        "family_memberships_desc":"تابعين • بطاقات",
+        "family_club":"نادي  رياضى العائلة",
+        "three_branches":"ثلاثة فروع",
+        "renew_membership":"تجديد العضوية",
+        "member_profile":"ملف العضو"
+
+
+
 
 
 }

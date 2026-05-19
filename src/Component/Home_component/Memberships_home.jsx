@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import { LuCircleCheckBig } from "react-icons/lu";
 import { Memberships } from "../../axiosConfig/APIs/Home/Membership";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Memberships_home = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
-
+ const {t} = useTranslation();
   const Get_Memberships = async () => {
     const params = {
       language: i18next.language,
@@ -33,11 +34,11 @@ const Memberships_home = () => {
   return (
     <div className="py-10 px-5 md:px-20 overflow-hidden">
       <h2 className="text-[36px] font-bold text-center md:text-right">
-        العضويات
+        {t("memberships")}
       </h2>
 
       <p className="text-gray-500 mb-12 text-center md:text-right">
-        اختر الخطة الأنسب لك ولأسرتك
+        {t("plan_description")}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-stretch">
@@ -106,7 +107,7 @@ const Memberships_home = () => {
                 }
               `}
             >
-              اختر الخطة
+              {t("select_plan")}
             </button>
           </div>
         ))}
