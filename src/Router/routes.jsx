@@ -20,6 +20,7 @@ import Login from "../Component/Login/Login";
 import Profile from "../Pages/Profile";
 import Header_academy_details from "../Component/Academy_Component/Academy_details/Header_academy_details";
 import Champin_header from "../Component/Championship_component/champinship_details/Champin_header";
+import News_details from "../Component/News_component/News_Details/News_details";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ export const router = createBrowserRouter([
       {path:"profile", element: <Profile/>},
       {path:"academy/:id", element: <Header_academy_details/>} ,
       {path:"champions/:id", element: <Champin_header/>} ,
+      {path:"news/:id", element: <News_details/>} ,
     ]
   }
 ]);

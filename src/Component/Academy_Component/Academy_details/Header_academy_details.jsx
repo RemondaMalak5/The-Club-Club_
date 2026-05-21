@@ -5,6 +5,7 @@ import { Academy_Detail } from "../../../axiosConfig/APIs/Academy/Academy_Detail
 import Left_side from "./Left_side";
 import Right_side from "./Right_side";
 import { FaStar } from "react-icons/fa";
+import { MdOutlineDateRange, MdPersonOutline } from "react-icons/md";
 
 const Header_academy_details = () => {
   const [data, setData] = useState();
@@ -46,21 +47,24 @@ const Header_academy_details = () => {
         <div className=" flex items-center gap-6 mt-4">
           <div className="flex items-center gap-1">
             <FaStar className="text-yellow-400" />
-            <span className="text-gray-600 text-sm">
-              {data?.rating || "4.5"}
+            <span className="text-[18px] font-bold ">
+              {data?.rating}
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-gray-600 text-sm">{data?.price} متدرب </span>
-          </div>
-
-          <div className="flex items-center gap-2">
+            <MdOutlineDateRange />
+            <span className="text-gray-600 text-sm">منذ</span>
             <span className="text-gray-600 font-semibold">
-              {data?.startDate}
+              {data?.sinceYear}
             </span>
-            <span className="text-gray-600 text-sm">سنة</span>
           </div>
+          <div className="flex items-center gap-1">
+             <span className="text-[18px]"><MdPersonOutline /> </span>
+            <span className="text-gray-600 text-sm">{data?.trainersCount} متدرب </span>
+          </div>
+
+
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 px-4 lg:px-14 py-8">

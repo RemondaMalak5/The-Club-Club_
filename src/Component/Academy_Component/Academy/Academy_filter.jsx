@@ -195,8 +195,9 @@ const Academy_filter = () => {
 
                 <div className="flex-1">
                   <div className="p-4 flex justify-between items-center flex-wrap gap-3">
-                    <h3 className="text-lg font-bold">{academy.name}</h3>
-
+                    <h3 className="text-lg font-bold">
+                      {academy.name?.slice(0,30)}
+                    </h3>
                     <div className="border px-2 py-1 text-sm rounded-xl font-bold flex items-center gap-1">
                       <span className="text-[#F0B100]">
                         <FaStar />
@@ -206,7 +207,7 @@ const Academy_filter = () => {
                   </div>
 
                   <div className="px-4">
-                    <p className="text-[#6A7282] font-medium text-[16px] leading-7">
+                    <p className="text-[#6A7282] font-medium text-[16px]  line-clamp-2">
                       {academy.description}
                     </p>
                   </div>
@@ -223,7 +224,7 @@ const Academy_filter = () => {
                       <span className="text-[#08AC85DB]">
                         <MdOutlineSportsSoccer />
                       </span>
-                      {academy.reviewCount} ملاعب
+                      {academy.reviewCount} متدرب
                     </p>
 
                     <p className="flex items-center gap-2">

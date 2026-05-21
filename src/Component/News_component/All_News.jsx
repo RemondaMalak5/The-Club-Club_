@@ -6,8 +6,10 @@ import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 import i18next from "i18next";
 import { Pagination } from "@mui/material";
 import Pagination_Component from "../Shared_Component/Pagination_Component";
+import { useNavigate } from "react-router-dom";
 
 const All_News = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,29 +38,7 @@ const All_News = () => {
   useEffect(() => {
     News_API();
   }, [i18next.language, currentPage]);
-  //  const news = [
-  //         {
-  //             img: assets.news_1,
-  //             date: "30 مايو 2025",
-  //             tag: "خدمات",
-  //             title: "تطوير منطقة الخدمات",
-  //             desc: "تحسين شامل للمرافق لتقديم أفضل تجربة للأعضاء",
-  //         },
-  //         {
-  //             img: assets.news_2,
-  //             date: "30 مايو 2025",
-  //             tag: "بطولات",
-  //             title: "مباريات ودية نهاية الأسبوع",
-  //             desc: "مباريات حماسية بين فرق النادي المختلفة",
-  //         },
-  //         {
-  //             img: assets.news_3,
-  //             date: "30 مايو 2025",
-  //             tag: "أنشطة",
-  //             title: "برنامج لياقة جديد للأعضاء",
-  //             desc: "برنامج متكامل للياقة البدنية والصحة",
-  //         },
-  //     ];
+
   return (
     <div className="px-14 py-5">
       <div className="grid md:grid-cols-3 gap-6">
@@ -90,13 +70,23 @@ const All_News = () => {
 
               <p className="text-[#6A7282] text-sm">{item.desc}</p>
 
-              <button className=" bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full text-sm hover:bg-[#0aa194] transition flex items-center gap-1">
-                <span className="font-semibold text-[16px] ">
-                 
-                  <GoArrowUpRight />
-                </span>
-                قراءة المزيد
-              </button>
+              <button
+  onClick={() =>
+    navigate(`/news/${item.id}`, {
+      state: {
+        branchId: item.branchId,
+        branchName: item.branchName,
+      },
+    })
+  }
+  className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full text-sm hover:bg-[#0aa194] transition flex items-center gap-1"
+>
+  <span className="font-semibold text-[16px]">
+    <GoArrowUpRight />
+  </span>
+  قراءة المزيد
+</button>
+
             </div>
           </div>
         ))}

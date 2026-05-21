@@ -87,7 +87,7 @@ const Left_side = ({ data }) => {
                 </div>
                 <div className="text-center">
                   <p className="text-[#00BFA6] font-bold text-2xl">
-                    {program.maxParticipants}
+                    {program.maxStudents}
                   </p>
                   <p className="text-sm text-gray-600 mt-2">متدرب/المجموعة</p>
                 </div>

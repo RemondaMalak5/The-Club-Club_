@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCheckCircle, FaMoneyBillWave } from "react-icons/fa";
+import { assets } from "../../../assets/assets";
 
 const Right_side = ({ data }) => {
   return (
@@ -25,8 +26,8 @@ const Right_side = ({ data }) => {
         <div className="h-[1px] bg-[#1E2939]"></div>
         {/* Price with Discount */}
         <div className="flex items-end justify-between mb-8">
-          <p className="text-sm text-red-700">السعر بعد الخصم</p>
-          <p className="text-red-700 font-bold text-lg">30%</p>
+          <p className="text-sm text-red-700"> نسبه الخصم </p>
+          <p className="text-red-700 font-bold text-lg">10%</p>
 
         </div>
 
@@ -66,7 +67,7 @@ const Right_side = ({ data }) => {
                   </p>
                 </div>
 
-                
+
               </div>
 
               {/* Tags/Links */}
@@ -87,7 +88,7 @@ const Right_side = ({ data }) => {
                   )}
               </div>
             </div>
-          )) }
+          ))}
         </div>
       </div>
       {/* Facilities */}
@@ -158,19 +159,7 @@ const Right_side = ({ data }) => {
         </h2>
 
         <div className="space-y-3">
-          {data?.conditions?.map((item, index) => (
-            <div key={index} className="flex items-start gap-3">
-              <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
-              <p className="text-gray-600 text-sm leading-6 text-right flex-1">
-                {item}
-              </p>
-            </div>
-          )) || [
-            "يجب ألا يتخطى المشارك 6 سنوات أقصى",
-            "شهادة صحية",
-            "الالتزام بالمواعيد",
-            "ارتداء الملابس الرسمية",
-          ].map((item, index) => (
+          {data?.joinConditions?.map((item, index) => (
             <div key={index} className="flex items-start gap-3">
               <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
               <p className="text-gray-600 text-sm leading-6 text-right flex-1">
@@ -183,7 +172,24 @@ const Right_side = ({ data }) => {
 
 
 
-      {/* Trainers */}
+      <div className="bg-white rounded-2xl shadow-sm p-6">
+        <h2 className="text-[25px] font-bold mb-5"> الانجازات</h2>
+
+        <div className="space-y-3 max-h-[500px] overflow-y-auto">
+          {data?.achievements?.map((e, index) => (
+            <div key={index} className="flex items-center gap-3 pb-3 bg-[#F9FAFB] hover:bg-gray-50 p-2  border  rounded-lg">
+<img
+                  src={assets.image_1}
+                  className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                />              <div className="flex flex-col">
+                <span className=" font-bold text-[16px]">{e?.title}</span>
+                <p> {e?.season}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
 
     </div>
   );
