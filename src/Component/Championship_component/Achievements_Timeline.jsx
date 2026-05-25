@@ -41,7 +41,6 @@ const AchievementsTimeline = () => {
 
         setTimeline(mapped);
       } catch (err) {
-        console.log(err);
       }
     };
 

@@ -40,11 +40,9 @@ const[error,setError]=useState(false);
         try {
             const response = await AllBranches(params);
             setData(response.message.data);
-            console.log(response.message.data);
         }
         catch (error) {
             setError(true) ;
-            console.error("Error fetching news:", error);
         }
         // finally{
         //     setLoading(false)

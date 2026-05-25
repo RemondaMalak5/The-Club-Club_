@@ -19,17 +19,13 @@ const Header_academy_details = () => {
     branchId: branchId,
   };
 
-  console.log("params:", params);
 
   const Get_Academy_Details = async () => {
     try {
       const response = await Academy_Detail(params);
       setData(response.message);
-      console.log(response.message);
-      console.log(id);
     } catch (error) {
       setError(true);
-      console.error("Error fetching news:", error);
     }
   };
 

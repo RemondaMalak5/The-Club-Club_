@@ -24,7 +24,6 @@ const fetchData = async () => {
     const response = await Branch_annual_stats(params);
 setData(response.message.data);
   } catch (error) {
-    console.error("Error fetching branch annual stats:", error);
   } finally {
     setLoading(false);
   }

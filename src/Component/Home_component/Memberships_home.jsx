@@ -23,7 +23,6 @@ const Memberships_home = () => {
       setTotalPages(response.message.total_pages);
     } catch (error) {
       setError(true);
-      console.error("Error fetching memberships:", error);
     }
   };
 
@@ -32,7 +31,7 @@ const Memberships_home = () => {
   }, [i18next.language]);
 
   return (
-    <div className="py-10 px-5 md:px-20 overflow-hidden">
+    <div className="py-10 px-5 md:px-20 overflow-hidden" >
       <h2 className="text-[36px] font-bold text-center md:text-right">
         {t("memberships")}
       </h2>

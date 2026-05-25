@@ -37,10 +37,8 @@ const Academy_filter = () => {
     try {
       const response = await AllBranches(params);
       setBranches(response.message.data);
-      console.log("branches:", response.message.data);
 
     } catch (error) {
-      console.error("Error fetching branches:", error);
     }
   };
 
@@ -52,9 +50,7 @@ const Academy_filter = () => {
       };
       const response = await Academy_Category(params);
       setCategories(response.message.data);
-      console.log("categories:", response.message.data);
     } catch (error) {
-      console.error("Error fetching academy categories:", error);
     }
   };
 
@@ -70,13 +66,10 @@ const Academy_filter = () => {
     try {
       const response = await Academylist(params);
       setData(response.message.data);
-      console.log("2222222######################", response.message);
       setTotalPages(response.message.total_pages);
-      console.log(assets.academy);
     }
     catch (error) {
       setError(true);
-      console.error("Error fetching news:", error);
     }
 
   }

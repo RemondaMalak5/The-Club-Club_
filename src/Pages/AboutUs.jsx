@@ -24,7 +24,6 @@ const AboutUs = () => {
       setTotalPages(response.message.total_pages);
     } catch (error) {
       setError(true);
-      console.error("Error fetching memberships:", error);
     }
   };
 

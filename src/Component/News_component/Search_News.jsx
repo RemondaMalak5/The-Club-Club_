@@ -31,9 +31,7 @@ const Search_News = () => {
     try {
       const response = await Most_read_news(params);
       setMostReadNews(response.message.data);
-      console.log("most read news:", response.message.data);
     } catch (error) {
-      console.error("Error fetching most read news:", error);
     }
   };
   const Get_last_news = async () => {
@@ -45,9 +43,7 @@ const Search_News = () => {
     try {
       const response = await Last_news(params);
       setLastNews(response.message.data);
-      console.log("last news:", response.message.data);
     } catch (error) {
-      console.error("Error fetching last news:", error);
     }
   };
   useEffect(() => {

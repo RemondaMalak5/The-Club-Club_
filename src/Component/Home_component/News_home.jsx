@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { CgCalendarDates } from "react-icons/cg";
 import { GoArrowUpRight } from "react-icons/go";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowBack, IoArrowForward } from "react-icons/io5";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 import { useNavigate } from "react-router-dom";
 
 const News_home = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [data, setData] = useState([]);
     const [error, setError] = useState(false);
   
@@ -23,11 +25,10 @@ const News_home = () => {
     try {
       const response = await Newslist(params);
       setData(response.message.data);
-      console.log(response.message.data);
     }   
     catch (error) {
       setError(true);
-      console.error("Error fetching news:", error);
+
     }
 }     
 
@@ -43,17 +44,19 @@ const News_home = () => {
                 <div className="flex justify-between items-center mb-10 flex-wrap">
                     <div>
                         <h1 className="text-[36px] font-medium bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
-                            الأخبار
+                            {t('news')}
                         </h1>
                         <p className="text-[#6A7282] text-[16px]">
-                            أحدث الاخبار من فروع نادي النادي
+                            {t('latest_news')}
                         </p>
                     </div>
 
                     <button   onClick={() => navigate('/news')}
                     className="border border-[#00786F] text-black font-bold text-[18px] px-6 py-2 rounded-full hover:bg-[#00786F] hover:text-white transition flex  items-center gap-2">
-                        عرض جميع الأخبار
-                        <span> <IoArrowBack /></span>
+                        {t('view_all_news')}
+                        <span> 
+                            {i18next.language === 'ar' ? <IoArrowBack /> : <IoArrowForward />}
+                        </span>
                     </button>
                 </div>
 
@@ -93,7 +96,7 @@ const News_home = () => {
 
                                 <button className=" bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full text-sm hover:bg-[#0aa194] transition flex items-center gap-1">
                                     <span className="font-semibold text-[16px] "> <GoArrowUpRight /> </span>
-                                    قراءة المزيد
+                                    {t('read_more')}
 
                                 </button>
 

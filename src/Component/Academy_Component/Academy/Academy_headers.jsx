@@ -18,11 +18,9 @@ const Academy_headers = () => {
         try {
             const response = await Academy_Stats(params);
             setData(response.message);
-            console.log(response.message);
         }
         catch (error) {
             setError(true) ;
-            console.error("Error fetching news:", error);
         }
         // finally{
         //     setLoading(false)

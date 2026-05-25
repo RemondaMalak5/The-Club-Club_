@@ -36,12 +36,10 @@ const Photos_home = () => {
     try {
       const response = await Gallary(params);
 
-      console.log("gallery:", response.message.data);
 
       setData(response.message.data || []);
     } catch (error) {
       setError(true);
-      console.error("Error fetching gallery:", error);
     }
   };
 

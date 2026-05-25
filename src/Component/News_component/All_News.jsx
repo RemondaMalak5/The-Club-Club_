@@ -25,11 +25,9 @@ const All_News = () => {
     try {
       const response = await Newslist(params);
       setData(response.message.data);
-      console.log(response.message.data);
       setTotalPages(response.message.total_items);
     } catch (error) {
       setError(true);
-      console.error("Error fetching news:", error);
     }
     // finally{
     //     setLoading(false)

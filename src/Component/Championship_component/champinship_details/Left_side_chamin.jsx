@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
@@ -6,13 +7,14 @@ import { FaMedal } from "react-icons/fa";
 import { GiTrophyCup } from "react-icons/gi";
 
 const Left_side_chamin = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-5">
       {/* About */}
       <div className="bg-white rounded-2xl shadow-sm p-6">
         <div className="flex items-center gap-2 mb-4">
           <span className="text-2xl text-[#F0B100]"><GiTrophyCup/></span>
-          <h2 className="text-[25px] font-bold">نبذة عن البطولة</h2>
+          <h2 className="text-[25px] font-bold">{t('about_tournament')}</h2>
         </div>
 
         <p className="text-[#6B6B6B] leading-8 text-sm">
@@ -23,7 +25,7 @@ const Left_side_chamin = ({ data }) => {
 <div className="bg-white rounded-2xl shadow-sm p-6">
  <div className="flex items-center gap-2 mb-4">
           <span className="text-2xl text-[#F0B100]"><FaMedal /></span>
-          <h2 className="text-[25px] font-bold"> الانجازات المحققه </h2>
+          <h2 className="text-[25px] font-bold">{t('achievements')}</h2>
         </div>
         <div className="space-y-4">
           {data?.matches?.map((e, index) => (
@@ -40,7 +42,7 @@ const Left_side_chamin = ({ data }) => {
       <div className="bg-white rounded-2xl shadow-sm p-6">
         <div className="flex items-center gap-2 mb-4">
           <span className="text-2xl text-[#F0B100]"><FaMedal /></span>
-          <h2 className="text-[25px] font-bold"> الفائزون بالترتيب</h2>
+          <h2 className="text-[25px] font-bold">{t('winners_order')}</h2>
         </div>
 
         <div className="space-y-2">
@@ -60,7 +62,7 @@ const Left_side_chamin = ({ data }) => {
 
       {/* Gallery */}
       <div className="bg-white rounded-2xl shadow-sm p-4">
-        <h2 className="text-[25px] font-bold py-3">معرض الصور والفيديوهات</h2>
+        <h2 className="text-[25px] font-bold py-3">{t('gallery')}</h2>
 
         <div className="grid grid-cols-3 gap-3">
           {data?.gallery?.map((img, index) => (

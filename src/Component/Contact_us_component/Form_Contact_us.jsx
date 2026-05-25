@@ -85,7 +85,6 @@ const Form_Contact_us = () => {
       return;
     }
 
-    console.log("Form Data:", formData);
 
     alert("تم إرسال الرسالة بنجاح");
 

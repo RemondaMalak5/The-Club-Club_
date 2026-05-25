@@ -41,12 +41,10 @@ const Championship_component = () => {
         try {
             const response = await Champins_State (params);
             setData(response.message.data);
-            console.log(response.message);
             setTotalPages(response.message.total_pages);
         }
         catch (error) {
             setError(true) ;
-            console.error("Error fetching news:", error);
         }
         // finally{
         //     setLoading(false)

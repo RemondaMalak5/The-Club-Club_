@@ -32,10 +32,8 @@ const Champinship_filter = () => {
     try {
       const response = await AllBranches (params);
       setBranches(response.message.data);
-      console.log("branches:", response.message.data);
 
     } catch (error) {
-      console.error("Error fetching branches:", error);
     }
   };
 
@@ -52,13 +50,10 @@ const Champinship_filter = () => {
     try {
       const response = await Champins_list (params);
       setData(response.message.data);
-      console.log(response.message);
       setTotalPages(response.message.total_pages);
-      console.log(assets.academy);
     }
     catch (error) {
       setError(true);
-      console.error("Error fetching news:", error);
     }
     // finally{
     //     setLoading(false)

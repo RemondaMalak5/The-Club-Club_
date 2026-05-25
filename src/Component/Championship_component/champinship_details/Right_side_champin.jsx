@@ -1,14 +1,16 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaStar } from "react-icons/fa";
 
 const Right_side_champin = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-6">
 
 
       {/* Teams List */}
       <div className="bg-white rounded-2xl shadow-sm p-6">
-        <h2 className="text-lg font-bold mb-5">الفرق المشاركة</h2>
+        <h2 className="text-lg font-bold mb-5">{t('participating_teams')}</h2>
 
         <div className="space-y-3 max-h-[500px] overflow-y-auto">
           {data?.teams?.map((team, index) => (
@@ -23,7 +25,7 @@ const Right_side_champin = ({ data }) => {
 
       {/* Details */}
       <div className="bg-white rounded-2xl shadow-sm p-6">
-        <h2 className="text-lg font-bold mb-5"> الجهاز الفنى</h2>
+        <h2 className="text-lg font-bold mb-5">{t('technical_staff')}</h2>
 
         <div className="space-y-4">
           {data?.technicalStaff?.map((e, index) => (
@@ -39,7 +41,7 @@ const Right_side_champin = ({ data }) => {
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm p-6">
-        <h2 className="text-lg font-bold mb-5">  الفريق المشاركه فى البطوله</h2>
+        <h2 className="text-lg font-bold mb-5">{t('tournament_teams')}</h2>
 
         <div className="space-y-4">
           {data?.matches?.map((e, index) => (

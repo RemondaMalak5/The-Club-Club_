@@ -119,7 +119,6 @@ const Achievements = () => {
 
         setAchievements(mapped);
       } catch (err) {
-        console.log(err);
       }
     };
 

@@ -15,7 +15,7 @@ const News_details = () => {
     const { id } = useParams();
     const location = useLocation();
     const branchId = location.state?.branchId;
-    console.log("Branch ID:", branchId);
+
     const Get_News_Details = async () => {
         const params = {
             "language": i18next.language,
@@ -25,9 +25,7 @@ const News_details = () => {
         try {
             const response = await NewsDetails(params);
             setData(response.message);
-            console.log("News details:", response.message.data);
         } catch (error) {
-            console.error("Error fetching news details:", error);
         }
     }
     useEffect(() => {
@@ -61,10 +59,10 @@ const News_details = () => {
                             <button className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-2 rounded-xl '>سجل الان  </button>
                         </div>
                     </div>
-<div className='w-full h-[1px] bg-gray-300'></div>
+                    <div className='w-full h-[1px] bg-gray-300'></div>
                     <p className='py-4'>{data?.summary}</p>
                     <div className='w-full h-[1px] bg-gray-100'></div>
-<Social_Media/>
+                    <Social_Media />
 
                 </div>
             </div>

@@ -32,10 +32,8 @@ const Academy_home = () => {
     try {
       const response = await AllBranches(params);
       setBranches(response.message.data);
-      console.log("branches:", response.message.data);
 
     } catch (error) {
-      console.error("Error fetching branches:", error);
     }
   };
 
@@ -58,7 +56,6 @@ const Academy_home = () => {
     }
     catch (error) {
       setError(true);
-      console.error("Error fetching news:", error);
     }
  
   };

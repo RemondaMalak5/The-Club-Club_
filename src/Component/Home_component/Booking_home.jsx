@@ -1,6 +1,6 @@
-
-
 import React from "react";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 import { IoIosArrowRoundBack, IoIosFlower } from "react-icons/io";
 import { FaSquare } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
@@ -11,33 +11,34 @@ import Title_1 from "../Shared_Component/Title_1";
 import SubTitle from "../Shared_Component/SubTitle";
 
 const Booking_home = () => {
+  const { t } = useTranslation();
   const topLinks = [
-    { icon: <IoIosFlower />, text: "نادي رياضي عائلي" },
-    { icon: <FaSquare />, text: "3 فروع" },
-    { icon: <FaSquare />, text: "تجديد عضوية" },
-    { icon: <FaSquare />, text: "ملف عضو" },
+    { icon: <IoIosFlower />, text: t('family_club') },
+    { icon: <FaSquare />, text: t('three_branches') },
+    { icon: <FaSquare />, text: t('renew_membership') },
+    { icon: <FaSquare />, text: t('member_profile') },
   ];
 
   const services = [
     {
       icon: <TiGroupOutline />,
-      title: "حجز الأنشطة ",
-      desc: " كرة • سباحة • تنس • جيم ",
+      title: t('book_activities'),
+      desc: t('activities_description'),
     },
     {
       icon: <LuCalendarCheck />,
-      title: "حجز  خدمات",
-      desc: " ملاعب • جولات • خدمات • PT",
+      title: t('book_services'),
+      desc: t('services_description'),
     },
     {
       icon: <MdOutlineSportsSoccer />,
-      title: "تجديد العضوية ",
-      desc: "  دفع • متابعة • إشعارات",
+      title: t('renew_membership'),
+      desc: t('renewal_description'),
     },
     {
       icon: <TiGroupOutline />,
-      title: " ملف العضو",
-      desc: " بيانات • تابعين • حجوزات ",
+      title: t('member_profile'),
+      desc: t('member_profile_description'),
     },
   ];
 
@@ -45,21 +46,20 @@ const Booking_home = () => {
     {
       num: "1",
       date: "jan",
-      title: "بطولة الجمهورية للكاراتيه ",
-      desc: "فرع 6 أكتوبر • 6:00 مساءً ",
+      title: t('karate_championship'),
+      desc: t('karate_location'),
     },
     {
       num: "2",
       date: "jan",
-      title: "  يوم عائلي للأطفال ",
-      desc: "فرع شيراتون • ألعاب وأنشطة",
+      title: t('family_day'),
+      desc: t('family_day_location'),
     },
     {
       num: "3",
       date: "jan",
-
-      title: "  تجارب مجانية للأكاديميات",
-      desc: "فرع العاصمة الإدارية • 10:00 صباحًا",
+      title: t('academy_trials'),
+      desc: t('academy_trials_location'),
     },
   ];
 
@@ -69,8 +69,8 @@ const Booking_home = () => {
       {/* left section */}
       <div className="flex flex-col py-5 gap-3 w-full lg:w-[60%]">
 
-        <h2 className="text-[36px] font-bold flex gap-1"> الحجز <Title_1 title={"اونلاين"} />  </h2>
-        <SubTitle SubTitle={"احجز في دقائق وراجع كل شئ من لوحة العضو"} />
+        <h2 className="text-[36px] font-bold flex gap-1"> {t('book_online')} <Title_1 title={t('online')} />  </h2>
+        <SubTitle SubTitle={t('booking_subtitle')} />
         <div className="flex flex-wrap py-2">
           {services.map((item, index) => (
             <div key={index} className="md:w-1/2 w-full  px-2 py-2 ">
@@ -97,13 +97,13 @@ const Booking_home = () => {
         </div>
 
         <button className="mx-5 mt-5 bg-[#00786F] text-white py-4 rounded-xl hover:bg-[#00645c] transition">
-          عرض لوحة العضو
+          {t('view_member_dashboard')}
         </button>
       </div>
 
       {/* right section */}
       <div className="bg-white border rounded-2xl shadow-md p-6 w-full lg:w-[35%]">
-        <h2 className="font-bold text-[22px] bg-gradient-to-r from-[#08AC85DB] to-[#00786F] bg-clip-text text-transparent">أجندة الفعاليات</h2>
+        <h2 className="font-bold text-[22px] bg-gradient-to-r from-[#08AC85DB] to-[#00786F] bg-clip-text text-transparent">{t('events_agenda')}</h2>
         <div className="flex flex-col gap-4  py-2">
           {steps.map((step, index) => (
             <div
@@ -125,7 +125,7 @@ const Booking_home = () => {
         </div>
 
         <button className="w-full mt-5 border border-[#00786F] text-[#36534C] py-2 rounded-lg  transition">
-          مشاهده كل الفعاليات
+          {t('view_all_events')}
         </button>
       </div>
     </div>

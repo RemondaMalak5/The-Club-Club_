@@ -8,6 +8,7 @@ import Achievements from '../Component/Profile/Achievements'
 import QuickActions from '../Component/Profile/QuickActions'
 import Bookings from '../Component/Profile/Bookings'
 import Payments from '../Component/Profile/Payments'
+import AcademySubscriptions from '../Component/Profile/AcademySubscriptions'
 
 const Profile = () => {
   return (
@@ -20,6 +21,7 @@ const Profile = () => {
         <div className="lg:col-span-2 space-y-4">
            <MembershipCard/>
           {/* <Activities/> */}
+          <AcademySubscriptions/>
           <Bookings/>
           <Payments/>
         </div>

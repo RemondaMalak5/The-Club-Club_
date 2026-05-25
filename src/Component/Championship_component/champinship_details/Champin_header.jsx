@@ -29,7 +29,6 @@ const Champin_header = () => {
       setData(response.message);
     } catch (error) {
       setError(true);
-      console.error("Error fetching championship:", error);
     }
   };
 

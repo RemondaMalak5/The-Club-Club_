@@ -67,10 +67,12 @@
 // export default Statistics_home
 
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CiCircleInfo } from "react-icons/ci";
 import { Branch_stats } from "../../axiosConfig/APIs/Home/Branch_stats";
 
 const Statistics_home = () => {
+  const { t } = useTranslation();
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -85,7 +87,6 @@ const Statistics_home = () => {
           setBranches(response.message.data);
         }
       } catch (error) {
-        console.log("Error fetching branch stats:", error);
       } finally {
         setLoading(false);
       }
@@ -110,45 +111,45 @@ const Statistics_home = () => {
       {/* title */}
       <div className="text-center mb-10">
         <h2 className="text-[32px] md:text-[36px] font-bold">
-          إحصائيات
+          {t('statistics')}
           <span className="bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
             {" "}
-            الدخول والخروج
+            {t('entry_exit')}
           </span>{" "}
-          بالفروع
+          {t('by_branches')}
         </h2>
 
         <p className="text-gray-500 text-sm mt-2">
-          إحصائيات الحركة اليومية للأعضاء في الفروع
+          {t('daily_movement_stats')}
         </p>
       </div>
 
       {/* loading */}
       {loading ? (
         <div className="text-center text-lg text-gray-500">
-          جاري تحميل البيانات...
+          {t('loading_data')}
         </div>
       ) : (
         branches.slice(0, 3).map((branch, index) => {
           const stats = [
             {
               value: branch.currentMembers,
-              name: "الأعضاء الحاليين",
+              name: t('current_members_stats'),
             },
             {
               value: branch.todayEntry,
-              name: "إجمالي الدخول اليوم",
+              name: t('today_entry'),
             },
             {
               value: branch.todayExit,
-              name: "إجمالي الخروج اليوم",
+              name: t('today_exit'),
             },
             {
               value:
                 branch.averageVisitDuration > 0
-                  ? `${branch.averageVisitDuration} ساعة`
-                  : "0 ساعة",
-              name: "متوسط مدة الزيارات",
+                  ? `${branch.averageVisitDuration} ${t('hour')}`
+                  : `0 ${t('hour')}`,
+              name: t('average_visit_duration'),
             },
           ];
 
@@ -196,7 +197,7 @@ const Statistics_home = () => {
                     </span>
 
                     <span className="font-semibold text-sm">
-                      آخر تحديث
+                      {t('last_update')}
                     </span>
 
                     <span className="text-xs">

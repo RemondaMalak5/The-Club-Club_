@@ -16,10 +16,8 @@ const More_News = () => {
         try {
             const response = await Most_read_news(params);
             setData(response.message.data);
-            console.log("Most read news:", response.message.data);
         }
         catch (error) {
-            console.error("Error fetching most read news:", error);
         }
     }
 

@@ -3,13 +3,7 @@ import Title_1 from '../Shared_Component/Title_1'
 import { apiUrl_main } from '../../axiosConfig/Instance';
 
 const About_us_goals = ({ data }) => {
-  // const goals = [
-  //   { goal: "بناء مجتمع رياضي واجتماعي إيجابي يخدم المجتمع المصري." },
-  //   { goal: "تقديم أنشطة ومرافق رياضية واجتماعية عالية الجودة." },
-  //   { goal: "إعداد أجيال متميزة من خلال تنمية القدرات الرياضية والبدنية والاجتماعية والنفسية." },
-  //   { goal: "استثمار طاقات الأعضاء بشكل إيجابي ودعم مواهبهم والعمل التطوعي والمشاركة المجتمعية." },
-  // ]
-console.log("data:", data?.goals);
+
   return (
     <div className='bg-[#E9F0F0] px-4 sm:px-6 lg:px-10 py-8 overflow-hidden'>
       <div className='w-full flex flex-wrap items-center gap-y-10'>
