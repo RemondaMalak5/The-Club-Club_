@@ -7,6 +7,7 @@ import Already_Have_Account from '../../Shared_Component/Already_Have_Account';
 import { Step_1_validation } from '../../../axiosConfig/APIs/Auth/Register/Step_1_Validate_Input';
 import { UserTokenContext } from '../../../context/UserContext';
 import i18next from 'i18next';
+import { Send_OTP } from '../../../axiosConfig/APIs/Auth/Register/Send_OTP';
 
 const Member_Register = () => {
     const navigate = useNavigate();
@@ -76,7 +77,19 @@ const Member_Register = () => {
       }
       return String(error);
     };
+ const handleVerify = async (receivedToken) => {
+    try {
+      const body = {
+        registration_token: receivedToken,
+        language: i18next.language,
+      };
 
+      const response = await Send_OTP(body);
+      console.log("responseresponseresponseresponseresponse", response)
+    } catch (error) {
+      console.log(error?.response?.data);
+    }
+  };
     const handleSubmit = async () => {
       const newErrors = {};
       if (!formData.card_number.trim()) newErrors.card_number = 'رقم العضوية مطلوب';
@@ -91,11 +104,13 @@ const Member_Register = () => {
       try {
         setLoading(true);
         const response = await Step_1_validation(formData);
+        console.log(response)
         const receivedToken = response?.message?.registration_token;
-                console.log(receivedToken)
+                console.log()
 
         if (receivedToken) {
           saveToken(receivedToken);
+          handleVerify(receivedToken);
         }
         navigate('/confirm-data', { state: { formData } });
       } catch (error) {
