@@ -70,30 +70,40 @@
 // export default Login
 
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import H_one_register from '../Shared_Component/H_one_register'
 import { TbLogin } from 'react-icons/tb'
 import { Link, useNavigate } from 'react-router-dom'
+import Select from 'react-select'
 import { LoginApi } from '../../axiosConfig/APIs/Auth/Login'
 
 const Login = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-const [errors ,setErrors]= useState({});
+  const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
   const [formData, setFormData] = useState({
     username: '',
     password: '',
     branch: '',
   });
 
+  const branchOptions = [
+    { value: 'The Club - New Capital', label: 'The Club - New Capital' },
+    { value: 'The Club- Sheraton', label: 'The Club- Sheraton' },
+    { value: 'نادي النادي - 6 اكتوبر', label: 'نادي النادي - 6 اكتوبر' },
+  ];
+
   const arr = [
     {
       name: 'username',
-      label: '  اسم المستخدم',
-      description: 'أدخل اسم المستخدم  ',
+      label: t('username_label'),
+      description: t('username_placeholder'),
     },
     {
       name: 'password',
-      label: 'كلمة المرور',
-      description: 'أدخل كلمة المرور',
+      label: t('password_label'),
+      description: t('password_placeholder'),
     },
   ];
 const validate = () => {
@@ -101,19 +111,19 @@ const validate = () => {
 
   // username
   if (!formData.username.trim()) {
-    newErrors.username = 'الرجاء إدخال البريد الإلكتروني أو رقم العضوية';
+    newErrors.username = t('username_required');
   }
 
   // password
   if (!formData.password.trim()) {
-    newErrors.password = 'الرجاء إدخال كلمة المرور';
+    newErrors.password = t('password_required');
   } else if (formData.password.length < 6) {
-    newErrors.password = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+    newErrors.password = t('password_min_length');
   }
 
   // branch
   if (!formData.branch.trim()) {
-    newErrors.branch = 'الرجاء إدخال الفرع';
+    newErrors.branch = t('branch_required');
   }
 
   setErrors(newErrors);
@@ -129,20 +139,28 @@ const validate = () => {
   };
 
   const handleLogin = async () => {
-     const isValid = validate();
+  setApiError('');
 
+  const isValid = validate();
   if (!isValid) return;
-    try {
-      const response = await LoginApi(formData);
 
-      console.log(response);
+  try {
+    const response = await LoginApi(formData);
 
-      // بعد نجاح اللوجين
+    if (response?.status === true || response?.success === true) {
       navigate('/profile');
+    } else {
+      setApiError(response?.message || t('login_failed'));
+    }
 
-    } catch (error) {
-console.log(error.response.data);    }
-  };
+  } catch (error) {
+    setApiError(
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      t('login_failed')
+    );
+  }
+};
 
   return (
     <div className='flex justify-center items-center py-10'>
@@ -153,10 +171,10 @@ console.log(error.response.data);    }
           <TbLogin />
         </span>
 
-        <H_one_register title="تسجيل دخول العضو" />
+        <H_one_register title={t('login')} />
 
         <p className='text-[14px] text-[#6A7282]'>
-          الرجاء إدخال بيانات العضوية للمتابعة
+          {t('member_login_prompt')}
         </p>
 
         <div className='mx-5 w-full'>
@@ -174,13 +192,13 @@ console.log(error.response.data);    }
                 placeholder={item.description}
                 value={formData[item.name]}
                 onChange={handleChange}
-                className='border p-3 my-1 rounded-lg w-full text-[14px] text-[#9A9FA8]'
+                className='border p-3 my-1 rounded-lg w-full text-[14px] '
               />
               {errors[item.name] && (
-  <p className="text-red-500 text-sm">
-    {errors[item.name]}
-  </p>
-)}
+                <p className="text-red-500 text-sm">
+                  {errors[item.name]}
+                </p>
+              )}
 
             </div>
           ))}
@@ -188,38 +206,60 @@ console.log(error.response.data);    }
           {/* branch */}
           <div className='flex flex-col gap-2 mt-4'>
             <label className='font-medium text-[15px] text-[#364153] px-1'>
-              الفرع
+              {t('branch_label')}
             </label>
 
-            <input
-              type='text'
-              name='branch'
-              placeholder='أدخل الفرع'
-              value={formData.branch}
-              onChange={handleChange}
-              className='border p-3 my-1 rounded-lg w-full text-[14px] text-[#9A9FA8]'
+            <Select
+              options={branchOptions}
+              value={branchOptions.find((option) => option.value === formData.branch) || null}
+              onChange={(selectedOption) => {
+                setFormData({
+                  ...formData,
+                  branch: selectedOption?.value || '',
+                });
+                setErrors((prev) => ({
+                  ...prev,
+                  branch: '',
+                }));
+              }}
+              placeholder={t('select_branch')}
+              styles={{
+                option: (provided, state) => ({
+                  ...provided,
+                  backgroundColor: state.isSelected
+                    ? '#FFA811'
+                    : state.isFocused
+                    ? '#FFE0B2'
+                    : 'white',
+                  color: state.isSelected ? 'white' : 'black',
+                }),
+              }}
             />
             {errors.branch && (
-  <p className="text-red-500 text-sm">
-    {errors.branch}
+              <p className='text-red-500 text-sm'>
+                {errors.branch}
+              </p>
+            )}
+          </div>
+{apiError && (
+  <p className="text-red-500 text-sm text-center mt-3">
+    {apiError}
   </p>
 )}
-          </div>
-
           <button
             onClick={handleLogin}
             className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white font-semibold py-3 px-5 rounded-xl hover:bg-[#005f5a] w-full mt-5 flex justify-center gap-3'
           >
-            تسجيل الدخول
+            {t('login')}
           </button>
 
           <p className='text-[14px] text-[#5B626E] pt-3 flex justify-center gap-1'>
-            ليس لديك حساب؟
+            {t('dont_have_account')}
             <Link
               to="/register"
               className='text-[#00786F] font-semibold underline'
             >
-              سجل الآن
+              {t('sign_up_now')}
             </Link>
           </p>
 

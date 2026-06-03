@@ -20,7 +20,7 @@ const Services_Header = () => {
       title: "إجمالي عدد الخدمات",
       value: 13,
       icon: <Layers/>,
-    },
+    }, 
   ];
 
   return (

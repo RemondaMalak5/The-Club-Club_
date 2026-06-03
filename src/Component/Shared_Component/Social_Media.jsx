@@ -6,15 +6,15 @@ const Social_Media = () => {
   const socialArr = [
     {
       icon: <FaFacebookF />,
-      link: "https://www.facebook.com",
+      link: "https://www.facebook.com/theclub.com.eg",
     },
     {
       icon: <FaInstagram />,
-      link: "https://www.instagram.com",
+      link: "https://www.instagram.com/theclub.com.eg",
     },
     {
       icon: <FaXTwitter />,
-      link: "https://twitter.com",
+      link: "https://twitter.com/theclubcomeg",
     },
     {
       icon: <FaWhatsapp />,

@@ -8,6 +8,7 @@ import Values from "../Component/AboutUs_component/Values";
 import Vision_Mission from "../Component/AboutUs_component/Vision_Mission";
 import i18next from "i18next";
 import { About_us } from "../axiosConfig/APIs/About";
+import Spinner from "../Component/Shared_component/Spinner";
 
 const AboutUs = () => {
   const [data, setData] = useState(null);
@@ -31,7 +32,9 @@ const AboutUs = () => {
     Get_About_us();
   }, [i18next.language]);
 
-  if (!data) return <div className="text-center py-10">Loading...</div>;
+  if (!data) {
+    return <Spinner/>;
+  }
 
   return (
     <div>

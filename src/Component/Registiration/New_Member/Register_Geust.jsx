@@ -1,58 +1,3 @@
-// import React from "react";
-// import Stepper_orange from "../../Shared_Component/Stepper_orange";
-// import { BsPersonPlus } from "react-icons/bs";
-// import { useNavigate } from "react-router-dom";
-// import H_one_register from "../../Shared_Component/H_one_register";
-// import Already_Have_Account from "../../Shared_Component/Already_Have_Account";
-// import { IoIosArrowRoundBack } from "react-icons/io";
-
-// const Register_Geust = () => {
-//   const navigate = useNavigate();
-//   const arr = [
-//     { label: "الاسم بالكامل ", description: "ادخل الاسم بالكامل" },
-//     { label: "رقم الهاتف", description: "1755415336  " },
-//     { label: "البريد الإلكتروني", description: "ادخل البريد الإلكتروني" },
-//     { label: "الرقم القومى ", description: "13456789134" },
-//   ];
-//   return (
-//     <div className="flex flex-col justify-center items-center">
-//       <Stepper_orange title="تسجيل كضيف" />
-//       <div className="border p-7 w-[50%] flex flex-col gap-3  rounded-xl shadow-2xl">
-//         <div className="flex flex-col items-center justify-center">
-//           <span className="bg-gradient-to-r from-[#FFA811] to-[#FF683B] text-white p-5 rounded-full text-[30px]">
-//             <BsPersonPlus />
-//           </span>
-//           <H_one_register title="تسجيل كضيف" />
-//           <p className="font-semibold text-[16px] text-[#5B626E]">
-//             الرجاء إدخال بيانات العضوية للمتابعة
-//           </p>
-//         </div>
-
-//         <div>
-//           {arr.map((item, index) => (
-//             <div key={index} className="flex flex-col gap-2 mt-4">
-//               <label> {item.label}</label>
-//               <input
-//                 type="text"
-//                 className="border p-2 rounded-lg"
-//                 placeholder={item.description}
-//               />
-//             </div>
-//           ))}
-//         </div>
-//         <button onClick={() => navigate("/otp-guest")} className="bg-gradient-to-r from-[#FFA811] to-[#FF683B] text-white p-3 rounded-lg w-full mt-5 flex justify-center items-center gap-1">
-//           التالى
-//           <span className="text-[19px] "> <IoIosArrowRoundBack/> </span>
-//         </button>
-//         <Already_Have_Account/>
-//       </div>
-//     </div>
-//   );
-// };
-
-
-// export default Register_Geust;
-
 import React, { useContext, useState } from "react";
 import Stepper_orange from "../../Shared_Component/Stepper_orange";
 import { BsPersonPlus } from "react-icons/bs";
@@ -65,11 +10,13 @@ import { Step_1_validation } from "../../../axiosConfig/APIs/Auth/Register/Step_
 import { UserTokenContext } from "../../../context/UserContext";
 import { Send_OTP } from "../../../axiosConfig/APIs/Auth/Register/Send_OTP";
 import i18next from "i18next";
+import Select from "react-select";
 
 const Register_Geust = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
+  const { saveToken } = useContext(UserTokenContext);
   const [formData, setFormData] = useState({
     branch: "",
     full_name: "",
@@ -96,11 +43,7 @@ const [errors, setErrors] = useState({});
       name: "national_id",
       placeholder: t("national_id_placeholder"),
     },
-    {
-      label: t("branch_label"),
-      name: "branch",
-      placeholder: t("branch_placeholder"),
-    },
+   
     {
       label: t("email_label"),
       name: "email",
@@ -200,52 +143,35 @@ const [errors, setErrors] = useState({});
       console.log(error?.response?.data);
     }
   };
-  const handleSubmit = async () => {
-    if (!validateForm()) return;
+ const handleSubmit = async () => {
+  console.log("formData", formData);
 
-    try {
-      setLoading(true);
-
-      const response = await Step_1_validation(formData);
-      const receivedToken = response?.message?.registration_token;
-      if (receivedToken) {
-        saveToken(receivedToken);
-        await handleVerify(receivedToken)
-      }
-    } catch (error) {
-      console.log("الـ Object اللي راجع من السيرفر بالكامل:", error?.response?.data);
-
-      const apiResponse = error?.response?.data;
-
-      if (apiResponse && typeof apiResponse.error === 'object') {
-        setErrors((prev) => ({
-          ...prev,
-          general: apiResponse.error?.message || t("form_error_invalid_data"),
-        }));
-      }
-      else if (apiResponse && typeof apiResponse.error === 'string') {
-        setErrors((prev) => ({
-          ...prev,
-          general: apiResponse.error,
-        }));
-      }
-      else if (apiResponse && typeof apiResponse.message === 'string') {
-        setErrors((prev) => ({
-          ...prev,
-          general: apiResponse.message,
-        }));
-      }
-      else {
-        setErrors((prev) => ({
-          ...prev,
-          general: t("form_error_retry"),
-        }));
-      }
-
-    } finally {
-      setLoading(false);
-    }
+  if (!validateForm()) {
+    console.log("Validation Failed");
+    return;
   }
+
+  console.log("Validation Passed");
+
+  try {
+  setLoading(true);
+
+  const response = await Step_1_validation(formData);
+
+  console.log("Success:", response);
+
+  const receivedToken = response?.message?.registration_token;
+
+  if (receivedToken) {
+    saveToken(receivedToken);
+    await handleVerify(receivedToken);
+  }
+} catch (error) {
+  console.log("Error:", error);
+} finally {
+  setLoading(false);
+}
+};
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -264,9 +190,9 @@ const [errors, setErrors] = useState({});
           </p>
         </div>
 
-        <div>
+        <div className="flex flex-wrap w-full " >
           {arr.map((item, index) => (
-            <div key={index} className="flex flex-col gap-2 mt-4">
+            <div key={index} className="flex flex-col gap-2 mt-4 w-1/2 px-2">
               <label>{item.label}</label>
 
               <input
@@ -290,6 +216,44 @@ const [errors, setErrors] = useState({});
             </div>
           ))}
         </div>
+ 
+   <Select
+  options={[
+    { value: "The Club - New Capital", label: "The Club - New Capital" },
+    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
+    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
+  ]}
+  value={
+    formData.branch
+      ? {
+          value: formData.branch,
+          label: formData.branch,
+        }
+      : null
+  }
+  onChange={(selectedOption) => {
+    setFormData((prev) => ({
+      ...prev,
+      branch: selectedOption?.value || "",
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      branch: "",
+    }));
+  }}
+  styles={{
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? "#FFA811"
+        : state.isFocused
+        ? "#FFE0B2"
+        : "white",
+      color: state.isSelected ? "white" : "black",
+    }),
+  }}
+/>
 
         {errors.general && (
           <p className="text-red-500 text-sm text-center">

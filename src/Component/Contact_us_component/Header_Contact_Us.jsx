@@ -5,20 +5,22 @@ import { IoFlashOutline } from 'react-icons/io5';
 import { LuPhoneCall } from 'react-icons/lu';
 import { TbUserStar } from 'react-icons/tb';
 import H_one from '../Shared_Component/H_one';
+import { useTranslation } from 'react-i18next'
 
 const Header_Contact_Us = () => {
-  const contact = [
-    { title: "استجابة سريعة", icon:<IoFlashOutline/>},
-   { title: "دعم مستمر", icon:<LuPhoneCall/>},
-    { title: "فريق متخصص", icon:<TbUserStar/>
-}
+  const { t } = useTranslation()
 
-    ]
+  const contact = [
+    { title: t('quick_response'), icon:<IoFlashOutline/>},
+    { title: t('continuous_support'), icon:<LuPhoneCall/>},
+    { title: t('specialized_team'), icon:<TbUserStar/>}
+  ]
+
   return (
-       <div>
+    <div>
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <H_one text={"تواصل معنا"} />
-        <SubTitle SubTitle={"نسعد بتواصلك معنا للإجابة على استفساراتك ومساعدتك في الحصول على أفضل الخدمات الرياضية"} />
+        <H_one text={t('contact_us_header')} />
+        <SubTitle SubTitle={t('contact_us_subtitle')} />
         <div className="flex flex-wrap gap-5 mt-2">
           {contact.map((item, index) => (
             <div

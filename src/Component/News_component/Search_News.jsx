@@ -1,201 +1,93 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
-import {
-  TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputAdornment,
-} from "@mui/material";
 import { Most_read_news } from "../../axiosConfig/APIs/News/Most_Read_News";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import i18next from "i18next";
 import { Last_news } from "../../axiosConfig/APIs/News/Last_News";
+import { News_categoy } from "../../axiosConfig/APIs/News/News_categoy";
+import { CgCalendarDates } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
+import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+import { CiCirclePlus } from "react-icons/ci";
 
 const Search_News = () => {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [branch, setBranch] = useState("");
   const [activity, setActivity] = useState("");
   const [search, setSearch] = useState("");
   const [mostReadNews, setMostReadNews] = useState([]);
   const [lastNews, setLastNews] = useState([]);
-
-  const Get_most_read_news = async () => {
+  const [categories, setCategories] = useState([]);
+  const [branches, setBranches] = useState([]);
+  
+  const Get_most_read_news = useCallback(async () => {
     const params = {
       language: i18next.language,
+      branchId: "all" ,
+      categoryId: "all",
     };
     try {
       const response = await Most_read_news(params);
       setMostReadNews(response.message.data);
     } catch (error) {
+      console.error('Failed to load most read news', error);
     }
-  };
-  const Get_last_news = async () => {
+  }, []);
+  
+  const Get_last_news = useCallback(async () => {
     const params = {
       language: i18next.language,
-
       branchId: "all",
+      categoryId: "all",
+      limit: 5,
     };
     try {
       const response = await Last_news(params);
       setLastNews(response.message.data);
     } catch (error) {
+      console.error('Failed to load last news', error);
     }
-  };
+  }, []);
+
   useEffect(() => {
     Get_last_news();
-  }, [i18next.language]);
+  }, [Get_last_news, i18next.language]);
 
   useEffect(() => {
     Get_most_read_news();
-  }, [i18next.language]);
+  }, [Get_most_read_news, i18next.language]);
+  
 
   return (
     <div className="px-14 py-5">
-    <div className="border p-4 rounded-xl mb-5">
-  <div className="flex flex-col md:flex-row flex-wrap gap-4">
-    
-    {/* البحث */}
-    <TextField
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      placeholder="ابحث في الأخبار"
-      size="small"
-      variant="outlined"
-      fullWidth
-      sx={{
-        flex: 1,
-        minWidth: { xs: "100%", sm: "48%", lg: "24%" },
 
-        "& .MuiOutlinedInput-root": {
-          borderRadius: "12px",
-          backgroundColor: "#fff",
-        },
-      }}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <FaSearch />
-          </InputAdornment>
-        ),
-      }}
-    />
-
-    {/* الفئة */}
-    <FormControl
-      size="small"
-      fullWidth
-      sx={{
-        flex: 1,
-        minWidth: { xs: "100%", sm: "48%", lg: "24%" },
-      }}
-    >
-     <Select
-  value={category}
-  displayEmpty
-  onChange={(e) => setCategory(e.target.value)}
-  sx={{
-    borderRadius: "12px",
-    backgroundColor: "#fff",
-    direction: "rtl",
-
-    "& .MuiSelect-icon": {
-      left: "10px",
-      right: "auto",
-    },
-  }}
->
-        <MenuItem value="">
-          <em>حسب الفئة</em>
-        </MenuItem>
-        <MenuItem value="1">Test 1</MenuItem>
-        <MenuItem value="2">Test 2</MenuItem>
-      </Select>
-    </FormControl>
-
-    {/* الفروع */}
-    <FormControl
-      size="small"
-      fullWidth
-      sx={{
-        flex: 1,
-        minWidth: { xs: "100%", sm: "48%", lg: "24%" },
-      }}
-    >
-     <Select
-  value={branch}
-  displayEmpty
-  onChange={(e) => setBranch(e.target.value)}
-  sx={{
-    borderRadius: "12px",
-    backgroundColor: "#fff",
-    direction: "rtl",
-
-    "& .MuiSelect-icon": {
-      left: "10px",
-      right: "auto",
-    },
-  }}
->
-        <MenuItem value="">
-          <em>كل الفروع</em>
-        </MenuItem>
-        <MenuItem value="branch1">فرع 1</MenuItem>
-        <MenuItem value="branch2">فرع 2</MenuItem>
-      </Select>
-    </FormControl>
-
-    {/* الأنشطة */}
-    <FormControl
-      size="small"
-      fullWidth
-      sx={{
-        flex: 1,
-        minWidth: { xs: "100%", sm: "48%", lg: "24%" },
-      }}
-    >
-     <Select
-  value={activity}
-  displayEmpty
-  onChange={(e) => setActivity(e.target.value)}
-  sx={{
-    borderRadius: "12px",
-    backgroundColor: "#fff",
-    direction: "rtl",
-
-    "& .MuiSelect-icon": {
-      left: "10px",
-      right: "auto",
-    },
-  }}
->
-        <MenuItem value="">
-          <em>كل الأنشطة</em>
-        </MenuItem>
-        <MenuItem value="activity1">نشاط 1</MenuItem>
-        <MenuItem value="activity2">نشاط 2</MenuItem>
-      </Select>
-    </FormControl>
-  </div>
-</div>
-
-      <div className="flex flex-wrap ">
-        <div className="w-1/2 border bg-white rounded-2xl overflow-hidden shadow-sm">
-          <img
+      <div className="flex flex-wrap  ">
+        <div className="xl:w-1/2 w-full border bg-white rounded-2xl overflow-hidden shadow-sm relative">
+          <span className="bg-[#FB923C]  font-bold text-[14px] rounded-full text-white py-2 px-3 m-2 absolute">
+                {"خبر مميز"}
+              </span>
+           <img
             src={mostReadNews[0]?.image}
             alt={mostReadNews[0]?.title}
             className="w-full h-56 object-cover"
           />
-
+         
           <div className="p-4">
-            <span className="text-xs text-green-600">
-              {" "}
-              {mostReadNews[0]?.publishDate}{" "}
-            </span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
+                {mostReadNews[0]?.category}
+              </span>
+              <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 justify-items-center">
+                <span className="text-[16px] ">
+                  <CgCalendarDates />
+                </span>
+                {mostReadNews[0]?.publishDate}
+              </p>
+            </div>
 
             <h2 className="font-bold text-lg mt-2 mb-2">
               {mostReadNews[0]?.title}
@@ -206,31 +98,55 @@ const Search_News = () => {
             </p>
 
             <div className="flex gap-3">
-              <button className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white px-4 py-2 rounded-xl text-sm">
-                {t("view_more")}{" "}
+              <button onClick={() =>
+                navigate(`/news/${mostReadNews[0]?.id}`, {
+                  state: {
+                    branchId: mostReadNews[0]?.branchId,
+                    branchName: mostReadNews[0]?.branchName,
+                  },
+                })
+              }
+                className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white px-4 py-2 rounded-xl text-sm">
+                {t("view_more")}
               </button>
 
-              <button className="border px-4 py-2 rounded-xl text-sm">
+              <button className="border border-[#00786F] px-4 py-2 rounded-xl text-[16px] flex items-center gap-1 text-[#00786F]">
+                            <span className="text-[16px] ">
+                              <CiCirclePlus />
+                            </span>
                 حجز
               </button>
             </div>
           </div>
         </div>
 
-        <div className="w-1/2 ps-5  ">
+        <div className="xl:w-1/2 w-full ps-5 sm:pt-5 xl:pt-0  ">
+          <h2 className="font-bold text-[24px] mb-4 px-2">{t("latest_news")}</h2>
           {lastNews.slice(0, 5).map((item, index) => (
             <div
               key={index}
-              className="flex justify-between items-center  w-full border p-4 rounded-xl my-2"
+              className="flex justify-between items-center  w-full border p-5 rounded-xl my-2"
             >
               <div>
                 <p className="text-sm font-semibold">{item.title}</p>
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-400 flex items-center gap-2">
                   {item.publishDate}
+<span className="text-[12px] text-gray-800 border border-gray-300 px-2  rounded-full">
+                    {item.branchName }
+                  </span>
                 </span>
               </div>
 
-              <button className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] border p-3 text-white rounded-2xl text-xs flex items-center gap-1">
+              <button
+                onClick={() =>
+                  navigate(`/news/${item.id}`, {
+                    state: {
+                      branchId: item.branchId,
+                      branchName: item.branchName,
+                    },
+                  })
+                }
+                className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] border p-3 text-white rounded-2xl text-xs flex items-center gap-1">
                 قراءة المزيد <FiArrowUpRight />
               </button>
             </div>

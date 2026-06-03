@@ -41,7 +41,7 @@ const News_details = () => {
     return (
         <div >
             <div className='border rounded-xl my-4 mx-8'>
-                <img src={data?.image} alt="News" className='w-full h-80 rounded-t-xl' />
+                <img src={data?.image} alt="News" className='w-[1325px] h-[384px] rounded-t-xl' />
                 <div className='px-10 py-5'>
                     <div className='pb-4  flex flex-wrap gap-4 justify-between items-center'>
                         <div>

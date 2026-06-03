@@ -92,7 +92,8 @@ const About_home = () => {
           ))}
         </div>
         <div className="flex flex-wrap gap-3 mt-2 font-bold">
-          <button className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
+          <button onClick={() => navigation("/register")}
+           className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
                    bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F] 
                    text-white border border-[#00786F] 
                    hover:from-white hover:to-white hover:text-[#00786F] 

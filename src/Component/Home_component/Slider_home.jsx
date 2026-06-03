@@ -7,8 +7,8 @@ const Slider_home = () => {
   const {t} = useTranslation();
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const slides = [
-    { id: 1, image: assets.slide_1 },
-    { id: 2, image: assets.slide_2 },
+    { id: 1, image: assets.slide_1, title: t("olympic_tournaments"), description: t("professional_training") },
+    { id: 2, image: assets.slide_2, title: t("جمباز"), description: t("professional_training") },
   ];
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -24,11 +24,12 @@ const Slider_home = () => {
       className="w-full h-[490px] object-cover brightness-50  "
     />
    <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          {t("olympic_tournaments")}
+          {slides[currentSlide].title}
         </h2>
         <p
        className='text-md md:text-l lg:text-xl  text-center  text-[#F3F4F6] absolute top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          {t("professional_training")}</p>
+          {slides[currentSlide].description}
+        </p>
     <button
       onClick={prevSlide}
       className="absolute left-3 top-1/2 text-[40px] text-[#FFFFFF4D]  px-3 py-1"

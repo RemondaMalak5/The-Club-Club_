@@ -8,7 +8,8 @@ const News = () => {
     <div>
       <News_component />
       <Search_News/>
-      <All_News/>
+                  <All_News/>
+
     </div>
   )
 }

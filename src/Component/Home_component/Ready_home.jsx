@@ -18,7 +18,8 @@ const Ready_home = () => {
         </div>
 
         <div className="flex gap-3 py-5">
-          <button className="bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white px-5 py-2 rounded-full flex items-center gap-2 hover:bg-emerald-700 transition">
+          <button onClick={() => navigate('/register')} 
+           className="bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white px-5 py-2 rounded-full flex items-center gap-2 hover:bg-emerald-700 transition">
             <MdOutlinePersonAddAlt1 />
             <span>{t('subscribe_now')}</span>
 
