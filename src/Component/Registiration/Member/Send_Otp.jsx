@@ -19,7 +19,7 @@ const Send_Otp = ({ length = 6 }) => {
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState(56);
   const [error, setError] = useState("");
-   const [currentStep, setCurrentStep] = useState(2);
+   const [currentStep, setCurrentStep] = useState(3);
   const formData = location.state?.formData || {};
   const maskedPhone = formData.phone
     ? formData.phone.replace(/\d(?=\d{4})/g, "*")

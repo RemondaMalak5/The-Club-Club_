@@ -22,19 +22,19 @@ const Proflie_Header = ({data}) => {
                 <span>
                   <RiShieldUserLine />
                 </span>
-                عضو ذهبى
+                {data?.membershipType}
               </p>
               <p className="flex items-center gap-1">
                 <span>
                   <CiStar />
                 </span>
-                متقدم
+                {data?.membershipTier}
               </p>
               <p className="flex items-center gap-1">
                 <span>
                   <CiLocationOn />
                 </span>{" "}
-                فرع اكتوبر{" "}
+        {data?.branch}
               </p>
             </div>
           </div>

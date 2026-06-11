@@ -31,49 +31,48 @@ import React from "react";
 import { IoTimeOutline } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
-const bookings = [
-  {
-    title: "تدريب السباحة",
-    status: "مؤكد",
-    statusColor: "text-[#23A26D]",
-    statusBg: "bg-[#EAF9F5]",
-    date: "الإثنين 25 مايو 2026",
-    time: "10:00 - 11:00",
-  },
-  {
-    title: "جلسة تدريب شخصي",
-    status: "قيد الانتظار",
-    statusColor: "text-[#FF8A00]",
-    statusBg: "bg-[#FFF4E8]",
-    date: "الإثنين 25 مايو 2026",
-    time: "10:00 - 11:00",
-  },
-];
+// const bookings = [
+//   {
+//     title: "تدريب السباحة",
+//     status: "مؤكد",
+//     statusColor: "text-[#23A26D]",
+//     statusBg: "bg-[#EAF9F5]",
+//     date: "الإثنين 25 مايو 2026",
+//     time: "10:00 - 11:00",
+//   },
+//   {
+//     title: "جلسة تدريب شخصي",
+//     status: "قيد الانتظار",
+//     statusColor: "text-[#FF8A00]",
+//     statusBg: "bg-[#FFF4E8]",
+//     date: "الإثنين 25 مايو 2026",
+//     time: "10:00 - 11:00",
+//   },
+// ];
 
-const Bookings = ({data}) => {
+const Bookings = ({ data }) => {
   return (
     <div className="bg-[#F8F8F8] border border-gray-200 rounded-2xl p-4 w-full ">
-      
+
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-800">
           الحجوزات القادمة
         </h2>
-         <span className="text-[#009689] text-xs cursor-pointer">
+        <span className="text-[#009689] text-xs cursor-pointer">
           ← عرض الكل
         </span>
       </div>
 
       {/* Cards */}
       <div className="flex flex-col gap-4">
-        {bookings.map((item, index) => (
+        {data?.slice(0, 3).map((item, index) => (
           <div
             key={index}
             className="bg-white border border-gray-200 rounded-xl p-3"
           >
-            
-                        <div className="flex items-start justify-between">
 
+            <div className="flex items-start justify-between">
               <div className="text-right">
                 <h3 className="font-bold text-sm text-gray-800">
                   {item.title}
@@ -81,7 +80,7 @@ const Bookings = ({data}) => {
 
                 <div className="flex items-center justify-end gap-1 text-gray-400 text-[11px] mt-1">
                   <IoTimeOutline />
-                  <span>{item.time}</span>
+                  <span>{item.date}</span>
                 </div>
 
                 <div className="flex items-center justify-end gap-1 text-gray-400 text-[11px] mt-1">
@@ -89,8 +88,11 @@ const Bookings = ({data}) => {
                   <span>{item.date}</span>
                 </div>
               </div>
-               <span
-                className={`${item.statusBg} ${item.statusColor} text-[10px] px-3 py-1 rounded-full`}
+              <span
+                className={`${item.status === "Confirmed"
+                    ? "bg-green-100 text-green-600"
+                    : "bg-red-100 text-red-600"
+                  } text-[10px] px-3 py-1 rounded-full`}
               >
                 {item.status}
               </span>
@@ -98,7 +100,7 @@ const Bookings = ({data}) => {
 
             {/* Buttons */}
             <div className="grid grid-cols-2 gap-2 mt-4">
-              
+
               <button className="bg-gradient-to-r from-[#2DC6B3] to-[#00786F] text-white text-sm py-2 rounded-lg font-medium hover:opacity-90 duration-300">
                 تفاصيل
               </button>
@@ -114,4 +116,4 @@ const Bookings = ({data}) => {
   );
 };
 
-export default Bookings ;
+export default Bookings;

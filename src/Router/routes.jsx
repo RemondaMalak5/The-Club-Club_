@@ -19,6 +19,7 @@ import Account_setup_member from "../Component/Registiration/Member/Account_setu
 import Login from "../Component/Login/Login";
 import Profile from "../Pages/Profile";
 import Header_academy_details from "../Component/Academy_Component/Academy_details/Header_academy_details";
+import Header_services_details from "../Component/Services_Component/Services_Details/Header_services_details";
 import Champin_header from "../Component/Championship_component/champinship_details/Champin_header";
 import News_details from "../Component/News_component/News_Details/News_details";
 import About_branches from "../Pages/About_branches";
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
       { path: "about", element: <AboutUs /> },
       { path: "champions", element: <Champions /> },
       { path: "services", element: <Services /> },
+      { path: "services/:id", element: <Header_services_details /> },
       {path: "academy", element: <Academy/>},
       {path: "contact", element: <Contact_us/>} ,
       {path: "register", element: <Register/>},

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { NewsDetails } from '../../../axiosConfig/APIs/News/News_details';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import i18next from 'i18next';
 import More_News from './More_News';
 import { icon } from 'leaflet';
 import { MdOutlineDateRange } from "react-icons/md";
-import { IoIosTimer } from "react-icons/io";
+import { IoIosTimer, IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 import Social_Media from '../../Shared_component/Social_Media';
+import i18n from '../../../i18n/i18n';
+import Spinner from '../../Shared_component/Spinner';
 
 
 const News_details = () => {
@@ -15,7 +17,8 @@ const News_details = () => {
     const { id } = useParams();
     const location = useLocation();
     const branchId = location.state?.branchId;
-
+ const navigate = useNavigate();
+ const [loading ,setLoading]=useState(true);
     const Get_News_Details = async () => {
         const params = {
             "language": i18next.language,
@@ -27,6 +30,9 @@ const News_details = () => {
             setData(response.message);
         } catch (error) {
         }
+        finally{
+setLoading(false)
+        }
     }
     useEffect(() => {
         Get_News_Details();
@@ -37,15 +43,24 @@ const News_details = () => {
         { icon: <IoIosTimer />, value: "" },
         { icon: <FaEye />, value: "" },
     ];
-
+if (loading) {
+  return <Spinner />;
+}
     return (
         <div >
+            <div
+                    onClick={() => navigate("/news")}
+                    className="w-full flex items-center gap-2 text-[24px] md:text-[30px] py-4 px-4 md:px-10 cursor-pointer"
+                  >
+                    {i18n.language === "ar" ? <IoMdArrowForward /> : <IoMdArrowBack />}
+                            <h2 className='text-xl font-bold '>{data?.title}</h2>
+                  </div>
+
             <div className='border rounded-xl my-4 mx-8'>
                 <img src={data?.image} alt="News" className='w-[1325px] h-[384px] rounded-t-xl' loading="lazy" />
                 <div className='px-10 py-5'>
                     <div className='pb-4  flex flex-wrap gap-4 justify-between items-center'>
                         <div>
-                            <h2 className='text-xl font-bold mt-4'>{data?.title}</h2>
                             <div className='flex flex-wrap gap-4'>
                                 {info.map((item, index) => (
                                     <p key={index} className='text-[#08AC85DB] text-sm mt-1 flex items-center gap-1'>

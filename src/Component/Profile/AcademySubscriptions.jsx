@@ -1,78 +1,69 @@
 import React from "react";
-import { IoTimeOutline } from "react-icons/io5";
+import { IoTimeOutline, IoLocationOutline } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
-const academies = [
-  {
-    title: "أكاديمية السباحة",
-    status: "نشط",
-    days: "الإثنين من كل أسبوع",
-    time: "10:00 - 11:00",
-  },
-  {
-    title: "أكاديمية كرة القدم",
-    status: "نشط",
-    days: "الإثنين من كل أسبوع",
-    time: "10:00 - 11:00",
-  },
-];
-
-const AcademySubscriptions = ({data}) => {
+const AcademySubscriptions = ({ data }) => {
   return (
-    <div className="bg-[#F8F8F8] border border-gray-200 rounded-2xl p-4 w-full ">
-      
-      {/* Header */}
+    <div className="bg-[#F8F8F8] border border-gray-200 rounded-2xl p-4 w-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-800">
           الأكاديميات المشترك بها
         </h2>
+
         <span className="text-[#009689] text-xs cursor-pointer">
           ← عرض الكل
         </span>
       </div>
 
-      {/* Cards */}
       <div className="flex flex-col gap-4">
-        {academies.map((academy, index) => (
-          <div
-            key={index}
-            className="bg-white border border-gray-200 rounded-xl p-3"
-          >
-            
-            {/* Top */}
-            <div className="flex items-start justify-between">
-              <div className="text-right">
-                <h3 className="font-bold text-sm text-gray-800">
-                  {academy.title}
-                </h3>
+        {data?.length > 0 ? (
+          data.slice(0, 3).map((academy) => (
+            <div
+              key={academy.id}
+              className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="text-right">
+                  <h3 className="font-bold text-lg text-gray-800 mb-2">
+                    {academy.name}
+                  </h3>
 
-                <div className="flex items-center justify-end gap-1 text-gray-400 text-[11px] mt-1">
-                  <IoTimeOutline />
-                  <span>{academy.time}</span>
-                </div>
-
-                <div className="flex items-center justify-end gap-1 text-gray-400 text-[11px] mt-1">
-                  <FaRegCalendarAlt />
-                  <span>{academy.days}</span>
-                </div>
-
-                <p className="text-gray-400 text-[11px] mt-1">
-                  مرة أو أكثر
-                </p>
+                  <div className="flex items-center gap-1 text-gray-500 text-sm ">
+                    <FaRegCalendarAlt />
+                    <span>
+                      {academy.startDate || "الإثنين من كل أسبوع"}
+                    </span>
+                  </div>
+                    <div className="flex justify-center items-center gap-1 text-gray-500 text-sm mt-2">
+                                <IoTimeOutline />
+<span>10:00 - 11:00</span>
               </div>
 
-              <span className="bg-[#EAF9F5] text-[#23A26D] text-[10px] px-3 py-1 rounded-full">
-                {academy.status}
-              </span>
-              
-            </div>
+                  <div className="flex items-center gap-1 text-gray-500 text-sm mt-1 ">
+                    <IoLocationOutline />
+                    <span>
+                      {academy.branch || "فرع أكتوبر"}
+                    </span>
+                  </div>
+                </div>
 
-            {/* Button */}
-            <button className="w-full mt-4 bg-gradient-to-r from-[#2DC6B3] to-[#00786F] text-white text-sm py-2 rounded-lg font-medium hover:opacity-90 duration-300">
-              عرض التفاصيل
-            </button>
-          </div>
-        ))}
+                <span className="bg-[#EAF9F5] text-[#23A26D] border border-[#B7F3D0] text-[11px] px-4 py-1 rounded-full">
+                  نشط
+                </span>
+              </div>
+
+            
+
+              <button className="w-full mt-5 bg-gradient-to-r from-[#2DC6B3] to-[#00786F] text-white text-sm py-3 rounded-lg font-medium">
+                عرض التفاصيل
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="text-sm text-gray-500 text-center py-4">
+            لا توجد أكاديميات مشترك بها
+          </p>
+        )}
       </div>
     </div>
   );

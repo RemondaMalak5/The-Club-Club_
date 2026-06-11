@@ -12,7 +12,7 @@ import Spinner from "../Component/Shared_component/Spinner";
 
 const AboutUs = () => {
   const [data, setData] = useState(null);
-
+   const[error,setError] =useState(false)
    const Get_About_us = async () => {
     const params = {
       language: i18next.language,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoIosArrowRoundBack, IoMdCheckmarkCircleOutline } from 'react-icons/io'
 import { useNavigate, useLocation } from 'react-router-dom';
 import Already_Have_Account from '../../Shared_Component/Already_Have_Account';
@@ -9,7 +9,7 @@ const Confirm_data = () => {
      const navigate = useNavigate();
      const location = useLocation();
      const formData = location.state?.formData || {};
-     const [currentStep, setCurrentStep] = useState(3);
+     const [currentStep, setCurrentStep] = useState(2);
 
     return (
         <div className='py-4 flex flex-col items-center justify-center '>

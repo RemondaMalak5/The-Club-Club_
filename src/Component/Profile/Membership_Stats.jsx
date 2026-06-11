@@ -1,54 +1,49 @@
-import React from 'react'
-import {
-  BadgeCheck,
-  CalendarDays,
-  IdCard,
-  Award,
-} from "lucide-react";
+import React from "react";
+import { CalendarDays, IdCard, Award } from "lucide-react";
 
-const stats = [
-  {
-    title: "نقاط المكافآت",
-    value: "3450 نقطة",
-    desc: "يمكن استبدالها بخصومات",
-    icon: Award,
-    color: "border-r-yellow-400",
-    bg: "bg-yellow-100",
-    iconColor: "text-yellow-500",
-  },
-  {
-    title: "تاريخ انتهاء العضوية",
-    value: "31 ديسمبر 2027",
-    desc: "استبدل النقاط قبل الانتهاء بسنة",
-    icon: CalendarDays,
-    color: "border-r-blue-500",
-    bg: "bg-blue-100",
-    iconColor: "text-blue-600",
-  },
-  {
-    title: "تاريخ تفعيل العضوية",
-    value: "1 يناير 2026",
-    desc: "التجديد التلقائي، كل شهر",
-    icon: CalendarDays,
-    color: "border-r-green-500",
-    bg: "bg-green-100",
-    iconColor: "text-green-600",
-  },
-  {
-    title: "رقم العضوية",
-    value: "M-2024-12345",
-    desc: "عضوية عائلية - ذهبية",
-    icon: IdCard,
-    color: "border-r-orange-400",
-    bg: "bg-orange-100",
-    iconColor: "text-orange-500",
-  },
-];
+const Membership_Stats = ({ data }) => {
+  const stats = [
+    {
+      title: "نقاط المكافآت",
+      value: `${data?.loyaltyPoints || 0} نقطة`,
+      desc: "يمكن استبدالها بخصومات",
+      icon: Award,
+      color: "border-r-yellow-400",
+      bg: "bg-yellow-100",
+      iconColor: "text-yellow-500",
+    },
+    {
+      title: "تاريخ انتهاء العضوية",
+      value: data?.membershipExpiry || "غير متاح",
+      desc: "تاريخ انتهاء العضوية",
+      icon: CalendarDays,
+      color: "border-r-blue-500",
+      bg: "bg-blue-100",
+      iconColor: "text-blue-600",
+    },
+    {
+      title: "آخر تجديد للعضوية",
+      value: data?.lastRenewalDate || "غير متاح",
+      desc: "آخر مرة تم فيها تجديد العضوية",
+      icon: CalendarDays,
+      color: "border-r-green-500",
+      bg: "bg-green-100",
+      iconColor: "text-green-600",
+    },
+    {
+      title: "رقم العضوية",
+      value: data?.membershipNo || data?.membershipId,
+      desc: data?.membershipType || "غير متاح",
+      icon: IdCard,
+      color: "border-r-orange-400",
+      bg: "bg-orange-100",
+      iconColor: "text-orange-500",
+    },
+  ];
 
-const Membership_Stats = ({data}) => {
   return (
     <div className="py-5">
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {stats.map((item, index) => {
           const Icon = item.icon;
 
@@ -59,11 +54,10 @@ const Membership_Stats = ({data}) => {
                 bg-white rounded-xl p-5 min-h-[122px]
                 border-r-4 ${item.color}
                 shadow-[0_2px_10px_rgba(0,0,0,0.08)]
-                flex flex-col justify-between
+                flex flex-col gap-1 justify-between
                 text-right
               `}
             >
-              {/* الأيقونة */}
               <div className="flex justify-start items-start">
                 <div
                   className={`
@@ -75,9 +69,10 @@ const Membership_Stats = ({data}) => {
                 </div>
               </div>
 
-              {/* النص */}
               <div>
-                <p className="text-xs text-gray-400 mb-2">{item.title}</p>
+                <p className="text-xs text-gray-400 mb-2">
+                  {item.title}
+                </p>
 
                 <h3 className="text-lg font-bold text-slate-900 leading-tight">
                   {item.value}
@@ -92,7 +87,7 @@ const Membership_Stats = ({data}) => {
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Membership_Stats
+export default Membership_Stats;

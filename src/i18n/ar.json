@@ -148,7 +148,7 @@
     "resend_otp": "إعادة ارسال الرمز",
     "account_settings": "إعدادات الحساب",
     "create_username_password": "قم بإنشاء اسم مستخدم وكلمة مرور",
-    "username_label": "اسم المستخدم",
+    "username_label": " اسم المستخدم  او البريد الإلكتروني",
     "username_placeholder": "ادخل اسم المستخدم",
     "password_label": "كلمة المرور",
     "password_placeholder": "********",

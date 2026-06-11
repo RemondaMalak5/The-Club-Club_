@@ -1,25 +1,43 @@
-import React from 'react'
+import React from "react";
+import { RiMedalLine } from "react-icons/ri";
 
-const Achievements = () => {
+const Achievements = ({ data }) => {
   return (
- <div className="bg-white rounded-xl p-4 shadow">
-      <h3 className="font-bold mb-3">الإنجازات</h3>
+    <div className="bg-white rounded-xl p-4 shadow">
+      <h3 className="font-bold text-lg mb-4 text-right">
+        الإنجازات
+      </h3>
 
-      <div className="flex justify-between text-center">
-        <div>
-          <p className="text-green-600 font-bold">18</p>
-          <p className="text-xs">عدد الزيارات</p>
-        </div>
-        <div>
-          <p className="text-green-600 font-bold">42</p>
-          <p className="text-xs">عدد الأنشطة</p>
-        </div>
-        <div>
-          <p className="text-green-600 font-bold">4.5</p>
-          <p className="text-xs">متوسط التقييم</p>
-        </div>
+      <div className="space-y-3">
+        {data?.length > 0 ? (
+          data.slice(0, 3).map((item) => (
+            <div
+              key={item.id}
+              className="border rounded-2xl p-4 flex items-center justify-between"
+            >
+              <div className="w-12 h-12 rounded-full bg-[#009689] text-white flex items-center justify-center text-2xl">
+                <RiMedalLine />
+              </div>
+
+              <div className="text-right flex-1 mr-4">
+                <h4 className="font-bold text-[#1F2937]">
+                  {item.title}
+                </h4>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500 py-4">
+            لا توجد إنجازات
+          </p>
+        )}
       </div>
-    </div>  )
-}
+    </div>
+  );
+};
 
-export default Achievements
+export default Achievements;
