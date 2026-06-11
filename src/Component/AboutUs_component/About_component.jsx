@@ -1,14 +1,15 @@
 import React from "react";
 import { assets } from "../../assets/assets";
+import { useTranslation } from "react-i18next";
 
 const About_component = ({ data }) => {
-  console.log (data?.ourClub?.video)
+  const {t}=useTranslation();
+  
   return (
     <>
       <div className="xl:px-14 xl:py-10 p-5">
         <div className="w-full flex flex-wrap">
           
-          {/* Text */}
           <div className="w-full xl:w-1/2">
             <h2 className="text-[44px] font-bold text-[#00786F]">
               عن النادي
@@ -21,19 +22,19 @@ const About_component = ({ data }) => {
 
           {/* Images */}
          {data?.ourClub?.video && (
-  <div className="w-full xl:w-1/2 flex justify-center items-center p-5">
-    <video
-      key={data.ourClub.video}
-      className="w-full h-[300px] object-cover rounded-3xl shadow-xl"
-      autoPlay
-      loop
-      muted
-      playsInline
-      controls
-    >
-      <source src={data?.ourClub?.video} type="video/mp4" />
-      المتصفح لا يدعم تشغيل الفيديو
-    </video>
+  <div className="w-full xl:w-1/2 flex justify-center items-center p-5 ">
+    {data?.ourClub.video ? (
+        <video
+          src={`${"http://156.200.122.85:100/"}${data?.ourClub.video}`}
+          controls
+          autoPlay
+          muted
+          loop
+                className="w-full h-[400px] object-cover rounded-2xl shadow-lg my-5 border-2 border-[#21857C]"
+        />
+      ) : (
+        <p className="text-gray-500">{t("loading_video")}</p>
+      )}
   </div>
 )}
         </div>
