@@ -15,7 +15,8 @@ const Home = () => {
   return (
     <div >
       <Slider_home/>
-      <About_home/>
+      <div className='xl:px-14 md:px-10 py-10 px-10'>
+  <About_home/>
       <Branches_home/>
       <Result_year_home/>
       <Memberships_home/>
@@ -25,6 +26,8 @@ const Home = () => {
       <Photos_home/>
       <News_home/>
       <Ready_home/>
+      </div>
+    
     </div>
   )
 }

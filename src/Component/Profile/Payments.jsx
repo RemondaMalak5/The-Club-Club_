@@ -29,7 +29,7 @@
 
 import React from "react";
 
-const Payments = () => {
+const Payments = ({data}) => {
   const transactions = [
     {
       id: 1,

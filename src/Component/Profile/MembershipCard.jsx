@@ -148,7 +148,7 @@ const member = {
   username: "@ahmed_mahmoud",
 };
 
-const MembershipCard = () => {
+const MembershipCard = ({data}) => {
   const stars = [1, 2, 3, 4, 5];
   const sports = [
     assets.logo,
@@ -216,6 +216,7 @@ const MembershipCard = () => {
                 src={assets.acdemy}
                 alt=""
                 className="w-14 h-14 rounded-full object-cover border"
+                loading="lazy"
               />
               <div className="flex items-center gap-3">
               <div className="text-right">
@@ -244,6 +245,7 @@ const MembershipCard = () => {
               src={assets.barcode}
               alt=""
               className="w-60 object-contain"
+              loading="lazy"
             />
 
             <div className="flex justify-between w-60 text-xs font-bold text-gray-700 mt-1">
@@ -263,6 +265,7 @@ const MembershipCard = () => {
                   src={sport}
                   alt=""
                   className="w-6 h-6 object-contain"
+                  loading="lazy"
                 />
               </div>
             ))}

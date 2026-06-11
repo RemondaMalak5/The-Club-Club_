@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import i18next from "i18next";
 import { Gallary } from "../../axiosConfig/APIs/Home/Gallary";
-import { apiUrl_main } from "../../axiosConfig/Instance";
 import { useTranslation } from "react-i18next";
 
 const Photos_home = () => {
@@ -75,7 +74,7 @@ const Photos_home = () => {
   }
 
   return (
-    <div className="px-4 md:px-14 py-10">
+    <div className="py-10">
 
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
@@ -112,9 +111,10 @@ const Photos_home = () => {
           <div className="md:col-span-1 md:row-span-2 rounded-2xl overflow-hidden relative h-[250px] md:h-full transition-all duration-500">
 
             <img
-              src={`${apiUrl_main}${data[current]?.url}`}
+              src={data[current]?.url}
               alt={data[current]?.branchName}
               className="w-full h-full object-cover"
+              loading="lazy"
             />
 
             <span className="absolute bottom-3 right-3 bg-white px-3 py-1 rounded-full text-sm">
@@ -134,9 +134,10 @@ const Photos_home = () => {
               }`}
             >
               <img
-                src={`${apiUrl_main}${item.url}`}
+                src={item.url}
                 alt={item.branchName}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
 
               <span className="absolute bottom-3 right-3 bg-white px-3 py-1 rounded-full text-sm">

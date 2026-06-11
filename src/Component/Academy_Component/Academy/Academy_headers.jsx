@@ -22,9 +22,7 @@ const Academy_headers = () => {
         catch (error) {
             setError(true) ;
         }
-        // finally{
-        //     setLoading(false)
-        // }
+      
     }
     useEffect(() => {
         Get_Academy_Stats();

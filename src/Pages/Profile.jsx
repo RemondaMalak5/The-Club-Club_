@@ -1,43 +1,66 @@
-import React from 'react'
-import Proflie_Header from '../Component/Profile/Proflie_Header'
-import Membership_Stats from '../Component/Profile/Membership_Stats'
-import MembershipCard from '../Component/Profile/MembershipCard'
-import Notifications from '../Component/Profile/Notifications'
-import FamilyMembers from '../Component/Profile/FamilyMembers'
-import Achievements from '../Component/Profile/Achievements'
-import QuickActions from '../Component/Profile/QuickActions'
-import Bookings from '../Component/Profile/Bookings'
-import Payments from '../Component/Profile/Payments'
-import AcademySubscriptions from '../Component/Profile/AcademySubscriptions'
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import Proflie_Header from "../Component/Profile/Proflie_Header";
+import Membership_Stats from "../Component/Profile/Membership_Stats";
+import MembershipCard from "../Component/Profile/MembershipCard";
+import Notifications from "../Component/Profile/Notifications";
+import FamilyMembers from "../Component/Profile/FamilyMembers";
+import Achievements from "../Component/Profile/Achievements";
+import QuickActions from "../Component/Profile/QuickActions";
+import Bookings from "../Component/Profile/Bookings";
+import Payments from "../Component/Profile/Payments";
+import AcademySubscriptions from "../Component/Profile/AcademySubscriptions";
+import Spinner from "./../Component/Shared_Component/Spinner";
+import { Get_profile } from "../axiosConfig/APIs/Profile/Profile";
+import i18next from "i18next";
 
 const Profile = () => {
+  const {
+  data,
+  isLoading,
+  isError,
+  error,
+} = useQuery({
+  queryKey: ["profile", i18next.language],
+  queryFn: () =>
+    Get_profile({
+      language: i18next.language,
+    }),
+});
+
+const profile = data?.message?.data;
+
+
+  if (isLoading) {
+    return <Spinner/>;
+  }
+
+  if (isError) {
+    return <div>{error.message || "Something went wrong"}</div>;
+  }
+
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
-        <Proflie_Header/>
-        <Membership_Stats/>
-         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        
-        {/* LEFT SIDE */}
+      <Proflie_Header data={profile} />
+      <Membership_Stats data={profile} />
+
+       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 space-y-4">
-           <MembershipCard/>
-          {/* <Activities/> */}
-          <AcademySubscriptions/>
-          <Bookings/>
-          <Payments/>
+          <MembershipCard data={profile} />
+          <AcademySubscriptions data={profile.subscribedAcademies} />
+          <Bookings data={profile.upcomingBookings} />
+          <Payments data={profile.paymentHistory} />
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className=" space-y-4">
-            <Notifications/>
-          <FamilyMembers/>
-          <Achievements/>
-          <QuickActions/>
-         
+        <div className="space-y-4">
+          <Notifications data={profile.notifications} />
+          <FamilyMembers data={profile.familyMembers} />
+          <Achievements data={profile.achievements} />
+          <QuickActions data={profile} />
         </div>
-
-      </div>
+      </div> 
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

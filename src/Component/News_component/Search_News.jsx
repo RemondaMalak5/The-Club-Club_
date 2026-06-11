@@ -74,6 +74,7 @@ const Search_News = () => {
             src={mostReadNews[0]?.image}
             alt={mostReadNews[0]?.title}
             className="w-full h-56 object-cover"
+            loading="lazy"
           />
          
           <div className="p-4">

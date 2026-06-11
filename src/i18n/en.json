@@ -193,7 +193,7 @@
     "card_number_label": "Membership Number",
     "message_label": "Message",
     "message_placeholder": "Write your message here...",
-    "send_message_btn": "Send Message",
+    "send_message_btn": "Send ",
     "message_required": "Message is required",
     "address": "Address",
     "working_hours": "Working Hours",
@@ -217,6 +217,8 @@
     "arabic_lang": "العربية",
     "english_lang": "English",
     "all_categories": "All Categories" ,
-    " Loading...": " Loading..."
+    " Loading...": " Loading...",
+    "forget_password": "Forgot Password ?",
+    "welcome_branch": "Welcome to {{branchName}} Branch"
 
 }

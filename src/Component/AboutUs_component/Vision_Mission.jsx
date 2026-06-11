@@ -3,7 +3,6 @@
 import React from "react";
 import { assets } from "../../assets/assets";
 import Title_1 from "../Shared_Component/Title_1";
-import { apiUrl_main } from "../../axiosConfig/Instance";
 
 const Vision_Mission = ({ data }) => {
   return (
@@ -29,9 +28,10 @@ const Vision_Mission = ({ data }) => {
           {/* Image */}
           <div className="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px]  rounded-3xl shadow-2xl flex items-center justify-center shrink-0">
             <img
-              src={`${apiUrl_main}${data?.vision?.image}`}
+              src={data?.vision?.image}
               alt="Vision"
               className="w-full h-full  rounded-3xl "
+              loading="lazy"
             />
           </div>
         </div>
@@ -53,9 +53,10 @@ const Vision_Mission = ({ data }) => {
           </div>
             <div className="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px]  rounded-3xl shadow-2xl flex items-center justify-center shrink-0">
             <img
-              src={`${apiUrl_main}${data?.mission?.image}`}
+              src={data?.mission?.image}
               alt="Mission"
               className="w-full h-full  rounded-3xl "
+              loading="lazy"
             />
           </div>
 

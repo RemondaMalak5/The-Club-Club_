@@ -1,17 +1,21 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.jsx';
-import './i18n/i18n';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import "./i18n/i18n";
 import "leaflet/dist/leaflet.css";
-// بنستورد الـ Provider مش الـ Context نفسه
-import { UserTokenProvider } from './context/UserContext.jsx'; 
 
-createRoot(document.getElementById('root')).render(
+import { UserTokenProvider } from "./context/UserContext.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* تغليف المشروع بالـ Provider الجديد */}
-    <UserTokenProvider>
-      <App />
-    </UserTokenProvider>
+    <QueryClientProvider client={queryClient}>
+      <UserTokenProvider>
+        <App />
+      </UserTokenProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

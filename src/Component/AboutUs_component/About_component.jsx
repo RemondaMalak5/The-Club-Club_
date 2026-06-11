@@ -85,13 +85,23 @@ const About_component = ({ data }) => {
           </div>
 
           {/* Images */}
-          <div className="w-full md:w-1/2">
-            <div className="relative w-[250px] h-[300px]">
+          <div className="w-full md:w-1/2 flex justify-center items-center p-5">
+          <video
+              src={data?.ourClub?.video }
+              className="w-full h-[300px] object-cover rounded-3xl shadow-xl"
+              autoPlay
+              loop
+              muted
+            />
+          </div>
+        </div>
+            {/* <div className="relative w-[250px] h-[300px]">
               <div className="absolute top-0 right-36 w-full h-full rounded-3xl overflow-hidden shadow-xl">
                 <img
                   src={assets.about}
                   className="w-full h-full"
                   alt="about"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-teal-700/70"></div>
               </div>
@@ -101,18 +111,18 @@ const About_component = ({ data }) => {
                   src={assets.about_us}
                   className="w-full h-full object-cover"
                   alt="about"
+                  loading="lazy"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
-        </div>
-      </div>
 
       {/* slogan */}
       <div className="w-full bg-slate-800 flex flex-wrap my-10 relative h-[250px]">
         <img
           src={assets.background}
           className="w-full h-full object-cover absolute top-0 left-0"
+          loading="lazy"
         />
 
         <div className="absolute inset-0 bg-[#EBF1F1]/70"></div>

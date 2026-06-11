@@ -1,12 +1,11 @@
 
-
 import React, { useEffect, useState } from "react";
 import { LuCircleCheckBig } from "react-icons/lu";
 import { Memberships } from "../../axiosConfig/APIs/Home/Membership";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
-const Memberships_home = () => {
+const Memberships_branch = ({branchId}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
@@ -115,4 +114,4 @@ const Memberships_home = () => {
   );
 };
 
-export default Memberships_home;
+export default Memberships_branch;

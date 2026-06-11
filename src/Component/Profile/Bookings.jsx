@@ -50,7 +50,7 @@ const bookings = [
   },
 ];
 
-const Bookings = () => {
+const Bookings = ({data}) => {
   return (
     <div className="bg-[#F8F8F8] border border-gray-200 rounded-2xl p-4 w-full ">
       

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/assets";
 import { CgCalendarDates } from "react-icons/cg";
@@ -8,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 import { useNavigate } from "react-router-dom";
 
-const News_home = () => {
+const News_branch = ({branchId}) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ const News_home = () => {
   const Get_News_List = async () => {
      const params = {
         "language": i18next.language, 
-        "branchId":"all",
+        "branchId":branchId,
         "per_page": 3,
           
     }
@@ -110,4 +111,4 @@ const News_home = () => {
     );
 };
 
-export default News_home;
+export default News_branch;

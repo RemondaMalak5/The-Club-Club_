@@ -36,7 +36,7 @@ useEffect(() => {
 
  
   return (
-    <div className="w-full flex flex-col items-center py-16 bg-white px-10 sm:px-10 lg:px-14">
+    <div className="w-full flex flex-col items-center py-10 px-5 bg-white ">
       <h2 className="text-[36px] font-bold text-gray-800 text-center py-2">
         {t("excellent_results")}
       </h2>

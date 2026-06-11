@@ -69,7 +69,6 @@ const Academy_home = () => {
   }, [i18next.language,selectedBranch]);
 
   return (
-    <div className="px-4 sm:px-10 lg:px-10 py-6" >
       <div className="w-full bg-[#F2F6F5] p-4 sm:p-6 lg:p-8 rounded-2xl">
 
         {/* Header */}
@@ -191,7 +190,6 @@ const Academy_home = () => {
         </div>
 
       </div>
-    </div>
   );
 };
 

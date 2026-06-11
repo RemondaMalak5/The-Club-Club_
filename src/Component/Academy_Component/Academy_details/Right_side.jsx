@@ -55,6 +55,7 @@ const Right_side = ({ data }) => {
                   src={trainer.photo}
                   alt={trainer.name}
                   className="w-16 h-16 rounded-full object-cover flex-shrink-0"
+                  loading="lazy"
                 />
 
                 {/* Trainer Info */}
@@ -181,6 +182,7 @@ const Right_side = ({ data }) => {
 <img
                   src={assets.image_1}
                   className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                  loading="lazy"
                 />              <div className="flex flex-col">
                 <span className=" font-bold text-[16px]">{e?.title}</span>
                 <p> {e?.season}</p>

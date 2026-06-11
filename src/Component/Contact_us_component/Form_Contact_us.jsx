@@ -15,6 +15,26 @@ const Form_Contact_us = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const inputs = [
+    {
+      name: "fullName",
+      label: t("full_name_label"),
+      placeholder: t("full_name_placeholder"),
+      type: "text",
+    },
+    {
+      name: "email",
+      label: t("email_label"),
+      placeholder: t("email_placeholder"),
+      type: "email",
+    },
+    {
+      name: "phone",
+      label: t("phone_label"),
+      placeholder: t("phone_placeholder"),
+      type: "text",
+    },
+  ];
 
   const branches = [
     {
@@ -36,7 +56,7 @@ const Form_Contact_us = () => {
 
   const submitform = async (formData) => {
     const selectedBranch = branches.find(
-      (branch) => branch.value === formData.branch
+      (branch) => branch.value === formData.branch,
     );
 
     const body = {
@@ -123,107 +143,39 @@ const Form_Contact_us = () => {
   return (
     <form onSubmit={handleSubmit} className="w-full xl:w-[70%]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Full Name */}
-        <div>
-          <label
-            className={`block text-sm text-gray-700 mb-2 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
-          >
-            {t("full_name_label")}
-          </label>
-
-          <input
-            type="text"
-            name="fullName"
-            placeholder={t("full_name_placeholder")}
-            value={formData.fullName}
-            onChange={handleChange}
-            className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-teal-500 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
-          />
-
-          {errors.fullName && (
-            <p
-              className={`text-red-500 text-sm mt-1 ${
+        {inputs.map((i, index) => (
+          <div key={index}>
+            <label
+              className={`block font-bold text-gray-700 mb-2 ${
                 i18n.dir() === "rtl" ? "text-right" : "text-left"
               }`}
             >
-              {errors.fullName}
-            </p>
-          )}
-        </div>
-
-        {/* Email */}
-        <div>
-          <label
-            className={`block text-sm text-gray-700 mb-2 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
-          >
-            {t("email_label")}
-          </label>
-
-          <input
-            type="email"
-            name="email"
-            placeholder={t("email_placeholder")}
-            value={formData.email}
-            onChange={handleChange}
-            className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-teal-500 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
-          />
-
-          {errors.email && (
-            <p
-              className={`text-red-500 text-sm mt-1 ${
+              {i.label}
+            </label>
+            <input
+              type={i.type}
+              name={i.name}
+              placeholder={i.placeholder}
+              value={formData[i.name]}
+              onChange={handleChange}
+              className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-teal-500 ${
                 i18n.dir() === "rtl" ? "text-right" : "text-left"
               }`}
-            >
-              {errors.email}
-            </p>
-          )}
-        </div>
-
-        {/* Phone */}
-        <div className="md:col-span-2">
-          <label
-            className={`block text-sm text-gray-700 mb-2 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
-          >
-            {t("phone_label")}
-          </label>
-
-          <input
-            type="text"
-            name="phone"
-            placeholder={t("phone_placeholder")}
-            value={formData.phone}
-            onChange={handleChange}
-            className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-teal-500 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
-          />
-
-          {errors.phone && (
-            <p
-              className={`text-red-500 text-sm mt-1 ${
-                i18n.dir() === "rtl" ? "text-right" : "text-left"
-              }`}
-            >
-              {errors.phone}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Branch */}
-      <div className="mt-6">
+            />
+            {errors[i.name] && (
+              <p
+                className={`text-red-500 text-sm mt-1 ${
+                  i18n.dir() === "rtl" ? "text-right" : "text-left"
+                }`}
+              >
+                {errors[i.name]}
+              </p>
+            )}
+          </div>
+        ))}
+         <div className="">
         <label
-          className={`block text-sm text-gray-700 mb-2 ${
+          className={`block font-bold text-gray-700 mb-2 ${
             i18n.dir() === "rtl" ? "text-right" : "text-left"
           }`}
         >
@@ -233,9 +185,7 @@ const Form_Contact_us = () => {
         <Select
           options={branches}
           value={
-            branches.find(
-              (option) => option.value === formData.branch
-            ) || null
+            branches.find((option) => option.value === formData.branch) || null
           }
           onChange={(selectedOption) => {
             setFormData((prev) => ({
@@ -260,12 +210,15 @@ const Form_Contact_us = () => {
             }),
             option: (provided, state) => ({
               ...provided,
-              backgroundColor: state.isSelected
-                ? "#FFA811"
-                : state.isFocused
-                ? "#FFE0B2"
-                : "white",
-              color: state.isSelected ? "white" : "black",
+backgroundColor: state.isSelected
+  ? "#EBF3F1"
+  : state.isFocused
+    ? "#009689"
+    : "white",
+
+color: state.isSelected
+  ? "black"
+  : "black",
             }),
           }}
         />
@@ -281,10 +234,14 @@ const Form_Contact_us = () => {
         )}
       </div>
 
+      </div>
+
+     
+
       {/* Message */}
       <div className="mt-6">
         <label
-          className={`block text-sm text-gray-700 mb-2 ${
+          className={`block font-bold text-gray-700 mb-2 ${
             i18n.dir() === "rtl" ? "text-right" : "text-left"
           }`}
         >

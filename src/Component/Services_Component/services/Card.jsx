@@ -11,6 +11,7 @@ const Card = ({ item }) => {
           src={item.image}
           alt=""
           className="w-full h-48 object-cover"
+          loading="lazy"
         />
 
         {/* Category Badge */}

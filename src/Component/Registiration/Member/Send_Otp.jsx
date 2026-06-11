@@ -19,7 +19,7 @@ const Send_Otp = ({ length = 6 }) => {
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState(56);
   const [error, setError] = useState("");
-
+   const [currentStep, setCurrentStep] = useState(2);
   const formData = location.state?.formData || {};
   const maskedPhone = formData.phone
     ? formData.phone.replace(/\d(?=\d{4})/g, "*")
@@ -105,7 +105,8 @@ const Send_Otp = ({ length = 6 }) => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Stepper_green title={t("otp_verify_title")} currentStep={3} />
+      <Stepper_green title={t("otp_verify_title")} currentStep={currentStep} onStepClick={(step) => setCurrentStep(step)} />
+
       <div className="border p-7 w-[50%] flex flex-col gap-3 justify-center items-center rounded-xl shadow-2xl">
         <span className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]">
           <LuShield />

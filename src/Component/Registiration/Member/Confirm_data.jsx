@@ -9,10 +9,11 @@ const Confirm_data = () => {
      const navigate = useNavigate();
      const location = useLocation();
      const formData = location.state?.formData || {};
+     const [currentStep, setCurrentStep] = useState(3);
 
     return (
         <div className='py-4 flex flex-col items-center justify-center '>
-            <Stepper_green currentStep={2} title={"التحقق من البيانات"}/>
+            <Stepper_green currentStep={currentStep} totalSteps={4} title={"التحقق من البيانات"} onStepClick={(step) => setCurrentStep(step)}/>
             <div className='border p-7 w-[50%] flex flex-col gap-3 items-center justify-center rounded-xl shadow-2xl'>
                 <span className='bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]'><IoMdCheckmarkCircleOutline />
                 </span>

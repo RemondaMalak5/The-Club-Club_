@@ -54,6 +54,7 @@ const Footer = () => {
               src={assets.theClub_Logo}
               alt={t("club_name")}
               className="w-20 h-20"
+              loading="lazy"
             />
             <h2 className="font-bold text-lg">{t("club_name")}</h2>
           </div>

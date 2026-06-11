@@ -2,6 +2,7 @@
 import { useTranslation } from "react-i18next";
 import { CiDiscount1 } from "react-icons/ci";
 import { GiTrophyCup } from "react-icons/gi";
+import { MdLanguage } from "react-icons/md";
 import { SlLocationPin } from "react-icons/sl";
 
 const Nav_top = () => {
@@ -12,7 +13,7 @@ const Nav_top = () => {
       
       {/* Marquee */}
       <div className="flex-1 overflow-hidden">
-        <div className="flex whitespace-nowrap animate-marquee gap-10 text-white font-[400] text-[16px]">
+        <div className={`flex whitespace-nowrap  ${i18n.language === 'en' ? 'animate-marquee-reverse' : 'animate-marquee'} gap-10 text-white font-[400] text-[16px]`}>
           <span className="flex items-center gap-1">
             <GiTrophyCup />
             {t('winter_tournament')}
@@ -49,14 +50,16 @@ const Nav_top = () => {
       {/* Language Button */}
       <div className="px-5">
         <button
-          className="rounded-full border px-5 py-1 bg-transparent hover:bg-white text-white hover:text-black"
+          className="rounded-full border px-5 py-1 bg-transparent hover:bg-white text-white hover:text-black flex items-center gap-1 "
           onClick={() => {
             const newLang = i18n.language.startsWith("en") ? "ar" : "en";
             i18n.changeLanguage(newLang);
             localStorage.setItem("lang", newLang);
           }}
         >
-          {i18n.language.startsWith("en") ? t('arabic_lang') : t('english_lang')}
+
+          {i18n.language.startsWith("en") ? t('arabic_lang') : t('english_lang')}           <MdLanguage/>
+
         </button>
       </div>
     </div>

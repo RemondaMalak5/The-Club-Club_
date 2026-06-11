@@ -64,7 +64,7 @@ const Booking_home = () => {
   ];
 
   return (
-    <div className="mx-14 my-10 p-10 rounded-3xl border  shadow-md bg-gradient-to-l from-[#DBEFEA] via-[#EBF3F1] to-white flex flex-wrap justify-between gap-8">
+    <div className="p-10 rounded-3xl border  shadow-md bg-gradient-to-l from-[#DBEFEA] via-[#EBF3F1] to-white flex flex-wrap justify-between gap-8">
 
       {/* left section */}
       <div className="flex flex-col py-5 gap-3 w-full lg:w-[60%]">

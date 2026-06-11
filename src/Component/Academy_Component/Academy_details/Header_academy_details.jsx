@@ -1,13 +1,17 @@
 import i18next from "i18next";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Academy_Detail } from "../../../axiosConfig/APIs/Academy/Academy_Details";
 import Left_side from "./Left_side";
 import Right_side from "./Right_side";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineDateRange, MdPersonOutline } from "react-icons/md";
+import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
+import { useTranslation } from "react-i18next";
 
 const Header_academy_details = () => {
+  const{i18n}=useTranslation();
+  const navigation =useNavigate();
   const [data, setData] = useState();
   const [error, setError] = useState(false);
   const { id } = useParams();
@@ -18,7 +22,6 @@ const Header_academy_details = () => {
     id: id,
     branchId: branchId,
   };
-
 
   const Get_Academy_Details = async () => {
     try {
@@ -37,15 +40,22 @@ const Header_academy_details = () => {
 
   return (
     <div>
-      <img src={data?.image} alt="Academy" className="w-full h-[300px]" />
+      <div onClick={()=>navigation(`/academy`)} className="w-full flex text-[30px] items-center py-3">
+        {i18n.language === "ar" ? <IoMdArrowForward /> : <IoMdArrowBack />}
+        <p className=" font-bold ">{data?.name}</p>
+      </div>
+      <img
+        src={data?.image}
+        alt="Academy"
+        className="w-full h-[350px]"
+        loading="lazy"
+      />
       <div className="px-14">
-        <p className=" font-bold text-[40px]">{data?.name}</p>
+        {/* <p className=" font-bold text-[30px]">{data?.name}</p> */}
         <div className=" flex items-center gap-6 mt-4">
           <div className="flex items-center gap-1">
             <FaStar className="text-yellow-400" />
-            <span className="text-[18px] font-bold ">
-              {data?.rating}
-            </span>
+            <span className="text-[18px] font-bold ">{data?.rating}</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -56,11 +66,13 @@ const Header_academy_details = () => {
             </span>
           </div>
           <div className="flex items-center gap-1">
-             <span className="text-[18px]"><MdPersonOutline /> </span>
-            <span className="text-gray-600 text-sm">{data?.trainersCount} متدرب </span>
+            <span className="text-[18px]">
+              <MdPersonOutline />{" "}
+            </span>
+            <span className="text-gray-600 text-sm">
+              {data?.trainersCount} متدرب{" "}
+            </span>
           </div>
-
-
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 px-4 lg:px-14 py-8">

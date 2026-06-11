@@ -13,6 +13,7 @@ const Account_setup_member = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { token } = useContext(UserTokenContext);
+  const [currentStep, setCurrentStep] = useState(4);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -126,7 +127,7 @@ const Account_setup_member = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Stepper_green title={t("account_settings")} currentStep={4} />
+      <Stepper_green currentStep={currentStep} totalSteps={4} title={t("account_settings")} onStepClick={(step) => setCurrentStep(step)} />
       <div className="border p-7 w-[50%] flex flex-col gap-3 rounded-xl shadow-2xl">
         <div className="flex flex-col items-center justify-center">
           <span className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]">

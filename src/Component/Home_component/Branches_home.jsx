@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Title_1 from "../Shared_Component/Title_1";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import SubTitle from "../Shared_Component/SubTitle";
@@ -7,7 +7,6 @@ import Btn_bg from "../Shared_Component/Btn_bg";
 import { useNavigate } from "react-router-dom";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
-import { apiUrl_main } from "../../axiosConfig/Instance";
 import { useTranslation } from "react-i18next";
 
 const Branches_home = () => {
@@ -17,6 +16,7 @@ const Branches_home = () => {
    const Get_Branches = async () => {
     const params = {
       "language": i18next.language,
+
     }
     try {
       const response = await AllBranches(params);
@@ -30,9 +30,8 @@ const Branches_home = () => {
   }, [i18next.language]);
 
   return (
-    <div className="px-10 sm:px-10 py-10  ">
-
-      <div className="flex justify-between items-center  rounded-2xl  px-5 py-1">
+<div className=" py-10">
+   <div className="flex justify-between items-center  rounded-2xl  px-5 py-1 ">
         <div>
           <Title_1 title={t("our_branches")} />
           <SubTitle SubTitle={t("choose_branch")} />
@@ -53,7 +52,7 @@ const Branches_home = () => {
         {branch?.map((e, index) => (
           <div key={index} className="w-full md:w-1/3 px-3 py-3 ">
             <div className="border rounded-xl shadow-2xl   ">
-              <img src={`${apiUrl_main}${e.image}`} className="h-60 w-full object-cover rounded-xl" />
+              <img src={e.image} className="h-60 w-full object-cover rounded-xl" loading="lazy" />
 
               <div className="px-5 py-5 flex flex-col gap-3">
                 <p className="font-bold text-[18px]">{e.name}</p>
@@ -65,7 +64,10 @@ const Branches_home = () => {
                 <div className="flex flex-wrap gap-5">
                   <Btn_bg btn={t("academies")} onClick={() => navigate(`/academy`)} />
 
-                  <button onClick={()=>navigate(`/about`)} className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
+                  <button onClick={()=>navigate(`/about-branches/${e.registryId}` ,
+                  {state:{registryId: e.registryId ,
+                  branchName: e.name,
+                  }})} className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
                     {t("details")}
                   </button>
                 </div>
@@ -75,7 +77,8 @@ const Branches_home = () => {
 
         ))}
       </div>
-    </div>
+</div>
+     
   );
 };
 

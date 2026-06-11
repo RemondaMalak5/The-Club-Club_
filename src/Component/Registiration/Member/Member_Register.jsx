@@ -15,6 +15,7 @@ const Member_Register = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { saveToken } = useContext(UserTokenContext);
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     branch: '',
     full_name: '',
@@ -126,7 +127,8 @@ const Member_Register = () => {
 
   return (
     <div className='py-10  flex flex-col items-center justify-center'>
-      <Stepper_green currentStep={1} totalSteps={4} title="تسجيل عضو " />
+      <Stepper_green currentStep={currentStep} totalSteps={4} title="تسجيل عضو " onStepClick={(step) => setCurrentStep(step)}/> 
+
       <div className='border p-7 w-[55%] flex flex-col gap-3 items-center justify-center rounded-xl shadow-2xl'>
         <span className='bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]'><IoMdPerson />
         </span>

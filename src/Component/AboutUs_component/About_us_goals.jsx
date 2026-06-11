@@ -1,6 +1,6 @@
 import React from 'react'
 import Title_1 from '../Shared_Component/Title_1'
-import { apiUrl_main } from '../../axiosConfig/Instance';
+import i18n from './../../i18n/i18n';
 
 const About_us_goals = ({ data }) => {
 
@@ -24,17 +24,18 @@ const About_us_goals = ({ data }) => {
           </div>
         </div>
 
-        <div className='xl:w-1/3 w-full flex justify-center xl:justify-start'>
+        <div className='xl:w-1/3 w-full flex justify-center xl:justify-start pb-7'>
           <div className="relative w-[150px] sm:w-[180px] h-[200px] sm:h-[230px]">
             <div className="absolute top-0 right-4 w-full h-full rounded-3xl overflow-hidden shadow-xl">
               <div className="absolute inset-0 bg-[#277C79]"></div>
             </div>
 
-            <div className="absolute top-8 sm:top-10 right-16 sm:right-24 w-full h-full rounded-3xl overflow-hidden shadow-xl bg-white">
+            <div className={`absolute top-8 sm:top-10  ${i18n.dir() === "rtl" ? "left-16 sm:left-24" : "right-16 sm:right-24"}  w-full h-full rounded-3xl overflow-hidden shadow-xl bg-white `}>
               <img
-                src={`${apiUrl_main}${data?.goals?.image}`}
+                src={data?.goals?.image}
                 alt="football"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
           </div>

@@ -8,14 +8,15 @@ import { IoNotificationsOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import H_one from "../Shared_Component/H_one";
 
-const Proflie_Header = () => {
+const Proflie_Header = ({data}) => {
+  console.log("Profile Header Data:", data);
   return (
     <div >
       <div className="py-5 px-10   rounded-2xl flex flex-wrap bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
         <div className="flex gap-4 items-center xl:w-1/2 w-full">
-          <img src={assets.logo} className="w-20 h-20 rounded-full" />
+          <img src={assets.logo} className="w-20 h-20 rounded-full" loading="lazy" />
           <div className=" flex flex-col gap-2">
-            <H_one text={"ريموندا ملاك "} />
+            <H_one text={data?.fullName} />
             <div className="flex text-[#6A7282] font-medium gap-4 ">
               <p className="flex items-center gap-1">
                 <span>

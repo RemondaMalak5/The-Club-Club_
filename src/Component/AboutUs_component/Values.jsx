@@ -40,12 +40,14 @@ const Values = ({ data }) => {
           src={assets.about_us}
           alt="Tennis court"
           className="absolute top-0 right-[28%] sm:right-[35%] lg:right-[30%] w-[150px] sm:w-[200px] lg:w-[210px] h-[360px] sm:h-[460px] lg:h-[500px] object-cover rounded-2xl shadow-xl"
+          loading="lazy"
         />
 
         <img
           src={assets.acdemy}
           alt="Tennis racket"
           className="absolute top-[80px] sm:top-[100px] right-[8%] sm:right-[18%] lg:right-[5%] w-[165px] sm:w-[220px] lg:w-[230px] h-[270px] sm:h-[350px] lg:h-[365px] object-cover rounded-2xl shadow-xl"
+          loading="lazy"
         />
       </div>
 

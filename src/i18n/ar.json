@@ -194,7 +194,7 @@
     "select_plan": "اختر الخطة",
     "message_label": "الرسالة",
     "message_placeholder": "اكتب رسالتك هنا...",
-    "send_message_btn": "إرسال الرسالة",
+    "send_message_btn": "إرسال ",
     "message_required": "الرسالة مطلوبة",
     "address": "العنوان",
     "working_hours": "ساعات العمل",
@@ -218,5 +218,9 @@
     "arabic_lang": "العربية",
     "english_lang": "English",
     "all_categories": "جميع الفئات",
-    " Loading...": "   جاري التحميل..."
+    " Loading...": "   جاري التحميل...",
+    "forget_password": "نسيت كلمة المرور ؟",
+    "welcome_branch": "مرحبًا بكم في فرع {{branchName}}"
+
+
 }

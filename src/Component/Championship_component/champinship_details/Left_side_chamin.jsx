@@ -71,6 +71,7 @@ const Left_side_chamin = ({ data }) => {
               src={img}
               alt="gallery"
               className="w-full h-[120px] object-cover rounded-lg hover:opacity-80 transition-opacity"
+              loading="lazy"
             />
           )) || (
               <>

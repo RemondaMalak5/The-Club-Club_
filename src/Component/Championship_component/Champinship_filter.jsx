@@ -161,6 +161,7 @@ const Champinship_filter = () => {
                     ? "w-full h-40"
                     : "w-full md:w-[320px] h-52 md:h-auto"
                     }`}
+                  loading="lazy"
                 />
 
                 <div className="flex-1">

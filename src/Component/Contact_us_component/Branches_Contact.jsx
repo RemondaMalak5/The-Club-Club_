@@ -32,11 +32,11 @@ const Branches_Contact = () => {
   ];
 
   return (
-    <div className="w-full flex flex-wrap justify-center gap-6 mt-10">
+    <div className="w-full flex flex-wrap justify-center gap-6 mt-10  ">
         {Branches.map((branch, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-md p-5 max-w-sm w-full relative hover:scale-105 transition border border-[#E5E7EB]"
+            className=" bg-white rounded-2xl shadow-md p-5 w-sm w-full relative hover:scale-105 transition border border-[#E5E7EB]"
           >
             <span className="absolute left-4 top-4 bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm">
               {t('open')}

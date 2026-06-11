@@ -6,25 +6,10 @@ import { FaLocationDot } from "react-icons/fa6";
 import Map_component from "./Map_component";
 import i18next from "i18next";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+import { useNavigate } from 'react-router-dom';
 
 const Branches_component = () => {
-  // const Branches = [
-  //   {
-  //     name: "العاصمة الإدارية الجديدة",
-  //     address: "شارع 6 أكتوبر، الجيزة",
-  //     phone: "+20123456789",
-  //   },
-  //   {
-  //     name: "شيراتون المطار",
-  //     address: "شارع 6 أكتوبر، الجيزة",
-  //     phone: "+20123456789",
-  //   },
-  //   {
-  //     name: "6 أكتوبر",
-  //     address: "شارع 6 أكتوبر، الجيزة",
-  //     phone: "+20123456789",
-  //   },
-  // ];
+ const navigate = useNavigate();
  const[data,setData]=useState([]);
 const[error,setError]=useState(false);
   const timeWork = [
@@ -152,7 +137,11 @@ const[error,setError]=useState(false);
               </div>
             </div>
 
-            <button className="w-full bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
+            <button onClick={() => navigate(`/about-branches/${branch.id}`,{
+              state:{ branchId: branch.id, branchName: branch.name }
+            })
+            } 
+            className="w-full bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
               زيارة الفرع
             </button>
           </div>

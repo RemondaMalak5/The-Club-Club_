@@ -21,41 +21,39 @@ const Map_component = () => {
   ];
 
   return (
-    <div className=" w-full h-full ">
-      <MapContainer
-        center={[30.0444, 31.2357]}
-        zoom={11}
-        scrollWheelZoom={true}
-        className="w-full h-full"
-      >
-        <TileLayer
-          attribution='&copy; OpenStreetMap'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+  <div className="w-full h-[600px]">
+    <MapContainer
+      center={[30.0444, 31.2357]}
+      zoom={11}
+      scrollWheelZoom={true}
+      attributionControl={false}
+      className="w-full h-full"
+    >
+<TileLayer
+  attribution=""
+  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+/>
+      {locations.map((loc, index) => (
+        <Marker key={index} position={loc.position}>
+          <Tooltip permanent direction="top" offset={[0, -10]}>
+            {loc.name}
+          </Tooltip>
 
-        {locations.map((loc, index) => (
-          <Marker key={index} position={loc.position}>
-            {/* الاسم دايمًا ظاهر */}
-            <Tooltip permanent direction="top" offset={[0, -10]}>
-              {loc.name}
-            </Tooltip>
-
-            {/* لما تضغطي على Marker يظهر خيار فتح Google Maps */}
-            <Popup>
-              <a
-                href={`https://www.google.com/maps?q=${loc.position[0]},${loc.position[1]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline"
-              >
-                افتح {loc.name} في Google Maps
-              </a>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
-  );
+          <Popup>
+            <a
+              href={`https://www.google.com/maps?q=${loc.position[0]},${loc.position[1]}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              افتح {loc.name} في Google Maps
+            </a>
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
+  </div>
+);
 };
 
 export default Map_component;

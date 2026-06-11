@@ -8,7 +8,6 @@ const Ready_home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   return (
-    <div className='px-12 '>
       <div className="w-full bg-gray-100 rounded-xl p-6 flex flex-wrap items-center justify-between ">
         <div >
           <h2 className="text-[36px] font-bold text-gray-900">{t('ready_to_start')}</h2>
@@ -31,7 +30,6 @@ const Ready_home = () => {
         </div>
 
       </div>
-    </div>
 
   )
 }

@@ -49,6 +49,7 @@ const Champin_header = () => {
         src={data?.image}
         alt="championship"
         className="w-full h-[300px] object-cover"
+        loading="lazy"
       /> 
        <div className="flex gap-3 pt-5 px-14 ">
             <button className="rounded-3xl bg-[#AFEBE5] px-4 py-2">

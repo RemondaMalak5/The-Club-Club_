@@ -34,7 +34,7 @@ const More_News = () => {
                   key={index}
                   className="bg-white rounded-2xl shadow-md overflow-hidden"
                 >
-                  <img src={item.image} alt="" className="w-full h-52 object-cover" />
+                  <img src={item.image} alt="" className="w-full h-52 object-cover" loading="lazy" />
       
                   <div className="p-5 space-y-3">
                     <div className="flex justify-between items-center text-sm text-gray-500">
