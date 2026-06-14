@@ -125,7 +125,7 @@ const Login = () => {
         </p>
 
         <div className="w-full flex flex-wrap">
-          {arr.map((item) => (
+          {arr?.map((item) => (
             <div
               key={item.name}
               className="flex flex-col gap-2 mt-4 px-1 w-full md:w-1/2"

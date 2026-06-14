@@ -3,19 +3,11 @@ import { FaStar } from "react-icons/fa6";
 import { assets } from "../../assets/assets";
 
 const MembershipCard = ({ data }) => {
-  const card = data?.digitalCard;
+  const card = data?.digitalCard || {};
   const starRating = Number(card?.starRating) || 0;
-
-  const sports =
-    card?.academyIcons?.length > 0
-      ? card.academyIcons
-      : [
-          assets.logo,
-          assets.logo,
-          assets.sport_ecard,
-          assets.sport_ecard,
-          assets.sport_ecard,
-        ];
+const sports = Array.isArray(card?.academyIcons)
+  ? card.academyIcons.filter(Boolean)
+  : [];
 
   return (
     <div className="bg-[#F7F7F7] p-3 rounded-2xl w-full border border-gray-200">
@@ -38,12 +30,8 @@ const MembershipCard = ({ data }) => {
           {/* Stars */}
           <div className="flex justify-center gap-1 mb-3">
             {Array.from({ length: starRating }).map((_, index) => (
-              <FaStar
-                key={index}
-                className="text-[#FFD700] text-sm"
-              />
+              <FaStar key={index} className="text-[#FFD700] text-sm" />
             ))}
-            
           </div>
 
           {/* Info */}
@@ -52,12 +40,10 @@ const MembershipCard = ({ data }) => {
               {data?.membershipExpiry || "غير متاح"}
             </div>
 
-            <h1 className="text-white text-3xl font-bold">
-              Member
-            </h1>
+            <h1 className="text-white text-3xl font-bold">Member</h1>
 
             <div className="bg-white text-[#00786F] text-[10px] px-3 py-1 rounded-full font-medium">
-              {card?.memberCode || data?.membershipNo}
+              {card?.memberCode || data?.membershipNo || "-"}
             </div>
           </div>
         </div>
@@ -75,17 +61,17 @@ const MembershipCard = ({ data }) => {
 
               <div className="text-right">
                 <h3 className="font-bold text-gray-800 text-lg">
-                  {data?.fullName}
+                  {data?.fullName || "عضو"}
                 </h3>
 
                 <p className="text-gray-500 text-sm">
-                  {data?.email}
+                  {data?.email || "-"}
                 </p>
               </div>
             </div>
 
             <div className="border border-[#23A26D] text-[#23A26D] w-fit h-fit bg-[#F0FFF8] px-3 py-1 rounded-md text-[10px] font-medium">
-              {card?.status || data?.membershipType}
+              {card?.status || data?.membershipType || "-"}
             </div>
           </div>
 
@@ -99,38 +85,42 @@ const MembershipCard = ({ data }) => {
             />
 
             <div className="flex justify-between w-60 text-xs font-bold text-gray-700 mt-1">
-              <span>{card?.barcode || data?.membershipNo}</span>
-              <span>{data?.phone}</span>
+              <span>{card?.barcode || data?.membershipNo || "-"}</span>
+              <span>{data?.phone || "-"}</span>
             </div>
           </div>
 
           {/* Sports Icons */}
-          <div className="flex justify-center gap-2 mt-5">
-            {card.academyIcons.map((sport, index) => (
-              <div
-                key={index}
-                className="w-12 h-12 rounded-full border border-[#00786F] flex items-center justify-center"
-              >
-                <img
-                  src={sport.icon}
-                  alt=""
-                  className="w-6 h-6 object-contain"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
+          {sports.length > 0 && (
+  <div className="flex justify-center gap-2 mt-5 flex-wrap">
+    {sports.map((sport, index) => (
+      <div
+        key={index}
+        className="w-12 h-12 rounded-full border border-[#00786F] flex items-center justify-center"
+      >
+        <img
+          src={sport?.icon || sport}
+          alt={`sport-${index}`}
+          className="w-6 h-6 object-contain"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+)}
 
           {/* Divider */}
           <div className="border-t border-[#6C7EA0] w-4/5 mx-auto mt-5"></div>
 
           {/* Trophies Progress */}
           <div className="mt-5 flex flex-wrap gap-2 justify-center">
-            {[...Array(card?.trophies?.total || 30)].map((_, index) => (
+            {Array.from({
+              length: Number(card?.trophies?.total) || 30,
+            }).map((_, index) => (
               <div
                 key={index}
                 className={`w-7 h-7 rounded-full ${
-                  index < (card?.trophies?.earned || 0)
+                  index < (Number(card?.trophies?.earned) || 0)
                     ? "bg-gradient-to-r from-[#2DC6B3] to-[#00786F]"
                     : "bg-[#DDE3E3]"
                 }`}
