@@ -3,39 +3,38 @@ import Btn_bg from "../Shared_Component/Btn_bg";
 import { LuClock } from "react-icons/lu";
 import { FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import Map_component from "./Map_component";
 import i18next from "i18next";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Branches_all from "../Shared_Component/Branches_all";
+import Map_component from "./Map_component";
+import { GoDotFill } from "react-icons/go";
 
 const Branches_component = () => {
- const navigate = useNavigate();
- const[data,setData]=useState([]);
-const[error,setError]=useState(false);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(false);
   const timeWork = [
     { day: "الجمعة", hours: "7:00 ص - 12:00 م" },
     { day: "السبت", hours: "6:00 ص - 12:00 م" },
     { day: "الأحد - الخميس", hours: "6:00 ص - 11:00 م" },
   ];
- const Get_Branch_List = async () => {
-        const params = {
-            "language": i18next.language,
-            
-        }
-        try {
-            const response = await AllBranches(params);
-            setData(response.message.data);
-        }
-        catch (error) {
-            setError(true) ;
-        }
-        // finally{
-        //     setLoading(false)
-        // }
+  const Get_Branch_List = async () => {
+    const params = {
+      language: i18next.language,
+    };
+    try {
+      const response = await AllBranches(params);
+      setData(response.message.data);
+    } catch (error) {
+      setError(true);
     }
-    useEffect(() => {
-        Get_Branch_List();
-    }, [i18next.language])
+  };
+  useEffect(() => {
+    Get_Branch_List();
+  }, [i18next.language]);
   return (
     <div className="px-6 md:px-14 py-5">
       <h1 className="text-[28px] md:text-[32px] font-bold text-[#11181C] pb-5">
@@ -44,9 +43,9 @@ const[error,setError]=useState(false);
 
       <div className="w-full flex flex-col md:flex-row gap-5">
         <div className="w-full md:w-1/2 p-4 border rounded-xl border-[#E5E7EB] shadow-sm">
-          <h2 className="text-[22px] md:text-[24px] font-bold text-[#11181C] pb-3 text-center">
+          {/* <h2 className="text-[22px] md:text-[24px] font-bold text-[#11181C] pb-3 text-center">
             فروعنا
-          </h2>
+          </h2> */}
 
           {data.map((branch, index) => (
             <div
@@ -59,8 +58,8 @@ const[error,setError]=useState(false);
                 </h2>
 
                 <p className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2 text-[#6A7282] text-[14px]">
-                  {branch.address}
-                  <span className="text-[#008236] underline">
+                  {branch.address} <span ><GoDotFill/></span>
+                  <span className="text-[#008236] underline cursor-pointer">
                     {branch.phone}
                   </span>
                 </p>
@@ -74,8 +73,13 @@ const[error,setError]=useState(false);
               </div>
 
               <div className="self-start ">
-                <h2 className="bg-[#EFF4F2] text-[#1E2939] rounded-full px-4 py-1 font-semibold text-sm">
-                  Open
+                <h2
+                  className={`bg-[#EFF4F2] text-[#1E2939] rounded-full px-4 py-1 font-semibold text-sm
+    ${
+      branch.isOpen ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+    }`}
+                >
+                  {branch.isOpen ? t("open") : t("close")}
                 </h2>
               </div>
             </div>
@@ -85,68 +89,12 @@ const[error,setError]=useState(false);
             * الإحداثيات المستخدمة تقريبية ويمكن تعديلها لعنوان الفرع الحقيقي.
           </p>
         </div>
-        <div className="w-full md:w-1/2 h-[400px] md:h-auto rounded-2xl overflow-hidden sticky  ">
+        <div className="w-full md:w-1/2 h-[400px] md:h-auto rounded-2xl overflow-hidden sticky ">
           <Map_component />
         </div>
       </div>
 
-      <div className="w-full  flex flex-wrap justify-center  mt-10 ">
-        {data.map((branch, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-2xl shadow-md p-5 xl:w-1/3 w-full relative hover:scale-105 transition border border-[#E5E7EB]"
-          >
-            <span className="absolute left-4 top-4 bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm">
-              Open
-            </span>
-
-            <h2 className="text-xl font-bold text-gray-700 text-right mb-4">
-              {branch.name}
-            </h2>
-
-            <div className="flex items-start gap-2 mb-3 text-gray-600">
-              <FaLocationDot className="mt-1 " />
-              <div className="text-right">
-                <p className="font-semibold">العنوان</p>
-                <p className="text-sm">{branch.address}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 mb-3 text-gray-600">
-              <FaPhone className="" />
-              <div className="text-right">
-                <p className="font-semibold">الهاتف</p>
-                <a
-                  href={`tel:${branch.phone}`}
-                  className="text-green-600 text-sm"
-                >
-                  {branch.phone}
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-2 mb-5 text-gray-600">
-              <LuClock className="mt-1 " />
-              <div className="text-right text-sm">
-                <p className="font-semibold mb-1">ساعات العمل</p>
-                {timeWork.map((time, idx) => (
-                  <p key={idx}>
-                    {time.day}: {time.hours}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <button onClick={() => navigate(`/about-branches/${branch.id}`,{
-              state:{ branchId: branch.id, branchName: branch.name }
-            })
-            } 
-            className="w-full bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition">
-              زيارة الفرع
-            </button>
-          </div>
-        ))}
-      </div>
+      <Branches_all />
     </div>
   );
 };

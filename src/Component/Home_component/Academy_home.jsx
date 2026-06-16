@@ -169,7 +169,14 @@ const Academy_home = () => {
                   {t("book")}
                 </button>
 
-                <button className="border border-[#0A8F7A] px-4 py-2 rounded-2xl text-sm sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
+                <button onClick={() =>
+                                        navigation(`/academy/${academy.id}`, {
+                                          state: {
+                                            branchId: academy.branchId,
+                                            branchName: academy.branchName,
+                                          },
+                                        })}
+                className="border border-[#0A8F7A] px-4 py-2 rounded-2xl text-sm sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
                   {t("schedule")}
                 </button>
 

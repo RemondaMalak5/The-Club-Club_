@@ -14,11 +14,11 @@ const Social_Media = () => {
     },
     {
       icon: <FaXTwitter />,
-      link: "https://twitter.com/theclubcomeg",
+      link: "https://www.threads.com/@theclub.com.eg?xmt=AQG0XsPl5kCYVhpBmCWwsd-h9KhEcDSjMNJ9sNTzf1CkbKU",
     },
     {
       icon: <FaWhatsapp />,
-      link: "https://api.whatsapp.com/send/?phone=+20100002131",
+      link: "https://api.whatsapp.com/send/?phone=+01101644532",
     },
   ];
 

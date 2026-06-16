@@ -1,6 +1,7 @@
 import React from "react";
-import { FaStar } from "react-icons/fa6";
+import { FaShareNodes, FaStar } from "react-icons/fa6";
 import { assets } from "../../assets/assets";
+import { FaDownload } from "react-icons/fa";
 
 const MembershipCard = ({ data }) => {
   const card = data?.digitalCard || {};
@@ -18,8 +19,8 @@ const sports = Array.isArray(card?.academyIcons)
         </h2>
 
         <div className="flex gap-3 text-[#009689] text-sm">
-          <span>⤓</span>
-          <span>∞</span>
+          <span><FaDownload/></span>
+          <span><FaShareNodes/></span>
         </div>
       </div>
 

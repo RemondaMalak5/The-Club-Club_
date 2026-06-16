@@ -45,7 +45,7 @@ const profile = data?.message?.data;
       <Membership_Stats data={profile} />
 
        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 space-y-4">
+  <div className="lg:col-span-2 space-y-4">
           <MembershipCard data={profile} />
           <AcademySubscriptions data={profile.subscribedAcademies} />
           <Bookings data={profile.upcomingBookings} />

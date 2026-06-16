@@ -1,6 +1,7 @@
 import React from 'react'
 import Title_1 from '../Shared_Component/Title_1'
 import i18n from './../../i18n/i18n';
+import i18next from 'i18next';
 
 const About_us_goals = ({ data }) => {
 
@@ -30,7 +31,7 @@ const About_us_goals = ({ data }) => {
               <div className="absolute inset-0 bg-[#277C79]"></div>
             </div>
 
-            <div className={`absolute top-8 sm:top-10  ${i18n.dir() === "rtl" ? "left-16 sm:left-24" : "right-16 sm:right-24"}  w-full h-full rounded-3xl overflow-hidden shadow-xl bg-white `}>
+            <div className={`absolute top-8 sm:top-10  ${i18next.language === "ar" ? "left-16 sm:left-24" : "right-16 sm:right-24"}  w-full h-full rounded-3xl overflow-hidden shadow-xl bg-white `}>
               <img
                 src={data?.goals?.image}
                 alt="football"

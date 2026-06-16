@@ -220,7 +220,15 @@
     "all_categories": "جميع الفئات",
     " Loading...": "   جاري التحميل...",
     "forget_password": "نسيت كلمة المرور ؟",
-    "welcome_branch": "مرحبًا بكم في فرع {{branchName}}"
-
+    "welcome_branch": "مرحبًا بكم في فرع {{branchName}}",
+    "membership_number": "رقم العضوية",
+    "membership_type": "نوع العضوية",
+    "membership_expiry_date": "تاريخ انتهاء العضوية",
+    "last_renewal_date": "آخر تجديد للعضوية",
+    "last_renewal_description": "آخر مرة تم فيها تجديد العضوية",
+    "reward_points": "نقاط المكافآت",
+    "points_exchange": "يمكن استبدالها بخصومات",
+    "not_available": "غير متاح",
+    "points": "نقطة"
 
 }

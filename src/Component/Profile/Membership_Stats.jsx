@@ -1,43 +1,47 @@
 import React from "react";
 import { CalendarDays, IdCard, Award } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Membership_Stats = ({ data }) => {
+  const { t } = useTranslation();
+
   const stats = [
-    {
-      title: "نقاط المكافآت",
-      value: `${data?.loyaltyPoints || 0} نقطة`,
-      desc: "يمكن استبدالها بخصومات",
-      icon: Award,
-      color: "border-r-yellow-400",
-      bg: "bg-yellow-100",
-      iconColor: "text-yellow-500",
+     {
+      title: t("membership_number"),
+      value: data?.membershipNo || data?.membershipId,
+      desc: data?.membershipType || t("not_available"),
+      icon: IdCard,
+      color: "border-r-orange-400",
+      bg: "bg-orange-100",
+      iconColor: "text-orange-500",
     },
+   
     {
-      title: "تاريخ انتهاء العضوية",
-      value: data?.membershipExpiry || "غير متاح",
-      desc: "تاريخ انتهاء العضوية",
+      title: t("membership_expiry_date"),
+      value: data?.membershipExpiry || t("not_available"),
+      desc: t("membership_expiry_date"),
       icon: CalendarDays,
       color: "border-r-blue-500",
       bg: "bg-blue-100",
       iconColor: "text-blue-600",
     },
     {
-      title: "آخر تجديد للعضوية",
-      value: data?.lastRenewalDate || "غير متاح",
-      desc: "آخر مرة تم فيها تجديد العضوية",
+      title: t("last_renewal_date"),
+      value: data?.lastRenewalDate || t("not_available"),
+      desc: t("last_renewal_description"),
       icon: CalendarDays,
       color: "border-r-green-500",
       bg: "bg-green-100",
       iconColor: "text-green-600",
     },
     {
-      title: "رقم العضوية",
-      value: data?.membershipNo || data?.membershipId,
-      desc: data?.membershipType || "غير متاح",
-      icon: IdCard,
-      color: "border-r-orange-400",
-      bg: "bg-orange-100",
-      iconColor: "text-orange-500",
+      title: t("reward_points"),
+      value: `${data?.loyaltyPoints || 0} ${t("points")}`,
+      desc: t("points_exchange"),
+      icon: Award,
+      color: "border-r-yellow-400",
+      bg: "bg-yellow-100",
+      iconColor: "text-yellow-500",
     },
   ];
 
@@ -55,10 +59,9 @@ const Membership_Stats = ({ data }) => {
                 border-r-4 ${item.color}
                 shadow-[0_2px_10px_rgba(0,0,0,0.08)]
                 flex flex-col gap-1 justify-between
-                text-right
               `}
             >
-              <div className="flex justify-start items-start">
+              <div className="">
                 <div
                   className={`
                     w-9 h-9 rounded-md ${item.bg}
@@ -70,7 +73,7 @@ const Membership_Stats = ({ data }) => {
               </div>
 
               <div>
-                <p className="text-xs text-gray-400 mb-2">
+                <p className="text-xs text-[#5B626E] mb-2">
                   {item.title}
                 </p>
 
@@ -78,7 +81,7 @@ const Membership_Stats = ({ data }) => {
                   {item.value}
                 </h3>
 
-                <p className="text-[11px] text-gray-400 mt-2">
+                <p className="text-[12px] text-[#5B626E] mt-2">
                   {item.desc}
                 </p>
               </div>
@@ -91,3 +94,4 @@ const Membership_Stats = ({ data }) => {
 };
 
 export default Membership_Stats;
+

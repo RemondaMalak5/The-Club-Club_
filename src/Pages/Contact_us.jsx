@@ -2,8 +2,8 @@ import React from "react";
 import Header_Contact_Us from "../Component/Contact_us_component/Header_Contact_Us";
 import Form_Contact_us from "../Component/Contact_us_component/Form_Contact_us";
 import Card_info from "./../Component/Contact_us_component/Card_info";
-import Map_component from './../Component/Branches_component/Map_component';
-import Branches_Contact from './../Component/Contact_us_component/Branches_Contact';
+import Branches_all from "../Component/Shared_Component/Branches_all";
+import Map_Contactus from "../Component/Contact_us_component/Map_Contactus";
 
 const Contact_us = () => {
   return (
@@ -13,10 +13,10 @@ const Contact_us = () => {
         <Card_info />
         <Form_Contact_us />
       </div>
-      <div className="w-full h-[400px] rounded-xl border border-[#00000040]">
-      <Map_component/>
+        <div className="w-full  h-[400px]  rounded-2xl overflow-hidden  ">
+      <Map_Contactus/>
       </div>
-      <Branches_Contact/>
+      <Branches_all/>
 
     </div>
   );

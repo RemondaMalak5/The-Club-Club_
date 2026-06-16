@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Contact_us } from "../../axiosConfig/APIs/Contact_us";
 import Select from "react-select";
+import { usePopup } from "../../context/PopupContext";
+import { FaArrowRightToBracket } from "react-icons/fa6";
 
 const Form_Contact_us = () => {
   const { t, i18n } = useTranslation();
-
+const { showPopup, closePopup } = usePopup();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -64,7 +66,7 @@ const Form_Contact_us = () => {
       email: formData.email,
       phone: formData.phone,
       branch: selectedBranch?.eng || "",
-      message: formData.message,
+      subject: formData.message,
     };
 
     try {
@@ -117,28 +119,55 @@ const Form_Contact_us = () => {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const validationErrors = validateForm();
+  const validationErrors = validateForm();
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
+
+  try {
+    showPopup({
+      loading: true,
+      title: "جاري الإرسال...",
+      message: "برجاء الانتظار",
+      showButtons: false,
+    });
 
     await submitform(formData);
+
+    showPopup({
+      title: "تم الإرسال بنجاح",
+      message: "سنتواصل معك قريبًا",
+      icon: <FaArrowRightToBracket />,
+      showButtons: false,
+    });
 
     setFormData({
       fullName: "",
       email: "",
       phone: "",
       branch: "",
-      message: "",
+      subject: "",
     });
 
     setErrors({});
-  };
+
+    setTimeout(() => {
+      closePopup();
+    }, 2000);
+  } catch (error) {
+    showPopup({
+      title: "حدث خطأ أثناء الإرسال",
+      message: "حاولي مرة أخرى",
+      icon: <FaArrowRightToBracket />,
+      confirmText: "تمام",
+    });
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="w-full xl:w-[70%]">
@@ -270,7 +299,7 @@ color: state.isSelected
         )}
       </div>
 
-      <button
+      <button 
         type="submit"
         className="mt-6 w-full rounded-xl bg-gradient-to-r from-teal-400 to-teal-700 py-3 text-white font-bold text-lg shadow-md transition hover:opacity-90"
       >

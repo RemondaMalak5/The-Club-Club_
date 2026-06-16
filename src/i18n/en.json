@@ -219,6 +219,15 @@
     "all_categories": "All Categories" ,
     " Loading...": " Loading...",
     "forget_password": "Forgot Password ?",
-    "welcome_branch": "Welcome to {{branchName}} Branch"
+    "welcome_branch": "Welcome to {{branchName}} Branch",
+    "membership_number": "Membership Number",
+    "membership_type": "Membership Type",
+    "membership_expiry_date": "Membership Expiry Date",
+    "last_renewal_date": "Last Renewal Date",
+    "last_renewal_description": "Last time membership was renewed",
+    "reward_points": "Reward Points",
+    "points_exchange": "Can be exchanged for discounts",
+    "not_available": "Not Available",
+    "points": "Points"
 
 }
