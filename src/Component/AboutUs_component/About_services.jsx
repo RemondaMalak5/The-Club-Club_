@@ -2,10 +2,11 @@
 
 import React from "react";
 import Title_1 from "../Shared_Component/Title_1";
+import { useNavigate } from "react-router-dom";
 
 const About_services = ({ data }) => {
   const services = data?.serviceCategories || [];
-
+ const navigate =useNavigate();
   return (
     <div className="xl:px-14 sm:px-5">
       <Title_1 title="خدمات عالية الجودة" />
@@ -26,7 +27,8 @@ const About_services = ({ data }) => {
                   loading="lazy"
                 />
 
-                <p className="border-b-2 border-[#21857C] border-x-2 mx-5 rounded-b-2xl p-4 text-center font-semibold text-[18px]">
+                <p onClick={()=>{navigate("/services")}} 
+                className="cursor-pointer border-b-2 border-[#21857C] border-x-2 mx-5 rounded-b-2xl p-4 text-center font-semibold text-[18px]">
                   {service.name}
                 </p>
               </div>

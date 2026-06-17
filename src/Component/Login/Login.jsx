@@ -86,16 +86,24 @@ const Login = () => {
     try {
       const response = await LoginApi(formData);
 
-      if (response?.message?.success) {
-        localStorage.setItem("token", response.message.token);
-        localStorage.setItem("user", JSON.stringify(response.message.user));
-        localStorage.setItem(
-          "customer",
-          JSON.stringify(response.message.customer)
-        );
+ if (response?.message?.success) {
+  const user = response.message.user;
+  const customer = response.message.customer;
 
-        navigate("/profile");
-      } else {
+  const savedUser = {
+    ...user,
+    profileImage: user?.profileImage || customer?.profileImage || "",
+  };
+
+  localStorage.setItem("token", response.message.token);
+  localStorage.setItem("user", JSON.stringify(savedUser));
+  localStorage.setItem("customer", JSON.stringify(customer));
+
+  window.dispatchEvent(new Event("userUpdated"));
+
+  navigate("/profile");
+}
+      else {
         setApiError("Invalid username or password");
       }
     } catch (error) {

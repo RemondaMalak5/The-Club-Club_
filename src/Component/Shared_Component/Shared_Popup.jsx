@@ -20,7 +20,6 @@ const Shared_Popup = () => {
         </p>
 
         <div className="flex  gap-3 w-full">
-         
           <button
             onClick={() => {
               popup.onConfirm?.();

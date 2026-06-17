@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Contact_us } from "../../axiosConfig/APIs/Contact_us";
 import Select from "react-select";
 import { usePopup } from "../../context/PopupContext";
 import { FaArrowRightToBracket } from "react-icons/fa6";
+import { Get_profile } from "../../axiosConfig/APIs/Profile/Profile";
 
 const Form_Contact_us = () => {
   const { t, i18n } = useTranslation();
@@ -12,8 +13,8 @@ const { showPopup, closePopup } = usePopup();
     fullName: "",
     email: "",
     phone: "",
-    branch: "",
-    message: "",
+    branchId: "",
+    subject: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -40,38 +41,39 @@ const { showPopup, closePopup } = usePopup();
 
   const branches = [
     {
-      value: "capital",
+      value: "The Club - New Capital",
       label: t("branch_capital"),
-      eng: "The Club - New Capital",
+      branch: "new_capital",
     },
     {
-      value: "shiraton",
+      value: "The Club- Sheraton",
       label: t("branch_shiraton"),
-      eng: "The Club - Sheraton",
+      branch: "sheraton",
     },
     {
-      value: "october",
+      value: "نادي النادي - 6 اكتوبر",
       label: t("branch_6_october"),
-      eng: "6 October Branch",
+      branch: "master",
     },
   ];
 
   const submitform = async (formData) => {
     const selectedBranch = branches.find(
-      (branch) => branch.value === formData.branch,
-    );
+  (branch) => branch.value === formData.branchId
+);
 
     const body = {
-      full_name: formData.fullName,
+      fullName: formData.fullName,
       email: formData.email,
       phone: formData.phone,
-      branch: selectedBranch?.eng || "",
-      subject: formData.message,
+      branchId: selectedBranch?.branch ,
+      subject: formData.subject,
     };
-
+ console.log(formData.branchId)
     try {
       const response = await Contact_us(body);
       console.log("Success:", response);
+      
     } catch (error) {
       console.error("Failed to submit contact form", error);
     }
@@ -94,26 +96,26 @@ const { showPopup, closePopup } = usePopup();
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.fullName.trim()) {
+    if (!formData.fullName?.trim()) {
       newErrors.fullName = t("full_name_required");
     }
 
-    if (!formData.email.trim()) {
+    if (!formData.email?.trim()) {
       newErrors.email = t("email_required");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = t("email_invalid");
     }
 
-    if (!formData.phone.trim()) {
+    if (!formData.phone?.trim()) {
       newErrors.phone = t("phone_required");
     }
 
-    if (!formData.branch) {
-      newErrors.branch = t("branch_required");
+    if (!formData.branchId) {
+      newErrors.branchId = t("branch_required");
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = t("message_required");
+    if (!formData.subject?.trim()) {
+      newErrors.subject = t("message_required");
     }
 
     return newErrors;
@@ -150,7 +152,7 @@ const { showPopup, closePopup } = usePopup();
       fullName: "",
       email: "",
       phone: "",
-      branch: "",
+      branchId: "",
       subject: "",
     });
 
@@ -168,6 +170,34 @@ const { showPopup, closePopup } = usePopup();
     });
   }
 };
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (!token) return;
+
+  const getProfile = async () => {
+    try {
+      const profile = await Get_profile();
+
+      const user = profile?.message?.data;
+
+      setFormData((prev) => ({
+        ...prev,
+        fullName: user?.fullName || "",
+        email: user?.email || "",
+        phone: user?.phone || "",
+        branchId:
+  branches.find(
+    (b) => b.value === user?.branch
+  )?.value || "",
+      }));
+    } catch (error) {
+      console.error("Profile Error:", error);
+    }
+  };
+
+  getProfile();
+}, []);
 
   return (
     <form onSubmit={handleSubmit} className="w-full xl:w-[70%]">
@@ -193,9 +223,8 @@ const { showPopup, closePopup } = usePopup();
             />
             {errors[i.name] && (
               <p
-                className={`text-red-500 text-sm mt-1 ${
-                  i18n.dir() === "rtl" ? "text-right" : "text-left"
-                }`}
+                className={`text-red-500 text-sm mt-1 
+                `}
               >
                 {errors[i.name]}
               </p>
@@ -204,9 +233,8 @@ const { showPopup, closePopup } = usePopup();
         ))}
          <div className="">
         <label
-          className={`block font-bold text-gray-700 mb-2 ${
-            i18n.dir() === "rtl" ? "text-right" : "text-left"
-          }`}
+          className={`block font-bold text-gray-700 mb-2 
+          `}
         >
           {t("branch_label")}
         </label>
@@ -214,19 +242,19 @@ const { showPopup, closePopup } = usePopup();
         <Select
           options={branches}
           value={
-            branches.find((option) => option.value === formData.branch) || null
+            branches.find((option) => option.value === formData.branchId) || null
           }
-          onChange={(selectedOption) => {
-            setFormData((prev) => ({
-              ...prev,
-              branch: selectedOption?.value || "",
-            }));
+         onChange={(selectedOption) => {
+  setFormData((prev) => ({
+    ...prev,
+    branchId: selectedOption?.value || "",
+  }));
 
-            setErrors((prev) => ({
-              ...prev,
-              branch: "",
-            }));
-          }}
+  setErrors((prev) => ({
+    ...prev,
+    branchId: "",
+  }));
+}}
           placeholder={t("select_branch")}
           isSearchable={false}
           styles={{
@@ -252,13 +280,13 @@ color: state.isSelected
           }}
         />
 
-        {errors.branch && (
+        {errors.branchId && (
           <p
             className={`text-red-500 text-sm mt-1 ${
               i18n.dir() === "rtl" ? "text-right" : "text-left"
             }`}
           >
-            {errors.branch}
+            {errors.branchId}
           </p>
         )}
       </div>
@@ -270,31 +298,27 @@ color: state.isSelected
       {/* Message */}
       <div className="mt-6">
         <label
-          className={`block font-bold text-gray-700 mb-2 ${
-            i18n.dir() === "rtl" ? "text-right" : "text-left"
-          }`}
+          className={`block font-bold text-gray-700 mb-2 `}
         >
           {t("message_label")}
         </label>
 
         <textarea
-          name="message"
+          name="subject"
           placeholder={t("message_placeholder")}
-          value={formData.message}
+          value={formData.subject}
           onChange={handleChange}
           rows={5}
-          className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none resize-none focus:border-teal-500 ${
-            i18n.dir() === "rtl" ? "text-right" : "text-left"
-          }`}
+          className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none resize-none focus:border-teal-500 
+          `}
         />
 
-        {errors.message && (
+        {errors.subject && (
           <p
-            className={`text-red-500 text-sm mt-1 ${
-              i18n.dir() === "rtl" ? "text-right" : "text-left"
-            }`}
+            className={`text-red-500 text-sm mt-1 
+            `}
           >
-            {errors.message}
+            {errors.subject}
           </p>
         )}
       </div>

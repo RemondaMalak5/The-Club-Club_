@@ -98,11 +98,11 @@ const Branches_all = () => {
               <div className="text-right text-sm">
                 <p className="font-semibold mb-1">{t("working_hours")}</p>
 
-               {/* {branch?.workingHours?.map((time, idx) => (
-  <p key={idx}>
-    {t(time.day)}: {time.open} - {time.close}
+                {branch?.workingHours?.map((time, idx) => (
+  <p key={idx} className="text-base">
+    {(time.day)}: {time.time_open} - {time.time_close}
   </p>
-))} */}
+))} 
               </div>
             </div>
 

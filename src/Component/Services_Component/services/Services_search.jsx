@@ -446,8 +446,8 @@ const Services_search = () => {
           viewMode === "grid" ? "flex flex-wrap" : "flex flex-col gap-5"
         }
       >
-        {filteredData.length > 0 ? (
-          filteredData.map((item) => (
+        {services.length > 0 ? (
+          services.map((item) => (
             <div
               key={`${item.service_id}-${item.branchId}`}
               className={

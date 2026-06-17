@@ -19,8 +19,8 @@ const handleLogout = () => {
   return (
     <div >
       <div className="py-5 px-10   rounded-2xl flex flex-wrap bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <div className="flex gap-4 items-center xl:w-1/2 w-full">
-          <img src={assets.logo} className="w-20 h-20 rounded-full" loading="lazy" />
+        <div className="flex gap-4 items-center xl:w-1/2 w-full ">
+          <img src={data?.profileImage} className="w-20 h-20 rounded-full" loading="lazy" />
           <div className=" flex flex-col gap-2">
             <H_one text={data?.fullName} />
             <div className="flex text-[#6A7282] font-medium gap-4 ">
@@ -45,7 +45,7 @@ const handleLogout = () => {
             </div>
           </div>
         </div>
-        <div className="xl:w-1/2 w-full flex gap-4 justify-end py-5  h-fit">
+        <div className="hidden md:flex xl:w-1/2 w-full gap-4 justify-end py-5 h-fit">
             <span className="p-3 bg-[#00786F] text-white rounded-xl text-[18px] font-bold"><CiEdit/></span>
                         {/* <span className="p-3 bg-[#00786F] text-white rounded-xl text-[18px]"><IoSettingsOutline/></span> */}
       <span

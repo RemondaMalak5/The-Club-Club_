@@ -9,18 +9,21 @@ import Vision_Mission from "../Component/AboutUs_component/Vision_Mission";
 import i18next from "i18next";
 import { About_us } from "../axiosConfig/APIs/About";
 import Spinner from "../Component/Shared_component/Spinner";
+import { useTranslation } from "react-i18next";
 
 const AboutUs = () => {
   const [data, setData] = useState(null);
-   const[error,setError] =useState(false)
+   const[error,setError] =useState(false);
+   const { i18n } = useTranslation();
+
    const Get_About_us = async () => {
     const params = {
-      language: i18next.language,
+      language: i18n.language,
     };
 
     try {
       const response = await About_us(params);
-
+console.log("language", i18next.language);
       setData(response.message.data);
       setTotalPages(response.message.total_pages);
     } catch (error) {
@@ -30,19 +33,22 @@ const AboutUs = () => {
 
   useEffect(() => {
     Get_About_us();
-  }, [i18next.language]);
+  }, [i18n.language]);
 
   if (!data) {
     return <Spinner/>;
   }
 
   return (
-    <div>
+    <div >
       <About_component data={data} />
-      <About_services data={data} />
+      <div className="sm:px-10 xl:px-5">
+<About_services data={data} />
       <Values data={data} />
       <About_us_goals data={data} />
       <Vision_Mission data={data} />
+      </div>
+      
     </div>
   );
 };
