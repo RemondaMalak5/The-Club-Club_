@@ -21,7 +21,7 @@ const Map_Contactus = () => {
   ];
 
   return (
-  <div className="w-full h-[400px]">
+  <div className="w-full h-[400px] relative z-0 ">
     <MapContainer
       center={[30.0444, 31.2357]}
       zoom={11}

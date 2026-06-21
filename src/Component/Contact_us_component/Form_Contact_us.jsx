@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Contact_us } from "../../axiosConfig/APIs/Contact_us";
 import Select from "react-select";
 import { usePopup } from "../../context/PopupContext";
-import { FaArrowRightToBracket } from "react-icons/fa6";
+import { GiConfirmed } from "react-icons/gi";
 import { Get_profile } from "../../axiosConfig/APIs/Profile/Profile";
 
 const Form_Contact_us = () => {
@@ -136,7 +136,6 @@ const { showPopup, closePopup } = usePopup();
       loading: true,
       title: "جاري الإرسال...",
       message: "برجاء الانتظار",
-      showButtons: false,
     });
 
     await submitform(formData);
@@ -144,8 +143,8 @@ const { showPopup, closePopup } = usePopup();
     showPopup({
       title: "تم الإرسال بنجاح",
       message: "سنتواصل معك قريبًا",
-      icon: <FaArrowRightToBracket />,
-      showButtons: false,
+      icon: <GiConfirmed/>
+,
     });
 
     setFormData({
@@ -166,7 +165,6 @@ const { showPopup, closePopup } = usePopup();
       title: "حدث خطأ أثناء الإرسال",
       message: "حاولي مرة أخرى",
       icon: <FaArrowRightToBracket />,
-      confirmText: "تمام",
     });
   }
 };

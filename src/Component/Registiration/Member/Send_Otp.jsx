@@ -117,7 +117,7 @@ const Send_Otp = ({ length = 6 }) => {
         </p>
        
         <p className="text-[16px] text-[#5B626E] pt-5">{t("enter_otp_code")}</p>
-        <div className="flex gap-3" onPaste={(e) => {
+        <div className="flex gap-3" dir="ltr" onPaste={(e) => {
           e.preventDefault();
           const pastedData = e.clipboardData.getData("text").slice(0, length);
           if (!/^\d+$/.test(pastedData)) return;

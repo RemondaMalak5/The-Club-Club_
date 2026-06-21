@@ -8,8 +8,8 @@ export const PopupProvider = ({ children }) => {
     open: false,
     title: "",
     message: "",
-    confirmText: "تأكيد",
-    cancelText: "إلغاء",
+    confirmText: "",
+    cancelText: "",
     onConfirm: null,
   });
 
@@ -17,8 +17,8 @@ export const PopupProvider = ({ children }) => {
     icon,
     title,
     message,
-    confirmText = "تأكيد",
-    cancelText = "إلغاء",
+    confirmText  ,
+    cancelText ,
     onConfirm,
   }) => {
     setPopup({

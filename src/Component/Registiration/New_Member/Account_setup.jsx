@@ -13,6 +13,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 const Account_setup = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(3);
 
   const { token } = useContext(UserTokenContext);
   const registration_token = token;
@@ -150,7 +151,7 @@ const Account_setup = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Stepper_orange title={t("account_settings")} currentStep={3} />
+      <Stepper_orange title={t("account_settings")}  currentStep={currentStep} totalSteps={4}  onStepClick={(step) => setCurrentStep(step)} />
 
       <div className="border p-7 lg:w-[50%] w-full flex flex-col gap-3 rounded-xl shadow-2xl">
         <div className="flex flex-col items-center justify-center">

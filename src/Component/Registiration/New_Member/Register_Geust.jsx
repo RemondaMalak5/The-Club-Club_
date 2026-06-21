@@ -17,6 +17,8 @@ const Register_Geust = () => {
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(false);
   const { saveToken } = useContext(UserTokenContext);
+    const [currentStep, setCurrentStep] = useState(1);
+  
   const [formData, setFormData] = useState({
     branch: "",
     full_name: "",
@@ -25,7 +27,7 @@ const Register_Geust = () => {
     email: "",
     language: "en",
   });
-const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const arr = [
     {
@@ -43,7 +45,7 @@ const [errors, setErrors] = useState({});
       name: "national_id",
       placeholder: t("national_id_placeholder"),
     },
-   
+
     {
       label: t("email_label"),
       name: "email",
@@ -55,23 +57,20 @@ const [errors, setErrors] = useState({});
     switch (name) {
       case "full_name":
         if (!value.trim()) return t("full_name_required");
-        if (value.trim().length < 3)
-          return t("full_name_min_length");
+        if (value.trim().length < 3) return t("full_name_min_length");
         return "";
 
       case "phone":
         if (!value.trim()) return t("phone_required");
 
-        if (!/^01[0125][0-9]{8}$/.test(value))
-          return t("phone_invalid");
+        if (!/^01[0125][0-9]{8}$/.test(value)) return t("phone_invalid");
 
         return "";
 
       case "national_id":
         if (!value.trim()) return t("national_id_required");
 
-        if (!/^\d{14}$/.test(value))
-          return t("national_id_invalid");
+        if (!/^\d{14}$/.test(value)) return t("national_id_invalid");
 
         return "";
 
@@ -82,9 +81,7 @@ const [errors, setErrors] = useState({});
       case "email":
         if (!value.trim()) return t("email_required");
 
-        if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-        )
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value))
           return t("email_invalid");
 
         return "";
@@ -93,7 +90,6 @@ const [errors, setErrors] = useState({});
         return "";
     }
   };
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -137,45 +133,49 @@ const [errors, setErrors] = useState({});
       };
 
       const response = await Send_OTP(body);
-      console.log("responseresponseresponseresponseresponse", response)
-      navigate("/otp-guest", response);
+      console.log("responseresponseresponseresponseresponse", response);
+      navigate("/otp-guest", {
+        state: {
+          formData: formData,
+        },
+      });
     } catch (error) {
       console.log(error?.response?.data);
     }
   };
- const handleSubmit = async () => {
-  console.log("formData", formData);
+  const handleSubmit = async () => {
+    console.log("formData", formData);
 
-  if (!validateForm()) {
-    console.log("Validation Failed");
-    return;
-  }
+    if (!validateForm()) {
+      console.log("Validation Failed");
+      return;
+    }
 
-  console.log("Validation Passed");
+    console.log("Validation Passed");
 
-  try {
-  setLoading(true);
+    try {
+      setLoading(true);
 
-  const response = await Step_1_validation(formData);
+      const response = await Step_1_validation(formData);
 
-  console.log("Success:", response);
+      console.log("Success:", response);
 
-  const receivedToken = response?.message?.registration_token;
+      const receivedToken = response?.message?.registration_token;
 
-  if (receivedToken) {
-    saveToken(receivedToken);
-    await handleVerify(receivedToken);
-  }
-} catch (error) {
-  console.log("Error:", error);
-} finally {
-  setLoading(false);
-}
-};
+      if (receivedToken) {
+        saveToken(receivedToken);
+        await handleVerify(receivedToken);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <Stepper_orange title={t("register_as_guest")} />
+      <Stepper_orange title={t("register_as_guest")} currentStep={currentStep} totalSteps={4}  onStepClick={(step) => setCurrentStep(step)}/>
 
       <div className="border p-7 lg:w-[50%] w-full flex flex-col gap-3 rounded-xl shadow-2xl">
         <div className="flex flex-col items-center justify-center">
@@ -190,7 +190,7 @@ const [errors, setErrors] = useState({});
           </p>
         </div>
 
-        <div className="flex flex-wrap w-full " >
+        <div className="flex flex-wrap w-full ">
           {arr.map((item, index) => (
             <div key={index} className="flex flex-col gap-2 mt-4 w-1/2 px-2">
               <label>{item.label}</label>
@@ -201,10 +201,7 @@ const [errors, setErrors] = useState({});
                 value={formData[item.name]}
                 onChange={handleChange}
                 className={`border p-2 rounded-lg outline-none transition-all
-                ${errors[item.name]
-                    ? "border-red-500"
-                    : "border-gray-300"
-                  }`}
+                ${errors[item.name] ? "border-red-500" : "border-gray-300"}`}
                 placeholder={item.placeholder}
               />
 
@@ -216,49 +213,53 @@ const [errors, setErrors] = useState({});
             </div>
           ))}
         </div>
- 
-   <Select
-  options={[
-    { value: "The Club - New Capital", label: "The Club - New Capital" },
-    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
-    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
-  ]}
-  value={
-    formData.branch
-      ? {
-          value: formData.branch,
-          label: formData.branch,
-        }
-      : null
-  }
-  onChange={(selectedOption) => {
-    setFormData((prev) => ({
-      ...prev,
-      branch: selectedOption?.value || "",
-    }));
 
-    setErrors((prev) => ({
-      ...prev,
-      branch: "",
-    }));
-  }}
-  styles={{
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isSelected
-        ? "#FFA811"
-        : state.isFocused
-        ? "#FFE0B2"
-        : "white",
-      color: state.isSelected ? "white" : "black",
-    }),
-  }}
-/>
+        <Select
+          options={[
+            {
+              value: "The Club - New Capital",
+              label: "The Club - New Capital",
+            },
+            { value: "The Club- Sheraton", label: "The Club- Sheraton" },
+            {
+              value: "نادي النادي - 6 اكتوبر",
+              label: "نادي النادي - 6 اكتوبر",
+            },
+          ]}
+          value={
+            formData.branch
+              ? {
+                  value: formData.branch,
+                  label: formData.branch,
+                }
+              : null
+          }
+          onChange={(selectedOption) => {
+            setFormData((prev) => ({
+              ...prev,
+              branch: selectedOption?.value || "",
+            }));
+
+            setErrors((prev) => ({
+              ...prev,
+              branch: "",
+            }));
+          }}
+          styles={{
+            option: (provided, state) => ({
+              ...provided,
+              backgroundColor: state.isSelected
+                ? "#FFA811"
+                : state.isFocused
+                  ? "#FFE0B2"
+                  : "white",
+              color: state.isSelected ? "white" : "black",
+            }),
+          }}
+        />
 
         {errors.general && (
-          <p className="text-red-500 text-sm text-center">
-            {errors.general}
-          </p>
+          <p className="text-red-500 text-sm text-center">{errors.general}</p>
         )}
 
         <button

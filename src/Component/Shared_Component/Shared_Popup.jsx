@@ -19,25 +19,30 @@ const Shared_Popup = () => {
           {popup.message}
         </p>
 
-        <div className="flex  gap-3 w-full">
-          <button
-            onClick={() => {
-              popup.onConfirm?.();
-              closePopup();
-            }}
-            className="bg-[#00786F] text-white px-4 py-2 rounded-lg w-1/2"
-          >
-            {popup.confirmText}
-          </button>
-          
-           <button
-            onClick={closePopup}
-            className="border px-4 py-2 rounded-lg w-1/2"
-          >
-            {popup.cancelText}
-          </button>
+       {(popup.confirmText || popup.cancelText) && (
+  <div className="flex gap-3 w-full">
+    {popup.confirmText && (
+      <button
+        onClick={() => {
+          popup.onConfirm?.();
+          closePopup();
+        }}
+        className="bg-[#00786F] text-white px-4 py-2 rounded-lg w-1/2"
+      >
+        {popup.confirmText}
+      </button>
+    )}
 
-        </div>
+    {popup.cancelText && (
+      <button
+        onClick={closePopup}
+        className="border px-4 py-2 rounded-lg w-1/2"
+      >
+        {popup.cancelText}
+      </button>
+    )}
+  </div>
+)}
 
       </div>
     </div>

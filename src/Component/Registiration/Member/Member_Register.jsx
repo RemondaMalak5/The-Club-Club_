@@ -127,12 +127,12 @@ const Member_Register = () => {
 
   return (
     <div className='py-10  flex flex-col items-center justify-center'>
-      <Stepper_green currentStep={currentStep} totalSteps={4} title="تسجيل عضو " onStepClick={(step) => setCurrentStep(step)}/> 
+      <Stepper_green currentStep={currentStep} totalSteps={4} title={t("Member_Registration")} onStepClick={(step) => setCurrentStep(step)}/> 
 
       <div className='border p-7 w-[55%] flex flex-col gap-3 items-center justify-center rounded-xl shadow-2xl'>
         <span className='bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]'><IoMdPerson />
         </span>
-        <H_one_register title="تسجيل عضو  " />
+        <H_one_register title={t("Member_Registration")} />
         <p className=' text-[16px] text-[#5B626E]'>الرجاء إدخال بيانات العضوية للمتابعة</p>
         <div className=' w-full flex flex-wrap '>
           {fields.map((field) => (
