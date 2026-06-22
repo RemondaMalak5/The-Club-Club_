@@ -23,6 +23,8 @@ import Header_services_details from "../Component/Services_Component/Services_De
 import Champin_header from "../Component/Championship_component/champinship_details/Champin_header";
 import News_details from "../Component/News_component/News_Details/News_details";
 import About_branches from "../Pages/About_branches";
+import Cheak_Mail from "../Component/Forget_pass/Cheak_Mail";
+import Cheak_Otp from "../Component/Forget_pass/Cheak_Otp";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +53,9 @@ export const router = createBrowserRouter([
       {path:"academy/:id", element: <Header_academy_details/>} ,
       {path:"champions/:id", element: <Champin_header/>} ,
       {path:"news/:id", element: <News_details/>} ,
-      {path:"about-branches/:id", element: <About_branches/>}
+      {path:"about-branches/:id", element: <About_branches/>},
+      {path:"forget-pass" , element:<Cheak_Mail/>},
+      {path:"forget-otp", element:<Cheak_Otp/>}
     ]
   }
 ]);

@@ -69,7 +69,7 @@ const { showPopup, closePopup } = usePopup();
       branchId: selectedBranch?.branch ,
       subject: formData.subject,
     };
- console.log(formData.branchId)
+ console.log(formData)
     try {
       const response = await Contact_us(body);
       console.log("Success:", response);
@@ -154,7 +154,7 @@ const { showPopup, closePopup } = usePopup();
       branchId: "",
       subject: "",
     });
-
+console.log(setFormData)
     setErrors({});
 
     setTimeout(() => {

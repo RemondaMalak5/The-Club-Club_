@@ -102,7 +102,7 @@
     "contact_description": "نوفر لك خدمة رياضية عالية الجودة في بيئة آمنة ومريحة",
     "phone": "الهاتف",
     "whatsapp": "واتساب",
-    "email": "البريد الإلكتروني",
+    "email": "البريد الإلكتروني ",
     "family_day_location": "فرع شيراتون • ألعاب وأنشطة",
     "academy_trials": "تجارب مجانية للأكاديميات",
     "academy_trials_location": "فرع العاصمة الإدارية • 10:00 صباحًا",
@@ -230,6 +230,7 @@
     "points_exchange": "يمكن استبدالها بخصومات",
     "not_available": "غير متاح",
     "points": "نقطة",
-    "Member_Registration":"تسجيل عضو"
+    "Member_Registration":"تسجيل عضو" ,
+    "MemberShip_is_required":"رقم العضوية مطلوب"
 
 }

@@ -5,6 +5,18 @@
 @tailwind utilities;
 
 
+.news-swiper .swiper-button-next,
+.news-swiper .swiper-button-prev {
+  color: #6b7280;
+}
+
+.news-swiper .swiper-pagination-bullet {
+  background: #9ca3af;
+}
+
+.news-swiper .swiper-pagination-bullet-active {
+  background: #4b5563;
+}
 
 .container{
    @apply lg:px-10 lg:py-10; 

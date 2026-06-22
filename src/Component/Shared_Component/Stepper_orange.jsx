@@ -8,9 +8,9 @@ const Stepper_orange = ({
 }) => {
   return (
     <div className="flex flex-col justify-center items-center mb-10  w-[50%]">
-        <span className="text-[#364153] text-sm">
-          الخطوة {currentStep} من {totalSteps}
-        </span>
+        <span className="hidden sm:inline text-[#364153] text-sm">
+  الخطوة {currentStep} من {totalSteps}
+</span>
       <div className="flex justify-between py-1 w-full px-5">
       
 

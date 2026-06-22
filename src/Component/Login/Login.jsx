@@ -178,7 +178,7 @@ const Login = () => {
 
               {item.forget && (
                 <Link
-                  to="/forgot-password"
+                  to="/forget-pass"
                   className={`block text-sm text-[#007870ae] ${
                     i18next.language === "en" ? "text-left" : "text-right"
                   }`}

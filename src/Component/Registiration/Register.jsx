@@ -10,11 +10,11 @@ const Register = () => {
       const arrowIcon = i18n.dir() === 'rtl' ? <IoMdArrowBack /> : <IoMdArrowForward />;
 
     return (
-        <div className='py-10'>
+        <div className='py-10 '>
             <h1 className='text-[48px] font-bold text-center'>{t('register_new_account')}</h1>
             <p className='text-center font-medium text-[20px] text-[#4A5565] py-2'>{t('choose_account_type')}</p>
-            <div className='flex justify-center gap-5 py-5'>
-                <div className=' w-1/4 border border-[#00000040] shadow-2xl p-9 rounded-xl flex flex-col gap-5 items-center justify-center text-center'>
+            <div className='flex flex-wrap justify-center gap-5 py-5 mx-5'>
+                <div className='w-full md:w-1/4 border border-[#00000040] shadow-2xl p-9 rounded-xl flex flex-col gap-5 items-center justify-center text-center'>
                     <div className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] p-4 rounded-xl text-white font-bold  flex items-center justify-center'>
                         <span className='text-[40px]'>
                             <IoPersonOutline />
@@ -29,7 +29,7 @@ const Register = () => {
                     </button>
                 </div>
 
-                <div className=' w-1/4 border border-[#00000040] shadow-2xl p-9 rounded-xl flex flex-col gap-5 items-center justify-center text-center'>
+                <div className='w-full md:w-1/4 border border-[#00000040] shadow-2xl p-9 rounded-xl flex flex-col gap-5 items-center justify-center text-center'>
                     <div className='bg-gradient-to-r from-[#FFA811] to-[#FF683B] p-4 rounded-xl text-white font-bold  flex items-center justify-center'>
                         <span className='text-[40px]'>
                             <IoPersonOutline />

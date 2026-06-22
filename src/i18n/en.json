@@ -229,6 +229,7 @@
     "points_exchange": "Can be exchanged for discounts",
     "not_available": "Not Available",
     "points": "Points",
-    "Member_Registration":"Member Registration"
+    "Member_Registration":"Member Registration",
+    "MemberShip_is_required":"Membership is required"
 
 }

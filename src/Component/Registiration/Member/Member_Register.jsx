@@ -10,6 +10,7 @@ import i18next from 'i18next';
 import { Send_OTP } from '../../../axiosConfig/APIs/Auth/Register/Send_OTP';
 import Select from "react-select";
 import { useTranslation } from 'react-i18next';
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 const Member_Register = () => {
   const navigate = useNavigate();
@@ -92,11 +93,11 @@ const Member_Register = () => {
   };
   const handleSubmit = async () => {
     const newErrors = {};
-    if (!formData.card_number.trim()) newErrors.card_number = 'رقم العضوية مطلوب';
-    if (!formData.phone.trim()) newErrors.phone = 'رقم الهاتف أو الرقم القومي مطلوب';
-    if (!formData.national_id.trim()) newErrors.national_id = 'الرقم القومي مطلوب';
-    if (!formData.full_name.trim()) newErrors.full_name = 'الاسم بالكامل مطلوب';
-    if (!formData.branch.trim()) newErrors.branch = 'الفرع مطلوب';
+    if (!formData.card_number.trim()) newErrors.card_number = t("MemberShip_is_required");
+    if (!formData.phone.trim()) newErrors.phone = t("phone_required");
+    if (!formData.national_id.trim()) newErrors.national_id = t("national_id_required");
+    if (!formData.full_name.trim()) newErrors.full_name = t("full_name_required");
+    if (!formData.branch.trim()) newErrors.branch = t("branch_required");
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length) return;
@@ -136,7 +137,7 @@ const Member_Register = () => {
         <p className=' text-[16px] text-[#5B626E]'>الرجاء إدخال بيانات العضوية للمتابعة</p>
         <div className=' w-full flex flex-wrap '>
           {fields.map((field) => (
-            <div key={field.name} className='mb-3 w-1/2 px-2'>
+            <div key={field.name} className='mb-3 md:w-1/2 w-full px-2'>
               <label className='font-medium text-[15px] text-[#364153] px-1'>
                 {field.label}
               </label>
@@ -204,8 +205,8 @@ const Member_Register = () => {
             disabled={loading}
             className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white font-semibold py-3 px-5 rounded-xl hover:bg-[#005f5a] w-full mt-3 flex justify-center gap-3 disabled:opacity-50'
           >
-            {loading ? 'جارٍ المعالجة...' : 'التالى'}
-            <span className='py-1'> <IoIosArrowRoundBack /> </span>
+            {loading ? 'جارٍ المعالجة...' : t("next")}
+            <span className='py-1'> {i18next.language === "ar" ? <IoIosArrowRoundBack/>: <IoIosArrowRoundForward/>} </span>
           </button>
         
         </div>

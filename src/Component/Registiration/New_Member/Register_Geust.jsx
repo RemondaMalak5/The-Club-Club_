@@ -192,7 +192,7 @@ const Register_Geust = () => {
 
         <div className="flex flex-wrap w-full ">
           {arr.map((item, index) => (
-            <div key={index} className="flex flex-col gap-2 mt-4 w-1/2 px-2">
+            <div key={index} className="flex flex-col gap-2 mt-4  w-full md:w-1/2 px-2">
               <label>{item.label}</label>
 
               <input

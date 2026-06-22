@@ -8,7 +8,7 @@ const Stepper_green = ({
 }) => {
   return (
     <div className="flex flex-col justify-center items-center  mb-5 w-[50%]">
-      <span className="text-[#364153] text-sm mb-8">
+      <span className="text-[#364153] text-sm  hidden sm:inline">
         الخطوة {currentStep} من {totalSteps}
       </span>
 
@@ -30,7 +30,7 @@ const Stepper_green = ({
                     onStepClick?.(stepNumber);
                   }
                 }}
-                className={`w-full h-2 rounded-full transition-all duration-300 ${
+                className={`w-full h-2 rounded-full transition-all duration-300  ${
                   stepNumber < currentStep ? "cursor-pointer" : "cursor-default"
                 } ${
                   isDone

@@ -28,7 +28,7 @@ const Search_News = () => {
     const params = {
       language: i18next.language,
       branchId: "all" ,
-      categoryId: "all",
+      category: "all",
     };
     try {
       const response = await Most_read_news(params);
@@ -42,7 +42,7 @@ const Search_News = () => {
     const params = {
       language: i18next.language,
       branchId: "all",
-      categoryId: "all",
+      category: "all",
       limit: 5,
     };
     try {
