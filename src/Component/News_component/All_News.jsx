@@ -99,7 +99,7 @@ const All_News = () => {
   }, [i18next.language, branch]);
 
   return (
-    <div className="px-14 py-5 bg-slate-500">
+    <div className="px-14 py-5 bg-slate-100">
       <div className="border p-4 rounded-xl mb-5 bg-white">
         <div className="flex flex-wrap w-full gap-4">
           <input

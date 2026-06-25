@@ -11,6 +11,8 @@ import { CgCalendarDates } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import { CiCirclePlus } from "react-icons/ci";
+import { IoLocationOutline } from "react-icons/io5";
+import { HiCalendarDateRange } from "react-icons/hi2";
 
 const Search_News = () => {
   const { t } = useTranslation();
@@ -123,17 +125,19 @@ const Search_News = () => {
 
         <div className="xl:w-1/2 w-full ps-5 sm:pt-5 xl:pt-0  ">
           <h2 className="font-bold text-[24px] mb-4 px-2">{t("latest_news")}</h2>
-          {lastNews.slice(0, 5).map((item, index) => (
+          {lastNews.slice(0, 4).map((item, index) => (
             <div
               key={index}
               className="flex justify-between items-center  w-full border p-5 rounded-xl my-2"
             >
               <div>
-                <p className="text-sm font-semibold">{item.title}</p>
-                <span className="text-xs text-gray-400 flex items-center gap-2">
-                  {item.publishDate}
-<span className="text-[12px] text-gray-800 border border-gray-300 px-2  rounded-full">
-                    {item.branchName }
+                <p className="text-sm font-semibold ">{item.title}</p>
+                <span className="text-[14px] text-[#6A7282] flex items-center gap-2">
+                 <HiCalendarDateRange/>
+ {item.publishDate}
+<span className="text-[14px] text-[#6A7282]  flex gap-1  px-2  ">
+                    <IoLocationOutline/>
+{item.branchName }
                   </span>
                 </span>
               </div>

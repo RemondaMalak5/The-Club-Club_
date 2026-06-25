@@ -34,15 +34,15 @@ const Services_search = () => {
   const services = servicesData?.message?.data || [];
   const categories = categoriesData?.message?.data || [];
 
-  const tabs = useMemo(() => {
-    return [
-      { label: "الكل", value: "All" },
-      ...categories.map((cat) => ({
-        label: cat.category_name || cat.name || cat.title || cat.category,
-        value: cat.category || cat.name || cat.title || cat.category_name,
-      })),
-    ];
-  }, [categories]);
+ const tabs = useMemo(() => {
+  return [
+    { label: "الكل", value: "All" },
+    ...categories.map((cat) => ({
+      label: cat.category_name || cat.name || cat.title || cat.category,
+      value: cat.category_name || cat.name || cat.title || cat.category,
+    })),
+  ];
+}, [categories]);
 
   const branches = useMemo(() => {
     return [
@@ -53,8 +53,8 @@ const Services_search = () => {
 
   const filteredData = useMemo(() => {
     return services.filter((item) => {
-      const matchesTab = activeTab === "All" || item.category === activeTab;
-
+const matchesTab =
+  activeTab === "All" || item.category === activeTab;
       const matchesBranch =
         selectedBranch === "All Branches" || item.branchName === selectedBranch;
 
@@ -157,8 +157,8 @@ const Services_search = () => {
           viewMode === "grid" ? "flex flex-wrap" : "flex flex-col gap-5"
         }
       >
-        {services.length > 0 ? (
-          services.map((item) => (
+        {filteredData.length > 0 ? (
+          filteredData.map((item) => (
             <div
               key={`${item.service_id}-${item.branchId}`}
               className={
