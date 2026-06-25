@@ -4,59 +4,67 @@ import { useQuery } from "@tanstack/react-query";
 import { LayoutGrid, List, Calendar, MapPin, Users } from "lucide-react";
 import { All_Services } from "../../../axiosConfig/APIs/Services/All_Services";
 import { Services_category } from "../../../axiosConfig/APIs/Services/Services_category";
+import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Services_search = () => {
   const navigate = useNavigate();
+  const {t}=useTranslation();
   const [activeTab, setActiveTab] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBranch, setSelectedBranch] = useState("All Branches");
+  const [selectedBranch, setSelectedBranch] = useState("All");
   const [viewMode, setViewMode] = useState("grid");
 
   const { data: servicesData, isLoading, isError } = useQuery({
-    queryKey: ["all-services"],
+    queryKey: ["all-services", i18next.language],
     queryFn: () =>
       All_Services({
-        language:i18next.language,
+        language: i18next.language,
         page: 1,
         page_size: 50,
       }),
   });
 
   const { data: categoriesData } = useQuery({
-    queryKey: ["services-categories"],
-    queryFn: () => Services_category({
-              language:i18next.language,
+    queryKey: ["services-categories", i18next.language],
+    queryFn: () =>
+      Services_category({
+        language: i18next.language,
+      }),
+  });
 
-    }),
+  const { data: branchesData } = useQuery({
+    queryKey: ["branches", i18next.language],
+    queryFn: () =>
+      AllBranches({
+        language: i18next.language,
+      }),
   });
 
   const services = servicesData?.message?.data || [];
   const categories = categoriesData?.message?.data || [];
+  const branches = branchesData?.message?.data || [];
 
- const tabs = useMemo(() => {
-  return [
-    { label: "الكل", value: "All" },
-    ...categories.map((cat) => ({
-      label: cat.category_name || cat.name || cat.title || cat.category,
-      value: cat.category_name || cat.name || cat.title || cat.category,
-    })),
-  ];
-}, [categories]);
-
-  const branches = useMemo(() => {
+  const tabs = useMemo(() => {
     return [
-      "All Branches",
-      ...new Set(services.map((item) => item.branchName).filter(Boolean)),
+      { label: "الكل", value: "All" },
+      ...categories.map((cat) => ({
+        label: cat.name,
+        value: cat.id,
+      })),
     ];
-  }, [services]);
+  }, [categories]);
 
   const filteredData = useMemo(() => {
     return services.filter((item) => {
-const matchesTab =
-  activeTab === "All" || item.category === activeTab;
+      const matchesCategory =
+        activeTab === "All" || item.category === activeTab;
+
       const matchesBranch =
-        selectedBranch === "All Branches" || item.branchName === selectedBranch;
+  selectedBranch === "All" ||
+  String(item.branchId).toLowerCase() ===
+    String(selectedBranch).toLowerCase();
 
       const searchValue = `
         ${item.title || ""}
@@ -67,7 +75,7 @@ const matchesTab =
 
       const matchesSearch = searchValue.includes(searchTerm.toLowerCase());
 
-      return matchesTab && matchesBranch && matchesSearch;
+      return matchesCategory && matchesBranch && matchesSearch;
     });
   }, [services, activeTab, selectedBranch, searchTerm]);
 
@@ -88,10 +96,7 @@ const matchesTab =
   }
 
   return (
-    <div
-      className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4 bg-[#f8faf9]"
-      
-    >
+    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4 bg-[#f8faf9]">
       <div className="flex flex-wrap gap-3 mb-4 justify-center">
         {tabs.map((tab) => (
           <button
@@ -118,16 +123,20 @@ const matchesTab =
         />
 
         <select
-          value={selectedBranch}
-          onChange={(e) => setSelectedBranch(e.target.value)}
-          className="px-4 py-2 border rounded-lg bg-white"
-        >
-          {branches.map((branch) => (
-            <option key={branch} value={branch}>
-              {branch === "All Branches" ? "كل الفروع" : branch}
-            </option>
-          ))}
-        </select>
+  value={selectedBranch}
+  onChange={(e) => {
+    setSelectedBranch(e.target.value);
+  }}
+  className="px-4 py-2 border rounded-lg bg-white"
+>
+  <option value="All">{t("all_branches")}</option>
+
+  {branches.map((e) => (
+    <option key={e.id} value={e.registryId || e.id}>
+      {e.name}
+    </option>
+  ))}
+</select>
 
         <button
           onClick={() => setViewMode("grid")}
@@ -233,7 +242,11 @@ const matchesTab =
 
                   <div className="p-4 pt-0">
                     <button
-                      onClick={() => navigate(`/services/${item.service_id}`, { state: { service: item } })}
+                      onClick={() =>
+                        navigate(`/services/${item.service_id}`, {
+                          state: { service: item },
+                        })
+                      }
                       className="w-full bg-teal-600 text-white py-2.5 rounded-lg hover:bg-teal-700 transition"
                     >
                       عرض التفاصيل

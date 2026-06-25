@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
-import Academy_headers from '../Component/Academy_Component/Academy/Academy_headers'
-import Academy_filter from '../Component/Academy_Component/Academy/Academy_filter'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Academy_headers from "../Component/Academy_Component/Academy/Academy_headers";
+import Academy_filter from "../Component/Academy_Component/Academy/Academy_filter";
 
 const Academy = () => {
-  const location = useLocation();
-  const branchFromHome = location.state?.branchId || "all";
+  const [selectedBranch, setSelectedBranch] = useState("all");
 
-  const [selectedBranch, setSelectedBranch] = useState(branchFromHome);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user?.branchId) {
+      setSelectedBranch(user.branchId);
+    }
+  }, []);
 
   return (
     <>
@@ -20,4 +24,5 @@ const Academy = () => {
     </>
   );
 };
-export default Academy
+
+export default Academy;

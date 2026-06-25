@@ -44,16 +44,16 @@ const profile = data?.message?.data;
       <Proflie_Header data={profile} />
       <Membership_Stats data={profile} />
 
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-  <div className="lg:col-span-2 space-y-4">
+       <div className="flex flex-wrap ">
+  <div className=" xl:w-1/2 w-full px-1 space-y-4">
           <MembershipCard data={profile} />
           <AcademySubscriptions data={profile.subscribedAcademies} />
           <Bookings data={profile.upcomingBookings} />
           <Payments data={profile.paymentHistory} />
         </div>
 
-        <div className="space-y-4">
-          <Notifications data={profile.notifications} />
+        <div className="xl:w-1/2 w-full ps-5 space-y-4">
+          {/* <Notifications data={profile.notifications} /> */}
           <FamilyMembers data={profile.familyMembers} />
           <Achievements data={profile.achievements} />
           <QuickActions data={profile} />

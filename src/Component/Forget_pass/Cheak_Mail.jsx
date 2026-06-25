@@ -28,7 +28,7 @@ const Cheak_Mail = () => {
 
             const body = {
                 phone: phone,
-                branch: "sheraton",
+                branch: "نادي النادي - 6 اكتوبر",
                 language: i18next.language,
             };
 
@@ -39,6 +39,8 @@ const Cheak_Mail = () => {
                 state: {
                     formData: {
                         phone: phone,
+                              otpToken: response.message.otpToken,
+
                     },
                 },
             });

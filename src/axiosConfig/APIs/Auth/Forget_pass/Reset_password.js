@@ -1,9 +1,9 @@
 import axiosInstance from "../../../Instance";
 
-export const Forget_otp = async (body) => {
+export const Reset_password = async (body) => {
   try {
     const response = await axiosInstance.post(
-      "/method/the_club_api.api.auth.password.verify_forgot_password_otp",
+      "/method/the_club_api.api.auth.password.reset_password",
       body
     );
 

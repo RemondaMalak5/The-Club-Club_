@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { LuShield } from "react-icons/lu";
 import { useNavigate, useLocation } from "react-router-dom";
 import H_one_register from "../Shared_Component/H_one_register";
-import { Forget_otp } from "../../axiosConfig/APIs/Auth/Forget_pass/OTP";
+import {Forget_otp} from "../../axiosConfig/APIs/Auth/Forget_pass/OTP"
+import { forget } from "../../axiosConfig/APIs/Auth/Forget_pass/Forget";
 
 const Cheak_Otp = ({ length = 6 }) => {
   const { t, i18n } = useTranslation();
@@ -18,7 +19,7 @@ const Cheak_Otp = ({ length = 6 }) => {
 
   const formData = location.state?.formData || {};
   const phone = formData?.phone || location.state?.phone || "";
-
+const otpToken = formData?.otpToken || location.state?.otpToken || "";
   const maskedPhone = phone ? phone.replace(/\d(?=\d{4})/g, "*") : "***5678";
 
   const getErrorMessage = (error, fallback = "حدث خطأ، حاول مرة أخرى") => {
@@ -113,35 +114,76 @@ const Cheak_Otp = ({ length = 6 }) => {
       return;
     }
 
-    try {
-      setLoading(true);
+ try {
+  setLoading(true);
 
-      const body = {
-        phone,
-        otp_code: otpCode,
-        branch: "sheraton",
-        language: i18n.language,
-      };
+  const body = {
+    otpToken,
+    otp: otpCode,
+    language: i18next.language,
+  };
 
-      const response = await Forget_otp(body);
+  console.log("verify body:", body);
 
-      navigate("/reset-password", {
-        state: {
-          formData: {
-            ...formData,
-            phone,
-          },
-          otpCode,
-          token: response?.message?.token || response?.token,
-        },
-      });
-    } catch (error) {
+  const response = await Forget_otp(body);
+
+  console.log("verify response:", response);
+
+  navigate("/reset-pass", {
+    state: {
+    resetToken,
+    formData: {
+      ...formData,
+      phone,
+      otpToken,
+      resetToken,
+    },
+  },
+  });
+}  catch (error) {
       setError(getErrorMessage(error, t("invalid_otp")));
     } finally {
       setLoading(false);
     }
   };
+ const handleResend = async () => {
+  if (!phone) {
+    setError("رقم الهاتف غير موجود، الرجاء إعادة المحاولة");
+    return;
+  }
 
+  try {
+    setLoading(true);
+
+    const response = await forget({
+      phone,
+      branch: "نادي النادي - 6 اكتوبر",
+      language: i18n.language,
+    });
+
+    const newOtpToken = response?.message?.otpToken;
+
+    navigate("/forget-otp", {
+      replace: true,
+      state: {
+        formData: {
+          ...formData,
+          phone,
+          otpToken: newOtpToken,
+        },
+      },
+    });
+
+    setCounter(56);
+    setOtp(Array(length).fill(""));
+    inputsRef.current[0]?.focus();
+    setError("");
+  } catch (error) {
+    setError(getErrorMessage(error, "حدث خطأ أثناء إعادة الإرسال"));
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="border p-7 w-[50%] flex flex-col gap-3 justify-center items-center rounded-xl shadow-2xl">
@@ -159,7 +201,7 @@ const Cheak_Otp = ({ length = 6 }) => {
           {t("enter_otp_code")}
         </p>
 
-        <div className="flex gap-3" dir="ltr" onPaste={handlePaste}>
+        <div className="flex  gap-3" dir="ltr" onPaste={handlePaste}>
           {Array.from({ length }).map((_, index) => (
             <input
               key={index}
@@ -170,7 +212,7 @@ const Cheak_Otp = ({ length = 6 }) => {
               type="text"
               inputMode="numeric"
               maxLength={1}
-              className={`border rounded-lg w-16 h-16 text-center text-[18px] outline-none ${
+              className={`border rounded-lg xl:w-16 xl:h-16  sm:w-10 sm:h-10 w-5 h-5 text-center text-[18px] outline-none ${
                 error ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -191,6 +233,13 @@ const Cheak_Otp = ({ length = 6 }) => {
           className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-3 rounded-lg w-full mb-1 mt-5 disabled:opacity-50"
         >
           {loading ? t("verifying_otp") : t("verify")}
+        </button>
+          <button
+          onClick={handleResend}
+          disabled={counter > 0 || loading}
+          className="text-[#5B626E] border border-[#08AC85DB] font-bold py-3 px-5 rounded-lg w-full disabled:opacity-50"
+        >
+          {t("resend_otp")}
         </button>
       </div>
     </div>

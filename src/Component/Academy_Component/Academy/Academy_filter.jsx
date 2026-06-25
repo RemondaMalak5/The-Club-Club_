@@ -14,13 +14,12 @@ import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import Pagination_Component from "../../Shared_Component/Pagination_Component";
 import { useTranslation } from "react-i18next";
 
-const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
+const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
   const { t } = useTranslation();
   const navigation = useNavigate();
   const [data, setData] = useState([]);
   const [activecategory, setActiveCategory] = useState("all");
-  // const [selectedBranch, setSelectedBranch] = useState("all");
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
@@ -36,7 +35,7 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
     try {
       const response = await AllBranches(params);
       setBranches(response.message.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const Get_Academy_Category = async () => {
@@ -51,7 +50,7 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
           index === self.findIndex((c) => c.id === category.id),
       );
       setCategories(uniqueCategories);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const Get_Academy_List = async () => {
@@ -63,6 +62,7 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
       category: activecategory,
       search: searchTerm,
     };
+
     try {
       const response = await Academylist(params);
       setData(response.message.data);
@@ -96,11 +96,10 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
             setActiveCategory("all");
             setCurrentPage(1);
           }}
-          className={`px-4 py-2 rounded-full border text-sm transition ${
-            activecategory === "all"
+          className={`px-4 py-2 rounded-full border text-sm transition ${activecategory === "all"
               ? "bg-teal-600 text-white border-teal-600"
               : "bg-white text-gray-600 border-gray-300"
-          }`}
+            }`}
         >
           {t("all_academies")}
         </button>
@@ -111,11 +110,10 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
               setActiveCategory(e.id);
               setCurrentPage(1);
             }}
-            className={`px-4 py-2 rounded-full border text-sm transition ${
-              activecategory === e.id
+            className={`px-4 py-2 rounded-full border text-sm transition ${activecategory === e.id
                 ? "bg-teal-600 text-white border-teal-600"
                 : "bg-white text-gray-600 border-gray-300"
-            }`}
+              }`}
           >
             {e.title}
           </button>
@@ -149,31 +147,28 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
 
         <button
           onClick={() => setViewMode("grid")}
-          className={`p-2 rounded-lg border transition ${
-            viewMode === "grid"
+          className={`p-2 rounded-lg border transition ${viewMode === "grid"
               ? "bg-teal-600 text-white border-teal-600"
               : "bg-white text-gray-600 border-gray-300"
-          }`}
+            }`}
         >
           <LayoutGrid size={18} />
         </button>
 
         <button
           onClick={() => setViewMode("list")}
-          className={`p-2 rounded-lg border transition ${
-            viewMode === "list"
+          className={`p-2 rounded-lg border transition ${viewMode === "list"
               ? "bg-teal-600 text-white border-teal-600"
               : "bg-white text-gray-600 border-gray-300"
-          }`}
+            }`}
         >
           <List size={18} />
         </button>
       </div>
 
       <div
-        className={`w-full flex flex-wrap ${
-          viewMode === "list" ? "flex-col" : ""
-        }`}
+        className={`w-full flex flex-wrap ${viewMode === "list" ? "flex-col" : ""
+          }`}
       >
         {data.length > 0 ? (
           data.map((academy, index) => (
@@ -194,18 +189,16 @@ const Academy_filter = ({selectedBranch,setSelectedBranch}) => {
               }
             >
               <div
-                className={`border rounded-lg shadow-md overflow-hidden bg-white h-full flex flex-col ${
-                  viewMode === "list" ? "md:flex-row" : ""
-                }`}
+                className={`border rounded-lg shadow-md overflow-hidden bg-white h-full flex flex-col ${viewMode === "list" ? "md:flex-row" : ""
+                  }`}
               >
                 <img
                   src={academy.image ? academy.image : assets.image_1}
                   alt={academy.name}
-                  className={`object-cover ${
-                    viewMode === "grid"
+                  className={`object-cover ${viewMode === "grid"
                       ? "w-full h-40"
                       : "w-full md:w-[320px] h-52 md:h-auto"
-                  }`}
+                    }`}
                   loading="lazy"
                 />
 

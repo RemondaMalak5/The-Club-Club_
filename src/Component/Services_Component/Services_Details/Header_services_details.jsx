@@ -1,16 +1,42 @@
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import Left_side from "./Left_side";
 import Right_side from "./Right_side";
+import { Services_details } from "../../../axiosConfig/APIs/Services/Services_details";
+import i18next from "i18next";
 
 const Header_services_details = () => {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const service = location.state?.service;
+  const {id}= useParams();
+    const branchId = location.state?.branchId;
+  const [error,setError] =useState("false");
+const [data, setData] = useState(null);
+   const params = {
+    language: i18next.language,
+    service_id: id,
+    branchId: branchId,
+  };
 
+  const Get_Services_Details = async () => {
+    try {
+      const response = await Services_details(params);
+      setData(response.message.data);
+      console.log("res",response.message.data)
+    } catch (error) {
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      Get_Services_Details();
+    }
+  }, [id, i18next.language, branchId]);  
   return (
     <div className="bg-[#f8faf9]" >
       <div
@@ -22,7 +48,7 @@ const Header_services_details = () => {
       </div>
 
       <img
-        src={service?.image || service?.cover_photo}
+        src={data?.cover_photo || service?.cover_photo}
         alt={service?.title || "Service"}
         className="w-full h-[320px] md:h-[380px] object-cover"
         loading="lazy"
