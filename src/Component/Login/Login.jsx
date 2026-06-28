@@ -102,20 +102,18 @@ const Login = () => {
   window.dispatchEvent(new Event("userUpdated"));
 
   navigate("/profile");
-}
-      else {
-        setApiError("Invalid username or password");
-      }
+};
     } catch (error) {
       const data = error?.response?.data;
+        setApiError("Invalid username or password");
 
-      setApiError(
-        typeof data?.message === "string"
-          ? data.message
-          : typeof data?.error === "string"
-          ? data.error
-          : "Login failed"
-      );
+      // setApiError(
+      //   typeof data?.message === "string"
+      //     ? data.message
+      //     : typeof data?.error === "string"
+      //     ? data.error
+      //     : "Login failed"
+      // );
     }
   };
 

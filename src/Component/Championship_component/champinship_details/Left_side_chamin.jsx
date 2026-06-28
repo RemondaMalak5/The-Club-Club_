@@ -70,7 +70,7 @@ const Left_side_chamin = ({ data }) => {
               key={index}
               src={img}
               alt="gallery"
-              className="w-full h-[120px] object-cover rounded-lg hover:opacity-80 transition-opacity"
+              className="w-full h-[120px] object-cover rounded-lg "
               loading="lazy"
             />
           )) || (
@@ -78,7 +78,7 @@ const Left_side_chamin = ({ data }) => {
                 {[...Array(9)].map((_, i) => (
                   <div
                     key={i}
-                    className="w-full h-[120px] bg-gray-300 rounded-lg animate-pulse"
+                    className="w-full h-[120px] bg-gray-300 rounded-lg "
                   ></div>
                 ))}
               </>
