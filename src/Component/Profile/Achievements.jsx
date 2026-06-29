@@ -3,8 +3,8 @@ import { RiMedalLine } from "react-icons/ri";
 
 const Achievements = ({ data }) => {
   return (
-    <div className="bg-white rounded-xl p-4 shadow">
-      <h3 className="font-bold text-lg mb-4 text-right">
+    <div className="bg-white rounded-xl p-4 shadow border">
+      <h3 className="font-bold text-[20px] mb-4 text-right">
         الإنجازات
       </h3>
 

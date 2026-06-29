@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 const QuickActions = () => {
   const navigate = useNavigate();
   const inputs = [
-    { title: "حجز نشاط", linkto: "/contact", icon: <CiCirclePlus /> },
+    { title: " حجز نشاط / خدمه", linkto: "/contact", icon: <CiCirclePlus /> },
     { title: "تجديد العضوية", linkto: "/contact", icon: <FaRegIdCard /> },
     { title: "تواصل معنا", linkto: "/contact", icon: <MdPermPhoneMsg /> },
   ];
   return (
-    <div className="bg-white rounded-xl p-4 shadow">
-      <h3 className="font-bold mb-3"> إجراءات سريعة</h3>
+    <div className="bg-white rounded-xl p-4 shadow border ">
+      <h3 className="font-bold text-[20px] mb-3"> إجراءات سريعة</h3>
 
       {inputs.map((item, i) => (
         <button

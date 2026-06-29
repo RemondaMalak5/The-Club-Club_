@@ -7,8 +7,8 @@ import { FiUsers } from "react-icons/fi";
 
 const FamilyMembers = ({ data }) => {
   return (
-    <div className="bg-white rounded-xl p-4 shadow">
-      <h3 className="font-bold mb-3">أفراد العائلة</h3> 
+    <div className="bg-white rounded-xl p-4 shadow border">
+      <h3 className="font-bold text-[20px] mb-3">أفراد العائلة</h3> 
 
       {data?.map((e) => (
         <div
@@ -41,7 +41,7 @@ const FamilyMembers = ({ data }) => {
                   </div>
       ))}
 
-      <button className="w-full rounded-2xl border  flex flex-col items-center p-3 my-1">
+      <button className="w-full rounded-2xl border  flex flex-col items-center p-3 my-2">
         <span> <FiUsers/></span> اضافه عضو </button>
     </div>
   );

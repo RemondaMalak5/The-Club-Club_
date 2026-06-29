@@ -42,11 +42,10 @@ const Branches_all = () => {
         {data.map((branch, index) => (
           <div
             key={index}
-             onClick={() =>
-                navigate(`/about-branches/${branch.id}`, {
-                  state: { branchId: branch.id, branchName: branch.name },
-                })
-              }
+             onClick={()=>navigate(`/about-branches/${branch.registryId}` ,
+                  {state:{registryId: branch.registryId ,
+                  branchName: branch.name,
+                  }})}
             className="
               bg-white rounded-2xl shadow-md p-5 relative
               border border-[#E5E7EB]
@@ -106,7 +105,7 @@ const Branches_all = () => {
               </div>
             </div>
 
-            <button
+            <button 
              
               className="w-full bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
             >
