@@ -26,6 +26,7 @@ const Proflie_Header = ({ data }) => {
     email: "",
     dateOfBirth: "",
     gender: "",
+    image:"",
     language: i18next.language,
   });
 
@@ -37,6 +38,7 @@ const Proflie_Header = ({ data }) => {
         email: data?.email || "",
         dateOfBirth: data?.dateOfBirth || "",
         gender: data?.gender || "",
+        image:data?.image,
         language: i18next.language,
       });
     }
@@ -76,6 +78,7 @@ const Proflie_Header = ({ data }) => {
         email: formData.email,
         dateOfBirth: formData.dateOfBirth,
         gender: formData.gender,
+        image:formData.image,
         language: i18next.language,
       };
 
@@ -174,7 +177,7 @@ const Proflie_Header = ({ data }) => {
                     <img
                       src={
                         preview ||
-                        data?.profileImage ||
+                        data?.image ||
                         "/images/default-user.png"
                       }
                       alt="profile"

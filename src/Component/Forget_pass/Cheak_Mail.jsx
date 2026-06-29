@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { forget } from "../../axiosConfig/APIs/Auth/Forget_pass/Forget";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const Cheak_Mail = () => {
     const { t } = useTranslation();
@@ -13,10 +14,15 @@ const Cheak_Mail = () => {
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
-
+ const [branch , setBranch]=useState();
+   const branchOptions = [
+    { value: "The Club - New Capital", label: "The Club - New Capital" },
+    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
+    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
+  ];
     const handleForget = async () => {
-        setApiError("");
-        setSuccessMsg("");
+        // setApiError("");
+        // setSuccessMsg("");
 
         if (!phone.trim()) {
             setApiError(t("phone_required"));
@@ -28,7 +34,7 @@ const Cheak_Mail = () => {
 
             const body = {
                 phone: phone,
-                branch: "نادي النادي - 6 اكتوبر",
+                branch: branch?.value,
                 language: i18next.language,
             };
 
@@ -39,18 +45,18 @@ const Cheak_Mail = () => {
                 state: {
                     formData: {
                         phone: phone,
-                              otpToken: response.message.otpToken,
+                      otpToken: response.message.otpToken,
 
                     },
                 },
             });
             console.log("forget response:", response);
 
-            setSuccessMsg(
-                response?.message?.message ||
-                response?.message ||
-                "Verification message sent successfully"
-            );
+            // setSuccessMsg(
+            //     response?.message?.message ||
+            //     response?.message ||
+            //     "Verification message sent successfully"
+            // );
         } catch (error) {
             setApiError(
                 error?.response?.data?.message ||
@@ -94,6 +100,47 @@ const Cheak_Mail = () => {
                 {successMsg && (
                     <p className="text-green-600 text-sm w-full">{successMsg}</p>
                 )}
+  <div className="flex flex-col gap-2 w-full px-1 mt-3">
+          <label className="font-bold text-[16px] text-[#364153] px-1">
+            {t("branch_label")}
+          </label>
+
+          <Select
+  options={branchOptions}
+  value={branch}
+  onChange={(selectedOption) => {
+    setBranch(selectedOption);
+    setApiError("");
+  }}
+  placeholder={t("select_branch")}
+  styles={{
+    control: (provided) => ({
+      ...provided,
+      minHeight: "48px",
+      borderRadius: "10px",
+      borderColor: "#d1d5db",
+      boxShadow: "none",
+      "&:hover": {
+        borderColor: "#08AC85",
+      },
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? "#00786F"
+        : state.isFocused
+        ? "#EAF3F1"
+        : "white",
+      color: state.isSelected ? "white" : "black",
+    }),
+  }}
+/>
+ 
+{/* 
+          {errors.branch && (
+            <p className="text-red-500 text-sm">{errors.branch}</p>
+          )} */}
+        </div>
 
                 <button
                     type="button"

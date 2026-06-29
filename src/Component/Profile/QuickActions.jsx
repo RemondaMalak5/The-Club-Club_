@@ -1,19 +1,50 @@
-import React from 'react'
+import i18next from "i18next";
+import React from "react";
+import { CiCirclePlus } from "react-icons/ci";
+import {
+  FaArrowCircleLeft,
+  FaRegArrowAltCircleLeft,
+  FaRegArrowAltCircleRight,
+  FaRegIdCard,
+} from "react-icons/fa";
+import { MdPermPhoneMsg } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const QuickActions = () => {
+  const navigate = useNavigate();
+  const inputs = [
+    { title: "حجز نشاط", linkto: "/contact", icon: <CiCirclePlus /> },
+    { title: "تجديد العضوية", linkto: "/contact", icon: <FaRegIdCard /> },
+    { title: "تواصل معنا", linkto: "/contact", icon: <MdPermPhoneMsg /> },
+  ];
   return (
- <div className="bg-white rounded-xl p-4 shadow">
-      <h3 className="font-bold mb-3">إجراءات سريعة</h3>
+    <div className="bg-white rounded-xl p-4 shadow">
+      <h3 className="font-bold mb-3"> إجراءات سريعة</h3>
 
-      {["حجز نشاط", "تجديد العضوية", "تواصل معنا"].map((item, i) => (
+      {inputs.map((item, i) => (
         <button
           key={i}
-          className="w-full border rounded-lg py-2 mb-2 hover:bg-gray-50"
+          onClick={() => navigate(item.linkto)}
+          className="w-full justify-between border rounded-xl py-3 px-4 mb-3 flex items-center gap-3 hover:bg-gray-50 transition"
         >
-          {item}
+          <div className="flex items-center gap-3">
+            <span className="p-3 rounded-full bg-[#00786F] text-white flex items-center justify-center text-2xl font-bold">
+              {item.icon}
+            </span>
+
+            <span className="text-[18px] font-bold">{item.title}</span>
+          </div>
+          <span className="text-[18px]">
+            {i18next.language === "ar" ? (
+              <FaRegArrowAltCircleLeft />
+            ) : (
+              <FaRegArrowAltCircleRight />
+            )}{" "}
+          </span>
         </button>
       ))}
-    </div>  )
-}
+    </div>
+  );
+};
 
-export default QuickActions
+export default QuickActions;

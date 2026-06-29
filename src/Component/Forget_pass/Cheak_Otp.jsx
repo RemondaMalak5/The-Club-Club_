@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import { LuShield } from "react-icons/lu";
 import { useNavigate, useLocation } from "react-router-dom";
 import H_one_register from "../Shared_Component/H_one_register";
-import {Forget_otp} from "../../axiosConfig/APIs/Auth/Forget_pass/OTP"
+import { Verify_Forgot_Password_OTP} from "../../axiosConfig/APIs/Auth/Forget_pass/OTP"
 import { forget } from "../../axiosConfig/APIs/Auth/Forget_pass/Forget";
+import i18next from "i18next";
 
 const Cheak_Otp = ({ length = 6 }) => {
   const { t, i18n } = useTranslation();
@@ -20,7 +21,7 @@ const Cheak_Otp = ({ length = 6 }) => {
   const formData = location.state?.formData || {};
   const phone = formData?.phone || location.state?.phone || "";
 const otpToken = formData?.otpToken || location.state?.otpToken || "";
-  const maskedPhone = phone ? phone.replace(/\d(?=\d{4})/g, "*") : "***5678";
+  const maskedPhone = phone ? phone.replace(/\d(?=\d{4})/g, "*") : "***";
 
   const getErrorMessage = (error, fallback = "حدث خطأ، حاول مرة أخرى") => {
     const data = error?.response?.data;
@@ -102,50 +103,67 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
   };
 
   const handleVerify = async () => {
-    const otpCode = otp.join("");
+  const otpCode = otp.join("");
 
-    if (otpCode.length < length) {
-      setError(t("invalid_otp_incomplete"));
-      return;
-    }
+  if (otpCode.length < length) {
+    setError(t("invalid_otp_incomplete"));
+    return;
+  }
 
-    if (!phone) {
-      setError("رقم الهاتف غير موجود، الرجاء إعادة المحاولة");
-      return;
-    }
+  if (!phone) {
+    setError("رقم الهاتف غير موجود، الرجاء إعادة المحاولة");
+    return;
+  }
 
- try {
-  setLoading(true);
+  if (!otpToken) {
+    setError("OTP Token غير موجود، الرجاء إعادة إرسال الرمز");
+    return;
+  }
 
-  const body = {
-    otpToken,
-    otp: otpCode,
-    language: i18next.language,
-  };
+  try {
+    setLoading(true);
 
-  console.log("verify body:", body);
-
-  const response = await Forget_otp(body);
-
-  console.log("verify response:", response);
-
-  navigate("/reset-pass", {
-    state: {
-    resetToken,
-    formData: {
-      ...formData,
-      phone,
+    const body = {
       otpToken,
-      resetToken,
-    },
-  },
-  });
-}  catch (error) {
-      setError(getErrorMessage(error, t("invalid_otp")));
-    } finally {
-      setLoading(false);
+      otp: otpCode,
+      language: i18n.language,
+    };
+
+    console.log("verify body:", body);
+
+    const response = await Verify_Forgot_Password_OTP(body);
+
+    console.log("verify response:", response);
+
+ const resetToken = response?.message?.resetToken;
+
+
+    if (!resetToken) {
+      setError("Reset Token غير موجود في رد السيرفر");
+      return;
     }
-  };
+
+    navigate("/reset-pass", {
+      state: {
+        resetToken,
+        formData: {
+          ...formData,
+          phone,
+          otpToken,
+          resetToken,
+        },
+      },
+    });
+  } catch (error) {
+    setError(getErrorMessage(error, t("invalid_otp")));
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+
  const handleResend = async () => {
   if (!phone) {
     setError("رقم الهاتف غير موجود، الرجاء إعادة المحاولة");
@@ -173,6 +191,8 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
         },
       },
     });
+   
+
 
     setCounter(56);
     setOtp(Array(length).fill(""));

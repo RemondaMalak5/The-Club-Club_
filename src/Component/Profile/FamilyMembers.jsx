@@ -1,11 +1,14 @@
 import { User } from "lucide-react";
 import React from "react";
 import { assets } from "../../assets/assets";
+import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from "react-icons/fa";
+import i18next from "i18next";
+import { FiUsers } from "react-icons/fi";
 
 const FamilyMembers = ({ data }) => {
   return (
     <div className="bg-white rounded-xl p-4 shadow">
-      <h3 className="font-bold mb-3">أفراد العائلة</h3>
+      <h3 className="font-bold mb-3">أفراد العائلة</h3> 
 
       {data?.map((e) => (
         <div
@@ -28,9 +31,18 @@ const FamilyMembers = ({ data }) => {
             </div>
           </div>
 
-          <User size={16} className="text-[#00786F]" />
-        </div>
+  <span className="text-[18px] pe-8">
+            {i18next.language === "ar" ? (
+              <FaRegArrowAltCircleLeft />
+            ) : (
+              <FaRegArrowAltCircleRight />
+            )}{" "}
+          </span>
+                  </div>
       ))}
+
+      <button className="w-full rounded-2xl border  flex flex-col items-center p-3 my-1">
+        <span> <FiUsers/></span> اضافه عضو </button>
     </div>
   );
 };

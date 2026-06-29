@@ -125,7 +125,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop */}
-          <div className="hidden lg:flex gap-7 items-center  ">
+          <div className="hidden lg:flex gap-5 items-center  ">
             {user ? (
               <>
                 <div className="flex items-center gap-2">
@@ -141,8 +141,8 @@ const Navbar = () => {
                     <p>مرحبا</p>
                     <p>
                       {user?.fullName?.split(" ").slice(0, 2).join(" ")}
-                    </p>{" "}
-                  </div>{" "}
+                    </p>
+                  </div>
                 </div>
                 <span className="bg-[#EBF1F1] p-3 rounded-full text-lg">
                   <IoNotificationsOutline />
