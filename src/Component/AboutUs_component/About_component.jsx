@@ -12,8 +12,8 @@ const About_component = ({ data }) => {
           
           <div className="w-full xl:w-1/2">
             <h2 className="text-[44px] font-bold text-[#00786F]">
-              عن النادي
-            </h2>
+{             t("about")
+}            </h2>
 
             <p className="text-[#4A5565] font-medium text-[20px] py-3">
               {data?.ourClub?.intro}

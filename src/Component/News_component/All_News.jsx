@@ -160,6 +160,14 @@ const All_News = () => {
         {data.length > 0 ? (
           data.map((item, index) => (
             <div
+             onClick={() =>
+                    navigate(`/news/${item.id}`, {
+                      state: {
+                        branchId: item.branchId,
+                        branchName: item.branchName,
+                      },
+                    })
+                  }
               key={item.id || index}
               className="bg-white rounded-2xl shadow-md overflow-hidden"
             >
@@ -191,14 +199,7 @@ const All_News = () => {
                 <p className="text-[#6A7282] text-sm">{item.summary}</p>
 
                 <button
-                  onClick={() =>
-                    navigate(`/news/${item.id}`, {
-                      state: {
-                        branchId: item.branchId,
-                        branchName: item.branchName,
-                      },
-                    })
-                  }
+                 
                   className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full hover:bg-[#0aa194] transition flex items-center gap-1"
                 >
                   <span className="font-semibold text-[16px]">

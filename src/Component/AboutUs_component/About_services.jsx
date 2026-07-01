@@ -3,13 +3,15 @@
 import React from "react";
 import Title_1 from "../Shared_Component/Title_1";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const About_services = ({ data }) => {
+  const { t } = useTranslation();
   const services = data?.serviceCategories || [];
  const navigate =useNavigate();
   return (
     <div className="xl:px-14 sm:px-5">
-      <Title_1 title="خدمات عالية الجودة" />
+      <Title_1 title={t("services_high_quality")} />
 
       <div className="flex flex-wrap py-4">
         {services.length === 0 ? (

@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaCheckCircle, FaMoneyBillWave } from "react-icons/fa";
 import { assets } from "../../../assets/assets";
 
 const Right_side = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="col-span-3 space-y-6 sticky top-5">
 
@@ -11,22 +13,22 @@ const Right_side = ({ data }) => {
 
         {/* Header */}
         <h2 className="text-center text-2xl font-bold text-gray-800 pb-4">
-          احجز الآن
+          {t('academy_book_now')}
         </h2>
 
         {/* Level */}
         <div className="flex items-center gap-3 justify-between ">
-          <p className="text-sm text-gray-600">السعر يبدأ من  </p>
+          <p className="text-sm text-gray-600">{t('academy_price_starts_from')}</p>
           <div className="flex items-baseline gap-1 ">
             <span className="text-2xl font-bold text-[#00BFA6]">{data?.minPrice}</span>
-            <span className="text-sm text-gray-600">ج.م</span>
+            <span className="text-sm text-gray-600">{t('academy_currency')}</span>
           </div>
 
         </div>
         <div className="h-[1px] bg-[#1E2939]"></div>
         {/* Price with Discount */}
         <div className="flex items-end justify-between mb-8">
-          <p className="text-sm text-red-700"> نسبه الخصم </p>
+          <p className="text-sm text-red-700">{t('academy_discount_rate')}</p>
           <p className="text-red-700 font-bold text-lg">10%</p>
 
         </div>
@@ -34,16 +36,16 @@ const Right_side = ({ data }) => {
         {/* Buttons */}
         <div className="space-y-3">
           <button className="w-full bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F]  duration-300 text-white py-3 rounded-xl font-semibold transition">
-            احجز الآن
+            {t('academy_book_now')}
           </button>
           <button className="w-full bg-white border-2 border-[#00786F] hover:bg-gray-50 duration-300 text-[#00786F] py-3 rounded-xl font-semibold transition">
-            معلومات
+            {t('academy_info')}
           </button>
         </div>
       </div>
       <div className="bg-white border rounded-2xl shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-6 text-right">
-          المدربون
+        <h2 className="text-xl font-bold text-gray-800 mb-6 ">
+          {t('academy_trainers_title')}
         </h2>
 
         <div className="space-y-5">
@@ -82,9 +84,9 @@ const Right_side = ({ data }) => {
                   </span>
                 )) || (
                     <>
-                      <span className="text-xs text-[#00BFA6] cursor-pointer hover:underline">تدريب</span>
-                      <span className="text-xs text-[#00BFA6] cursor-pointer hover:underline">قيمة للعملاء</span>
-                      <span className="text-xs text-[#00BFA6] cursor-pointer hover:underline">حياة و ترفيه</span>
+                      <span className="text-xs text-[#00BFA6] cursor-pointer hover:underline">{t('academy_cert_training')}</span>
+                      <span className="text-xs text-[#00BFA6] cursor-pointer hover:underline">{t('academy_cert_client_value')}</span>
+                      <span className="text-xs text-[#00BFA6] cursor-pointer hover:underline">{t('academy_cert_life_leisure')}</span>
                     </>
                   )}
               </div>
@@ -94,15 +96,15 @@ const Right_side = ({ data }) => {
       </div>
       {/* Facilities */}
       <div className="bg-white border rounded-2xl shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-5 text-right">
-          المرافق
+        <h2 className="text-xl font-bold text-gray-800 mb-5 ">
+          {t('academy_facilities_title')}
         </h2>
 
         <div className="space-y-3">
           {data?.facilities?.map((item, index) => (
             <div key={index} className="flex items-start gap-3">
               <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
-              <p className="text-gray-600 text-sm leading-6 text-right flex-1">
+              <p className="text-gray-600 text-sm leading-6  flex-1">
                 {item}
               </p>
             </div>
@@ -114,7 +116,7 @@ const Right_side = ({ data }) => {
           ].map((item, index) => (
             <div key={index} className="flex items-start gap-3">
               <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
-              <p className="text-gray-600 text-sm leading-6 text-right flex-1">
+              <p className="text-gray-600 text-sm leading-6  flex-1">
                 {item}
               </p>
             </div>
@@ -124,15 +126,15 @@ const Right_side = ({ data }) => {
 
       {/* Equipment */}
       <div className="bg-white border rounded-2xl shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-5 text-right">
-          المعدات
+        <h2 className="text-xl font-bold text-gray-800 mb-5 ">
+          {t('academy_equipment_title')}
         </h2>
 
         <div className="space-y-3">
           {data?.equipment?.map((item, index) => (
             <div key={index} className="flex items-start gap-3">
               <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
-              <p className="text-gray-600 text-sm leading-6 text-right flex-1">
+              <p className="text-gray-600 text-sm leading-6  flex-1">
                 {item}
               </p>
             </div>
@@ -145,7 +147,7 @@ const Right_side = ({ data }) => {
           ].map((item, index) => (
             <div key={index} className="flex items-start gap-3">
               <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
-              <p className="text-gray-600 text-sm leading-6 text-right flex-1">
+              <p className="text-gray-600 text-sm leading-6  flex-1">
                 {item}
               </p>
             </div>
@@ -155,15 +157,15 @@ const Right_side = ({ data }) => {
 
       {/* Conditions */}
       <div className="bg-white border rounded-2xl shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-5 text-right">
-          شروط الاشتراك
+        <h2 className="text-xl font-bold text-gray-800 mb-5 ">
+          {t('academy_join_conditions_title')}
         </h2>
 
         <div className="space-y-3">
           {data?.joinConditions?.map((item, index) => (
             <div key={index} className="flex items-start gap-3">
               <FaCheckCircle className="text-[#00BFA6] mt-1 shrink-0 text-lg" />
-              <p className="text-gray-600 text-sm leading-6 text-right flex-1">
+              <p className="text-gray-600 text-sm leading-6  flex-1">
                 {item}
               </p>
             </div>
@@ -174,7 +176,7 @@ const Right_side = ({ data }) => {
 
 
       <div className="bg-white rounded-2xl shadow-sm p-6">
-        <h2 className="text-[25px] font-bold mb-5"> الانجازات</h2>
+        <h2 className="text-[25px] font-bold mb-5">{t('academy_achievements_title')}</h2>
 
         <div className="space-y-3 max-h-[500px] overflow-y-auto">
           {data?.achievements?.map((e, index) => (

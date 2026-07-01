@@ -5,12 +5,12 @@ import { TiGroupOutline } from "react-icons/ti";
 import { LuCalendarCheck } from "react-icons/lu";
 import { MdOutlineSportsSoccer, MdPersonAddAlt } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const About_home = () => {
   const { t } = useTranslation();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const topLinks = [
     { icon: <IoIosFlower />, text: t("family_club") },
     { icon: <FaSquare />, text: t("three_branches") },
@@ -136,7 +136,8 @@ const About_home = () => {
           ))}
         </div>
 
-        <button className="w-full mt-5 bg-[#00786F] text-white py-2 rounded-lg hover:bg-[#00645c] transition">
+        <button  onClick={()=> navigate("/services")}
+        className="w-full mt-5 bg-[#00786F] text-white py-2 rounded-lg hover:bg-[#00645c] transition">
           {t("book_activity_or_service")}
         </button>
       </div>

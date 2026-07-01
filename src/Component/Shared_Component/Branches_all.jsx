@@ -30,11 +30,7 @@ const Branches_all = () => {
   }, [i18next.language]);
 
 
-  // const timeWork = [
-  //   { day: t("friday"), hours: "7:00 ص - 12:00 م" },
-  //   { day: t("saturday"), hours: "6:00 ص - 12:00 م" },
-  //   { day: t("sunday_to_thursday"), hours: "6:00 ص - 11:00 م" },
-  // ];
+
 
   return (
     <div className="w-full mt-10 px-4 ">

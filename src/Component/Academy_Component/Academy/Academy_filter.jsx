@@ -27,7 +27,8 @@ const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
   const [Categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
   const [branches, setBranches] = useState([]);
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isLoggedIn = !!user;
   const Get_Branches = async () => {
     const params = {
       language: i18next.language,
@@ -129,21 +130,23 @@ const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
         />
 
-        <select
-          value={selectedBranch}
-          onChange={(e) => {
-            setSelectedBranch(e.target.value);
-            setCurrentPage(1);
-          }}
-        >
-          <option value="all">{t("all_branches")}</option>
+       {!isLoggedIn && (
+  <select
+    value={selectedBranch}
+    onChange={(e) => {
+      setSelectedBranch(e.target.value);
+      setCurrentPage(1);
+    }}
+  >
+    <option value="all">{t("all_branches")}</option>
 
-          {branches.map((e) => (
-            <option key={e.id} value={e.registryId}>
-              {e.name}
-            </option>
-          ))}
-        </select>
+    {branches.map((e) => (
+      <option key={e.id} value={e.registryId}>
+        {e.name}
+      </option>
+    ))}
+  </select>
+)}
 
         <button
           onClick={() => setViewMode("grid")}

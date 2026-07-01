@@ -65,7 +65,7 @@ const { showPopup, closePopup } = usePopup();
 
     setTimeout(() => {
       navigate("/login");
-    }, 500);
+    }, 100);
   } catch (error) {
     showPopup({
       title: "حدث خطأ",

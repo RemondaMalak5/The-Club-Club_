@@ -38,7 +38,7 @@ const Branches_component = () => {
   return (
     <div className="px-6 md:px-14 py-5">
       <h1 className="text-[28px] md:text-[32px] font-bold text-[#11181C] pb-5">
-        الفروع والخريطة
+        {t("branches_and_map")}
       </h1>
 
       <div className="w-full flex flex-col md:flex-row gap-5">
@@ -58,7 +58,10 @@ const Branches_component = () => {
                 </h2>
 
                 <p className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2 text-[#6A7282] text-[14px]">
-                  {branch.address} <span ><GoDotFill/></span>
+                  {branch.address}{" "}
+                  <span>
+                    <GoDotFill />
+                  </span>
                   <span className="text-[#008236] underline cursor-pointer">
                     {branch.phone}
                   </span>

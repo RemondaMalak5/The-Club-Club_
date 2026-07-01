@@ -2,15 +2,16 @@ import React from 'react'
 import Title_1 from '../Shared_Component/Title_1'
 import i18n from './../../i18n/i18n';
 import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const About_us_goals = ({ data }) => {
-
+const { t } = useTranslation();
   return (
     <div className='bg-[#E9F0F0] px-4 sm:px-6 lg:px-10 py-8 overflow-hidden'>
       <div className='w-full flex flex-wrap items-center gap-y-10'>
 
         <div className='xl:w-2/3 w-full '>
-          <Title_1 title={"أهدافنا"} />
+          <Title_1 title={t("our_goals")} />
 
           <div className='mt-5'>
             {data?.goals?.description}

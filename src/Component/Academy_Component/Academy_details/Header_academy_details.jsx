@@ -10,8 +10,8 @@ import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 
 const Header_academy_details = () => {
-  const{i18n}=useTranslation();
-  const navigation =useNavigate();
+  const { i18n, t } = useTranslation();
+  const navigation = useNavigate();
   const [data, setData] = useState();
   const [error, setError] = useState(false);
   const { id } = useParams();
@@ -60,7 +60,7 @@ const Header_academy_details = () => {
 
           <div className="flex items-center gap-2">
             <MdOutlineDateRange />
-            <span className="text-gray-600 text-sm">منذ</span>
+            <span className="text-gray-600 text-sm">{t('academy_since')}</span>
             <span className="text-gray-600 font-semibold">
               {data?.sinceYear}
             </span>
@@ -70,7 +70,7 @@ const Header_academy_details = () => {
               <MdPersonOutline />{" "}
             </span>
             <span className="text-gray-600 text-sm">
-              {data?.trainersCount} متدرب{" "}
+              {data?.trainersCount} {t('academy_trainee')}
             </span>
           </div>
         </div>

@@ -3,11 +3,13 @@
 import React from "react";
 import { assets } from "../../assets/assets";
 import Title_1 from "../Shared_Component/Title_1";
+import { useTranslation } from "react-i18next";
 
 const Vision_Mission = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <section className="w-full bg-white py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-14">
-      <Title_1 title="رؤيتنا ورسالتنا" />
+      <Title_1 title={t("vision_mission")} />
 
       <div className="max-w-6xl mx-auto flex flex-col gap-8 mt-10">
 

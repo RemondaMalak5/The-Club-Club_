@@ -9,9 +9,11 @@ import { MdOutlineSportsSoccer, MdPersonAddAlt } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
 import Title_1 from "../Shared_Component/Title_1";
 import SubTitle from "../Shared_Component/SubTitle";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Booking_home = () => {
   const { t } = useTranslation();
+  const Navigate =useNavigate();
   const topLinks = [
     { icon: <IoIosFlower />, text: t('family_club') },
     { icon: <FaSquare />, text: t('three_branches') },
@@ -39,6 +41,7 @@ const Booking_home = () => {
       icon: <TiGroupOutline />,
       title: t('member_profile'),
       desc: t('member_profile_description'),
+      linkto :"/profile"
     },
   ];
 
@@ -74,7 +77,7 @@ const Booking_home = () => {
         <div className="flex flex-wrap py-2">
           {services.map((item, index) => (
             <div key={index} className="md:w-1/2 w-full  px-2 py-2 ">
-              <div
+              <div onClick={()=>Navigate(item.linkto)}
                 key={index}
                 className="flex items-center gap-3 justify-between  bg-white border rounded-xl px-5 py-4 shadow-sm " >
                 <div className="flex gap-2">

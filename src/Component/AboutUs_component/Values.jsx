@@ -3,34 +3,14 @@
 import React from "react";
 import { assets } from "../../assets/assets";
 import Title_1 from "../Shared_Component/Title_1";
+import { useTranslation } from "react-i18next";
 
 const Values = ({ data }) => {
-  // const values = [
-  //   {
-  //     title: "الإلتزام:",
-  //     desc: "نضع أصحاب المصلحة دائماً في مقدمة أولوياتنا، ونسعى باستمرار إلى تحسين أدائنا وخدماتنا.",
-  //   },
-  //   {
-  //     title: "الشفافية:",
-  //     desc: "نعمل بانفتاح ومسؤولية لبناء الثقة والاحترام المتبادل.",
-  //   },
-  //   {
-  //     title: "الشراكة:",
-  //     desc: "نؤمن بأن النجاح يتحقق من خلال التعاون وبناء شراكات استراتيجية قوية.",
-  //   },
-  //   {
-  //     title: "المسؤولية:",
-  //     desc: "نلتزم بالنزاهة، ونحافظ على الموارد، ونحافظ على أعلى المعايير في كل ما نقوم به.",
-  //   },
-  //   {
-  //     title: "التمكين:",
-  //     desc: "نمكن اللاعبين والأعضاء والموظفين والمتطوعين والمجتمع من الوصول إلى كامل إمكاناتهم.",
-  //   },
-  // ];
+ const { t } = useTranslation();
 
   return (
   <section className=" bg-white py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-14">
-    <Title_1 title="قيمنا الأساسية" />
+    <Title_1 title={t("core_values")} />
 
     <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14 mt-8">
 

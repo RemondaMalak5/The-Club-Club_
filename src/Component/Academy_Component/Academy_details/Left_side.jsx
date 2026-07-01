@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   FaUsers,
   FaStar,
@@ -8,24 +9,25 @@ import {
 } from "react-icons/fa";
 
 const Left_side = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-6">
 
       {/* About */}
       <div className="bg-white rounded-2xl border p-6 shadow-sm">
-        <h2 className="text-2xl font-bold text-right text-gray-800 mb-4">
-          عن الأكاديمية
+        <h2 className="text-2xl font-bold  text-gray-800 mb-4">
+          {t('academy_about_title')}
         </h2>
 
-        <p className="text-gray-600 text-right leading-7">
-          {data?.description || "أكاديميتنا تقدم مختلطة تهدف إلى اكتشافة وتطوير المواهب الشبابية من خلال برامج تدريسية حديثة ومدربين ذوي خبرة عالية"}
+        <p className="text-gray-600  leading-7">
+          {data?.description || t('academy_about_default_desc')}
         </p>
       </div>
 
       {/* Objectives */}
       <div className="bg-white rounded-2xl border p-6 shadow-sm">
-        <h2 className="text-2xl font-bold text-right text-gray-800 mb-6">
-          أهداف الأكاديمية
+        <h2 className="text-2xl font-bold  text-gray-800 mb-6">
+          {t('academy_objectives_title')}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -36,7 +38,7 @@ const Left_side = ({ data }) => {
             >
               <FaCheck className="text-[#00BFA6] text-lg mt-1 flex-shrink-0" />
 
-              <p className="text-gray-600 leading-6 text-right flex-1">
+              <p className="text-gray-600 leading-6  flex-1">
                 {item}
               </p>
             </div>
@@ -46,8 +48,8 @@ const Left_side = ({ data }) => {
 
       {/* Price Details */}
       <div className="bg-white rounded-2xl border p-6 shadow-sm">
-        <h2 className="text-2xl font-bold text-right text-gray-800 mb-6">
-          تفاصيل الأسعار
+        <h2 className="text-2xl font-bold  text-gray-800 mb-6">
+          {t('academy_price_details_title')}
         </h2>
 
         <div className="space-y-4">
@@ -55,7 +57,7 @@ const Left_side = ({ data }) => {
             <div key={index} className="border rounded-2xl p-6">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
                 {/* Right Side - Title & Description */}
-                <div className="text-right flex-1">
+                <div className=" flex-1">
                   <h3 className="text-lg font-bold text-gray-800 mb-2">
                     {program.name}
                   </h3>
@@ -64,9 +66,9 @@ const Left_side = ({ data }) => {
                   </p>
                 </div>
                 {/* Left Side - Price */}
-                <div className="text-center lg:text-left">
+                <div className="text-center ">
                   <p className="text-[#00BFA6] font-bold text-3xl">
-                    {program.price} <span className="text-sm">ج.م / شهر</span>
+                    {program.price} <span className="text-sm">{t('academy_per_month')}</span>
                   </p>
                 </div>
               </div>
@@ -77,19 +79,19 @@ const Left_side = ({ data }) => {
                   <p className="text-[#00BFA6] font-bold text-2xl">
                     {program.duration}
                   </p>
-                  <p className="text-sm text-gray-600 mt-2">أشهر</p>
+                  <p className="text-sm text-gray-600 mt-2">{t('academy_months')}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-[#00BFA6] font-bold text-2xl">
                     {program.sessionsPerWeek}
                   </p>
-                  <p className="text-sm text-gray-600 mt-2">حصص/أسبوع</p>
+                  <p className="text-sm text-gray-600 mt-2">{t('academy_sessions_per_week')}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-[#00BFA6] font-bold text-2xl">
                     {program.maxStudents}
                   </p>
-                  <p className="text-sm text-gray-600 mt-2">متدرب/المجموعة</p>
+                  <p className="text-sm text-gray-600 mt-2">{t('academy_trainee_per_group')}</p>
                 </div>
               </div>
             </div>
@@ -99,19 +101,19 @@ const Left_side = ({ data }) => {
 
       {/* Schedule */}
       <div className="bg-white rounded-2xl border p-6 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-right">
-          جدول المواعيد
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 ">
+          {t('academy_schedule_title')}
         </h2>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b-2 border-gray-200">
-                <th className="text-right py-3 px-4 font-bold text-gray-800">اليوم</th>
-                <th className="text-right py-3 px-4 font-bold text-gray-800">الوقت</th>
-                <th className="text-right py-3 px-4 font-bold text-gray-800">المدرب</th>
-                <th className="text-right py-3 px-4 font-bold text-gray-800">الموقع</th>
-                <th className="text-right py-3 px-4 font-bold text-gray-800">المتاح</th>
+                <th className=" py-3 px-4 font-bold text-gray-800">{t('academy_schedule_day')}</th>
+                <th className=" py-3 px-4 font-bold text-gray-800">{t('academy_schedule_time')}</th>
+                <th className=" py-3 px-4 font-bold text-gray-800">{t('academy_schedule_trainer')}</th>
+                <th className=" py-3 px-4 font-bold text-gray-800">{t('academy_schedule_location')}</th>
+                <th className="py-3 px-4 font-bold text-gray-800">{t('academy_schedule_available')}</th>
               </tr>
             </thead>
             <tbody>

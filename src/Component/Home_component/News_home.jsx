@@ -95,7 +95,8 @@ const News_home = () => {
                                     {item.desc}
                                 </p>
 
-                                <button className=" bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full text-sm hover:bg-[#0aa194] transition flex items-center gap-1">
+                                <button onClick={() => navigate(`/news/${item.id}`)}
+                                 className=" bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full text-sm hover:bg-[#0aa194] transition flex items-center gap-1">
                                     <span className="font-semibold text-[16px] "> <GoArrowUpRight /> </span>
                                     {t('read_more')}
 

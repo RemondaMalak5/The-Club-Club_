@@ -8,7 +8,7 @@ import { Services_details } from "../../../axiosConfig/APIs/Services/Services_de
 import i18next from "i18next";
 
 const Header_services_details = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const service = location.state?.service;
@@ -44,7 +44,7 @@ const [data, setData] = useState(null);
         className="w-full flex items-center gap-2 text-[24px] md:text-[30px] py-4 px-4 md:px-10 cursor-pointer"
       >
         {i18n.language === "ar" ? <IoMdArrowForward /> : <IoMdArrowBack />}
-        <p className="font-bold text-gray-800">{service?.title || "تفاصيل الخدمة"}</p>
+        <p className="font-bold text-gray-800">{service?.title || t('service_details_title')}</p>
       </div>
 
       <img
@@ -56,9 +56,9 @@ const [data, setData] = useState(null);
 
       <div className="px-4 md:px-10 py-6">
         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-4">
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.category || "خدمة"}</span>
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.branchName || "فرع"}</span>
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.start_date || "موعد متاح"}</span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.category || t('service_default_category')}</span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.branchName || t('service_default_branch')}</span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.start_date || t('service_default_schedule')}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

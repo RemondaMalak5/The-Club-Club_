@@ -70,7 +70,7 @@ const Search_News = () => {
       <div className="flex flex-wrap  ">
         <div className="xl:w-1/2 w-full border bg-white rounded-2xl overflow-hidden shadow-sm relative">
           <span className="bg-[#FB923C]  font-bold text-[14px] rounded-full text-white py-2 px-3 m-2 absolute">
-                {"خبر مميز"}
+                {t('news_section_badge_special')}
               </span>
            <img
             src={mostReadNews[0]?.image}
@@ -117,7 +117,7 @@ const Search_News = () => {
                             <span className="text-[16px] ">
                               <CiCirclePlus />
                             </span>
-                حجز
+                {t("book")}
               </button>
             </div>
           </div>
@@ -152,7 +152,7 @@ const Search_News = () => {
                   })
                 }
                 className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] border p-3 text-white rounded-2xl text-xs flex items-center gap-1">
-                قراءة المزيد <FiArrowUpRight />
+                {t('read_more')}<FiArrowUpRight />
               </button>
             </div>
           ))}{" "}

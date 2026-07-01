@@ -16,8 +16,11 @@ const Slider_home = () => {
   ];
   
  const Home_slider_Api = async () => {
+  const params = {
+    language: i18next.language,
+  }
   try {
-    const response = await home_slider();
+    const response = await home_slider(params);
 
     if (
       response?.message?.data &&
