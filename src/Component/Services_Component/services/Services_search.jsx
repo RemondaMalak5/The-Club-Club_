@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { LayoutGrid, List, Calendar, MapPin, Users } from "lucide-react";
@@ -7,6 +7,7 @@ import { Services_category } from "../../../axiosConfig/APIs/Services/Services_c
 import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
+import Pagination_Component from "../../Shared_Component/Pagination_Component";
 
 const Services_search = () => {
   const navigate = useNavigate();
@@ -15,16 +16,19 @@ const Services_search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("All");
   const [viewMode, setViewMode] = useState("grid");
+   const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState();
+    const paginationRef = useRef();
 
-  const { data: servicesData, isLoading, isError } = useQuery({
-    queryKey: ["all-services", i18next.language],
-    queryFn: () =>
-      All_Services({
-        language: i18next.language,
-        page: 1,
-        page_size: 50,
-      }),
-  });
+const { data: servicesData, isLoading, isError } = useQuery({
+  queryKey: ["all-services", i18next.language, currentPage],
+  queryFn: () =>
+    All_Services({
+      language: i18next.language,
+      page: currentPage,
+      page_size: 6,
+    }),
+});
 
   const { data: categoriesData } = useQuery({
     queryKey: ["services-categories", i18next.language],
@@ -41,9 +45,14 @@ const Services_search = () => {
         language: i18next.language,
       }),
   });
+ useEffect(() => {
+  if (servicesData?.message?.total_pages) {
+    setTotalPages(servicesData.message.total_pages);
+  }
+}, [servicesData]);
 
-  const services = servicesData?.message?.data || [];
-  const categories = categoriesData?.message?.data || [];
+  const services = servicesData?.message?.data ;
+  const categories = categoriesData?.message?.data ;
   const branches = branchesData?.message?.data || [];
 
   const tabs = useMemo(() => {
@@ -54,7 +63,7 @@ const Services_search = () => {
         value: cat.id,
       })),
     ];
-  }, [categories]);
+  }, [categories, i18next.language,currentPage]);
 
   const filteredData = useMemo(() => {
     return services.filter((item) => {
@@ -95,6 +104,7 @@ const Services_search = () => {
     );
   }
 
+ 
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4 bg-[#f8faf9]">
       <div className="flex flex-wrap gap-3 mb-4 justify-center">
@@ -262,6 +272,12 @@ const Services_search = () => {
           </div>
         )}
       </div>
+       <Pagination_Component
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+        paginationRef={paginationRef}
+      />
     </div>
   );
 };

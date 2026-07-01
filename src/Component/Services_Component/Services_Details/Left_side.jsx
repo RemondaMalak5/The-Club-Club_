@@ -35,21 +35,21 @@ const Left_side = ({ data }) => {
         <h2 className="text-2xl font-bold  text-gray-800 mb-6">{t('service_info_title')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="rounded-xl border p-4 bg-gray-50">
-            <div className="flex items-center justify-between text-gray-700 mb-2">
+            <div className="flex items-center  text-gray-700 mb-2">
               <FaClock className="text-[#00BFA6]" />
               <span className="font-semibold">{t('service_time_label')}</span>
             </div>
             <p className="text-gray-600 ">{data?.start_date }</p>
           </div>
           <div className="rounded-xl border p-4 bg-gray-50">
-            <div className="flex items-center justify-between text-gray-700 mb-2">
+            <div className="flex items-center  text-gray-700 mb-2">
               <FaMapMarkerAlt className="text-[#00BFA6]" />
               <span className="font-semibold">{t('service_location_label')}</span>
             </div>
             <p className="text-gray-600 ">{data?.branchName }</p>
           </div>
           <div className="rounded-xl border p-4 bg-gray-50 md:col-span-2">
-            <div className="flex items-center justify-between text-gray-700 mb-2">
+            <div className="flex items-center  text-gray-700 mb-2">
               <FaUsers className="text-[#00BFA6]" />
               <span className="font-semibold">{t('service_available_count_label')}</span>
             </div>

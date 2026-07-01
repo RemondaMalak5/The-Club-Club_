@@ -92,7 +92,7 @@ const About_home = () => {
           ))}
         </div>
         <div className="flex flex-wrap gap-3 mt-2 font-bold">
-          <button onClick={() => navigation("/register")}
+          <button onClick={() => navigate("/register")}
            className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
                    bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F] 
                    text-white border border-[#00786F] 
@@ -102,7 +102,7 @@ const About_home = () => {
   {t("sign_up_now")}
 </button>
 
-          <button onClick={() => navigation("/branches")} className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
+          <button onClick={() => navigate("/branches")} className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
                      border border-[#00786F] text-black 
                      bg-white hover:bg-gradient-to-r hover:from-[rgba(8,172,133,0.86)] hover:to-[#00786F] 
                      hover:text-white transition-all duration-300">

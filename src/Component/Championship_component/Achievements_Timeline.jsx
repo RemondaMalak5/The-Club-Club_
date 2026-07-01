@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Get_Trophies_By_Season } from "../../axiosConfig/APIs/Champanship/Trophies_By_Season";
+import i18next from "i18next";
 
 const AchievementsTimeline = () => {
   const [timeline, setTimeline] = useState([]);
@@ -48,23 +49,33 @@ const AchievementsTimeline = () => {
   }, []);
 
   return (
-  <div className="px-4 md:px-10 xl:px-20 py-5" dir="rtl">
-    <h2 className="text-right text-xl font-bold mb-6">
+  <div >
+    <h2 className=" text-xl font-bold mb-6">
       الإنجازات عبر السنوات الماضية
     </h2>
 
     <div className="relative">
-      <div className="absolute right-4 top-0 bottom-0 w-[2px] bg-teal-500"></div>
-
+<div
+    className={`absolute top-0 bottom-0 w-[2px] bg-teal-500 ${
+      i18next.language === "ar" ? "right-4" : "left-4"
+    }`}
+  ></div>
       <div className="flex flex-col gap-6">
         {timeline.map((item, index) => (
           <div key={index} className="relative">
-            <div className="absolute right-0 top-5 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white text-sm shadow z-10">
-              📋
+ <div
+          className={`absolute top-5 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white text-sm shadow z-10 ${
+            i18next.language === "ar" ? "right-0" : "left-0"
+          }`}
+        >              📋
             </div>
 
-            <div className="bg-[#F9FAFB] rounded-xl p-4 md:p-5 mr-12 shadow-sm">
-              <div className="flex flex-col gap-4 mb-4">
+
+        <div
+          className={`bg-[#F9FAFB] rounded-xl p-4 md:p-5 shadow-sm ${
+            i18next.language === "ar" ? "mr-12" : "ml-12"
+          }`}
+        >              <div className="flex flex-col gap-4 mb-4">
                 <span className="text-[#1E2939] font-bold text-[18px] md:text-[20px]">
                   {item.year}
                 </span>

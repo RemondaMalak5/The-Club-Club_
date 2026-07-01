@@ -70,7 +70,7 @@ const Champinship_filter = () => {
   ]);
 
   return (
-    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4" dir="rtl">
+    <div >
       <div className="flex flex-wrap gap-3 mb-4 justify-center">
         {Categories.map((e, index) => (
           <button

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { Champins_State } from '../../axiosConfig/APIs/Champanship/Champins_State'
 import H_one from '../Shared_Component/H_one'
 
-const Championship_component = () => {
+const Championship_component = ({ selectedBranch }) => {
     const { t } = useTranslation()
     const [data, setData] = useState([]);
     const [error, setError] = useState(false);
@@ -33,9 +33,11 @@ const Championship_component = () => {
         },
     ]
     const Get_champinship_state = async () => {
+          const token = localStorage.getItem("token");
+
         const params = {
             "language": i18next.language,
-            "branchId":"master",
+    branchId: token ? selectedBranch : "all",
             
         }
         try {
@@ -46,15 +48,12 @@ const Championship_component = () => {
         catch (error) {
             setError(true) ;
         }
-        // finally{
-        //     setLoading(false)
-        // }
+      
     }
     useEffect(() => {
         Get_champinship_state();
-    }, [i18next.language]);
+    }, [i18next.language, selectedBranch]);
     return (
-        <div className='xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10'>
             <div className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>
                 <H_one text={t('championship_header_title')} />
                 <SubTitle SubTitle={t('championship_header_subtitle')} />
@@ -70,12 +69,8 @@ const Championship_component = () => {
                     ))}
                 </div>
             </div>
-            <div className='py-10'>
-                  <Achievements/>
-     
-            </div>
+         
 
-        </div>
     )
 }
 
