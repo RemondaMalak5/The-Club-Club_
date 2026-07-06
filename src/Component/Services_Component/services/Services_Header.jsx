@@ -29,7 +29,7 @@ const Services_Header = () => {
         <H_one text={"خدمات النادي"} />
         <SubTitle SubTitle={"اكتشف باقة متنوعة من الخدمات والأنشطة المميزة"} />
         <div className="flex flex-wrap gap-7 mt-2">
-          {stats.map((item, index) => (
+          {stats?.map((item, index) => (
             <div
               key={index}
               className="flex flex-col xl:w-1/4 w-full md:w-1/2 bg-white border  gap-1 px-6 py-3 rounded-2xl shadow-md"

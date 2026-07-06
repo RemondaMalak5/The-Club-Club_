@@ -51,14 +51,14 @@ const { data: servicesData, isLoading, isError } = useQuery({
   }
 }, [servicesData]);
 
-  const services = servicesData?.message?.data ;
-  const categories = categoriesData?.message?.data ;
+  const services = servicesData?.message?.data || [];
+  const categories = categoriesData?.message?.data || [];
   const branches = branchesData?.message?.data || [];
 
   const tabs = useMemo(() => {
     return [
       { label: "الكل", value: "All" },
-      ...categories.map((cat) => ({
+      ...categories?.map((cat) => ({
         label: cat.name,
         value: cat.id,
       })),
@@ -108,7 +108,7 @@ const { data: servicesData, isLoading, isError } = useQuery({
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4 bg-[#f8faf9]">
       <div className="flex flex-wrap gap-3 mb-4 justify-center">
-        {tabs.map((tab) => (
+        {tabs?.map((tab) => (
           <button
             key={tab.value}
             onClick={() => setActiveTab(tab.value)}
@@ -141,7 +141,7 @@ const { data: servicesData, isLoading, isError } = useQuery({
 >
   <option value="All">{t("all_branches")}</option>
 
-  {branches.map((e) => (
+  {branches?.map((e) => (
     <option key={e.id} value={e.registryId || e.id}>
       {e.name}
     </option>
@@ -177,7 +177,7 @@ const { data: servicesData, isLoading, isError } = useQuery({
         }
       >
         {filteredData.length > 0 ? (
-          filteredData.map((item) => (
+          filteredData?.map((item) => (
             <div
               key={`${item.service_id}-${item.branchId}`}
               className={
