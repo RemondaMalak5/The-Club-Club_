@@ -5,11 +5,11 @@ import { AllBranches } from "../axiosConfig/APIs/Branches/All_Branches";
 const BranchContext = createContext();
 
 export const BranchProvider = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [selectedBranch, setSelectedBranch] = useState(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  const [selectedBranch, setSelectedBranch] = useState(
-    localStorage.getItem("branchId") || user?.branchId || "all"
-  );
+    return user?.branchId || localStorage.getItem("branchId") || "all";
+  });
 
   const [branches, setBranches] = useState([]);
 

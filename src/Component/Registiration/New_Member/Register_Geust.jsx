@@ -4,7 +4,7 @@ import { BsPersonPlus } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import H_one_register from "../../Shared_Component/H_one_register";
 import Already_Have_Account from "../../Shared_Component/Already_Have_Account";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import { Step_1_validation } from "../../../axiosConfig/APIs/Auth/Register/Step_1_Validate_Input";
 import { UserTokenContext } from "../../../context/UserContext";
@@ -270,7 +270,7 @@ const Register_Geust = () => {
           {loading ? t("sending") : t("next")}
 
           <span className="text-[19px]">
-            <IoIosArrowRoundBack />
+           {i18next.language === "ar" ? <IoIosArrowRoundBack/> : <IoIosArrowRoundForward/>}
           </span>
         </button>
 

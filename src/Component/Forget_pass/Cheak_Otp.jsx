@@ -23,7 +23,7 @@ const Cheak_Otp = ({ length = 6 }) => {
 const otpToken = formData?.otpToken || location.state?.otpToken || "";
   const maskedPhone = phone ? phone.replace(/\d(?=\d{4})/g, "*") : "***";
 
-  const getErrorMessage = (error, fallback = "حدث خطأ، حاول مرة أخرى") => {
+  const getErrorMessage = (error, fallback = t("generic_error")) => {
     const data = error?.response?.data;
 
     if (typeof data === "string") return data;
@@ -111,12 +111,12 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
   }
 
   if (!phone) {
-    setError("رقم الهاتف غير موجود، الرجاء إعادة المحاولة");
+    setError(t("phone_not_found_error"));
     return;
   }
 
   if (!otpToken) {
-    setError("OTP Token غير موجود، الرجاء إعادة إرسال الرمز");
+    setError(t("otp_token_missing"));
     return;
   }
 
@@ -139,7 +139,7 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
 
 
     if (!resetToken) {
-      setError("Reset Token غير موجود في رد السيرفر");
+      setError(t("reset_token_missing"));
       return;
     }
 
@@ -166,7 +166,7 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
 
  const handleResend = async () => {
   if (!phone) {
-    setError("رقم الهاتف غير موجود، الرجاء إعادة المحاولة");
+    setError(t("phone_not_found_error"));
     return;
   }
 
@@ -175,7 +175,7 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
 
     const response = await forget({
       phone,
-      branch: "نادي النادي - 6 اكتوبر",
+      branch: formData?.branch || "The Club - 6 October",
       language: i18n.language,
     });
 
@@ -199,7 +199,7 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
     inputsRef.current[0]?.focus();
     setError("");
   } catch (error) {
-    setError(getErrorMessage(error, "حدث خطأ أثناء إعادة الإرسال"));
+    setError(getErrorMessage(error, t("resend_error")));
   } finally {
     setLoading(false);
   }

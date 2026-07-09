@@ -7,11 +7,12 @@ import Select from "react-select";
 import { LoginApi } from "../../axiosConfig/APIs/Auth/Login";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import i18next from "i18next";
+import { useBranch } from "../../context/BranchContext";
 
 const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
+ const { changeBranch ,branches } = useBranch();
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -95,13 +96,18 @@ const Login = () => {
     profileImage: user?.profileImage || customer?.profileImage || "",
   };
 
+  const branchId = savedUser.branchId || customer?.branchId;
+
   localStorage.setItem("token", response.message.token);
   localStorage.setItem("user", JSON.stringify(savedUser));
   localStorage.setItem("customer", JSON.stringify(customer));
 
+  changeBranch(branchId);
+
   window.dispatchEvent(new Event("userUpdated"));
 
-  navigate("/profile");
+  navigate(`/about-branches/${branchId}`);
+
 };
     } catch (error) {
       const data = error?.response?.data;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Get_Trophies_By_Season } from "../../axiosConfig/APIs/Champanship/Trophies_By_Season";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const AchievementsTimeline = () => {
   const [timeline, setTimeline] = useState([]);
-
+const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,8 +52,7 @@ const AchievementsTimeline = () => {
   return (
   <div >
     <h2 className=" text-xl font-bold mb-6">
-      الإنجازات عبر السنوات الماضية
-    </h2>
+{t("achievements_timeline")}      </h2>
 
     <div className="relative">
 <div
@@ -87,7 +87,7 @@ const AchievementsTimeline = () => {
                     </span>
 
                     <span className="flex flex-col">
-                      البطولات
+{ t("wins") }
                       <span className="text-center font-bold text-[#1E2939]">
                         {item.wins}
                       </span>
@@ -100,8 +100,7 @@ const AchievementsTimeline = () => {
                     </span>
 
                     <span className="flex flex-col">
-                      المراكز المتقدمة
-                      <span className="text-center font-bold text-[#1E2939]">
+{t("runner_up")}                      <span className="text-center font-bold text-[#1E2939]">
                         {item.runnerUp}
                       </span>
                     </span>
@@ -113,8 +112,7 @@ const AchievementsTimeline = () => {
                     </span>
 
                     <span className="flex flex-col">
-                      البرونزية
-                      <span className="text-center font-bold text-[#1E2939]">
+{t("third_place")}                      <span className="text-center font-bold text-[#1E2939]">
                         {item.third}
                       </span>
                     </span>

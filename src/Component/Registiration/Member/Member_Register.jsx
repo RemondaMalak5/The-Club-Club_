@@ -134,7 +134,7 @@ const Member_Register = () => {
         <span className='bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]'><IoMdPerson />
         </span>
         <H_one_register title={t("Member_Registration")} />
-        <p className=' text-[16px] text-[#5B626E]'>الرجاء إدخال بيانات العضوية للمتابعة</p>
+        <p className=' text-[16px] text-[#5B626E]'> {t("member_registration_instructions")}</p>
         <div className=' w-full flex flex-wrap '>
           {fields.map((field) => (
             <div key={field.name} className='mb-3 md:w-1/2 w-full px-2'>

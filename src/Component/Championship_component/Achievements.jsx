@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { Get_Trophies } from "../../axiosConfig/APIs/Champanship/Trophies List";
+import { useTranslation } from "react-i18next";
 
 const Achievements = () => {
   const [achievements, setAchievements] = useState([]);
-
+ const { t } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -48,9 +49,8 @@ const Achievements = () => {
 
   return (
     <div>
-      <h2 className="text-right text-xl font-semibold mb-6">
-        الإنجازات الرياضية
-      </h2>
+      <h2 className=" text-xl font-semibold mb-6">
+{t("achievements")}      </h2>
 
       <div className="flex flex-wrap px-5">
         {achievements.map((item, index) => (

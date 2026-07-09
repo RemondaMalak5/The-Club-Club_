@@ -25,29 +25,26 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 const { showPopup, closePopup } = usePopup();
-
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
   const handleReset = async () => {
   setError("");
 
   if (!newPassword || !confirmPassword) {
-    setError("من فضلك اكتب كلمة السر وتأكيدها");
+    setError(t("passwords_required"));
+    return;
+  }
+   if (newPassword !== confirmPassword) {
+    setError(t("confirm_password_mismatch"));
     return;
   }
 
-  if (newPassword !== confirmPassword) {
-    setError("كلمتا السر غير متطابقتين");
-    return;
-  }
+  if (!passwordRegex.test(newPassword)) {
+  setError(t("password_rules"));
+  return;
+}
 
   try {
-    setLoading(true);
-
-    showPopup({
-      loading: true,
-      title: "جاري تغيير كلمة السر...",
-      message: "برجاء الانتظار",
-    });
-
     const body = {
       resetToken: resetToken,
       new_password: newPassword,
@@ -58,29 +55,26 @@ const { showPopup, closePopup } = usePopup();
     const response = await Reset_password(body);
 
     showPopup({
-      title: "تم تغيير كلمة السر بنجاح",
-      message: "يمكنك تسجيل الدخول الآن",
+      title: t("reset_success_title"),
+      message: t("reset_success_message"),
       icon: <GiConfirmed />,
     });
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 100);
+   setTimeout(() => {
+  closePopup();
+}, 2000);
+
+setTimeout(() => {
+  navigate("/login");
+}, 2200);
   } catch (error) {
-    showPopup({
-      title: "حدث خطأ",
-      message:
-        error?.response?.data?.message?.error ||
-        error?.response?.data?.message?.message ||
-        error?.response?.data?.error ||
-        "حدث خطأ أثناء تغيير كلمة السر",
-    });
+    
 
     setError(
       error?.response?.data?.message?.error ||
       error?.response?.data?.message?.message ||
       error?.response?.data?.error ||
-      "حدث خطأ أثناء تغيير كلمة السر"
+      t("reset_error_message")
     );
   } finally {
     setLoading(false);
@@ -94,15 +88,15 @@ const { showPopup, closePopup } = usePopup();
           <TbLockPassword />
         </span>
 
-        <H_one_register title={t("إعادة تعيين كلمة السر")} />
+        <H_one_register title={t("reset_password_title")} />
 
         <p className="text-[14px] text-[#6A7282] text-center">
-          {t("أعد كتابة الرقم السري الجديد")}
+          {t("reset_password_instruction")}
         </p>
 
         
   <label className="font-bold text-[15px] text-[#364153] px-1 w-full block">
-          {t("الرقم السرى الجديد")}
+          {t("new_password_label")}
         </label>
        <div className="relative w-full">
       
@@ -111,7 +105,7 @@ const { showPopup, closePopup } = usePopup();
     type={showPassword ? "text" : "password"}
     value={newPassword}
     onChange={(e) => setNewPassword(e.target.value)}
-    placeholder={t("ادخل الرقم السرى الجديد")}
+    placeholder={t("new_password_placeholder")}
   />
 
   <span
@@ -125,7 +119,7 @@ const { showPopup, closePopup } = usePopup();
 </div>
 
         <label className="font-bold text-[15px] text-[#364153] px-1 w-full block">
-          {t("تأكيد الرقم السرى الجديد")}
+          {t("confirm_new_password_label")}
         </label>
 <div className="relative w-full">
   <input
@@ -133,7 +127,7 @@ const { showPopup, closePopup } = usePopup();
     type={showConfirmPassword ? "text" : "password"}
     value={confirmPassword}
     onChange={(e) => setConfirmPassword(e.target.value)}
-    placeholder={t("تأكيد الرقم السرى الجديد")}
+    placeholder={t("confirm_new_password_placeholder")}
   />
 
   <span

@@ -16,9 +16,9 @@ const Cheak_Mail = () => {
     const [successMsg, setSuccessMsg] = useState("");
  const [branch , setBranch]=useState();
    const branchOptions = [
-    { value: "The Club - New Capital", label: "The Club - New Capital" },
-    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
-    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
+    { value: t("branch_value_new_capital"), label: t("branch_option_new_capital") },
+    { value: t("branch_value_sheraton"), label: t("branch_option_sheraton") },
+    { value: t("branch_value_october_6"), label: t("branch_option_october_6") },
   ];
     const handleForget = async () => {
         // setApiError("");
@@ -45,8 +45,8 @@ const Cheak_Mail = () => {
                 state: {
                     formData: {
                         phone: phone,
-                      otpToken: response.message.otpToken,
-
+                        branch: branch?.value,
+                        otpToken: response.message.otpToken,
                     },
                 },
             });
@@ -61,7 +61,7 @@ const Cheak_Mail = () => {
             setApiError(
                 error?.response?.data?.message ||
                 error?.response?.data?.error ||
-                "Failed to send verification message"
+                t("forget_password_failed")
             );
         } finally {
             setLoading(false);
@@ -78,7 +78,7 @@ const Cheak_Mail = () => {
                 <H_one_register title={t("forget_password")} />
 
                 <p className="text-[14px] text-[#6A7282] text-center">
-                    {t("سيتم إرسال رسالة التحقق إلى رقم الهاتف .")}
+                    {t("forget_password_description")}
                 </p>
 
                 <label className="font-bold text-[15px] text-[#364153] px-1 w-full block">
