@@ -88,7 +88,7 @@ const Academy_home = () => {
         {/* Branches + View All */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-4">
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 mb-4 justify-center">
 
             <button
               onClick={() => {
@@ -125,7 +125,7 @@ const Academy_home = () => {
 
           <button
             onClick={() => navigation(`/academy`)}
-            className="border border-[#0A8F7A] text-[#0A8F7A] px-4 py-2 rounded-full hover:bg-[#0A8F7A] hover:text-white transition font-bold flex items-center justify-center gap-1 w-full sm:w-fit"
+            className="border border-[#0A8F7A] text-[#0A8F7A] px-4 py-2 rounded-full hover:bg-[#0A8F7A] hover:text-white transition font-bold flex items-center justify-center  w-full sm:w-fit"
           >
   {t("view_all_academies")}
             <span className="text-[18px]">

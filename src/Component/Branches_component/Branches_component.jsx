@@ -16,11 +16,15 @@ const Branches_component = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+
   const timeWork = [
     { day: "الجمعة", hours: "7:00 ص - 12:00 م" },
     { day: "السبت", hours: "6:00 ص - 12:00 م" },
     { day: "الأحد - الخميس", hours: "6:00 ص - 11:00 م" },
   ];
+
   const Get_Branch_List = async () => {
     const params = {
       language: i18next.language,

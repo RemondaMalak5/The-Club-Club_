@@ -11,12 +11,13 @@ import { LiaAwardSolid } from "react-icons/lia";
 import Pagination_Component from "../Shared_Component/Pagination_Component";
 import { HiCalendarDateRange } from "react-icons/hi2";
 import { GiTrophyCup } from "react-icons/gi";
+import { useBranch } from "../../context/BranchContext";
 
 const Champinship_filter = () => {
   const navigation = useNavigate();
   const [data, setData] = useState([]);
   const [activecategory, setActiveCategory] = useState("all");
-  const [selectedBranch, setSelectedBranch] = useState("all");
+  // const [selectedBranch, setSelectedBranch] = useState("all");
   const [searchTerm, setSearchTerm] = useState();
   const [viewMode, setViewMode] = useState("grid");
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,22 +25,22 @@ const Champinship_filter = () => {
   const paginationRef = useRef();
   const [Categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
-  const [branches, setBranches] = useState([]);
+  // const [branches, setBranches] = useState([]);
 
-  const Get_Branches = async () => {
-    const params = {
-      language: i18next.language,
-    };
-    try {
-      const response = await AllBranches(params);
-      setBranches(response.message.data);
-    } catch (error) {}
-  };
-
+  // const Get_Branches = async () => {
+  //   const params = {
+  //     language: i18next.language,
+  //   };
+  //   try {
+  //     const response = await AllBranches(params);
+  //     setBranches(response.message.data);
+  //   } catch (error) {}
+  // };
+const { selectedBranch, changeBranch, branches } = useBranch();
   const Get_Champins_List = async () => {
     const params = {
       language: i18next.language,
-      branchId: selectedBranch,
+      branchId: selectedBranch || "all",
       per_page: 6,
       page: currentPage,
       search: searchTerm,
@@ -55,9 +56,9 @@ const Champinship_filter = () => {
     //     setLoading(false)
     // }
   };
-  useEffect(() => {
-    Get_Branches();
-  }, [i18next.language]);
+  // useEffect(() => {
+  //   Get_Branches();
+  // }, [i18next.language]);
 
   useEffect(() => {
     Get_Champins_List();
@@ -102,7 +103,7 @@ const Champinship_filter = () => {
         <select
           value={selectedBranch}
           onChange={(e) => {
-            setSelectedBranch(e.target.value);
+            changeBranch(e.target.value);
             setCurrentPage(1);
           }}
         >

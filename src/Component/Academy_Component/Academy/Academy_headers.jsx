@@ -6,30 +6,19 @@ import i18next from "i18next";
 import { Academy_Stats } from "../../../axiosConfig/APIs/Academy/Academy_state";
 import H_one from "../../Shared_Component/H_one";
 import { useTranslation } from "react-i18next";
+import { useBranch } from "../../../context/BranchContext";
 
-const Academy_headers = ({selectedBranch}) => {
+const Academy_headers = () => {
   const {t} = useTranslation();
  const [data, setData] = useState({});
-  // const Get_Academy_Stats = async () => {
-  //       const params = {
-  //           "language": i18next.language,
-  //           "branchId": "all" ,
-  //       }
-  //       try {
-  //           const response = await Academy_Stats(params);
-  //           setData(response.message);
-  //       }
-  //       catch (error) {
-  //           setError(true) ;
-  //       }
-      
-  //   }
+   const { selectedBranch } = useBranch();
+ 
     const Get_Academy_Stats = async () => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   const params = {
     language: i18next.language,
-    branchId: token ? selectedBranch : "all",
+    branchId: selectedBranch || "all",
   };
 
   try {

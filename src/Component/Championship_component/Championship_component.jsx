@@ -8,11 +8,13 @@ import i18next from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { Champins_State } from '../../axiosConfig/APIs/Champanship/Champins_State'
 import H_one from '../Shared_Component/H_one'
+import { useBranch } from '../../context/BranchContext'
 
-const Championship_component = ({ selectedBranch }) => {
+const Championship_component = () => {
     const { t } = useTranslation()
     const [data, setData] = useState([]);
     const [error, setError] = useState(false);
+    const { selectedBranch } = useBranch();
     const Champions = [
         {
             title: t('championship_total_trophies'),
@@ -31,13 +33,14 @@ const Championship_component = ({ selectedBranch }) => {
             icon: <GiTrophyCup />,
             count: data.totalGold
         },
-    ]
+    ];
+    
     const Get_champinship_state = async () => {
-          const token = localStorage.getItem("token");
+        //   const token = localStorage.getItem("token");
 
         const params = {
             "language": i18next.language,
-    branchId: token ? selectedBranch : "all",
+    branchId:  selectedBranch  || "all",
             
         }
         try {

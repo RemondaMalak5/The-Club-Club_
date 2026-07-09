@@ -5,16 +5,17 @@ import { FaStar } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { LiaAwardSolid } from "react-icons/lia";
-import Academy from "./../../../Pages/Academy";
+// import Academy from "./../../../Pages/Academy";
 import { Academylist } from "../../../axiosConfig/APIs/Academy/Academy_list";
 import i18next from "i18next";
 import { useNavigate } from "react-router-dom";
 import { Academy_Category } from "../../../axiosConfig/APIs/Academy/Academy_Category";
-import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
+// import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import Pagination_Component from "../../Shared_Component/Pagination_Component";
 import { useTranslation } from "react-i18next";
+import { useBranch } from "../../../context/BranchContext";
 
-const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
+const Academy_filter = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
   const [data, setData] = useState([]);
@@ -26,24 +27,25 @@ const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
   const paginationRef = useRef();
   const [Categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
-  const [branches, setBranches] = useState([]);
+  // const [branches, setBranches] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = !!user;
-  const Get_Branches = async () => {
-    const params = {
-      language: i18next.language,
-    };
-    try {
-      const response = await AllBranches(params);
-      setBranches(response.message.data);
-    } catch (error) { }
-  };
+  // const Get_Branches = async () => {
+  //   const params = {
+  //     language: i18next.language,
+  //   };
+  //   try {
+  //     const response = await AllBranches(params);
+  //     setBranches(response.message.data);
+  //   } catch (error) { }
+  // };
+const{selectedBranch, changeBranch, branches} = useBranch();
 
   const Get_Academy_Category = async () => {
     try {
       const params = {
         language: i18next.language,
-        branchId: "all",
+        branchId: selectedBranch || "all",
       };
       const response = await Academy_Category(params);
       const uniqueCategories = response.message.data.filter(
@@ -55,11 +57,11 @@ const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
   };
 
 const Get_Academy_List = async () => {
-  const finalBranchId = !isLoggedIn ? selectedBranch || "all" : selectedBranch;
+  // const finalBranchId = !isLoggedIn ? selectedBranch || "all" : selectedBranch;
 
   const params = {
     language: i18next.language,
-    branchId: finalBranchId,
+    branchId: selectedBranch || "all",
     per_page: 6,
     page: currentPage,
     category: activecategory,
@@ -74,12 +76,12 @@ const Get_Academy_List = async () => {
     setError(true);
   }
 };
-  useEffect(() => {
-    Get_Branches();
-  }, [i18next.language]);
+  // useEffect(() => {
+  //   Get_Branches();
+  // }, [i18next.language]);
   useEffect(() => {
     Get_Academy_Category();
-  }, [i18next.language]);
+  }, [i18next.language , selectedBranch]);
 
  useEffect(() => {
  
@@ -135,13 +137,13 @@ const Get_Academy_List = async () => {
         />
 
        {!isLoggedIn && (
-  <select
-    value={selectedBranch}
-    onChange={(e) => {
-      setSelectedBranch(e.target.value);
-      setCurrentPage(1);
-    }}
-  >
+ <select
+  value={selectedBranch || "all"}
+  onChange={(e) => {
+    changeBranch(e.target.value);
+    setCurrentPage(1);
+  }}
+>
     <option value="all">{t("all_branches")}</option>
 
     {branches.map((e) => (

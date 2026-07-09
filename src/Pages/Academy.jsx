@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from "react";
 import Academy_headers from "../Component/Academy_Component/Academy/Academy_headers";
 import Academy_filter from "../Component/Academy_Component/Academy/Academy_filter";
 
 const Academy = () => {
-  const [selectedBranch, setSelectedBranch] = useState();
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-const isLoggedIn = !!user;
-    if (user?.branchId) {
-      setSelectedBranch(user.branchId);
-    }
-  }, []);
 
   return (
     <>
-      <Academy_headers selectedBranch={selectedBranch} />
+      <Academy_headers />
 
-      <Academy_filter
-        selectedBranch={selectedBranch}
-        setSelectedBranch={setSelectedBranch}
-      />
+      <Academy_filter/>
     </>
   );
 };
