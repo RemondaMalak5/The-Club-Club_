@@ -1,21 +1,23 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { IoTimeOutline } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Bookings = ({ data }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="bg-[#F8F8F8] border border-gray-200 rounded-2xl p-4 w-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-800">الحجوزات القادمة</h2>
+        <h2 className="text-lg font-bold text-gray-800">{t("upcoming_bookings")}</h2>
 
         <span
           onClick={() => navigate("/bookings")}
           className="text-[#009689] text-xs cursor-pointer"
         >
-          ← عرض الكل
+          ← {t("view_all")}
         </span>
       </div>
 
@@ -55,11 +57,11 @@ const Bookings = ({ data }) => {
                 onClick={() => navigate(`/services/${item.id}`)}
                 className="bg-gradient-to-r from-[#2DC6B3] to-[#00786F] text-white text-sm py-2 rounded-lg font-medium hover:opacity-90 duration-300"
               >
-                تفاصيل
+                {t("details")}
               </button>
 
               <button className="border border-gray-300 text-gray-600 text-sm py-2 rounded-lg font-medium hover:bg-gray-100 duration-300">
-                إلغاء
+                {t("cancel")}
               </button>
             </div>
           </div>

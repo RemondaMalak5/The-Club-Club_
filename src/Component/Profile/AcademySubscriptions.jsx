@@ -9,12 +9,12 @@ import { useTranslation } from "react-i18next";
 
 const AcademySubscriptions = ({ data }) => {
   const navigate = useNavigate();
-  const{i18n}=useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <div className="bg-[#F8F8F8] border border-gray-200 rounded-2xl p-4 w-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-800">
-          الأكاديميات المشترك بها
+          {t("subscribed_academies")}
         </h2>
 
         <span
@@ -23,7 +23,7 @@ const AcademySubscriptions = ({ data }) => {
           }}
           className="text-[#009689] text-xs cursor-pointer flex items-center"
         >
-          عرض الكل {i18n.language ==="ar"? <MdArrowBackIos/>:<MdArrowForwardIos/>}
+          {t("view_all")} {i18n.language === "ar" ? <MdArrowBackIos /> : <MdArrowForwardIos />}
         </span>
       </div>
 
@@ -42,7 +42,7 @@ const AcademySubscriptions = ({ data }) => {
 
                   <div className="flex gap-5 items-center ">
                     <span className="flex items-center gap-1 text-gray-500 text-sm ">
-                      <FaRegCalendarAlt /> {academy.startDate || "الإثنين من كل أسبوع"}
+                      <FaRegCalendarAlt /> {academy.startDate || t("every_monday")}
                      
                     </span>
                     <span className="flex justify-center items-center gap-1 text-gray-500 text-sm mt-2">
@@ -52,12 +52,12 @@ const AcademySubscriptions = ({ data }) => {
 
                   <div className="flex items-center gap-1 text-gray-500 text-sm mt-1 ">
                     <IoLocationOutline />
-                    <span>{academy.branch || "فرع أكتوبر"}</span>
+                    <span>{academy.branch || t("october_branch")}</span>
                   </div>
 
               </div>
               <span className="bg-[#EAF9F5] text-[#23A26D] border border-[#B7F3D0] text-[11px] px-4 py-1 rounded-full h-fit">
-                  نشط
+                  {t("active")}
                 </span>
                 </div>
               
@@ -68,13 +68,13 @@ const AcademySubscriptions = ({ data }) => {
                 }}
                 className="w-full mt-5 bg-gradient-to-r from-[#2DC6B3] to-[#00786F] text-white text-sm py-3 rounded-lg font-medium"
               >
-                عرض التفاصيل
+                {t("view_details")}
               </button>
             </div>
           ))
         ) : (
           <p className="text-sm text-gray-500 text-center py-4">
-            لا توجد أكاديميات مشترك بها
+            {t("no_subscribed_academies")}
           </p>
         )}
       </div>

@@ -1,14 +1,16 @@
 import { User } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { assets } from "../../assets/assets";
 import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from "react-icons/fa";
 import i18next from "i18next";
 import { FiUsers } from "react-icons/fi";
 
 const FamilyMembers = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="bg-white rounded-xl p-4 shadow border">
-      <h3 className="font-bold text-[20px] mb-3">أفراد العائلة</h3> 
+      <h3 className="font-bold text-[20px] mb-3">{t("family_members")}</h3> 
 
       {data?.map((e) => (
         <div
@@ -26,7 +28,7 @@ const FamilyMembers = ({ data }) => {
               <p className="font-medium">{e.name}</p>
 
               <p className="text-xs text-gray-500">
-                {e.relation} • {e.age > 0 ? `${e.age} سنة` : "غير محدد"}
+                {e.relation} • {e.age > 0 ? `${e.age} ${t("years")}` : t("not_specified")}
               </p>
             </div>
           </div>
@@ -42,7 +44,7 @@ const FamilyMembers = ({ data }) => {
       ))}
 
       <button className="w-full rounded-2xl border  flex flex-col items-center p-3 my-2">
-        <span> <FiUsers/></span> اضافه عضو </button>
+        <span> <FiUsers/></span> {t("add_member")} </button>
     </div>
   );
 };

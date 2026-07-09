@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import Social_Media from "../Shared_Component/Social_Media";
 const Footer = () => {
   const { id } = useParams();
+    const user = JSON.parse(localStorage.getItem("user"));
 
   const { t } = useTranslation();
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
@@ -39,8 +40,9 @@ const Footer = () => {
     { value: t("events"), link: "/" },
     { value: t("academies"), link: "/academy" },
   ];
-  const Services_member = [
-    { value: t("login"), link: "/login" },
+  const Services_member = [ 
+
+    { value: user? t("profile"): t("login"), link: user ? "/profile" : "/login" },
     { value: t("register"), link: "/register" },
     { value: t("manage_membership"), link: "/" },
     { value: t("book_activities"), link: "/" },

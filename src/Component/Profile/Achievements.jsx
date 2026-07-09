@@ -1,11 +1,13 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { RiMedalLine } from "react-icons/ri";
 
 const Achievements = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <div className="bg-white rounded-xl p-4 shadow border">
       <h3 className="font-bold text-[20px] mb-4 text-right">
-        الإنجازات
+        {t("achievements")}
       </h3>
 
       <div className="space-y-3">
@@ -32,7 +34,7 @@ const Achievements = ({ data }) => {
           ))
         ) : (
           <p className="text-center text-gray-500 py-4">
-            لا توجد إنجازات
+            {t("no_achievements")}
           </p>
         )}
       </div>

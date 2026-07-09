@@ -104,7 +104,7 @@ const All_News = () => {
         <div className="flex flex-wrap w-full gap-4">
           <input
             type="text"
-            placeholder={t("search_academies")}
+            placeholder={t("search_news")}
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);

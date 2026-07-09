@@ -13,7 +13,7 @@ import { Update_profile } from "../../axiosConfig/APIs/Profile/Update_profile";
 
 const Proflie_Header = ({ data }) => {
   const { showPopup } = usePopup();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState("");
@@ -94,7 +94,7 @@ const Proflie_Header = ({ data }) => {
 
   return (
     <div>
-      <div className="py-5 px-10 rounded-2xl flex flex-wrap bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A]">
+      <div className="py-5 px-10 rounded-2xl flex flex-wrap bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] to-[#DCF0EB9A]">
         <div className="flex gap-4 items-center xl:w-1/2 w-full">
           <img
             src={data?.profileImage || "/images/default-user.png"}
@@ -136,14 +136,13 @@ const Proflie_Header = ({ data }) => {
           <span
             onClick={() =>
               showPopup({
-                title: "تسجيل الخروج",
-                message:
-                  "هل أنت متأكد من رغبتك في تسجيل الخروج من حسابك؟ ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
-                confirmText: "تسجيل خروج",
-                cancelText: "إلغاء",
-                onConfirm: handleLogout,
-                icon: <FaArrowRightToBracket />,
-              })
+                    title: t("logout_title"),
+                    message: t("logout_message"),
+                    confirmText: t("logout"),
+                    cancelText: t("cancel"),
+                    onConfirm: handleLogout,
+                    icon: <FaArrowRightToBracket />,
+                  })
             }
             className="p-3 bg-[#00786F] text-white rounded-xl text-[18px] cursor-pointer"
           >
@@ -156,10 +155,10 @@ const Proflie_Header = ({ data }) => {
             <div className="bg-white xl:w-[50%] w-[90%] max-h-[90vh] overflow-y-auto rounded-2xl p-6">
               <div className="justify-center flex flex-col items-center text-center">
                 <h2 className="text-2xl font-bold">
-                  تعديل البيانات الشخصية
+                  {t("edit_profile")}
                 </h2>
                 <p className="text-[#6A7282]">
-                  حدّث بياناتك الشخصية لضمان دقة معلومات حسابك وسهولة التواصل معك.
+                  {t("edit_profile_subtitle")}
                 </p>
               </div>
 
@@ -196,7 +195,7 @@ const Proflie_Header = ({ data }) => {
               <form onSubmit={handleSubmit} className="mt-5">
                 <div className="w-full flex flex-wrap gap-y-3">
                   <div className="flex flex-col xl:w-1/2 w-full px-2">
-                    <label>الاسم بالكامل</label>
+                    <label>{t("full_name_label")}</label>
                     <input
                       type="text"
                       name="fullName"
@@ -207,7 +206,7 @@ const Proflie_Header = ({ data }) => {
                   </div>
 
                   <div className="flex flex-col xl:w-1/2 w-full px-2">
-                    <label>رقم الهاتف</label>
+                    <label>{t("phone_label")}</label>
                     <input
                       type="text"
                       name="phone"
@@ -218,7 +217,7 @@ const Proflie_Header = ({ data }) => {
                   </div>
 
                   <div className="flex flex-col xl:w-1/2 w-full px-2">
-                    <label>البريد الإلكتروني</label>
+                    <label>{t("email_label")}</label>
                     <input
                       type="email"
                       name="email"
@@ -229,7 +228,7 @@ const Proflie_Header = ({ data }) => {
                   </div>
 
                   <div className="flex flex-col xl:w-1/2 w-full px-2">
-                    <label>تاريخ الميلاد</label>
+                    <label>{t("date_of_birth")}</label>
                     <input
                       type="date"
                       name="dateOfBirth"
@@ -240,7 +239,7 @@ const Proflie_Header = ({ data }) => {
                   </div>
 
                   <div className="flex flex-col  w-full px-2">
-                    <label>النوع</label>
+                    <label>{t("gender")}</label>
                     <Select
                       name="gender"
                       value={formData.gender}
@@ -265,7 +264,7 @@ const Proflie_Header = ({ data }) => {
                         },
                       }}
                     >
-                      <MenuItem value="">اختاري النوع</MenuItem>
+                      <MenuItem value="">{t("select_gender")}</MenuItem>
                       <MenuItem value="Male">Male</MenuItem>
                       <MenuItem value="Female">Female</MenuItem>
                     </Select>
@@ -278,7 +277,7 @@ const Proflie_Header = ({ data }) => {
                     disabled={loading}
                     className="bg-[#08AC85] text-white px-5 py-2 rounded-xl w-1/2 disabled:opacity-60"
                   >
-                    {loading ? "جاري التعديل..." : "تعديل البيانات"}
+                    {loading ? t("updating") : t("update_profile")}
                   </button>
 
                   <button
@@ -286,7 +285,7 @@ const Proflie_Header = ({ data }) => {
                     onClick={() => setOpen(false)}
                     className="px-5 py-2 border rounded-xl w-1/2"
                   >
-                    إلغاء
+                    {t("cancel")}
                   </button>
                 </div>
               </form>

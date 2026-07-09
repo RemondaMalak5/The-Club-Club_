@@ -1,21 +1,24 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaShareNodes, FaStar } from "react-icons/fa6";
 import { assets } from "../../assets/assets";
 import { FaDownload } from "react-icons/fa";
 
 const MembershipCard = ({ data }) => {
-  const card = data?.digitalCard || {};
+  const card = data?.digitalCard ;
   const starRating = Number(card?.starRating) || 0;
 const sports = Array.isArray(card?.academyIcons)
   ? card.academyIcons.filter(Boolean)
   : [];
+
+  const { t } = useTranslation();
 
   return (
     <div className="bg-[#F7F7F7] p-3 rounded-2xl w-full border border-gray-200">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-sm font-bold text-gray-700">
-          بطاقة العضوية الرقمية
+          {t("digital_membership_card")}
         </h2>
 
         <div className="flex gap-3 text-[#009689] text-sm">
@@ -38,10 +41,10 @@ const sports = Array.isArray(card?.academyIcons)
           {/* Info */}
           <div className="flex items-center justify-center gap-4">
             <div className="bg-white text-[#00786F] text-[10px] px-3 py-1 rounded-full font-medium">
-              {data?.membershipExpiry || "غير متاح"}
+              {data?.membershipExpiry || t("not_available")}
             </div>
 
-            <h1 className="text-white text-3xl font-bold">Member</h1>
+            <h1 className="text-white text-3xl font-bold">{t("member")}</h1>
 
             <div className="bg-white text-[#00786F] text-[10px] px-3 py-1 rounded-full font-medium">
               {card?.memberCode || data?.membershipNo || "-"}
@@ -62,17 +65,17 @@ const sports = Array.isArray(card?.academyIcons)
 
               <div className="text-right">
                 <h3 className="font-bold text-gray-800 text-lg">
-                  {data?.fullName || "عضو"}
+                  {data?.fullName}
                 </h3>
 
                 <p className="text-gray-500 text-sm">
-                  {data?.email || "-"}
+                  {data?.email }
                 </p>
               </div>
             </div>
 
             <div className="border border-[#23A26D] text-[#23A26D] w-fit h-fit bg-[#F0FFF8] px-3 py-1 rounded-md text-[10px] font-medium">
-              {card?.status || data?.membershipType || "-"}
+              {card?.status }
             </div>
           </div>
 
@@ -132,17 +135,17 @@ const sports = Array.isArray(card?.academyIcons)
       </div>
 
       {/* Footer */}
-      <div className="bg-[#EAF5F3] rounded-xl mt-4 p-3 text-right">
-        <h3 className="text-[#009689] text-xs font-bold mb-1">
-          قوانين استخدام العضوية الرقمية:
-        </h3>
+          <div className="bg-[#EAF5F3] rounded-xl mt-4 p-3 text-right">
+            <h3 className="text-[#009689] text-xs font-bold mb-1">
+              {t("digital_membership_rules")}
+            </h3>
 
-        <ul className="text-[10px] text-gray-500 leading-5">
-          <li>• يمنع مشاركة البطاقة مع أي شخص</li>
-          <li>• يجب إظهار البطاقة عند الدخول</li>
-          <li>• الالتزام بقوانين النادي</li>
-        </ul>
-      </div>
+            <ul className="text-[10px] text-gray-500 leading-5">
+              <li>• {t("do_not_share_card")}</li>
+              <li>• {t("present_card_on_entry")}</li>
+              <li>• {t("follow_club_rules")}</li>
+            </ul>
+          </div>
     </div>
   );
 };

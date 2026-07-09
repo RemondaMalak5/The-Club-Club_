@@ -1,15 +1,18 @@
 
 
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Payments = ({ data }) => {
   const payments = data?.items || [];
+
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-5 w-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-800">
-          سجل المدفوعات
+          {t("payment_history")}
         </h2>
       </div>
 
@@ -17,10 +20,10 @@ const Payments = ({ data }) => {
         <table className="w-full text-sm text-right">
           <thead className="bg-gray-50 text-gray-600">
             <tr>
-              <th className="px-4 py-3">التاريخ</th>
-              <th className="px-4 py-3">الوصف</th>
-              <th className="px-4 py-3">المبلغ</th>
-              <th className="px-4 py-3">الحالة</th>
+              <th className="px-4 py-3">{t("date")}</th>
+              <th className="px-4 py-3">{t("description")}</th>
+              <th className="px-4 py-3">{t("amount")}</th>
+              <th className="px-4 py-3">{t("status")}</th>
             </tr>
           </thead>
 
@@ -32,7 +35,7 @@ const Payments = ({ data }) => {
                   className="border-t border-gray-100"
                 >
                   <td className="px-4 py-4">
-                    {new Date(item.date).toLocaleDateString("ar-EG")}
+                    {new Date(item.date).toLocaleDateString()}
                   </td>
 
                   <td className="px-4 py-4">
@@ -46,7 +49,7 @@ const Payments = ({ data }) => {
                   <td className="px-4 py-4">
                     <span className="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full">
                       {item.status === "paid"
-                        ? "مدفوع"
+                        ? t("paid")
                         : item.status}
                     </span>
                   </td>

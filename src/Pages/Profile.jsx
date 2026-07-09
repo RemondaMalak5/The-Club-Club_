@@ -13,8 +13,11 @@ import AcademySubscriptions from "../Component/Profile/AcademySubscriptions";
 import Spinner from "./../Component/Shared_Component/Spinner";
 import { Get_profile } from "../axiosConfig/APIs/Profile/Profile";
 import i18next from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+    const {  } = useTranslation();
+
   const {
   data,
   isLoading,

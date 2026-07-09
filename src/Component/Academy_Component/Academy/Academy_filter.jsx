@@ -1,4 +1,4 @@
-import React, { use, useEffect, useMemo, useRef, useState } from "react";
+import React, {  useEffect, useRef, useState } from "react";
 import { LayoutGrid, List } from "lucide-react";
 import { assets } from "../../../assets/assets";
 import { FaStar } from "react-icons/fa";
@@ -54,24 +54,26 @@ const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
     } catch (error) { }
   };
 
-  const Get_Academy_List = async () => {
-    const params = {
-      language: i18next.language,
-      branchId: selectedBranch,
-      per_page: 6,
-      page: currentPage,
-      category: activecategory,
-      search: searchTerm,
-    };
+const Get_Academy_List = async () => {
+  const finalBranchId = !isLoggedIn ? selectedBranch || "all" : selectedBranch;
 
-    try {
-      const response = await Academylist(params);
-      setData(response.message.data);
-      setTotalPages(response.message.total_pages);
-    } catch (error) {
-      setError(true);
-    }
+  const params = {
+    language: i18next.language,
+    branchId: finalBranchId,
+    per_page: 6,
+    page: currentPage,
+    category: activecategory,
+    search: searchTerm,
   };
+
+  try {
+    const response = await Academylist(params);
+    setData(response.message.data || []);
+    setTotalPages(response.message.total_pages);
+  } catch (error) {
+    setError(true);
+  }
+};
   useEffect(() => {
     Get_Branches();
   }, [i18next.language]);
@@ -79,15 +81,17 @@ const Academy_filter = ({ selectedBranch, setSelectedBranch }) => {
     Get_Academy_Category();
   }, [i18next.language]);
 
-  useEffect(() => {
-    Get_Academy_List();
-  }, [
-    i18next.language,
-    currentPage,
-    activecategory,
-    selectedBranch,
-    searchTerm,
-  ]);
+ useEffect(() => {
+ 
+
+  Get_Academy_List();
+}, [
+  i18next.language,
+  currentPage,
+  activecategory,
+  selectedBranch,
+  searchTerm,
+]);
 
   return (
     <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4">

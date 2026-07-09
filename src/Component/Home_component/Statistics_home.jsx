@@ -1,10 +1,8 @@
-
-
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CiCircleInfo } from "react-icons/ci";
 import { Branch_stats } from "../../axiosConfig/APIs/Home/Branch_stats";
-
+import i18next from "i18next";
 const Statistics_home = () => {
   const { t } = useTranslation();
   const [branches, setBranches] = useState([]);
@@ -29,61 +27,50 @@ const Statistics_home = () => {
     fetchBranchStats();
   }, []);
 
-  const formatDate = (date) => {
-    if (!date) return "";
 
-    return new Date(date).toLocaleString("ar-EG", {
-      hour: "numeric",
-      minute: "numeric",
-      day: "numeric",
-      month: "short",
-    });
-  };
 
   return (
     <div className=" py-10">
-      {/* title */}
       <div className="text-center mb-10">
         <h2 className="text-[32px] md:text-[36px] font-bold">
-          {t('statistics')}
+          {t("statistics")}
           <span className="bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
             {" "}
-            {t('entry_exit')}
+            {t("entry_exit")}
           </span>{" "}
-          {t('by_branches')}
+          {t("by_branches")}
         </h2>
 
         <p className="text-gray-500 text-sm mt-2">
-          {t('daily_movement_stats')}
+          {t("daily_movement_stats")}
         </p>
       </div>
 
-      {/* loading */}
       {loading ? (
         <div className="text-center text-lg text-gray-500">
-          {t('loading_data')}
+          {t("loading_data")}
         </div>
       ) : (
         branches.slice(0, 3).map((branch, index) => {
           const stats = [
             {
               value: branch.currentMembers,
-              name: t('current_members_stats'),
+              name: t("current_members_stats"),
             },
             {
               value: branch.todayEntry,
-              name: t('today_entry'),
+              name: t("today_entry"),
             },
             {
               value: branch.todayExit,
-              name: t('today_exit'),
+              name: t("today_exit"),
             },
             {
               value:
                 branch.averageVisitDuration > 0
-                  ? `${branch.averageVisitDuration} ${t('hour')}`
-                  : `0 ${t('hour')}`,
-              name: t('average_visit_duration'),
+                  ? `${branch.averageVisitDuration} ${t("hour")}`
+                  : `0 ${t("hour")}`,
+              name: t("average_visit_duration"),
             },
           ];
 
@@ -117,12 +104,15 @@ const Statistics_home = () => {
                 </div>
 
                 {/* last update */}
-                <div className="absolute left-9 top-0 hidden md:block w-[140px]">
+                <div className={`absolute ${i18next.language === "ar" ? "left-9" : "right-9"} top-0 hidden md:block w-[140px]`}>
                   <div
-                    className="bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white 
-                    text-center py-4 px-3 flex flex-col items-end justify-center gap-1"
+                    className="bg-gradient-to-r from-[#08AC85] to-[#00786F] text-white
+  text-center py-4 px-3 flex flex-col items-end justify-center gap-1"
                     style={{
-                      clipPath: "polygon(0 0, 82% 0, 56% 100%, 0% 100%)",
+                      clipPath:
+                        i18next.language === "ar"
+                          ? "polygon(0 0, 82% 0, 56% 100%, 0% 100%)"
+                          : "polygon(18% 0, 100% 0, 100% 100%, 44% 100%)",
                       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
                     }}
                   >
@@ -131,12 +121,10 @@ const Statistics_home = () => {
                     </span>
 
                     <span className="font-semibold text-sm">
-                      {t('last_update')}
+                      {t("last_update")}
                     </span>
 
-                    <span className="text-xs">
-                      {formatDate(branch.lastUpdated)}
-                    </span>
+                    <span className="text-xs">{branch.lastUpdated}</span>
                   </div>
                 </div>
               </div>
