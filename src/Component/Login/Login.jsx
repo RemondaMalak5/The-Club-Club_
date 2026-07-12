@@ -100,7 +100,6 @@ const Login = () => {
 
   localStorage.setItem("token", response.message.token);
   localStorage.setItem("user", JSON.stringify(savedUser));
-  localStorage.setItem("customer", JSON.stringify(customer));
 
   changeBranch(branchId);
 

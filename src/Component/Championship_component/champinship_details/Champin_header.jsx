@@ -39,9 +39,12 @@ const Champin_header = () => {
   }, [id, i18next.language, branchId]);
 
   const info = [
-    { icon: <MdOutlineDateRange />, value: data?.startDate },
-    { icon: <CiLocationOn/>, value: data?.location },
-    { icon: <MdPersonOutline/>, value: data?.startDate },]
+{
+  icon: <MdOutlineDateRange />,
+  value: `${data?.startDate} - ${data?.endDate}`,
+},    { icon: <CiLocationOn/>, value: data?.location },
+    { icon: <MdPersonOutline/>, value: data?.teamsCount},
+  ]
   return (
     <div className="bg-[#f8f8f8] min-h-screen pb-10">
       {/* Hero Image */}

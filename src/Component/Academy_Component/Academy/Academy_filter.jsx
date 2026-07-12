@@ -29,7 +29,7 @@ const Academy_filter = () => {
   const [error, setError] = useState(false);
   // const [branches, setBranches] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
-  const isLoggedIn = !!user;
+  const isLoggedIn = user;
   // const Get_Branches = async () => {
   //   const params = {
   //     language: i18next.language,
@@ -253,18 +253,19 @@ const Get_Academy_List = async () => {
                     </p>
                   </div>
 
-                  <div className="px-4 py-3">
+
+                </div>
+                                  <div className="px-4 py-3">
                     <button className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition">
-                      عرض التفاصيل
+                      {t("view_details")}
                     </button>
                   </div>
-                </div>
               </div>
             </div>
           ))
         ) : (
           <div className="w-full text-center py-10 text-gray-500 text-lg">
-            لا توجد أكاديميات مطابقة
+            {t("no_matching_activities")}
           </div>
         )}
       </div>

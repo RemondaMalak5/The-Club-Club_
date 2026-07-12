@@ -26,36 +26,56 @@ const Proflie_Header = ({ data }) => {
     email: "",
     dateOfBirth: "",
     gender: "",
-    image:"",
+    image: "",
     language: i18next.language,
   });
 
-  useEffect(() => {
-    if (data) {
-      setFormData({
-        fullName: data?.fullName || "",
-        phone: data?.phone || "",
-        email: data?.email || "",
-        dateOfBirth: data?.dateOfBirth || "",
-        gender: data?.gender || "",
-        image:data?.image,
-        language: i18next.language,
-      });
-    }
-  }, [data]);
+useEffect(() => {
+  if (!data) return;
+
+  setFormData({
+    fullName: data.fullName || "",
+    phone: data.phone || "",
+    email: data.email || "",
+    dateOfBirth: data.dateOfBirth || "",
+    gender:
+      data.gender === "ذكر"
+        ? "Male"
+        : data.gender === "انثى"
+        ? "Female"
+        : "",
+    language: i18next.language,
+  });
+
+  setPreview(data.profileImage || "");
+  setImage("");
+}, [data, i18next.language]);
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = "/";
   };
 
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+ const handleImage = (e) => {
+  const file = e.target.files?.[0];
 
-    setImage(file);
-    setPreview(URL.createObjectURL(file));
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onloadend = () => {
+    const base64Image = reader.result;
+
+    setImage(base64Image);
+    setPreview(base64Image);
   };
+
+  reader.onerror = () => {
+    console.log("Failed to read image");
+  };
+
+  reader.readAsDataURL(file);
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,31 +86,36 @@ const Proflie_Header = ({ data }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const body = {
-        fullName: formData.fullName,
-        phone: formData.phone,
-        email: formData.email,
-        dateOfBirth: formData.dateOfBirth,
-        gender: formData.gender,
-        image:formData.image,
-        language: i18next.language,
-      };
+    const body = {
+      fullName: formData.fullName,
+      phone: formData.phone,
+      email: formData.email,
+      dateOfBirth: formData.dateOfBirth,
+      gender: formData.gender,
+      language: i18next.language,
+    };
 
-      await Update_profile(body);
-
-      setOpen(false);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+    if (image) {
+      body.image = image;
     }
-  };
+
+    const response = await Update_profile(body);
+
+    console.log("Profile updated successfully", response);
+
+    setOpen(false);
+  } catch (error) {
+    console.log(error?.response?.data || error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div>
@@ -136,13 +161,13 @@ const Proflie_Header = ({ data }) => {
           <span
             onClick={() =>
               showPopup({
-                    title: t("logout_title"),
-                    message: t("logout_message"),
-                    confirmText: t("logout"),
-                    cancelText: t("cancel"),
-                    onConfirm: handleLogout,
-                    icon: <FaArrowRightToBracket />,
-                  })
+                title: t("logout_title"),
+                message: t("logout_message"),
+                confirmText: t("logout"),
+                cancelText: t("cancel"),
+                onConfirm: handleLogout,
+                icon: <FaArrowRightToBracket />,
+              })
             }
             className="p-3 bg-[#00786F] text-white rounded-xl text-[18px] cursor-pointer"
           >
@@ -177,7 +202,7 @@ const Proflie_Header = ({ data }) => {
                       src={
                         preview ||
                         data?.image ||
-                        "/images/default-user.png"
+                        ""
                       }
                       alt="profile"
                       className="w-24 h-24 rounded-full object-cover border"
@@ -265,8 +290,8 @@ const Proflie_Header = ({ data }) => {
                       }}
                     >
                       <MenuItem value="">{t("select_gender")}</MenuItem>
-                      <MenuItem value="Male">Male</MenuItem>
-                      <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Male">{t("male")}</MenuItem>
+                      <MenuItem value="Female">{t("female")}</MenuItem>
                     </Select>
                   </div>
                 </div>

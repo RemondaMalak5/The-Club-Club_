@@ -15,13 +15,14 @@ const Cheak_Mail = () => {
     const [apiError, setApiError] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
  const [branch , setBranch]=useState();
-   const branchOptions = [
-    { value: t("branch_value_new_capital"), label: t("branch_option_new_capital") },
-    { value: t("branch_value_sheraton"), label: t("branch_option_sheraton") },
-    { value: t("branch_value_october_6"), label: t("branch_option_october_6") },
+  const branchOptions = [
+    { value: "The Club - New Capital", label: "The Club - New Capital" },
+    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
+    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
   ];
+
     const handleForget = async () => {
-        // setApiError("");
+        setApiError("");
         // setSuccessMsg("");
 
         if (!phone.trim()) {
@@ -31,7 +32,6 @@ const Cheak_Mail = () => {
 
         try {
             setLoading(true);
-
             const body = {
                 phone: phone,
                 branch: branch?.value,
@@ -60,7 +60,6 @@ const Cheak_Mail = () => {
         } catch (error) {
             setApiError(
                 error?.response?.data?.message ||
-                error?.response?.data?.error ||
                 t("forget_password_failed")
             );
         } finally {
@@ -135,11 +134,10 @@ const Cheak_Mail = () => {
     }),
   }}
 />
- 
-{/* 
+  
           {errors.branch && (
             <p className="text-red-500 text-sm">{errors.branch}</p>
-          )} */}
+          )} 
         </div>
 
                 <button

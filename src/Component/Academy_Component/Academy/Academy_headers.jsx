@@ -12,7 +12,6 @@ const Academy_headers = () => {
   const {t} = useTranslation();
  const [data, setData] = useState({});
    const { selectedBranch } = useBranch();
- 
     const Get_Academy_Stats = async () => {
   // const token = localStorage.getItem("token");
 

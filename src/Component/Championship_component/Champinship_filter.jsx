@@ -216,8 +216,8 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           <span className="text-[#08AC85DB]">
             <HiCalendarDateRange />
           </span>
-          {e.startDate}
-        </p>
+{         `${e.startDate} - ${e.endDate}`
+}        </p>
       </div>
 
       <div className="px-4 py-4">

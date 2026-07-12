@@ -16,42 +16,43 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
  
-  useEffect(() => {
-    const loadUser = async () => {
-      const savedUser = localStorage.getItem("user");
-      const token = localStorage.getItem("token");
+useEffect(() => {
+  const loadUser = async () => {
+    const savedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-      if (!savedUser || !token) {
-        setUser(null);
-        return;
-      }
+    if (!savedUser || !token) {
+      setUser(null);
+      return;
+    }
 
-      const parsedUser = JSON.parse(savedUser);
+    const parsedUser = JSON.parse(savedUser);
 
-      try {
-        const profile = await Get_profile();
-        const profileData = profile?.message?.data;
+    try {
+      const profile = await Get_profile();
+      const profileData = profile?.message?.data;
 
-        const updatedUser = {
-          ...parsedUser,
-          profileImage: profileData?.profileImage || "",
-        };
+      const updatedUser = {
+        ...parsedUser,
+        ...profileData,
+      };
 
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-      } catch (error) {
-        setUser(parsedUser);
-      }
-    };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+    } catch (error) {
+      console.log(error);
+      setUser(parsedUser);
+    }
+  };
 
-    loadUser();
+  loadUser();
 
-    window.addEventListener("userUpdated", loadUser);
+  window.addEventListener("userUpdated", loadUser);
 
-    return () => {
-      window.removeEventListener("userUpdated", loadUser);
-    };
-  }, []);
+  return () => {
+    window.removeEventListener("userUpdated", loadUser);
+  };
+}, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -138,7 +139,7 @@ const Navbar = () => {
                     }}
                   />
                   <div className="flex flex-col">
-                    <p>مرحبا</p>
+                    <p>{t("hello")}</p>
                     <p>
                       {user?.fullName?.split(" ").slice(0, 2).join(" ")}
                     </p>
