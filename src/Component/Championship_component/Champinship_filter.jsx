@@ -12,8 +12,10 @@ import Pagination_Component from "../Shared_Component/Pagination_Component";
 import { HiCalendarDateRange } from "react-icons/hi2";
 import { GiTrophyCup } from "react-icons/gi";
 import { useBranch } from "../../context/BranchContext";
+import { useTranslation } from "react-i18next";
 
 const Champinship_filter = () => {
+  const { t } = useTranslation();
   const navigation = useNavigate();
   const [data, setData] = useState([]);
   const [activecategory, setActiveCategory] = useState("all");
@@ -107,7 +109,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
             setCurrentPage(1);
           }}
         >
-          <option value="all">كل الفروع</option>
+          <option value="all"> {t("all_branches")} </option>
 
           {branches.map((e) => (
             <option key={e.id} value={e.registryId}>
@@ -195,8 +197,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           <span className="text-[#FFDF20] text-xl">
             <GiTrophyCup />
           </span>
-          المركز الأول
-        </button>
+{e.type}        </button>
 
         <p className="flex items-center gap-2">
           <span className="text-[#08AC85DB]">
@@ -232,8 +233,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           }
           className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition"
         >
-          عرض التفاصيل
-        </button>
+{t("view_details")}        </button>
       </div>
     </div>
   </div>

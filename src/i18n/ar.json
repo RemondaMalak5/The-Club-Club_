@@ -291,7 +291,7 @@
     "academy_price_starts_from": "السعر يبدأ من",
     "academy_currency": "ج.م",
     "academy_discount_rate": "نسبة الخصم",
-    "academy_info": "معلومات",
+    "academy_info": "استفسار",
     "academy_trainers_title": "المدربون",
     "academy_cert_training": "تدريب",
     "academy_cert_client_value": "قيمة للعملاء",
@@ -380,6 +380,14 @@
     "member_registration_instructions":"الرجاء إدخال بيانات العضوية للمتابعة" ,
     "male":"ذكر",
     "female":"أنثى" ,
-    "hello":"مرحبا"
+    "hello":"مرحبا" ,
+    "latest_News":"أحدث الأخبار" ,
+    "register_now":"سجل الآن" ,
+    "players":"اللاعبين" ,
+    "service_pricing_title":"تفاصيل الأسعار" ,
+    "service_steps_title":"تفاصيل البرنامج" ,
+    "service_sponsored_by":"برعاية" ,
+    "service_available":"متاح" ,
+    "service_not_available":"غير متاح" 
 
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { GoArrowUpRight } from "react-icons/go";
+import { GoArrowUpLeft, GoArrowUpRight } from "react-icons/go";
 import { CgCalendarDates } from "react-icons/cg";
 import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 import i18next from "i18next";
@@ -61,7 +61,7 @@ const All_News = () => {
 
       const uniqueCategories = [
         ...new Map(
-          (response?.message?.data || []).map((cat) => [cat.id, cat])
+          (response?.message?.data || []).map((cat) => [cat.id, cat]),
         ).values(),
       ];
 
@@ -151,64 +151,66 @@ const All_News = () => {
       </div>
 
       {error && (
-        <p className="text-red-500 text-center mb-4">
-          حدث خطأ أثناء تحميل الأخبار
-        </p>
+        <p className="text-red-500 text-center mb-4">{t("news_load_error")}</p>
       )}
 
       <div className="grid md:grid-cols-3 gap-6">
         {data.length > 0 ? (
           data.map((item, index) => (
-            <div
-             onClick={() =>
-                    navigate(`/news/${item.id}`, {
-                      state: {
-                        branchId: item.branchId,
-                        branchName: item.branchName,
-                      },
-                    })
-                  }
-              key={item.id || index}
-              className="bg-white rounded-2xl shadow-md overflow-hidden"
-            >
-              <img
-                src={item.image}
-                alt={item.title || "news image"}
-                className="w-full h-52 object-cover"
-                loading="lazy"
-              />
+           <div
+  onClick={() =>
+    navigate(`/news/${item.id}`, {
+      state: {
+        branchId: item.branchId,
+        branchName: item.branchName,
+      },
+    })
+  }
+  key={item.id || index}
+  className="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col h-full"
+>
+  <img
+    src={item.image}
+    alt={item.title || "news image"}
+    className="w-full h-52 object-cover"
+    loading="lazy"
+  />
 
-              <div className="p-5 space-y-3">
-                <div className="flex justify-between items-center text-sm text-gray-500">
-                  <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
-                    {item.category}
-                  </span>
+  <div className="p-5 flex flex-col flex-1">
+    <div className="flex justify-between items-center text-sm text-gray-500">
+      <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
+        {item.category}
+      </span>
 
-                  <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 items-center">
-                    <span className="text-[16px]">
-                      <CgCalendarDates />
-                    </span>
-                    {item.publishDate}
-                  </p>
-                </div>
+      <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 items-center">
+        <span className="text-[16px]">
+          <CgCalendarDates />
+        </span>
+        {item.publishDate}
+      </p>
+    </div>
 
-                <h3 className="font-bold text-[18px] text-[#1E2939]">
-                  {item.title}
-                </h3>
+    <h3 className="font-bold text-[18px] text-[#1E2939] my-3">
+      {item.title}
+    </h3>
 
-                <p className="text-[#6A7282] text-sm">{item.summary}</p>
+    <p className="text-[#6A7282] text-sm line-clamp-2 my-3">
+      {item.summary }
+    </p>
 
-                <button
-                 
-                  className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full hover:bg-[#0aa194] transition flex items-center gap-1"
-                >
-                  <span className="font-semibold text-[16px]">
-                    <GoArrowUpRight />
-                  </span>
-                  قراءة المزيد
-                </button>
-              </div>
-            </div>
+    <button className="mt-auto bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] w-fit
+     text-white px-5 py-3 rounded-full flex items-center gap-1">
+      {t("read_more")}
+      <span className="font-semibold text-[16px]">
+        {i18next.language === "ar" ? (
+          <GoArrowUpLeft />
+        ) : (
+          <GoArrowUpRight />
+        )}
+      </span>
+    </button>
+  </div>
+</div>
           ))
         ) : (
           <p className="col-span-3 text-center text-white">لا توجد أخبار</p>

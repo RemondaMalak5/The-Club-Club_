@@ -129,18 +129,26 @@ const Left_side = ({ data }) => {
                   </td>
                   <td className="py-4 px-4 text-gray-600">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center">
+                      {/* <span className="text-xs bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center">
                         👤
-                      </span>
+                      </span> */}
                       {slot.trainer}
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs">📍</span>
-                      {slot.location}
-                    </div>
-                  </td>
+                 <td className="py-4 px-4 text-gray-600">
+  <div className="flex items-center gap-2">
+    <span className="text-xs">📍</span>
+
+    <a
+      href={slot.location}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#21857C] hover:underline"
+    >
+      View Location
+    </a>
+  </div>
+</td>
                   <td className="py-4 px-4 text-[#00BFA6] font-bold">
                     {slot.availableSlots}
                   </td>

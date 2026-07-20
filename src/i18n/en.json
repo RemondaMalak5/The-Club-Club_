@@ -379,6 +379,14 @@
     "member_registration_instructions":"Please enter membership details to continue" ,
     "male":"Male",
     "female":"Female" ,
-    "hello":"Hello"
+    "hello":"Hello" ,
+    "latest_News":"Latest News",
+    "register_now":"Register Now" ,
+    "players":"Players" ,
+    "service_pricing_title":"Pricing Details" ,
+    "service_steps_title":"Program Details" ,
+    "service_sponsored_by":"Sponsored by" ,
+    "service_available":"Available" ,
+    "service_not_available":"Not Available"
 
 }

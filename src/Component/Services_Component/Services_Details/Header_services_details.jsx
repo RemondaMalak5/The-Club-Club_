@@ -56,17 +56,17 @@ const [data, setData] = useState(null);
 
       <div className="px-4 md:px-10 py-6">
         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-4">
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.category || t('service_default_category')}</span>
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.branchName || t('service_default_branch')}</span>
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{service?.start_date || t('service_default_schedule')}</span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{data?.category.name} </span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{data?.branchName} </span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm"> {data?.date.start_date}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7">
-            <Left_side data={service} />
+            <Left_side data={data} />
           </div>
           <div className="lg:col-span-5">
-            <Right_side data={service} />
+            <Right_side data={data} />
           </div>
         </div>
       </div>

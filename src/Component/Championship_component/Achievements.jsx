@@ -29,7 +29,7 @@ const Achievements = () => {
 
     fetchData();
   }, []);
-
+  
   const getIcon = (sport) => {
     switch (sport) {
       case "كرة السلة":

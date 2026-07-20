@@ -15,8 +15,10 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useTranslation } from 'react-i18next';
 
 const News_details = () => {
+    const { t } = useTranslation();
     const [data, setData] = useState({});
     const { id } = useParams();
     const location = useLocation();
@@ -100,7 +102,7 @@ const News_details = () => {
                             </div>
                         </div>
                         <div>
-                            <button className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-2 rounded-xl '>سجل الان  </button>
+                            <button className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white p-2 rounded-xl '>{t("register_now")}  </button>
                         </div>
                     </div>
                     <div className='w-full h-[1px] bg-gray-300'></div>

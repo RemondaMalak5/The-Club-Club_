@@ -7,11 +7,12 @@ import Left_side_chamin from "./Left_side_chamin";
 import Right_side_champin from "./Right_side_champin";
 import { MdOutlineDateRange, MdPersonOutline } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
+import { useTranslation } from "react-i18next";
 
 const Champin_header = () => {
   const [data, setData] = useState();
   const [error, setError] = useState(false);
-
+  const { t } = useTranslation();
   const { id } = useParams();
   const location = useLocation();
 
@@ -43,7 +44,7 @@ const Champin_header = () => {
   icon: <MdOutlineDateRange />,
   value: `${data?.startDate} - ${data?.endDate}`,
 },    { icon: <CiLocationOn/>, value: data?.location },
-    { icon: <MdPersonOutline/>, value: data?.teamsCount},
+    { icon: <MdPersonOutline/>, value: `${data?.teamsCount} ${t("players")}` },
   ]
   return (
     <div className="bg-[#f8f8f8] min-h-screen pb-10">

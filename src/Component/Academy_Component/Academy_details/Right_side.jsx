@@ -2,9 +2,11 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { FaCheckCircle, FaMoneyBillWave } from "react-icons/fa";
 import { assets } from "../../../assets/assets";
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Right_side = ({ data }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   return (
     <div className="col-span-3 space-y-6 sticky top-5">
 
@@ -38,7 +40,8 @@ const Right_side = ({ data }) => {
           <button className="w-full bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F]  duration-300 text-white py-3 rounded-xl font-semibold transition">
             {t('academy_book_now')}
           </button>
-          <button className="w-full bg-white border-2 border-[#00786F] hover:bg-gray-50 duration-300 text-[#00786F] py-3 rounded-xl font-semibold transition">
+          <button onClick={() => navigate('/contact')}
+           className="w-full bg-white border-2 border-[#00786F] hover:bg-gray-50 duration-300 text-[#00786F] py-3 rounded-xl font-semibold transition">
             {t('academy_info')}
           </button>
         </div>
