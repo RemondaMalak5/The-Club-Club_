@@ -136,7 +136,7 @@ const Account_setup = () => {
 
       console.log(response);
 
-      navigate("/profile");
+      navigate("/profile-guest");
     } catch (error) {
       console.log(error?.response?.data);
 

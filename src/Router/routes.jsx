@@ -26,6 +26,7 @@ import About_branches from "../Pages/About_branches";
 import Cheak_Mail from "../Component/Forget_pass/Cheak_Mail";
 import Cheak_Otp from "../Component/Forget_pass/Cheak_Otp";
 import Reset_pass from "../Component/Forget_pass/Reset_pass";
+import Profile_Guest from "../Pages/Profile_Guest";
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +58,8 @@ export const router = createBrowserRouter([
       {path:"about-branches/:id", element: <About_branches/>},
       {path:"forget-pass" , element:<Cheak_Mail/>},
       {path:"forget-otp", element:<Cheak_Otp/>},
-      {path:"reset-pass", element:<Reset_pass/>}
+      {path:"reset-pass", element:<Reset_pass/>},
+      {path: "profile-guest" , element: <Profile_Guest/>},
     ]
   }
 ]);

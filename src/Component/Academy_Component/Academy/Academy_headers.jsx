@@ -44,7 +44,7 @@ const Academy_headers = () => {
     },
     {
       title: t("active_academies"),
-      value: data.totalStudents ,
+      value: data.activeAcademies ,
       icon: <Activity />,
     },
   ];

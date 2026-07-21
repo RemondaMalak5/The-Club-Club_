@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FaUsers,
@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 const Left_side = ({ data }) => {
+  const [selectedProgram, setSelectedProgram] = useState();
   const { t } = useTranslation();
   return (
     <div className="space-y-6">
@@ -52,51 +53,155 @@ const Left_side = ({ data }) => {
           {t('academy_price_details_title')}
         </h2>
 
-        <div className="space-y-4">
-          {data?.programs?.map((program, index) => (
-            <div key={index} className="border rounded-2xl p-6">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
-                {/* Right Side - Title & Description */}
-                <div className=" flex-1">
-                  <h3 className="text-lg font-bold text-gray-800 mb-2">
-                    {program.name}
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    {program.description}
-                  </p>
-                </div>
-                {/* Left Side - Price */}
-                <div className="text-center ">
-                  <p className="text-[#00BFA6] font-bold text-3xl">
-                    {program.price} <span className="text-sm">{t('academy_per_month')}</span>
-                  </p>
-                </div>
-              </div>
+       <div className="space-y-4">
+  {data?.programs?.map((program, index) => (
+    <div
+      key={program.id || index}
+      onClick={() => setSelectedProgram(program)}
+      className="border rounded-2xl p-6 cursor-pointer transition hover:border-[#00BFA6] hover:shadow-md"
+    >
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-gray-800 mb-2">
+            {program.name}
+          </h3>
 
-              {/* Info Row */}
-              <div className="grid grid-cols-3 gap-4 border-t pt-6">
-                <div className="text-center">
-                  <p className="text-[#00BFA6] font-bold text-2xl">
-                    {program.duration}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">{t('academy_months')}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[#00BFA6] font-bold text-2xl">
-                    {program.sessionsPerWeek}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">{t('academy_sessions_per_week')}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-[#00BFA6] font-bold text-2xl">
-                    {program.maxStudents}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">{t('academy_trainee_per_group')}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+          <p className="text-sm text-gray-500">
+            {program.description}
+          </p>
         </div>
+
+        <div className="text-center">
+          <p className="text-[#00BFA6] font-bold text-3xl">
+            {program.price}
+            <span className="text-sm">
+              {" "}
+              {t("academy_per_month")}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-4 border-t pt-6">
+        <div className="text-center">
+          <p className="text-[#00BFA6] font-bold text-2xl">
+            {program.duration}
+          </p>
+
+          <p className="text-sm text-gray-600 mt-2">
+            {t("academy_months")}
+          </p>
+        </div>
+
+        <div className="text-center">
+          <p className="text-[#00BFA6] font-bold text-2xl">
+            {program.sessionsPerWeek}
+          </p>
+
+          <p className="text-sm text-gray-600 mt-2">
+            {t("academy_sessions_per_week")}
+          </p>
+        </div>
+
+        <div className="text-center">
+          <p className="text-[#00BFA6] font-bold text-2xl">
+            {program.maxStudents}
+          </p>
+
+          <p className="text-sm text-gray-600 mt-2">
+            {t("academy_trainee_per_group")}
+          </p>
+        </div>
+      </div>
+    </div>
+  ))}
+
+  {selectedProgram && (
+    <div
+      onClick={() => setSelectedProgram(null)}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+    >
+      <div
+        onClick={(event) => event.stopPropagation()}
+        className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl"
+      >
+        <button
+          type="button"
+          onClick={() => setSelectedProgram(null)}
+          className="absolute top-4 left-4 flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-xl text-gray-600 hover:bg-gray-200"
+        >
+          ×
+        </button>
+
+        <h2 className="mb-2 text-xl font-bold text-gray-800">
+          {selectedProgram.name}
+        </h2>
+
+        <p className="mb-6 text-sm text-gray-500">
+          {selectedProgram.description}
+        </p>
+
+        <div className="mb-6 grid grid-cols-3 gap-3 border-y py-5">
+          <div className="text-center">
+            <p className="font-bold text-[#00BFA6]">
+              {selectedProgram.duration}
+            </p>
+
+            <p className="mt-1 text-xs text-gray-600">
+              {t("academy_months")}
+            </p>
+          </div>
+
+          <div className="text-center">
+            <p className="font-bold text-[#00BFA6]">
+              {selectedProgram.sessionsPerWeek}
+            </p>
+
+            <p className="mt-1 text-xs text-gray-600">
+              {t("academy_sessions_per_week")}
+            </p>
+          </div>
+
+          <div className="text-center">
+            <p className="font-bold text-[#00BFA6]">
+              {selectedProgram.maxStudents}
+            </p>
+
+            <p className="mt-1 text-xs text-gray-600">
+              {t("academy_trainee_per_group")}
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-5 flex items-center justify-between">
+          <span className="text-sm text-gray-600">
+            {t("academy_total_price")}
+          </span>
+
+          <p className="text-xl font-bold text-[#00BFA6]">
+            {selectedProgram.price} {t("academy_per_month")}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          className="w-full rounded-xl bg-[#00BFA6] py-3 font-bold text-white transition hover:bg-[#009f8c]"
+        >
+          {t("pay_now")}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setSelectedProgram(null)}
+          className="mt-3 w-full rounded-xl border border-[#00BFA6] py-3 font-bold text-[#00BFA6]"
+        >
+          {t("cancel")}
+        </button>
+      </div>
+    </div>
+  )}
+</div>
+        
       </div>
 
       {/* Schedule */}

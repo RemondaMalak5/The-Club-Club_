@@ -393,5 +393,6 @@
     "internal":"Internal",
     "tournament":"Tournament" ,
     "search_tournaments":"Search in Tournaments..." ,
-    "achievement_rate":"Achievement Rate"
+    "achievement_rate":"Achievement Rate" ,
+    "pay_now":"Pay Now"
 }
