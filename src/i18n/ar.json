@@ -388,6 +388,13 @@
     "service_steps_title":"تفاصيل البرنامج" ,
     "service_sponsored_by":"برعاية" ,
     "service_available":"متاح" ,
-    "service_not_available":"غير متاح" 
+    "service_not_available":"غير متاح" ,
+    "search_services":"ابحث في الخدمات..." ,
+    "external":"خارجية" ,
+    "internal":"داخلية" ,
+    "tournament":"بطولة" ,
+    "search_tournaments":"ابحث في البطولات..." ,
+    "achievement_rate":"نسبة الإنجاز" 
+   
 
 }

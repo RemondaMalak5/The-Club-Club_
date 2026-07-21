@@ -387,6 +387,11 @@
     "service_steps_title":"Program Details" ,
     "service_sponsored_by":"Sponsored by" ,
     "service_available":"Available" ,
-    "service_not_available":"Not Available"
-
+    "service_not_available":"Not Available" ,
+    "search_services":"Search in Services..." ,
+    "external":"External" ,
+    "internal":"Internal",
+    "tournament":"Tournament" ,
+    "search_tournaments":"Search in Tournaments..." ,
+    "achievement_rate":"Achievement Rate"
 }

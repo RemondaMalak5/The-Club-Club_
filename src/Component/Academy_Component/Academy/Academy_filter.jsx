@@ -53,6 +53,7 @@ const{selectedBranch, changeBranch, branches} = useBranch();
           index === self.findIndex((c) => c.id === category.id),
       );
       setCategories(uniqueCategories);
+      console.log(selectedBranch, "selectedBranch");
     } catch (error) { }
   };
 

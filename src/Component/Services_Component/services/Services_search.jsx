@@ -31,10 +31,11 @@ const { data: servicesData, isLoading, isError } = useQuery({
 });
 
   const { data: categoriesData } = useQuery({
-    queryKey: ["services-categories", i18next.language],
+    queryKey: ["services-categories", i18next.language , selectedBranch],
     queryFn: () =>
       Services_category({
         language: i18next.language,
+        branchId: selectedBranch || "all",
       }),
   });
 
@@ -126,7 +127,7 @@ const { data: servicesData, isLoading, isError } = useQuery({
       <div className="flex flex-wrap gap-3 mb-6 items-center">
         <input
           type="text"
-          placeholder="ابحث في الخدمات..."
+          placeholder={t("search_services")}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none bg-white"

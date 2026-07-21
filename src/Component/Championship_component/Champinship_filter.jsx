@@ -96,7 +96,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
       <div className="flex flex-wrap gap-3 mb-6 items-center">
         <input
           type="text"
-          placeholder="ابحث في ..."
+          placeholder={t("search_tournaments")}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
