@@ -15,6 +15,7 @@ const { showPopup, closePopup } = usePopup();
     phone: "",
     branchId: "",
     subject: "",
+    message:""
   });
 
   const [errors, setErrors] = useState({});
@@ -37,18 +38,25 @@ const { showPopup, closePopup } = usePopup();
       placeholder: t("phone_placeholder"),
       type: "text",
     },
+     {
+      name: "subject",
+      label: t("sub"),
+      placeholder: t("sub_placeholder"),
+      type: "text",
+    },
+
   ];
 
   const branches = [
     {
       value: "The Club - New Capital",
       label: t("branch_capital"),
-      branch: "new_capital",
+      branch: "The Club - New Capital",
     },
     {
       value: "The Club- Sheraton",
       label: t("branch_shiraton"),
-      branch: "sheraton",
+      branch: "The Club- Sheraton",
     },
     {
       value: "نادي النادي - 6 اكتوبر",
@@ -68,6 +76,7 @@ const { showPopup, closePopup } = usePopup();
       phone: formData.phone,
       branchId: selectedBranch?.branch ,
       subject: formData.subject,
+      message:formData.message,
     };
  console.log(formData)
     try {
@@ -114,8 +123,8 @@ const { showPopup, closePopup } = usePopup();
       newErrors.branchId = t("branch_required");
     }
 
-    if (!formData.subject?.trim()) {
-      newErrors.subject = t("message_required");
+    if (!formData.message?.trim()) {
+      newErrors.message = t("message_required");
     }
 
     return newErrors;
@@ -153,8 +162,9 @@ const { showPopup, closePopup } = usePopup();
       phone: "",
       branchId: "",
       subject: "",
+      message:"",
     });
-console.log(setFormData)
+console.log(setFormData, "data")
     setErrors({});
 
     setTimeout(() => {
@@ -229,7 +239,11 @@ useEffect(() => {
             )}
           </div>
         ))}
-         <div className="">
+        
+
+      </div>
+
+      <div className="py-3">
         <label
           className={`block font-bold text-gray-700 mb-2 
           `}
@@ -289,12 +303,8 @@ color: state.isSelected
         )}
       </div>
 
-      </div>
-
-     
-
       {/* Message */}
-      <div className="mt-6">
+      <div className="">
         <label
           className={`block font-bold text-gray-700 mb-2 `}
         >
@@ -302,21 +312,21 @@ color: state.isSelected
         </label>
 
         <textarea
-          name="subject"
+          name="message"
           placeholder={t("message_placeholder")}
-          value={formData.subject}
+          value={formData.message}
           onChange={handleChange}
           rows={5}
           className={`w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none resize-none focus:border-teal-500 
           `}
         />
 
-        {errors.subject && (
+        {errors.message && (
           <p
             className={`text-red-500 text-sm mt-1 
             `}
           >
-            {errors.subject}
+            {errors.message}
           </p>
         )}
       </div>

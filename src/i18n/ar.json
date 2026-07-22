@@ -159,6 +159,7 @@
     "create_username_password": "قم بإنشاء اسم مستخدم وكلمة مرور",
     "username_label": " اسم المستخدم  او البريد الإلكتروني",
     "username_placeholder": "ادخل اسم المستخدم",
+    "sub_placeholder":"ادخل عنوان ",
     "password_label": "كلمة المرور",
     "password_placeholder": "********",
     "confirm_password_label": "تأكيد كلمة المرور",
@@ -395,7 +396,10 @@
     "tournament":"بطولة" ,
     "search_tournaments":"ابحث في البطولات..." ,
     "achievement_rate":"نسبة الإنجاز" ,
-    "pay_now":"ادفع الان "
+    "pay_now":"ادفع الان " ,
+    "Book_service":" احجز خدمه" ,
+    "Book_Activity": "احجز نشاط",
+    "sub":"عنوان"
    
 
 }

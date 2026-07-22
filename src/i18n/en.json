@@ -394,5 +394,9 @@
     "tournament":"Tournament" ,
     "search_tournaments":"Search in Tournaments..." ,
     "achievement_rate":"Achievement Rate" ,
-    "pay_now":"Pay Now"
+    "pay_now":"Pay Now",
+    "Book_service":"Book a service" ,
+    "Book_Activity":"Book a Activity",
+    "sub_placeholder":"Enter Subject",
+    "sub":"subject"
 }

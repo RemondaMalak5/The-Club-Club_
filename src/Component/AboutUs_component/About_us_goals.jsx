@@ -3,6 +3,7 @@ import Title_1 from '../Shared_Component/Title_1'
 import i18n from './../../i18n/i18n';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { assets } from "../../assets/assets";
 
 const About_us_goals = ({ data }) => {
 const { t } = useTranslation();
@@ -36,7 +37,9 @@ const { t } = useTranslation();
           : "left-16 sm:left-8"
       } w-full h-full rounded-3xl overflow-hidden shadow-xl`}
     >
-      <div className="absolute inset-0 bg-[#277C79]"></div>
+      <div className="absolute inset-0 bg-[#277C79]">
+         <img  src={assets.image_4} className='w-full h-full'
+      /></div>
     </div>
 
     <div

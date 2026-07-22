@@ -23,7 +23,7 @@ const Countiue_profile_guest = () => {
     ]
   return (
     <div className="py-5 px-10 rounded-2xl flex flex-col  border border-[#00000040]">
-      <h1 className="text-[30px] font-bold text-[#1E2939]">أكمل ملفك الشخصي</h1>
+      <h1 className="text-[24px] font-bold text-[#1E2939]">أكمل ملفك الشخصي</h1>
         <p className="text-[#5B626E] mt-2 text-[16px]">أكمل ملفك الشخصي لتتمكن من الاستفادة من جميع خدمات النادي</p>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
   {arr.map((item, index) => (

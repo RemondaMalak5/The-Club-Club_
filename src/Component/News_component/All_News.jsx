@@ -7,28 +7,29 @@ import Pagination_Component from "../Shared_Component/Pagination_Component";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { News_categoy } from "../../axiosConfig/APIs/News/News_categoy";
-import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+// import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+import { useBranch } from "../../context/BranchContext";
 
 const All_News = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const paginationRef = useRef();
-
   const [category, setCategory] = useState("all");
-  const [branch, setBranch] = useState("all");
+  // const [branch, setBranch] = useState("all");
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState([]);
-  const [branches, setBranches] = useState([]);
-
+  // const [branches, setBranches] = useState([]);
+  const { selectedBranch, changeBranch, branches } = useBranch();
+const user = JSON.parse(localStorage.getItem("user"));
+const isLoggedIn = !!user;
   const News_API = async () => {
     const params = {
       language: i18next.language,
-      branchId: branch,
+      branchId: selectedBranch || "all",
       category: category,
       search: search || "",
       per_page: 6,
@@ -53,7 +54,7 @@ const All_News = () => {
   const getCategoryName = async () => {
     const params = {
       language: i18next.language,
-      branchId: branch,
+      branchId: selectedBranch || "all",
     };
 
     try {
@@ -72,31 +73,31 @@ const All_News = () => {
     }
   };
 
-  const getbranchName = async () => {
-    const params = {
-      language: i18next.language,
-    };
+  // const getbranchName = async () => {
+  //   const params = {
+  //     language: i18next.language,
+  //   };
 
-    try {
-      const response = await AllBranches(params);
-      setBranches(response?.message?.data || []);
-    } catch (error) {
-      console.error("Failed to load branches", error);
-      setBranches([]);
-    }
-  };
+  //   try {
+  //     const response = await AllBranches(params);
+  //     setBranches(response?.message?.data || []);
+  //   } catch (error) {
+  //     console.error("Failed to load branches", error);
+  //     setBranches([]);
+  //   }
+  // };
 
   useEffect(() => {
     News_API();
-  }, [i18next.language, currentPage, branch, category, search]);
+  }, [i18next.language, currentPage, selectedBranch, category, search]);
 
-  useEffect(() => {
-    getbranchName();
-  }, [i18next.language]);
+  // useEffect(() => {
+  //   getbranchName();
+  // }, [i18next.language]);
 
   useEffect(() => {
     getCategoryName();
-  }, [i18next.language, branch]);
+  }, [i18next.language, selectedBranch]);
 
   return (
     <div className="px-14 py-5 bg-slate-100">
@@ -129,11 +130,11 @@ const All_News = () => {
               </option>
             ))}
           </select>
-
-          <select
-            value={branch}
+{!isLoggedIn&& (
+ <select
+            value={selectedBranch || "all"}
             onChange={(e) => {
-              setBranch(e.target.value);
+              changeBranch(e.target.value);
               setCategory("all");
               setCurrentPage(1);
             }}
@@ -147,6 +148,8 @@ const All_News = () => {
               </option>
             ))}
           </select>
+)}
+         
         </div>
       </div>
 
@@ -157,60 +160,60 @@ const All_News = () => {
       <div className="grid md:grid-cols-3 gap-6">
         {data.length > 0 ? (
           data.map((item, index) => (
-           <div
-  onClick={() =>
-    navigate(`/news/${item.id}`, {
-      state: {
-        branchId: item.branchId,
-        branchName: item.branchName,
-      },
-    })
-  }
-  key={item.id || index}
-  className="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col h-full"
->
-  <img
-    src={item.image}
-    alt={item.title || "news image"}
-    className="w-full h-52 object-cover"
-    loading="lazy"
-  />
+            <div
+              onClick={() =>
+                navigate(`/news/${item.id}`, {
+                  state: {
+                    branchId: item.branchId,
+                    branchName: item.branchName,
+                  },
+                })
+              }
+              key={item.id || index}
+              className="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col h-full"
+            >
+              <img
+                src={item.image}
+                alt={item.title || "news image"}
+                className="w-full h-52 object-cover"
+                loading="lazy"
+              />
 
-  <div className="p-5 flex flex-col flex-1">
-    <div className="flex justify-between items-center text-sm text-gray-500">
-      <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
-        {item.category}
-      </span>
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex justify-between items-center text-sm text-gray-500">
+                  <span className="bg-[#EAF3F1] px-5 py-2 font-bold text-[14px] rounded-full text-[#1E2939]">
+                    {item.category}
+                  </span>
 
-      <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 items-center">
-        <span className="text-[16px]">
-          <CgCalendarDates />
-        </span>
-        {item.publishDate}
-      </p>
-    </div>
+                  <p className="text-[#21857C] font-semibold text-[14px] flex gap-1 items-center">
+                    <span className="text-[16px]">
+                      <CgCalendarDates />
+                    </span>
+                    {item.publishDate}
+                  </p>
+                </div>
 
-    <h3 className="font-bold text-[18px] text-[#1E2939] my-3">
-      {item.title}
-    </h3>
+                <h3 className="font-bold text-[18px] text-[#1E2939] my-3">
+                  {item.title}
+                </h3>
 
-    <p className="text-[#6A7282] text-sm line-clamp-2 my-3">
-      {item.summary }
-    </p>
+                <p className="text-[#6A7282] text-sm line-clamp-2 my-3">
+                  {item.summary}
+                </p>
 
-    <button className="mt-auto bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] w-fit
+                <button className="mt-auto bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] w-fit
      text-white px-5 py-3 rounded-full flex items-center gap-1">
-      {t("read_more")}
-      <span className="font-semibold text-[16px]">
-        {i18next.language === "ar" ? (
-          <GoArrowUpLeft />
-        ) : (
-          <GoArrowUpRight />
-        )}
-      </span>
-    </button>
-  </div>
-</div>
+                  {t("read_more")}
+                  <span className="font-semibold text-[16px]">
+                    {i18next.language === "ar" ? (
+                      <GoArrowUpLeft />
+                    ) : (
+                      <GoArrowUpRight />
+                    )}
+                  </span>
+                </button>
+              </div>
+            </div>
           ))
         ) : (
           <p className="col-span-3 text-center text-white">لا توجد أخبار</p>

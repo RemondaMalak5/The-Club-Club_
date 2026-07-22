@@ -27,6 +27,8 @@ const Champinship_filter = () => {
   const paginationRef = useRef();
   const [Categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
+const isLoggedIn = !!user;
   // const [branches, setBranches] = useState([]);
 
   // const Get_Branches = async () => {
@@ -101,8 +103,8 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
         />
-
-        <select
+{!isLoggedIn&&(
+   <select
           value={selectedBranch}
           onChange={(e) => {
             changeBranch(e.target.value);
@@ -117,6 +119,8 @@ const { selectedBranch, changeBranch, branches } = useBranch();
             </option>
           ))}
         </select>
+)}
+       
 
         <button
           onClick={() => setViewMode("grid")}
@@ -226,7 +230,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           onClick={() =>
             navigation(`/champions/${e.id}`, {
               state: {
-                branchId: e.branchId,
+                branchId: e.registryId,
                 branchName: e.branchName,
               },
             })

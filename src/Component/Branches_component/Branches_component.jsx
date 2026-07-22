@@ -72,10 +72,9 @@ const Branches_component = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-3">
-                  <Btn_bg btn={"احجز نشاط"} />
+                  <Btn_bg btn={t("Book_Activity")} />
                   <button className="border border-[#00786F] rounded-xl px-5 py-2 text-[#6A7282]">
-                    احجز خدمه
-                  </button>
+{t("Book_service")}                  </button>
                 </div>
               </div>
 

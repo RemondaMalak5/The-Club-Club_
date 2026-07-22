@@ -218,8 +218,8 @@ const AchievementsTimeline = () => {
 
         <div className="flex flex-col gap-6">
           {timeline.length > 0 ? (
-            timeline.map((item) => (
-              <div key={item.year} className="relative">
+            timeline.map((item,index) => (
+              <div key={index} className="relative">
                 <div
                   className={`absolute top-5 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white text-sm shadow z-10 ${
                     i18n.language === "ar" ? "right-0" : "left-0"

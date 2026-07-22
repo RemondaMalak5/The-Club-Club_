@@ -15,44 +15,45 @@ const Navbar = () => {
 
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
- 
-useEffect(() => {
-  const loadUser = async () => {
-    const savedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+const isLoggedIn = !!localStorage.getItem("token");
 
-    if (!savedUser || !token) {
-      setUser(null);
-      return;
-    }
+  useEffect(() => {
+    const loadUser = async () => {
+      const savedUser = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
 
-    const parsedUser = JSON.parse(savedUser);
+      if (!savedUser || !token) {
+        setUser(null);
+        return;
+      }
 
-    try {
-      const profile = await Get_profile();
-      const profileData = profile?.message?.data;
+      const parsedUser = JSON.parse(savedUser);
 
-      const updatedUser = {
-        ...parsedUser,
-        ...profileData,
-      };
+      try {
+        const profile = await Get_profile();
+        const profileData = profile?.message?.data;
 
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setUser(updatedUser);
-    } catch (error) {
-      console.log(error);
-      setUser(parsedUser);
-    }
-  };
+        const updatedUser = {
+          ...parsedUser,
+          ...profileData,
+        };
 
-  loadUser();
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
+      } catch (error) {
+        console.log(error);
+        setUser(parsedUser);
+      }
+    };
 
-  window.addEventListener("userUpdated", loadUser);
+    loadUser();
 
-  return () => {
-    window.removeEventListener("userUpdated", loadUser);
-  };
-}, []);
+    window.addEventListener("userUpdated", loadUser);
+
+    return () => {
+      window.removeEventListener("userUpdated", loadUser);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -70,8 +71,8 @@ useEffect(() => {
   };
 
   const navItems = [
-    { name: t("home"), path: "/" },
-    { name: t("branches"), path: "/branches" },
+    { name: t("home"), path: isLoggedIn ? `/` : "/"},
+   { name: t("branches"), path: "/branches" },
     { name: t("about"), path: "/about" },
     { name: t("news"), path: "/news" },
     { name: t("champions"), path: "/champions" },
@@ -81,17 +82,15 @@ useEffect(() => {
   ];
 
   const navLinkClass = ({ isActive }) =>
-    `transition ${
-      isActive
-        ? "text-[#08AC85] font-bold"
-        : "text-[#364153] hover:text-[#08AC85]"
+    `transition ${isActive
+      ? "text-[#08AC85] font-bold"
+      : "text-[#364153] hover:text-[#08AC85]"
     }`;
 
   const mobileNavLinkClass = ({ isActive }) =>
-    `transition ${
-      isActive
-        ? "text-[#08AC85] font-bold"
-        : "text-[#364153] hover:text-[#08AC85]"
+    `transition ${isActive
+      ? "text-[#08AC85] font-bold"
+      : "text-[#364153] hover:text-[#08AC85]"
     }`;
 
   return (

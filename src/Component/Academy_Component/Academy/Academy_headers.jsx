@@ -39,7 +39,7 @@ const Academy_headers = () => {
     },
     {
       title: t("total_trainees"),
-      value: data.certifiedTrainers ,
+      value: data.totalStudents ,
       icon: <Users  />,
     },
     {

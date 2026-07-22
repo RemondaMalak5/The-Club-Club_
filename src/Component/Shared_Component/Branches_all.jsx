@@ -3,31 +3,32 @@ import { FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { LuClock } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
-import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
+// import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { useNavigate } from "react-router-dom";
+import { useBranch } from "../../context/BranchContext";
 
 const Branches_all = () => {
   const { t } = useTranslation();
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(false);
+  // const [data, setData] = useState([]);
+  // const [error, setError] = useState(false);
   const navigate = useNavigate();
-
-  const Get_Branch_List = async () => {
-    const params = {
-      language: i18next.language,
-    };
-    try {
-      const response = await AllBranches(params);
-      setData(response.message.data);
-      console.log(response.message.data.workingHours)
-    } catch (error) {
-      setError(true);
-    }
-  };
-  useEffect(() => {
-    Get_Branch_List();
-  }, [i18next.language]);
+  const { selectedBranch, changeBranch, branches } = useBranch();
+  // const Get_Branch_List = async () => {
+  //   const params = {
+  //     language: i18next.language,
+  //   };
+  //   try {
+  //     const response = await AllBranches(params);
+  //     setData(response.message.data);
+  //     console.log(response.message.data.workingHours)
+  //   } catch (error) {
+  //     setError(true);
+  //   }
+  // };
+  // useEffect(() => {
+  //   Get_Branch_List();
+  // }, [i18next.language]);
 
 
 
@@ -35,13 +36,14 @@ const Branches_all = () => {
   return (
     <div className="w-full mt-10 px-4 ">
       <div className="w-full flex flex-wrap justify-center gap-6" >
-        {data.map((branch, index) => (
+        {branches.map((branch, index) => (
           <div
             key={index}
-             onClick={()=>navigate(`/about-branches/${branch.registryId}` ,
+             onClick={()=>{  changeBranch(branch.registryId);
+              navigate(`/about-branches/${branch.registryId}` ,
                   {state:{registryId: branch.registryId ,
                   branchName: branch.name,
-                  }})}
+                  }})}}
             className="
               bg-white rounded-2xl shadow-md p-5 relative
               border border-[#E5E7EB]
