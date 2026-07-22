@@ -8,25 +8,29 @@ import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import Pagination_Component from "../../Shared_Component/Pagination_Component";
+import { useBranch } from "../../../context/BranchContext";
 
 const Services_search = () => {
   const navigate = useNavigate();
   const {t}=useTranslation();
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBranch, setSelectedBranch] = useState("All");
+  // const [selectedBranch, setSelectedBranch] = useState("All");
   const [viewMode, setViewMode] = useState("grid");
    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
     const paginationRef = useRef();
+  const { selectedBranch, changeBranch, branches } = useBranch();
 
 const { data: servicesData, isLoading, isError } = useQuery({
-  queryKey: ["all-services", i18next.language, currentPage],
+  queryKey: ["all-services", i18next.language, currentPage ,selectedBranch],
   queryFn: () =>
     All_Services({
       language: i18next.language,
       page: currentPage,
       page_size: 6,
+              branchId: selectedBranch || "all",
+
     }),
 });
 
@@ -54,11 +58,11 @@ const { data: servicesData, isLoading, isError } = useQuery({
 
   const services = servicesData?.message?.data || [];
   const categories = categoriesData?.message?.data || [];
-  const branches = branchesData?.message?.data || [];
+  // const branches = branchesData?.message?.data || [];
 
   const tabs = useMemo(() => {
     return [
-      { label: "الكل", value: "All" },
+      { label: "الكل", value: "all" },
       ...categories?.map((cat) => ({
         label: cat.name,
         value: cat.id,
@@ -69,10 +73,10 @@ const { data: servicesData, isLoading, isError } = useQuery({
   const filteredData = useMemo(() => {
     return services.filter((item) => {
       const matchesCategory =
-        activeTab === "All" || item.category === activeTab;
+        activeTab === "all" || item.category === activeTab;
 
       const matchesBranch =
-  selectedBranch === "All" ||
+  selectedBranch === "all" ||
   String(item.branchId).toLowerCase() ===
     String(selectedBranch).toLowerCase();
 
@@ -136,11 +140,11 @@ const { data: servicesData, isLoading, isError } = useQuery({
         <select
   value={selectedBranch}
   onChange={(e) => {
-    setSelectedBranch(e.target.value);
+    changeBranch(e.target.value);
   }}
   className="px-4 py-2 border rounded-lg bg-white"
 >
-  <option value="All">{t("all_branches")}</option>
+  <option value="all">{t("all_branches")}</option>
 
   {branches?.map((e) => (
     <option key={e.id} value={e.registryId || e.id}>
