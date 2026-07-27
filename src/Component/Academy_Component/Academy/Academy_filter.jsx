@@ -73,6 +73,7 @@ const Get_Academy_List = async () => {
     const response = await Academylist(params);
     setData(response.message.data || []);
     setTotalPages(response.message.total_pages);
+    console.log(response.message.data.branchId)
   } catch (error) {
     setError(true);
   }
@@ -186,7 +187,7 @@ const Get_Academy_List = async () => {
               onClick={() =>
                 navigation(`/academy/${academy.id}`, {
                   state: {
-                    branchId: academy.branchId,
+                    branchId: academy.branchName,
                     branchName: academy.branchName,
                   },
                 })

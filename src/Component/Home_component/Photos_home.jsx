@@ -82,9 +82,9 @@ const Photos_home = () => {
           {t("photos_and_videos")}
         </h2>
 
-        <button className="border border-teal-600 text-teal-600 px-4 py-1 rounded-full text-[18px]">
+        {/* <button className="border border-teal-600 text-teal-600 px-4 py-1 rounded-full text-[18px]">
           {t("view_more")}
-        </button>
+        </button> */}
       </div>
 
       {/* Slider */}

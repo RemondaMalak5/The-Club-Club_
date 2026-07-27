@@ -64,7 +64,7 @@ const News_home = () => {
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
 
                     {data.map((item, index) => (
-                        <div
+                        <div onClick={() => navigate(`/news/${item.id}`)}
                             key={index}
                             className="bg-white rounded-2xl shadow-md overflow-hidden"
                         >
@@ -95,7 +95,7 @@ const News_home = () => {
                                     {item.desc}
                                 </p>
 
-                                <button onClick={() => navigate(`/news/${item.id}`)}
+                                <button 
                                  className=" bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] text-white px-5 py-3 rounded-full text-sm hover:bg-[#0aa194] transition flex items-center gap-1">
                                     <span className="font-semibold text-[16px] "> <GoArrowUpRight /> </span>
                                     {t('read_more')}

@@ -230,7 +230,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           onClick={() =>
             navigation(`/champions/${e.id}`, {
               state: {
-                branchId: e.registryId,
+                branchId: e.branchName,
                 branchName: e.branchName,
               },
             })

@@ -147,7 +147,7 @@ const { data: servicesData, isLoading, isError } = useQuery({
   <option value="all">{t("all_branches")}</option>
 
   {branches?.map((e) => (
-    <option key={e.id} value={e.registryId || e.id}>
+    <option key={e.id} value={e.id || e.id}>
       {e.name}
     </option>
   ))}

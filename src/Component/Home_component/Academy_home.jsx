@@ -74,7 +74,7 @@ const Academy_home = () => {
         {/* Header */}
         <div>
           <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-bold">
-            {t("academies")}
+            {t("academy")}
             <span className="bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
               {t("sport")}
             </span>

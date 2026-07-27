@@ -9,7 +9,9 @@
 .news-swiper .swiper-button-prev {
   color: #6b7280;
 }
-
+.news-slider .swiper-pagination {
+  bottom: 4px !important;
+}
 .news-swiper .swiper-pagination-bullet {
   background: #9ca3af;
 }
@@ -21,6 +23,7 @@
 .container{
    @apply lg:px-10 lg:py-10; 
 }
+
 
 body {
   font-family: "Cairo", sans-serif;

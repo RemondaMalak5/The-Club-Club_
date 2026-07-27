@@ -66,9 +66,16 @@ const Search_News = () => {
 
   return (
     <div className="px-14 py-5">
-
       <div className="flex flex-wrap  ">
-        <div className="xl:w-1/2 w-full border bg-white rounded-2xl overflow-hidden shadow-sm relative">
+        <div onClick={() =>
+                navigate(`/news/${mostReadNews[0]?.id}`, {
+                  state: {
+                    branchId: mostReadNews[0]?.branchId,
+                    branchName: mostReadNews[0]?.branchName,
+                  },
+                })
+              }
+        className="xl:w-1/2 w-full border bg-white rounded-2xl overflow-hidden shadow-sm relative">
           <span className="bg-[#FB923C]  font-bold text-[14px] rounded-full text-white py-2 px-3 m-2 absolute">
                 {t('news_section_badge_special')}
               </span>
@@ -101,34 +108,36 @@ const Search_News = () => {
             </p>
 
             <div className="flex gap-3">
-              <button onClick={() =>
-                navigate(`/news/${mostReadNews[0]?.id}`, {
-                  state: {
-                    branchId: mostReadNews[0]?.branchId,
-                    branchName: mostReadNews[0]?.branchName,
-                  },
-                })
-              }
+              <button 
                 className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white px-4 py-2 rounded-xl text-sm">
                 {t("view_more")}
               </button>
 
-              <button className="border border-[#00786F] px-4 py-2 rounded-xl text-[16px] flex items-center gap-1 text-[#00786F]">
+              {/* <button className="border border-[#00786F] px-4 py-2 rounded-xl text-[16px] flex items-center gap-1 text-[#00786F]">
                             <span className="text-[16px] ">
                               <CiCirclePlus />
                             </span>
                 {t("book")}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
 
-        <div className="xl:w-1/2 w-full ps-5 sm:pt-5 xl:pt-0  ">
+        <div 
+        className="xl:w-1/2 w-full ps-5 sm:pt-5 xl:pt-0  ">
           <h2 className="font-bold text-[24px] mb-4 px-2">{t("latest_news")}</h2>
           {lastNews.slice(0, 4).map((item, index) => (
             <div
+            onClick={() =>
+                  navigate(`/news/${item.id}`, {
+                    state: {
+                      branchId: item.branchId,
+                      branchName: item.branchName,
+                    },
+                  })
+                }
               key={index}
-              className="flex justify-between items-center  w-full border p-5 rounded-xl my-2"
+              className="flex justify-between items-center  w-full border p-5 rounded-xl my-2 cursor-pointer"
             >
               <div>
                 <p className="text-sm font-semibold ">{item.title}</p>
@@ -143,14 +152,7 @@ const Search_News = () => {
               </div>
 
               <button
-                onClick={() =>
-                  navigate(`/news/${item.id}`, {
-                    state: {
-                      branchId: item.branchId,
-                      branchName: item.branchName,
-                    },
-                  })
-                }
+                
                 className="bg-gradient-to-r from-[#08AC85DB] to-[#00786F] border p-3 text-white rounded-2xl text-xs flex items-center gap-1">
                 {t('read_more')}<FiArrowUpRight />
               </button>

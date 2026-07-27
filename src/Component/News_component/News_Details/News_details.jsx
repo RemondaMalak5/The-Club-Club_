@@ -46,8 +46,8 @@ const News_details = () => {
 
     const info = [
         { icon: <MdOutlineDateRange />, value: data.publishDate },
-        { icon: <IoIosTimer />, value: "" },
-        { icon: <FaEye />, value: "" },
+        { icon: <IoIosTimer />, value: `${data?.day} ${data?.month}` },
+        { icon: <FaEye />,   value: data.viewCount },
     ];
     if (loading) {
         return <Spinner />;
@@ -62,7 +62,7 @@ const News_details = () => {
                 <h2 className='text-xl font-bold '>{data?.title}</h2>
             </div>
 
-            <div className='border rounded-xl my-4 mx-8'>
+            <div className='border rounded-xl  mx-8'>
                 {Array.isArray(data?.gallery) && data.gallery.length > 0 ? (
                     <Swiper
                         modules={[Navigation, Pagination, Autoplay]}
@@ -106,7 +106,11 @@ const News_details = () => {
                         </div>
                     </div>
                     <div className='w-full h-[1px] bg-gray-300'></div>
-                    <p className='py-4'>{data?.summary}</p>
+                    <p className='p-4 rounded-lg  bg-slate-50'>{data?.summary}</p>
+                    
+                <div className='py-4'
+  dangerouslySetInnerHTML={{ __html: data?.content }}
+/>
                     <div className='w-full h-[1px] bg-gray-100'></div>
                     <Social_Media />
 

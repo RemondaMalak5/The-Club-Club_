@@ -62,7 +62,7 @@ const Branches_home = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-5">
-                  <Btn_bg btn={t("academies")} onClick={() => navigate(`/academy`)} />
+                  <Btn_bg btn={t("academy")} onClick={() => navigate(`/academy`)} />
 
                   <button onClick={()=>navigate(`/about-branches/${e.id}` ,
                   {state:{registryId: e.registryId ,

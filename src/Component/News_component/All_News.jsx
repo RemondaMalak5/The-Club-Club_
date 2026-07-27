@@ -143,7 +143,7 @@ const isLoggedIn = !!user;
             <option value="all">{t("all_branches")}</option>
 
             {branches.map((br) => (
-              <option key={br.id} value={br.registryId}>
+              <option key={br.id} value={br.id}>
                 {br.name}
               </option>
             ))}
@@ -200,6 +200,7 @@ const isLoggedIn = !!user;
                 <p className="text-[#6A7282] text-sm line-clamp-2 my-3">
                   {item.summary}
                 </p>
+                
 
                 <button className="mt-auto bg-gradient-to-r from-[#08AC85DB] to-[#00786F] font-semibold text-[16px] w-fit
      text-white px-5 py-3 rounded-full flex items-center gap-1">
