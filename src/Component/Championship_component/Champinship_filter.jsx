@@ -114,7 +114,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           <option value="all"> {t("all_branches")} </option>
 
           {branches.map((e) => (
-            <option key={e.id} value={e.registryId}>
+            <option key={e.id} value={e.id}>
               {e.name}
             </option>
           ))}

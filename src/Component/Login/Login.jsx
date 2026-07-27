@@ -96,7 +96,7 @@ const Login = () => {
     profileImage: user?.profileImage || customer?.profileImage || "",
   };
 
-  const branchId = response.message.branch ;
+  const branchId = response.message.branchId ;
 
   localStorage.setItem("token", response.message.token);
   localStorage.setItem("user", JSON.stringify(savedUser));

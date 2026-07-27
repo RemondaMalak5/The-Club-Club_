@@ -8,12 +8,14 @@ const Statistics_home = () => {
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
     const fetchBranchStats = async () => {
+      const params={
+       language:i18next.language,
+      }
       try {
         setLoading(true);
 
-        const response = await Branch_stats();
+        const response = await Branch_stats(params);
 
         if (response?.message?.data) {
           setBranches(response.message.data);
@@ -23,9 +25,9 @@ const Statistics_home = () => {
         setLoading(false);
       }
     };
-
+  useEffect(() => {
     fetchBranchStats();
-  }, []);
+  }, [i18next.language]);
 
 
 

@@ -39,9 +39,9 @@ const Branches_all = () => {
         {branches.map((branch, index) => (
           <div
             key={index}
-             onClick={()=>{  changeBranch(branch.registryId);
-              navigate(`/about-branches/${branch.registryId}` ,
-                  {state:{registryId: branch.registryId ,
+             onClick={()=>{  changeBranch(branch.id);
+              navigate(`/about-branches/${branch.id}` ,
+                  {state:{id: branch.id ,
                   branchName: branch.name,
                   }})}}
             className="
@@ -68,8 +68,8 @@ const Branches_all = () => {
             <h2 className="text-xl font-bold text-gray-700 text-right mb-4">
               {branch.name}
             </h2>
-
-            <div className="flex items-start gap-2 mb-3 text-gray-600">
+<>
+ <div className="flex items-start gap-2 mb-3 text-gray-600">
               <FaLocationDot className="mt-1 shrink-0" />
               <div className="text-right">
                 <p className="font-semibold">{t("address")}</p>
@@ -102,6 +102,8 @@ const Branches_all = () => {
 ))} 
               </div>
             </div>
+</>
+           
 
             <button 
              

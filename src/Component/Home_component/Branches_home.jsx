@@ -64,7 +64,7 @@ const Branches_home = () => {
                 <div className="flex flex-wrap gap-5">
                   <Btn_bg btn={t("academies")} onClick={() => navigate(`/academy`)} />
 
-                  <button onClick={()=>navigate(`/about-branches/${e.registryId}` ,
+                  <button onClick={()=>navigate(`/about-branches/${e.id}` ,
                   {state:{registryId: e.registryId ,
                   branchName: e.name,
                   }})} className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
