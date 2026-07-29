@@ -16,7 +16,7 @@ import Ready_home from "../Component/Home_component/Ready_home";
 const About_branches = () => {
   const { id } = useParams();
   const location = useLocation();
-  const branchId = location.state?.registryId || id;
+  const branchId = location.state?.branchId || id;
   const branchName = location.state?.branchName || "";
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
