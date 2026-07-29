@@ -398,5 +398,6 @@
     "Book_service":"Book a service" ,
     "Book_Activity":"Book a Activity",
     "sub_placeholder":"Enter Subject",
-    "sub":"subject"
+    "sub":"subject",
+    "loyalty":"loyalty"
 }

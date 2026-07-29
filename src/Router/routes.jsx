@@ -27,6 +27,8 @@ import Cheak_Mail from "../Component/Forget_pass/Cheak_Mail";
 import Cheak_Otp from "../Component/Forget_pass/Cheak_Otp";
 import Reset_pass from "../Component/Forget_pass/Reset_pass";
 import Profile_Guest from "../Pages/Profile_Guest";
+import Loyalty_point from "../Component/Home_component/Loyalty_point";
+import Loyalty_details from "../Component/Lotalty_component/Loyalty_details";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +62,8 @@ export const router = createBrowserRouter([
       {path:"forget-otp", element:<Cheak_Otp/>},
       {path:"reset-pass", element:<Reset_pass/>},
       {path: "profile-guest" , element: <Profile_Guest/>},
+      {path:"loyalty" , element:<Loyalty_point/>},
+      {path:"loyalty-details" , element:<Loyalty_details/>}
     ]
   }
 ]);

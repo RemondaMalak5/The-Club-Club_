@@ -10,6 +10,7 @@ import News_home from '../Component/Home_component/News_home'
 import Ready_home from '../Component/Home_component/Ready_home'
 import Booking_home from '../Component/Home_component/Booking_home'
 import Statistics_home from '../Component/Home_component/Statistics_home'
+import Loyalty_point from '../Component/Home_component/Loyalty_point'
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
       <Branches_home/>
       <Result_year_home/>
       <Memberships_home/>
+      <Loyalty_point/>
       <Booking_home/>
       <Statistics_home/>
       <Academy_home/>

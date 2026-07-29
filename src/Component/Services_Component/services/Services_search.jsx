@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LayoutGrid, List, Calendar, MapPin, Users } from "lucide-react";
 import { All_Services } from "../../../axiosConfig/APIs/Services/All_Services";
 import { Services_category } from "../../../axiosConfig/APIs/Services/Services_category";
-import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
+// import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import Pagination_Component from "../../Shared_Component/Pagination_Component";
@@ -21,6 +21,8 @@ const Services_search = () => {
     const [totalPages, setTotalPages] = useState();
     const paginationRef = useRef();
   const { selectedBranch, changeBranch, branches } = useBranch();
+    const user = JSON.parse(localStorage.getItem("user"));
+  const isLoggedIn = user;
 
 const { data: servicesData, isLoading, isError } = useQuery({
   queryKey: ["all-services", i18next.language, currentPage ,selectedBranch],
@@ -43,13 +45,13 @@ const { data: servicesData, isLoading, isError } = useQuery({
       }),
   });
 
-  const { data: branchesData } = useQuery({
-    queryKey: ["branches", i18next.language],
-    queryFn: () =>
-      AllBranches({
-        language: i18next.language,
-      }),
-  });
+  // const { data: branchesData } = useQuery({
+  //   queryKey: ["branches", i18next.language],
+  //   queryFn: () =>
+  //     AllBranches({
+  //       language: i18next.language,
+  //     }),
+  // });
  useEffect(() => {
   if (servicesData?.message?.total_pages) {
     setTotalPages(servicesData.message.total_pages);
@@ -57,18 +59,27 @@ const { data: servicesData, isLoading, isError } = useQuery({
 }, [servicesData]);
 
   const services = servicesData?.message?.data || [];
-  const categories = categoriesData?.message?.data || [];
-  // const branches = branchesData?.message?.data || [];
+const categories = useMemo(() => {
+  const categoriesList = categoriesData?.message?.data || [];
 
-  const tabs = useMemo(() => {
-    return [
-      { label: "الكل", value: "all" },
-      ...categories?.map((cat) => ({
-        label: cat.name,
-        value: cat.id,
-      })),
-    ];
-  }, [categories, i18next.language,currentPage]);
+  return categoriesList.filter(
+    (category, index, self) =>
+      index === self.findIndex((item) => item.id === category.id)
+  );
+}, [categoriesData]);  // const branches = branchesData?.message?.data || [];
+
+const tabs = useMemo(() => {
+  return [
+    {
+      label: t("all_services"),
+      value: "all",
+    },
+    ...categories.map((category) => ({
+      label: category.name,
+      value: category.id,
+    })),
+  ];
+}, [categories, t]);
 
   const filteredData = useMemo(() => {
     return services.filter((item) => {
@@ -136,23 +147,30 @@ const { data: servicesData, isLoading, isError } = useQuery({
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none bg-white"
         />
-
-        <select
-  value={selectedBranch}
-  onChange={(e) => {
-    changeBranch(e.target.value);
-  }}
-  className="px-4 py-2 border rounded-lg bg-white"
->
-  <option value="all">{t("all_branches")}</option>
-
-  {branches?.map((e) => (
-    <option key={e.id} value={e.id || e.id}>
-      {e.name}
+{!isLoggedIn && (
+  <select
+    value={selectedBranch || "all"}
+    onChange={(e) => {
+      changeBranch(e.target.value);
+      setCurrentPage(1);
+      setActiveTab("all");
+    }}
+    className="px-4 py-2 border rounded-lg bg-white"
+  >
+    <option value="all">
+      {t("all_branches")}
     </option>
-  ))}
-</select>
 
+    {branches.map((branch) => (
+      <option
+        key={branch.id}
+        value={branch.id}
+      >
+        {branch.name}
+      </option>
+    ))}
+  </select>
+)}
         <button
           onClick={() => setViewMode("grid")}
           className={`p-2 rounded-lg border transition ${

@@ -16,19 +16,19 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     branch: "",
   });
 
-  const branchOptions = [
-    { value: "The Club - New Capital", label: "The Club - New Capital" },
-    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
-    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
-  ];
+ const branchOptions =
+  branches?.map((branch) => ({
+    value: branch.id,
+    label: branch.name,
+  })) ;
 
+   
   const arr = [
     {
       name: "username",
