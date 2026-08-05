@@ -6,6 +6,11 @@ import H_one from "../../Shared_Component/H_one";
 
 const Services_Header = () => {
   const stats = [
+     {
+      title: "إجمالي عدد الخدمات",
+      value: 13,
+      icon: <Layers/>,
+    }, 
     {
       title: "المشتركين",
       value: 320,
@@ -16,11 +21,7 @@ const Services_Header = () => {
       value: 12,
       icon: <Activity />,
     },
-    {
-      title: "إجمالي عدد الخدمات",
-      value: 13,
-      icon: <Layers/>,
-    }, 
+   
   ];
 
   return (
