@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
@@ -14,45 +14,64 @@ import "swiper/css/pagination";
 
 import { assets } from "../../assets/assets";
 import { FaTag } from "react-icons/fa";
+import { Loyalty_list } from "../../axiosConfig/APIs/Loyalty/Loyalty_list";
 
 const Loyalty_point = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const[data,setData] = useState();
+ const Get_Loyalty_list = async () => {
+    const params = {
+branchId: localStorage.getItem("branchId"),
+language: i18next.language,
+    }
+    try {
+      const response = await Loyalty_list(params);
+      setData(response.message.data);
+      console.log("Loyalty_list", response);
+    } catch (error) {
+      console.error("Error fetching Loyalty_list:", error);
+    }
+ }
 
-    const data = [
-        {
-            id: 1,
-            title: "نقاط الولاء",
-            summary: "استمتع بمزايا وخصومات مميزة عند تجميع نقاط الولاء.",
-            category: "العروض",
-            publishDate: "29 يوليو 2026",
-            image: assets.image_2,
-        },
-        {
-            id: 2,
-            title: "اكسب المزيد من النقاط",
-            summary: "احصل على نقاط إضافية عند استخدام خدمات النادي المختلفة.",
-            category: "خدمات ",
-            publishDate: "28 يوليو 2026",
-            image: assets.image_1,
-        },
-        {
-            id: 3,
-            title: "استبدل نقاطك",
-            summary: "يمكنك استبدال نقاطك بمجموعة من المكافآت والخدمات.",
-            category: "المكافآت",
-            publishDate: "27 يوليو 2026",
-            image: assets.image_3,
-        },
-        {
-            id: 3,
-            title: "استبدل نقاطك",
-            summary: "يمكنك استبدال نقاطك بمجموعة من المكافآت والخدمات.",
-            category: "المكافآت",
-            publishDate: "27 يوليو 2026",
-            image: assets.image_1,
-        },
-    ];
+  useEffect(() => {
+    Get_Loyalty_list();
+  }, [i18next.language]);
+
+    // const data = [
+    //     {
+    //         id: 1,
+    //         title: "نقاط الولاء",
+    //         summary: "استمتع بمزايا وخصومات مميزة عند تجميع نقاط الولاء.",
+    //         category: "العروض",
+    //         publishDate: "29 يوليو 2026",
+    //         image: assets.image_2,
+    //     },
+    //     {
+    //         id: 2,
+    //         title: "اكسب المزيد من النقاط",
+    //         summary: "احصل على نقاط إضافية عند استخدام خدمات النادي المختلفة.",
+    //         category: "خدمات ",
+    //         publishDate: "28 يوليو 2026",
+    //         image: assets.image_1,
+    //     },
+    //     {
+    //         id: 3,
+    //         title: "استبدل نقاطك",
+    //         summary: "يمكنك استبدال نقاطك بمجموعة من المكافآت والخدمات.",
+    //         category: "المكافآت",
+    //         publishDate: "27 يوليو 2026",
+    //         image: assets.image_3,
+    //     },
+    //     {
+    //         id: 3,
+    //         title: "استبدل نقاطك",
+    //         summary: "يمكنك استبدال نقاطك بمجموعة من المكافآت والخدمات.",
+    //         category: "المكافآت",
+    //         publishDate: "27 يوليو 2026",
+    //         image: assets.image_1,
+    //     },
+    // ];
 
     return (
         <section className="px-4 py-8 sm:px-6 lg:px-10">
@@ -72,7 +91,7 @@ const Loyalty_point = () => {
                         delay: 3000,
                         disableOnInteraction: false,
                     }}
-                    loop={data.length > 3}
+                    loop={data?.length > 3}
                     breakpoints={{
                         640: {
                             slidesPerView: 1,
@@ -86,7 +105,7 @@ const Loyalty_point = () => {
                     }}
                     className="news-slider news-swiper !pb-10"
                 >
-                    {data.map((item) => (
+                    {data?.map((item) => (
                         <SwiperSlide key={item.id} className="!h-auto">
                             <div
                                 onClick={() =>
@@ -109,7 +128,7 @@ const Loyalty_point = () => {
                                             } flex items-center gap-2 rounded-lg bg-[#FFD54A] px-4 py-2 shadow-lg`}
                                     >    <FaTag className="text-[#1E2939]" />
                                         <span className="text-sm font-bold text-[#1E2939]">
-                                            خصم 10%
+                                            خصم {item.discountRate}
                                         </span>
                                     </div>
                                 </div>
@@ -117,7 +136,7 @@ const Loyalty_point = () => {
                                 <div className="flex flex-1 flex-col p-5">
                                     <div className="flex items-center justify-between gap-3 text-sm text-gray-500">
                                         <span className="rounded-full bg-[#EAF3F1] px-5 py-2 text-[14px] font-bold text-[#1E2939]">
-                                            {item.category}
+                                            {item.branchName}
                                         </span>
 
                                         <p className="flex items-center gap-1 text-[14px] font-semibold text-[#21857C]">
@@ -130,9 +149,9 @@ const Loyalty_point = () => {
                                         {item.title}
                                     </h3>
 
-                                    <p className="my-2 line-clamp-2 text-sm text-[#6A7282]">
-                                        {item.summary}
-                                    </p>
+                                                <div className="my-2 line-clamp-2 text-sm text-[#6A7282]"
+  dangerouslySetInnerHTML={{ __html: item.description}}
+/>                                    
 
                                     <button
                                         type="button"

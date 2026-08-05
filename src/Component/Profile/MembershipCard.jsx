@@ -82,9 +82,9 @@ const sports = Array.isArray(card?.academyIcons)
           {/* Barcode */}
           <div className="mt-6 flex flex-col items-center">
             <img
-              src={assets.barcode}
+              src={data?.qrImage}
               alt="barcode"
-              className="w-60 object-contain"
+              className="w-60 h-60 object-contain"
               loading="lazy"
             />
 

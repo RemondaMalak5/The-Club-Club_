@@ -32,19 +32,19 @@ const FamilyMembers = ({ data }) => {
               </p>
             </div>
           </div>
-
+{/* 
   <span className="text-[18px] pe-8">
             {i18next.language === "ar" ? (
               <FaRegArrowAltCircleLeft />
             ) : (
               <FaRegArrowAltCircleRight />
             )}{" "}
-          </span>
+          </span> */}
                   </div>
       ))}
 
-      <button className="w-full rounded-2xl border  flex flex-col items-center p-3 my-2">
-        <span> <FiUsers/></span> {t("add_member")} </button>
+      {/* <button className="w-full rounded-2xl border  flex flex-col items-center p-3 my-2">
+        <span> <FiUsers/></span> {t("add_member")} </button> */}
     </div>
   );
 };
