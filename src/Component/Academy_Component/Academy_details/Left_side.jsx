@@ -73,11 +73,25 @@ const Left_side = ({ data }) => {
 
         <div className="text-center">
           <p className="text-[#00BFA6] font-bold text-3xl">
-            {program.price}
-            <span className="text-sm">
-              {" "}
-              {t("academy_per_month")}
-            </span>
+           <div className="flex flex-col gap-2">
+  {program.pricing?.map((price, priceIndex) => (
+    <div key={priceIndex} className="text-center">
+      
+      <p className="text-sm text-gray-500">
+        {price.feeCategory}
+      </p>
+
+      <p className="text-[#00BFA6] font-bold text-2xl">
+        {price.total}
+        <span className="text-sm">
+          {" "}
+          {t("academy_per_month")}
+        </span>
+      </p>
+
+    </div>
+  ))}
+</div>
           </p>
         </div>
       </div>
@@ -179,7 +193,7 @@ const Left_side = ({ data }) => {
           </span>
 
           <p className="text-xl font-bold text-[#00BFA6]">
-            {selectedProgram.price} {t("academy_per_month")}
+            {selectedProgram.pricing?.[0]?.total} {t("academy_per_month")}
           </p>
         </div>
 

@@ -14,6 +14,8 @@ import Spinner from "./../Component/Shared_Component/Spinner";
 import { Get_profile } from "../axiosConfig/APIs/Profile/Profile";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
+import AcademyApplications from "../Component/Profile/AcademyApplications";
+import Outstanding from "../Component/Profile/Outstanding";
 
 const Profile = () => {
     const {  } = useTranslation();
@@ -50,6 +52,7 @@ const profile = data?.message?.data;
        <div className="flex flex-wrap ">
   <div className=" xl:w-[55%] w-full px-5 space-y-4">
           <MembershipCard data={profile} />
+          <Outstanding data={profile}/>
           <AcademySubscriptions data={profile.subscribedAcademies} />
           <Bookings data={profile.upcomingBookings} />
           <Payments data={profile.paymentHistory} />
@@ -58,6 +61,7 @@ const profile = data?.message?.data;
         <div className="xl:w-[45%] w-full px-5 space-y-4">
           {/* <Notifications data={profile.notifications} /> */}
           <FamilyMembers data={profile.familyMembers} />
+          <AcademyApplications/>
           <Achievements data={profile.achievements} />
           <QuickActions data={profile} />
         </div>

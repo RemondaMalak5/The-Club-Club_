@@ -84,7 +84,7 @@ const sports = Array.isArray(card?.academyIcons)
             <img
               src={data?.qrImage}
               alt="barcode"
-              className="w-60 h-60 object-contain"
+              className="w-48 h-48 object-contain"
               loading="lazy"
             />
 

@@ -69,7 +69,6 @@ const Booking_home = () => {
   return (
     <div className="p-10 rounded-3xl border  shadow-md bg-gradient-to-l from-[#DBEFEA] via-[#EBF3F1] to-white flex flex-wrap justify-between gap-8">
 
-      {/* left section */}
       <div className="flex flex-col py-5 gap-3 w-full lg:w-[60%]">
 
         <h2 className="text-[36px] font-bold flex gap-1"> {t('book_online')} <Title_1 title={t('online')} />  </h2>
@@ -104,7 +103,6 @@ const Booking_home = () => {
         </button>
       </div>
 
-      {/* right section */}
       <div className="bg-white border rounded-2xl shadow-md p-6 w-full lg:w-[35%]">
         <h2 className="font-bold text-[22px] bg-gradient-to-r from-[#08AC85DB] to-[#00786F] bg-clip-text text-transparent">{t('events_agenda')}</h2>
         <div className="flex flex-col gap-4  py-2">
@@ -127,7 +125,8 @@ const Booking_home = () => {
           ))}
         </div>
 
-        <button className="w-full mt-5 border border-[#00786F] text-[#36534C] py-2 rounded-lg  transition">
+        <button  onClick={()=>Navigate("/services")}
+        className="w-full mt-5 border border-[#00786F] text-[#36534C] py-2 rounded-lg  transition">
           {t('view_all_events')}
         </button>
       </div>
