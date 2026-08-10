@@ -6,6 +6,8 @@ import i18next from "i18next";
 import { forget } from "../../axiosConfig/APIs/Auth/Forget_pass/Forget";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { useBranch } from "../../context/BranchContext";
+
 
 const Cheak_Mail = () => {
     const { t } = useTranslation();
@@ -14,12 +16,15 @@ const Cheak_Mail = () => {
     const [loading, setLoading] = useState(false);
     const [apiError, setApiError] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
+     const { changeBranch ,branches } = useBranch();
+const [errors, setErrors] = useState({});
  const [branch , setBranch]=useState();
-  const branchOptions = [
-    { value: "The Club - New Capital", label: "The Club - New Capital" },
-    { value: "The Club- Sheraton", label: "The Club- Sheraton" },
-    { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
-  ];
+
+const branchOptions =
+  branches?.map((branch) => ({
+    value: branch.id,
+    label: branch.name,
+  })) ;
 
     const handleForget = async () => {
         setApiError("");

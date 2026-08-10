@@ -24,6 +24,8 @@ const Member_Register = () => {
     phone: '',
     card_number: '',
     email: "",
+      is_dependant: 0,
+
     language: i18next.language,
   });
   const [errors, setErrors] = useState({});
@@ -136,27 +138,49 @@ const Member_Register = () => {
         <H_one_register title={t("Member_Registration")} />
         <p className=' text-[16px] text-[#5B626E]'> {t("member_registration_instructions")}</p>
         <div className=' w-full flex flex-wrap '>
-          {fields.map((field) => (
-            <div key={field.name} className='mb-3 md:w-1/2 w-full px-2'>
-              <label className='font-medium text-[15px] text-[#364153] px-1'>
-                {field.label}
-              </label>
-              <input
-                type='text'
-                name={field.name}
-                value={formData[field.name]}
-                onChange={handleChange}
-                placeholder={field.placeholder}
-                className='border p-3 my-2 rounded-lg w-full text-[14px] text-[#5B626E]'
-              />
+         {fields.map((field) => (
+  <div
+    key={field.name}
+    className="mb-3 md:w-1/2 w-full px-2"
+  >
+    <label className="font-medium text-[15px] text-[#364153] px-1">
+      {field.label}
+    </label>
 
-              {errors[field.name] && (
-                <p className='text-red-500 text-sm'>
-                  {errors[field.name]}
-                </p>
-              )}
-            </div>
-          ))}
+    <input
+      type="text"
+      name={field.name}
+      value={formData[field.name]}
+      onChange={handleChange}
+      placeholder={field.placeholder}
+      className="border p-3 my-2 rounded-lg w-full text-[14px] text-[#5B626E]"
+    />
+
+   {field.name === "card_number" && (
+  <div className="flex items-center gap-2 mt-1">
+    <input
+      type="checkbox"
+      checked={formData.is_dependant === 1}
+      onChange={(e) => {
+        setFormData((prev) => ({
+          ...prev,
+          is_dependant: e.target.checked ? 1 : 0,
+        }));
+      }}
+    />
+
+    <label className="text-sm text-[#5B626E]">
+      عضو تابع
+    </label>
+  </div>
+)}
+    {errors[field.name] && (
+      <p className="text-red-500 text-sm">
+        {errors[field.name]}
+      </p>
+    )}
+  </div>
+))}
           <div className='mb-3 w-1/2 px-2  '>
             <label className='font-medium text-[15px] text-[#364153] px-1 block mb-2'>
               الفرع
