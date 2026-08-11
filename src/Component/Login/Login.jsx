@@ -108,20 +108,19 @@ console.log("response:", response);
 console.log("user:", user);
 console.log("customer:", customer);
 console.log("branchId:", branchId);
-  navigate(`/about-branches/${branchId}`);
-
+const selectedBranch = branches.find(
+  (branch) => String(branch.id) === String(branchId)
+);
+navigate(`/about-branches/${branchId}`, {
+  state: {
+    branchId: branchId,
+    branchName: selectedBranch?.name,
+  },
+});
 };
     } catch (error) {
       const data = error?.response?.data;
         setApiError("Invalid username or password");
-
-      // setApiError(
-      //   typeof data?.message === "string"
-      //     ? data.message
-      //     : typeof data?.error === "string"
-      //     ? data.error
-      //     : "Login failed"
-      // );
     }
   };
 

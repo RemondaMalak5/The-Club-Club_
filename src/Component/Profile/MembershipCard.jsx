@@ -89,8 +89,9 @@ const sports = Array.isArray(card?.academyIcons)
             />
 
             <div className="flex justify-between w-60 text-xs font-bold text-gray-700 mt-1">
-              <span>{card?.barcode || data?.membershipNo || "-"}</span>
+              <span>{card?.barcode || data?.membershipNo ||  "-"}</span>
               <span>{data?.phone || "-"}</span>
+              <span>{data?.studentId || "-"}</span>
             </div>
           </div>
 
@@ -100,12 +101,12 @@ const sports = Array.isArray(card?.academyIcons)
     {sports.map((sport, index) => (
       <div
         key={index}
-        className="w-12 h-12 rounded-full border border-[#00786F] flex items-center justify-center"
+        className="w-12 h-12 rounded-full border border-[#00786F] flex items-center justify-center "
       >
         <img
           src={sport?.icon || sport}
           alt={`sport-${index}`}
-          className="w-6 h-6 object-contain"
+          className="w-6 h-6 object-center"
           loading="lazy"
         />
       </div>

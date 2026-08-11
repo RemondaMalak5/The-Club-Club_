@@ -53,15 +53,16 @@ const profile = data?.message?.data;
   <div className=" xl:w-[55%] w-full px-5 space-y-4">
           <MembershipCard data={profile} />
           <Outstanding data={profile}/>
-          {/* <AcademySubscriptions data={profile.subscribedAcademies} /> */}
           {/* <Bookings data={profile.upcomingBookings} /> */}
-          <Payments data={profile} />
+                      <Payments data={profile} />
         </div>
 
         <div className="xl:w-[45%] w-full px-5 space-y-4">
           {/* <Notifications data={profile.notifications} /> */}
+                    <AcademySubscriptions data={profile.academyStatus.programs} />
+
           <FamilyMembers data={profile?.familyMembers} />
-          <AcademyApplications/>
+          {/* <AcademyApplications/> */}
           <Achievements data={profile?.achievements} />
           <QuickActions data={profile} />
         </div>

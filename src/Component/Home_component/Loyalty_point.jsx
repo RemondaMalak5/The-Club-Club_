@@ -38,40 +38,7 @@ language: i18next.language,
     Get_Loyalty_list();
   }, [i18next.language]);
 
-    // const data = [
-    //     {
-    //         id: 1,
-    //         title: "نقاط الولاء",
-    //         summary: "استمتع بمزايا وخصومات مميزة عند تجميع نقاط الولاء.",
-    //         category: "العروض",
-    //         publishDate: "29 يوليو 2026",
-    //         image: assets.image_2,
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "اكسب المزيد من النقاط",
-    //         summary: "احصل على نقاط إضافية عند استخدام خدمات النادي المختلفة.",
-    //         category: "خدمات ",
-    //         publishDate: "28 يوليو 2026",
-    //         image: assets.image_1,
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "استبدل نقاطك",
-    //         summary: "يمكنك استبدال نقاطك بمجموعة من المكافآت والخدمات.",
-    //         category: "المكافآت",
-    //         publishDate: "27 يوليو 2026",
-    //         image: assets.image_3,
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "استبدل نقاطك",
-    //         summary: "يمكنك استبدال نقاطك بمجموعة من المكافآت والخدمات.",
-    //         category: "المكافآت",
-    //         publishDate: "27 يوليو 2026",
-    //         image: assets.image_1,
-    //     },
-    // ];
+    
 
     return (
         <section className="px-4 py-8 sm:px-6 lg:px-10">
@@ -109,7 +76,7 @@ language: i18next.language,
                         <SwiperSlide key={item.id} className="!h-auto">
                             <div
                                 onClick={() =>
-                                    navigate(`/loyalty-details`)
+    navigate(`/loyalty-details/${item.id}`)
                                 }
                                 className="flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                             >
@@ -141,7 +108,7 @@ language: i18next.language,
 
                                         <p className="flex items-center gap-1 text-[14px] font-semibold text-[#21857C]">
                                             <CgCalendarDates className="text-[16px]" />
-                                            {item.publishDate}
+                                            {item.date}
                                         </p>
                                     </div>
 

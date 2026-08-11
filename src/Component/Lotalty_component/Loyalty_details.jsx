@@ -13,20 +13,52 @@ import "swiper/css/pagination";
 import { useTranslation } from 'react-i18next';
 import Social_Media from '../Shared_Component/Social_Media';
 import { assets } from '../../assets/assets';
+import { Loyalty_list } from '../../axiosConfig/APIs/Loyalty/Loyalty_list';
+import { useEffect, useState } from 'react';
+import { useBranch } from '../../context/BranchContext';
+import { MdDiscount } from "react-icons/md";
+import { IoLocationOutline } from 'react-icons/io5';
+
 
 const Loyalty_details = () => {
     const { t } = useTranslation();
-  
-    const arr = [
-      assets.image_1,assets.image_3
-    ]
+    const [data, setData] = useState();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { selectedBranch } = useBranch();
+   const Get_Loyalty_list = async () => {
+  const params = {
+    branchId: selectedBranch === "all" ? "" : selectedBranch,
+    language: i18next.language,
+  };
+
+  try {
+    const response = await Loyalty_list(params);
+
+    const loyaltyList = response?.message?.data || [];
+
+    const selectedItem = loyaltyList.find(
+      (item) => String(item.id) === String(id)
+    );
+
+    console.log("selectedItem:", selectedItem);
+
+    setData(selectedItem || null);
+  } catch (error) {
+    console.error("Error fetching Loyalty_list:", error);
+  }
+};
+
+    useEffect(() => {
+        Get_Loyalty_list();
+    }, [i18next.language, selectedBranch]);
 
     const info = [
-        { icon: <MdOutlineDateRange />, value: "hello"},
-        { icon: <IoIosTimer />, value: "12/7/2026" },
-        { icon: <FaEye />,   value: 5 },
+        { icon: <MdOutlineDateRange />, value: data?.date  },
+        { icon: <IoLocationOutline/>, value: data?.branchName},
+        { icon: <MdDiscount />, value:       data?.discountRate },
     ];
-   
+
     return (
         <div >
             <div
@@ -34,59 +66,62 @@ const Loyalty_details = () => {
                 className="w-full flex items-center gap-2 text-[24px] md:text-[30px] py-4 px-4 md:px-10 cursor-pointer"
             >
                 {i18next.language === "ar" ? <IoMdArrowForward /> : <IoMdArrowBack />}
-                <h2 className='text-xl font-bold '>{}</h2>
+                <h2 className='text-xl font-bold '>{data?.title}</h2>
             </div>
 
-            <div className='border rounded-xl  mx-8'>
-                {Array.isArray(arr) && arr.length > 0 ? (
-                    <Swiper
-                        modules={[Navigation, Pagination, Autoplay]}
-                        navigation
-                        pagination={{ clickable: true }}
-                        autoplay={{ delay: 3000 }}
-                        className="news-swiper w-full h-[384px] rounded-t-xl"
-                    >
-                        {arr.map((image, index) => (
-                            <SwiperSlide key={index}>
-                                <img
-                                    src={typeof image === "string" ? image : image?.image}
-                                    alt={`gallery-${index}`}
-                                    className="w-full h-[384px] object-cover rounded-t-xl"
-                                    loading="lazy"
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                ) : (
-                    <img
-                        src={assets.image_1}
-                        alt={""|| ""}
-                        className="w-full h-[384px] object-cover rounded-t-xl"
-                        loading="lazy"
-                    />
-                )}               <div className='px-10 py-5'>
-                    <div className='pb-4  flex flex-wrap gap-4 justify-between items-center'>
-                        <div>
-                            <div className='flex flex-wrap gap-4'>
-                                {info.map((item, index) => (
-                                    <p key={index} className='text-[#08AC85DB] text-sm mt-1 flex items-center gap-1'>
-                                        <span className='font-semibold'>{item.icon} </span>
-                                        {item.value}
-                                    </p>
-                                ))}
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div className='w-full h-[1px] bg-gray-300'></div>
-                    <p className='p-4 rounded-lg  bg-slate-50'>{}</p>
-                    
-      
-                    <div className='w-full h-[1px] bg-gray-100'></div>
-                    <Social_Media/>
+           <div className="border rounded-xl mx-8 overflow-hidden">
+  <img
+    src={data?.image || assets.image_1}
+    alt={data?.title || "loyalty"}
+    className="w-full h-[384px] object-cover"
+    loading="lazy"
+  />
 
-                </div>
-            </div>
+  <div className="px-10 py-5">
+    <div className="pb-4 flex flex-wrap gap-4">
+      {info.map(
+        (item, index) =>
+          item.value && (
+            <p
+              key={index}
+              className="text-[#08AC85DB] text-sm flex items-center gap-1"
+            >
+              <span className="font-semibold">
+                {item.icon}
+              </span>
+
+              {item.value}
+            </p>
+          )
+      )}
+    </div>
+
+    <div className="w-full h-[1px] bg-gray-300 mb-4" />
+
+    <h1 className="text-2xl font-bold mb-4">
+      {data?.title}
+    </h1>
+
+    <p className="text-[#08AC85] font-bold mb-4">
+      {data?.discountRate} Discount
+    </p>
+
+    <div
+      className="p-4 rounded-lg bg-slate-50 leading-8"
+      dangerouslySetInnerHTML={{
+        __html: data?.description || "",
+      }}
+    />
+
+    <p className="mt-4 text-gray-500">
+      {data?.branchName}
+    </p>
+
+    <div className="w-full h-[1px] bg-gray-100 my-5" />
+
+    <Social_Media />
+  </div>
+</div>
         </div>
 
     )

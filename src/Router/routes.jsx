@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
       {path:"reset-pass", element:<Reset_pass/>},
       {path: "profile-guest" , element: <Profile_Guest/>},
       {path:"loyalty" , element:<Loyalty_point/>},
-      {path:"loyalty-details" , element:<Loyalty_details/>}
+      {path:"loyalty-details/:id" , element:<Loyalty_details/>}
     ]
   }
 ]);

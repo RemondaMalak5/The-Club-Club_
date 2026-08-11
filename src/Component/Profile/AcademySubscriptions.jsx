@@ -36,22 +36,29 @@ const AcademySubscriptions = ({ data }) => {
             >
               <div className="flex flex-wrap justify-between ">
                 <div className="flex flex-col items-start justify-between gap-3">
-                  <h3 className="font-bold text-lg text-gray-800 mb-2">
-                    {academy.name}
-                  </h3>
+                  <div className="flex justify-center items-center gap-3 ">  <img
+                    src={academy.image}
+                    alt={academy.program}
+                    className="w-12 h-12 rounded-full object-cover "
+                  />
 
+                  <h3 className="font-bold text-lg text-gray-800 mb-2">
+                    {academy.program}
+                  </h3>
+</div>
+                 
                   <div className="flex gap-5 items-center ">
                     <span className="flex items-center gap-1 text-gray-500 text-sm ">
-                      <FaRegCalendarAlt /> {academy.startDate || t("every_monday")}
+                      <FaRegCalendarAlt className="text-[#00786F]" /> {academy.startDate || t("every_monday")}
                      
                     </span>
-                    <span className="flex justify-center items-center gap-1 text-gray-500 text-sm mt-2">
-                      {academy.endDate} <IoTimeOutline />
+                    <span className="flex justify-center items-center gap-1 text-gray-500 text-sm ">
+                     <IoTimeOutline  className="text-[#00786F]"/> {academy.dueDate} 
                     </span>
                   </div>
 
                   <div className="flex items-center gap-1 text-gray-500 text-sm mt-1 ">
-                    <IoLocationOutline />
+                    <IoLocationOutline className="text-[#00786F]"/>
                     <span>{academy.branch || t("october_branch")}</span>
                   </div>
 
