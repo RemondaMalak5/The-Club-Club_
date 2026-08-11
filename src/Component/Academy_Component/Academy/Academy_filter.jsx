@@ -145,6 +145,7 @@ const Get_Academy_List = async () => {
     changeBranch(e.target.value);
     setCurrentPage(1);
   }}
+  
 >
     <option value="all">{t("all_branches")}</option>
 

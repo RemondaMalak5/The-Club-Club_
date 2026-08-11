@@ -28,8 +28,6 @@ const branchOptions =
 
     const handleForget = async () => {
         setApiError("");
-        // setSuccessMsg("");
-
         if (!phone.trim()) {
             setApiError(t("phone_required"));
             return;

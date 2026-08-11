@@ -11,12 +11,14 @@ import { Send_OTP } from '../../../axiosConfig/APIs/Auth/Register/Send_OTP';
 import Select from "react-select";
 import { useTranslation } from 'react-i18next';
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { useBranch } from '../../../context/BranchContext';
 
 const Member_Register = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { saveToken } = useContext(UserTokenContext);
   const [currentStep, setCurrentStep] = useState(1);
+  const{  branches} = useBranch();
   const [formData, setFormData] = useState({
     branch: '',
     full_name: '',
@@ -30,6 +32,11 @@ const Member_Register = () => {
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+const branchOptions =
+  branches?.map((branch) => ({
+    value: branch.id,
+    label: branch.name,
+  })) ;
 
   const fields = [
     {
@@ -188,11 +195,8 @@ const Member_Register = () => {
 
             <Select
               placeholder="اختر الفرع"
-              options={[
-                { value: "The Club - New Capital", label: "The Club - New Capital" },
-                { value: "The Club- Sheraton", label: "The Club- Sheraton" },
-                { value: "نادي النادي - 6 اكتوبر", label: "نادي النادي - 6 اكتوبر" },
-              ]}
+              options={branchOptions}
+              
               value={
                 formData.branch
                   ? {

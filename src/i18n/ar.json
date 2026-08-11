@@ -400,7 +400,8 @@
     "Book_service":" احجز خدمه" ,
     "Book_Activity": "احجز نشاط",
     "sub":"عنوان",
-    "loyalty" :" النقاط"
+    "loyalty" :" النقاط" ,
+    "discount":"خصم"
    
 
 }

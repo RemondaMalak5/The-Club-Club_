@@ -10,10 +10,7 @@ const Slider_home = () => {
   const {t} = useTranslation();
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const[data,setData]=useState([]);
-  // const slides = [
-  //   { id: 1, image: assets.slide_1, title: t("olympic_tournaments"), description: t("professional_training") },
-  //   { id: 2, image: assets.slide_2, title: t("جمباز"), description: t("professional_training") },
-  // ];
+ 
   
  const Home_slider_Api = async () => {
   const params = {

@@ -11,6 +11,7 @@ import { UserTokenContext } from "../../../context/UserContext";
 import { Send_OTP } from "../../../axiosConfig/APIs/Auth/Register/Send_OTP";
 import i18next from "i18next";
 import Select from "react-select";
+import { useBranch } from "../../../context/BranchContext";
 
 const Register_Geust = () => {
   const navigate = useNavigate();
@@ -28,7 +29,11 @@ const Register_Geust = () => {
     language: "en",
   });
   const [errors, setErrors] = useState({});
-
+  const { branches } = useBranch();
+  const branchOptions = branches?.map((branch) => ({
+    value: branch.id,
+    label: branch.name,
+  }));
   const arr = [
     {
       label: t("full_name_label"),
@@ -215,17 +220,7 @@ const Register_Geust = () => {
         </div>
 
         <Select
-          options={[
-            {
-              value: "The Club - New Capital",
-              label: "The Club - New Capital",
-            },
-            { value: "The Club- Sheraton", label: "The Club- Sheraton" },
-            {
-              value: "نادي النادي - 6 اكتوبر",
-              label: "نادي النادي - 6 اكتوبر",
-            },
-          ]}
+          options={branchOptions}
           value={
             formData.branch
               ? {

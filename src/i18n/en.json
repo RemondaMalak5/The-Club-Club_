@@ -399,5 +399,6 @@
     "Book_Activity":"Book a Activity",
     "sub_placeholder":"Enter Subject",
     "sub":"subject",
-    "loyalty":"loyalty"
+    "loyalty":"loyalty" ,
+    "discount":"Discount" 
 }

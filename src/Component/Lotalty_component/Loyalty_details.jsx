@@ -28,7 +28,7 @@ const Loyalty_details = () => {
     const { selectedBranch } = useBranch();
    const Get_Loyalty_list = async () => {
   const params = {
-    branchId: selectedBranch === "all" ? "" : selectedBranch,
+    branchId: "",
     language: i18next.language,
   };
 
@@ -51,12 +51,12 @@ const Loyalty_details = () => {
 
     useEffect(() => {
         Get_Loyalty_list();
-    }, [i18next.language, selectedBranch]);
+    }, [i18next.language, selectedBranch ,id]);
 
     const info = [
         { icon: <MdOutlineDateRange />, value: data?.date  },
         { icon: <IoLocationOutline/>, value: data?.branchName},
-        { icon: <MdDiscount />, value:       data?.discountRate },
+        { icon: <MdDiscount />, value:    `${data?.discountRate}${t("discount")}` },
     ];
 
     return (
@@ -102,10 +102,7 @@ const Loyalty_details = () => {
       {data?.title}
     </h1>
 
-    <p className="text-[#08AC85] font-bold mb-4">
-      {data?.discountRate} Discount
-    </p>
-
+  
     <div
       className="p-4 rounded-lg bg-slate-50 leading-8"
       dangerouslySetInnerHTML={{
@@ -113,9 +110,7 @@ const Loyalty_details = () => {
       }}
     />
 
-    <p className="mt-4 text-gray-500">
-      {data?.branchName}
-    </p>
+    
 
     <div className="w-full h-[1px] bg-gray-100 my-5" />
 

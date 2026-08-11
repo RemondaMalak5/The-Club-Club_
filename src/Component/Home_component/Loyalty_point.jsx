@@ -20,9 +20,10 @@ const Loyalty_point = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const[data,setData] = useState();
+    const[selectedBranch, setSelectedBranch] = useState();
  const Get_Loyalty_list = async () => {
     const params = {
-branchId: localStorage.getItem("branchId"),
+      branchId: selectedBranch === "all" ? "" : selectedBranch,
 language: i18next.language,
     }
     try {
