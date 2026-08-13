@@ -32,11 +32,11 @@ const Memberships_home = () => {
 
   return (
     <div className="py-10  overflow-hidden" >
-      <h2 className="text-[36px] font-bold text-center md:text-right">
+      <h2 className="text-[36px] font-bold ">
         {t("memberships")}
       </h2>
 
-      <p className="text-gray-500 mb-12 text-center md:text-right">
+      <p className="text-gray-500 mb-12 ">
         {t("plan_description")}
       </p>
 

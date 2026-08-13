@@ -245,14 +245,14 @@ const Get_Academy_List = async () => {
                       <span className="text-[#08AC85DB]">
                         <MdOutlineSportsSoccer />
                       </span>
-                      {academy.reviewCount} متدرب
+                      {academy.reviewCount} {t("trainer")}
                     </p>
 
                     <p className="flex items-center gap-2">
                       <span className="text-[#08AC85DB]">
                         <LiaAwardSolid />
                       </span>
-                      {academy.trainersCount} مدربين محترفين
+                      {academy.trainersCount} {t("professional_trainers")}
                     </p>
                   </div>
 

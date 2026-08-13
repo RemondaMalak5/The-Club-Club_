@@ -400,5 +400,9 @@
     "sub_placeholder":"Enter Subject",
     "sub":"subject",
     "loyalty":"loyalty" ,
-    "discount":"Discount" 
+    "discount":"Discount" ,
+   "trainer":"Trainee" ,
+   "professional_trainers":"Professional Trainers" ,
+    "loyalty_subtitle":"Earn loyalty points with every purchase or booking, and redeem them for amazing discounts on our services and activities." ,
+    "no_matching_activities":"No  activities found"
 }

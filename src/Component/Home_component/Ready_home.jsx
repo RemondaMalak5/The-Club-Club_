@@ -10,7 +10,8 @@ const Ready_home = () => {
   return (
       <div className="w-full bg-gray-100 rounded-xl p-6 flex flex-wrap items-center justify-between ">
         <div >
-          <h2 className="text-[36px] font-bold text-gray-900">{t('ready_to_start')}</h2>
+                        <h2 className="text-[36px] font-bold bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
+            {t('ready_to_start')}</h2>
           <p className="text-gray-500 text-sm mt-1">
             {t('ready_subtitle')}
           </p>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosFlower } from "react-icons/io";
 import { FaSquare } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
@@ -7,52 +7,62 @@ import { MdOutlineSportsSoccer, MdPersonAddAlt } from "react-icons/md";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { welcome_the_club } from "../../axiosConfig/APIs/Home/Welcome_the_club";
+import i18next from "i18next";
 
 const About_home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const topLinks = [
-    { icon: <IoIosFlower />, text: t("family_club") },
-    { icon: <FaSquare />, text: t("three_branches") },
-    { icon: <FaSquare />, text: t("renew_membership") },
-    { icon: <FaSquare />, text: t("member_profile") },
-  ];
+  const [data, setData] = useState();
+  const get_home_hero = async () => {
+    const params = {
+      language: i18next.language,
+    };
+    try {
+      const response = await welcome_the_club(params);
+      setData(response.message.data);
+      console.log("get_home_hero response:", response);
+    } catch (error) {
+      console.error("Error fetching get_home_hero:", error);
+    }
+  };
 
-  const services = [
-    {
-      icon: <TiGroupOutline />,
-      title: t("family_memberships"),
-      desc: t("family_memberships_desc"),
-    },
-    {
-      icon: <LuCalendarCheck />,
-      title: t("instant_booking"),
-      desc: t("instant_booking_desc"),
-    },
-    {
-      icon: <MdOutlineSportsSoccer />,
-      title: t("professional_academies"),
-      desc: t("professional_academies_desc"),
-    },
-  ];
+  useEffect(() => {
+    get_home_hero();
+  }, [i18next.language]);
 
-  const steps = [
-    {
-      num: "1",
-      title: t("choose_membership"),
-      desc: t("sign_up_now"),
-    },
-    {
-      num: "2",
-      title: t("choose_branch_or_service"),
-      desc: t("select_appropriate_branch"),
-    },
-    {
-      num: "3",
-      title: t("complete_payment_and_book"),
-      desc: t("enjoy_club_membership"),
-    },
-  ];
+const iconMap = {
+  users: <IoIosFlower />,
+  "map-pin": <FaSquare />,
+  refresh: <FaSquare />,
+  user: <FaSquare />,
+};
+
+const serviceIconMap = {
+  users: <TiGroupOutline />,
+  calendar: <LuCalendarCheck />,
+  football: <MdOutlineSportsSoccer />,
+};
+
+const topLinks =
+  data?.pills?.map((item) => ({
+    icon: iconMap[item?.icon] || <FaSquare />,
+    text: item?.label,
+  })) || [];
+
+  const services = 
+    data?.cards?.map((item) => ({ 
+      icon: serviceIconMap[item?.icon] ,
+      title: item?.title,
+      desc: item?.subtitle,
+    })) ;
+
+  const steps = 
+  data?.steps?.items?.map((item, index) => ({
+    num: index + 1,
+    title: item?.title,
+    desc: item?.description,
+  })) ;
 
   return (
     <div className="  p-10 rounded-3xl border  shadow-md bg-gradient-to-l from-[#DBEFEA] via-[#EBF3F1] to-white flex flex-wrap justify-between gap-8">
@@ -71,11 +81,11 @@ const About_home = () => {
         </div>
 
         {/* title */}
-        <h1 className="text-[38px] font-bold">{t("welcome_message")}</h1>
+        <h1 className="text-[38px] font-bold">{data?.title}</h1>
 
         {/* services */}
         <div className="flex flex-wrap gap-4">
-          {services.map((item, index) => (
+          {services?.map((item, index) => (
             <div
               key={index}
               className="flex items-center gap-3 bg-white border rounded-xl p-3 shadow-sm"
@@ -115,10 +125,10 @@ const About_home = () => {
       {/* right section */}
       <div className="bg-white border rounded-2xl shadow-md p-6 w-full lg:w-[35%]">
 
-        <h2 className="text-[18px] font-bold mb-4">{t("start_in_3_steps")}</h2>
+        <h2 className="text-[18px] font-bold mb-4"> {data?.steps?.title}</h2>
 
         <div className="flex flex-col gap-4">
-          {steps.map((step, index) => (
+          {steps?.map((step, index) => (
             <div
               key={index}
               className="flex items-center gap-3 border rounded-xl p-3"

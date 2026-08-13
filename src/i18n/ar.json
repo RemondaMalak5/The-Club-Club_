@@ -401,7 +401,9 @@
     "Book_Activity": "احجز نشاط",
     "sub":"عنوان",
     "loyalty" :" النقاط" ,
-    "discount":"خصم"
-   
-
+    "discount":"خصم" ,
+   "loyalty_subtitle" :"اكسب نقاط  مع كل عملية شراء أو حجز، واستبدلها بخصومات رائعة على خدماتنا وأنشطتنا." ,
+ "trainer":"متدرب" ,
+ "professional_trainers":"مدربين محترفين" ,
+ "no_matching_activities":"لا توجد أنشطة "
 }

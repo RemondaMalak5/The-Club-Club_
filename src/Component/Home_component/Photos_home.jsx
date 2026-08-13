@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import i18next from "i18next";
 import { Gallary } from "../../axiosConfig/APIs/Home/Gallary";
 import { useTranslation } from "react-i18next";
+import Spinner from "../Shared_Component/Spinner";
 
 const Photos_home = () => {
   const [data, setData] = useState([]);
@@ -57,8 +58,7 @@ const Photos_home = () => {
   if (!data.length && !error) {
     return (
       <div className="px-4 md:px-14 py-10">
-        <p className="text-center text-lg">Loading...</p>
-      </div>
+<Spinner/>     </div>
     );
   }
 
@@ -78,7 +78,7 @@ const Photos_home = () => {
 
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-[36px] font-bold">
+                        <h2 className="text-[36px] font-bold bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-transparent">
           {t("photos_and_videos")}
         </h2>
 

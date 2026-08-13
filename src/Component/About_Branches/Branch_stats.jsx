@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Branch_stats } from "../../axiosConfig/APIs/Home/Branch_stats";
+import { useTranslation } from "react-i18next";
 
 const BranchStats = ({ branchId }) => {
   const [branchData, setBranchData] = useState(null);
   const [loading, setLoading] = useState(true);
-
+ const { t } = useTranslation();
   const getBranchStats = async () => {
     try {
       setLoading(true);
@@ -62,7 +63,7 @@ const BranchStats = ({ branchId }) => {
 
     return [
       {
-        title: "الأعضاء الحاليين",
+        title: " {t('current_members')} ",
         value: values.currentMembers,
         subtitle: `${values.occupancyRate}% نسبة الإشغال`,
         color: "#00A63E",
@@ -153,7 +154,7 @@ const BranchStats = ({ branchId }) => {
   return (
     <section dir="rtl" className="py-12 px-4">
       <h2 className="text-center text-3xl font-bold text-[#1F2937] mb-10">
-        إحصائيات الدخول والخروج بالفرع
+        {t("branch_stats")}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

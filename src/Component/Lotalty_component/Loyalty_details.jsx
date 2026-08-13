@@ -54,7 +54,7 @@ const Loyalty_details = () => {
     }, [i18next.language, selectedBranch ,id]);
 
     const info = [
-        { icon: <MdOutlineDateRange />, value: data?.date  },
+        { icon: <MdOutlineDateRange />, value: `${data?.date}  - ${data?.validTill}`  },
         { icon: <IoLocationOutline/>, value: data?.branchName},
         { icon: <MdDiscount />, value:    `${data?.discountRate}${t("discount")}` },
     ];

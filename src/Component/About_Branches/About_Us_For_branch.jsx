@@ -1,18 +1,21 @@
 import React from "react";
 import { assets } from "../../assets/assets";
+import { useTranslation } from "react-i18next";
 
 const About_Us_For_branch = ({ data }) => {
   const image = [  assets.image_1,
      assets.image_2,
     assets.image_3,
     assets.image_4,]
+ 
 
+     const {t} = useTranslation();
     
   return (
     <div className="w-full flex flex-wrap  ">
       {/* Text */}
       <div className="w-full md:w-1/2">
-        <h2 className="text-[44px] font-bold text-[#00786F]">عن النادي</h2>
+        <h2 className="text-[44px] font-bold text-[#00786F]"> {t("about")} </h2>
 
         <p className="text-[#4A5565] font-medium text-[20px] py-3">
           {data?.ourClub?.intro}
