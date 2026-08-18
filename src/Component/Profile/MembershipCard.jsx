@@ -44,7 +44,7 @@ const sports = Array.isArray(card?.academyIcons)
               {data?.membershipExpiry || t("not_available")}
             </div>
 
-            <h1 className="text-white text-3xl font-bold">{t("member")}</h1>
+            <h1 className="text-white text-3xl font-bold">{data?.membershipType}</h1>
 
             <div className="bg-white text-[#00786F] text-[10px] px-3 py-1 rounded-full font-medium">
               {card?.memberCode || data?.membershipNo || "-"}
@@ -136,7 +136,7 @@ const sports = Array.isArray(card?.academyIcons)
       </div>
 
       {/* Footer */}
-          <div className="bg-[#EAF5F3] rounded-xl mt-4 p-3 text-right">
+          <div className="bg-[#EAF5F3] rounded-xl mt-4 p-3 ">
             <h3 className="text-[#009689] text-xs font-bold mb-1">
               {t("digital_membership_rules")}
             </h3>

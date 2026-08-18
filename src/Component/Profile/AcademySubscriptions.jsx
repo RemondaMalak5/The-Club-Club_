@@ -17,14 +17,14 @@ const AcademySubscriptions = ({ data }) => {
           {t("subscribed_academies")}
         </h2>
 
-        <span
+        {/* <span
           onClick={() => {
             navigate("/academy");
           }}
           className="text-[#009689] text-xs cursor-pointer flex items-center"
         >
           {t("view_all")} {i18n.language === "ar" ? <MdArrowBackIos /> : <MdArrowForwardIos />}
-        </span>
+        </span> */}
       </div>
 
       <div className="flex flex-col gap-4">

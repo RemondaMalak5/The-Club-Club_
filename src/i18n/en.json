@@ -404,5 +404,18 @@
    "trainer":"Trainee" ,
    "professional_trainers":"Professional Trainers" ,
     "loyalty_subtitle":"Earn loyalty points with every purchase or booking, and redeem them for amazing discounts on our services and activities." ,
-    "no_matching_activities":"No  activities found"
+    "no_matching_activities":"No  activities found" ,
+    "academy_payments":"Academy Payments" , 
+    "subscription_payments":"Subscription Payments" ,
+    "no_academy_payments":"No academy payments" ,
+    "no_subscription_payments":"No subscription payments" ,
+    "payment_method":"Payment Method" ,
+    "due_date":"Due Date" ,
+    "student_type":"Student Type" ,
+    "dependent_member":"Dependent Member" ,
+    "primary_member":"Primary Member" ,
+    "select_payment_method":"Select Payment Method" ,
+    "activity":"Activity" ,
+    "academy_fees":"Academy Fees" 
+    
 }

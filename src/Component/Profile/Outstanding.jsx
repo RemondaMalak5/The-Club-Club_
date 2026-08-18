@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { payment_Fawry } from "../../axiosConfig/APIs/Supscription_payment/Create_fawry";
 import { academyFeePayment } from "../../axiosConfig/APIs/Academy/Academy_Payment";
+import { useTranslation } from "react-i18next";
 
 const Outstanding = ({ data }) => {
+ const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("subscriptions");
 
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
@@ -20,10 +22,6 @@ const Outstanding = ({ data }) => {
 
   const fees =
     data?.outstandingFees || [];
-
-  // ==========================================
-  // Status Style
-  // ==========================================
 
   const getStatusStyle = (status) => {
     switch (status) {
@@ -119,9 +117,6 @@ const Outstanding = ({ data }) => {
         );
       }
 
-      // ======================================
-      // دفع العضوية
-      // ======================================
 
       else {
         const body = {
@@ -140,9 +135,7 @@ const Outstanding = ({ data }) => {
         response = await payment_Fawry(body);
       }
 
-      // ======================================
-      // Response
-      // ======================================
+    
 
       console.log(
         "Payment Response:",
@@ -165,9 +158,6 @@ const Outstanding = ({ data }) => {
         paymentLink
       );
 
-      // ======================================
-      // فتح صفحة الدفع
-      // ======================================
 
       if (
         status === "success" &&
@@ -198,21 +188,16 @@ const Outstanding = ({ data }) => {
   return (
     <div className="border rounded-3xl p-5 bg-white shadow-md">
 
-      {/* ======================================
-          TITLE
-      ====================================== */}
+      
 
       <h2 className="text-2xl font-bold mb-5">
         المدفوعات المستحقة
       </h2>
 
-      {/* ======================================
-          TABS
-      ====================================== */}
+      
 
       <div className="flex gap-3 border-b mb-6">
 
-        {/* العضويات */}
 
         <button
           type="button"
@@ -247,7 +232,7 @@ const Outstanding = ({ data }) => {
               : "border-transparent text-gray-500"
           }`}
         >
-          الانشطه
+          {t("academy_fees")}
         </button>
 
       </div>
@@ -456,7 +441,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          المبلغ
+                          {t("amount")}
                         </p>
 
                         <p className="font-bold text-[#00BFA6] mt-1">
@@ -471,7 +456,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          السنة الأكاديمية
+                          {t("academic_year")}
                         </p>
 
                         <p className="font-semibold mt-1">
@@ -486,7 +471,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          الفصل الأكاديمي
+                          {t("academic_term")}
                         </p>
 
                         <p className="font-semibold mt-1">
@@ -501,7 +486,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          تاريخ الاستحقاق
+                          {t("due_date")}
                         </p>
 
                         <p className="font-semibold mt-1">
@@ -516,7 +501,7 @@ const Outstanding = ({ data }) => {
 
                     <div className="mt-4 bg-gray-50 rounded-xl p-3 text-sm">
 
-                      نوع الطالب:{" "}
+                      {t("student_type")}:
 
                       <span className="font-semibold">
                         {item.isDependant
@@ -539,7 +524,7 @@ const Outstanding = ({ data }) => {
                         }
                         className="w-full mt-5 bg-[#00BFA6] hover:bg-[#009f8c] text-white py-3 rounded-xl font-semibold transition"
                       >
-                        ادفع الآن
+                           {t("pay_now")}
                       </button>
 
                     )}
@@ -584,7 +569,7 @@ const Outstanding = ({ data }) => {
             {/* Title */}
 
             <h2 className="text-xl font-bold text-center mb-5">
-              اختر طريقة الدفع
+              {t("select_payment_method")}
             </h2>
 
             {/* ======================================
@@ -601,7 +586,7 @@ const Outstanding = ({ data }) => {
                 <div className="mb-4 pb-4 border-b">
 
                   <p className="text-sm text-gray-500">
-                    النشاط
+                    {t("activity")}
                   </p>
 
                   <p className="font-bold mt-1">
@@ -625,7 +610,7 @@ const Outstanding = ({ data }) => {
               <div className="flex justify-between items-center">
 
                 <span className="text-gray-500">
-                  المبلغ
+                  {t("amount")}
                 </span>
 
                 <span className="font-bold text-[#00BFA6]">
@@ -734,7 +719,7 @@ const Outstanding = ({ data }) => {
                 <div className="border rounded-xl p-6 text-center">
 
                   <p className="text-gray-600">
-                    الدفع باستخدام البطاقة البنكية
+                        الدفع باستخدام البطاقة البنكية
                   </p>
 
                 </div>

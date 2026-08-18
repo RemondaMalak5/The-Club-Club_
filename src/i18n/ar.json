@@ -405,5 +405,17 @@
    "loyalty_subtitle" :"اكسب نقاط  مع كل عملية شراء أو حجز، واستبدلها بخصومات رائعة على خدماتنا وأنشطتنا." ,
  "trainer":"متدرب" ,
  "professional_trainers":"مدربين محترفين" ,
- "no_matching_activities":"لا توجد أنشطة "
+ "no_matching_activities":"لا توجد أنشطة " ,
+          "academy_payments":"مدفوعات الانشطه" ,
+ "subscription_payments":"مدفوعات العضوية" ,
+ "no_academy_payments":"لا توجد مدفوعات أنشطة" ,
+ "no_subscription_payments":"لا توجد مدفوعات عضوية" ,
+ "payment_method":"طريقة الدفع" ,
+  "due_date":"تاريخ الاستحقاق" ,
+  "student_type":"نوع الطالب" ,
+  "dependent_member":"عضو تابع" ,
+  "primary_member":"العضو الأساسي" ,
+  "select_payment_method":"اختر طريقة الدفع" ,
+  "activity":"النشاط",
+  "academy_fees":"رسوم الأنشطة"
 }

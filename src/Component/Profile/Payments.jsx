@@ -82,17 +82,13 @@ const Payments = ({ data }) => {
   // التاب المفتوح
   const [activeTab, setActiveTab] = useState("subscriptions");
 
-  // مدفوعات العضويات
   const subscriptionPayments =
     data?.subscriptionPayments || [];
 
-  // مدفوعات الأنشطة / الأكاديميات
   const feePayments =
     data?.feePayments || [];
 
-  // ==========================
-  // لون حالة الدفع
-  // ==========================
+ 
 
   const getStatusStyle = (status) => {
     switch (status?.toLowerCase()) {
@@ -116,18 +112,12 @@ const Payments = ({ data }) => {
   return (
     <div className="border rounded-3xl p-5 bg-white shadow-md">
 
-      {/* ==========================
-          TITLE
-      ========================== */}
 
       <h2 className="text-2xl font-bold mb-5">
         {t("payment_history")}
       </h2>
 
 
-      {/* ==========================
-          TABS
-      ========================== */}
 
       <div className="flex gap-3 border-b mb-6">
 
@@ -144,7 +134,7 @@ const Payments = ({ data }) => {
               : "border-transparent text-gray-500"
           }`}
         >
-          مدفوعات العضوية
+{  t("subscription_payments")        }
         </button>
 
 
@@ -161,7 +151,7 @@ const Payments = ({ data }) => {
               : "border-transparent text-gray-500"
           }`}
         >
-          مدفوعات الأنشطة
+          {t("academy_payments")}
         </button>
 
       </div>
@@ -177,7 +167,7 @@ const Payments = ({ data }) => {
           {subscriptionPayments.length === 0 ? (
 
             <div className="py-10 text-center text-gray-500">
-              لا توجد مدفوعات عضوية
+{ t("no_subscription_payments") }
             </div>
 
           ) : (
@@ -190,23 +180,23 @@ const Payments = ({ data }) => {
 
                   <tr>
                     <th className="px-4 py-3">
-                      التاريخ
+                      {t("date")}
                     </th>
 
                     <th className="px-4 py-3">
-                      الوصف
+                      {t("description")}    
                     </th>
 
                     <th className="px-4 py-3">
-                      المبلغ
+                      {t("amount")}
                     </th>
 
                     <th className="px-4 py-3">
-                      طريقة الدفع
+                      {t("payment_method")}
                     </th>
 
                     <th className="px-4 py-3">
-                      الحالة
+                      {t("status")}
                     </th>
                   </tr>
 
@@ -301,37 +291,37 @@ const Payments = ({ data }) => {
           {feePayments.length === 0 ? (
 
             <div className="py-10 text-center text-gray-500">
-              لا توجد مدفوعات أنشطة
+              {t("no_academy_payments")}
             </div>
 
           ) : (
 
             <div className="overflow-x-auto border border-gray-200 rounded-xl">
 
-              <table className="w-full text-sm text-right">
+              <table className="w-full text-sm ">
 
                 <thead className="bg-gray-50 text-gray-600">
 
                   <tr>
 
                     <th className="px-4 py-3">
-                      التاريخ
+                      {t("date")}
                     </th>
 
                     <th className="px-4 py-3">
-                      الوصف
+                      {t("description")}
                     </th>
 
                     <th className="px-4 py-3">
-                      المبلغ
+                      {t("amount")}
                     </th>
 
                     <th className="px-4 py-3">
-                      طريقة الدفع
+                      {t("payment_method")}
                     </th>
 
                     <th className="px-4 py-3">
-                      الحالة
+                      {t("status")}
                     </th>
 
                   </tr>
