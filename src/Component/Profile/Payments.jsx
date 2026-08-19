@@ -156,11 +156,6 @@ const Payments = ({ data }) => {
 
       </div>
 
-
-      {/* =====================================
-          SUBSCRIPTION PAYMENTS
-      ===================================== */}
-
       {activeTab === "subscriptions" && (
         <div>
 
@@ -344,8 +339,8 @@ const Payments = ({ data }) => {
                         <td className="px-4 py-4">
 
                           {item.paymentDate ||
-                            item.date ||
-                            "-"}
+                            item.date 
+                            }
 
                         </td>
 
@@ -385,11 +380,9 @@ const Payments = ({ data }) => {
                         <td className="px-4 py-4">
 
                           <span
-                            className={`text-xs px-3 py-1 rounded-full font-semibold ${getStatusStyle(
-                              item.status
-                            )}`}
+                            className={`text-xs px-3 py-1 rounded-full font-semibold bg-green-100 text-green-700}`}
                           >
-                            {item.status}
+                            paid
                           </span>
 
                         </td>

@@ -57,7 +57,8 @@ const Championship_component = () => {
         Get_champinship_state();
     }, [i18next.language, selectedBranch]);
     return (
-            <div className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>
+            <div  
+            className='py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] '>
                 <H_one text={t('championship_header_title')} />
                 <SubTitle SubTitle={t('championship_header_subtitle')} />
                 <div className='flex flex-wrap gap-5 mt-2'>

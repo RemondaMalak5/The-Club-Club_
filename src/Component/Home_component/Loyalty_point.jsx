@@ -119,7 +119,7 @@ language: i18next.language,
 
   
 
-  <h3 className="line-clamp-1 py-3 text-[18px] font-bold text-[#1E2939]">
+  <h3 className="line-clamp-2 py-3 text-[18px] font-bold text-[#1E2939]">
     {item.title}
   </h3>
 <div className=" flex items-center gap-3 rounded-xl border border-[#FFD54A]/40 bg-[#FFF9E6] px-4 py-3">

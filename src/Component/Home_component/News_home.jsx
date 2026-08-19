@@ -59,7 +59,7 @@ const News_home = () => {
           </p>
         </div>
 
-        <button
+        {/* <button
           type="button"
           onClick={() => navigate("/news")}
           className="flex items-center gap-2 rounded-full border border-[#00786F] px-6 py-2 text-[18px] font-bold text-black transition hover:bg-[#00786F] hover:text-white"
@@ -71,7 +71,7 @@ const News_home = () => {
           ) : (
             <IoArrowForward />
           )}
-        </button>
+        </button> */}
       </div>
 
       {error && (

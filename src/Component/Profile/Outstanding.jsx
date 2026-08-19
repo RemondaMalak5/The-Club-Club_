@@ -191,7 +191,7 @@ const Outstanding = ({ data }) => {
       
 
       <h2 className="text-2xl font-bold mb-5">
-        المدفوعات المستحقة
+        {t("outstanding_payments")}
       </h2>
 
       
@@ -213,7 +213,7 @@ const Outstanding = ({ data }) => {
               : "border-transparent text-gray-500"
           }`}
         >
-          تجديد العضوية
+          {t("renew_membership")}
         </button>
 
         {/* الأنشطة */}
@@ -249,7 +249,7 @@ const Outstanding = ({ data }) => {
           0 ? (
 
             <div className="py-10 text-center text-gray-500">
-              لا توجد مدفوعات مستحقة
+              {t("no_outstanding_payments")}
             </div>
 
           ) : (
@@ -275,7 +275,7 @@ const Outstanding = ({ data }) => {
                         </h3>
 
                         <p className="text-sm text-gray-500 mt-1">
-                          رقم الفاتورة:{" "}
+                         {t("reced_num")}:{" "}
                           {item.id}
                         </p>
 
@@ -298,7 +298,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          المبلغ
+                        {t("amount")}
                         </p>
 
                         <p className="font-bold text-[#00BFA6] mt-1">
@@ -311,8 +311,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          السنة المالية
-                        </p>
+{t("fiscal_year")}                        </p>
 
                         <p className="font-semibold mt-1">
                           {item.fiscalYear ||
@@ -324,8 +323,7 @@ const Outstanding = ({ data }) => {
                       <div>
 
                         <p className="text-sm text-gray-500">
-                          تاريخ الاستحقاق
-                        </p>
+{t("dueDate")}                        </p>
 
                         <p className="font-semibold mt-1">
                           {item.dueDate || "-"}
@@ -358,8 +356,7 @@ const Outstanding = ({ data }) => {
                         }
                         className="w-full mt-5 bg-[#00BFA6] hover:bg-[#009f8c] text-white py-3 rounded-xl font-semibold transition"
                       >
-                        ادفع الآن
-                      </button>
+{t("pay_now")}                      </button>
 
                     )}
 
@@ -375,9 +372,6 @@ const Outstanding = ({ data }) => {
         </div>
       )}
 
-      {/* ======================================
-          ACADEMIES / FEES
-      ====================================== */}
 
       {activeTab ===
         "academies" && (
@@ -386,8 +380,7 @@ const Outstanding = ({ data }) => {
           {fees.length === 0 ? (
 
             <div className="py-10 text-center text-gray-500">
-              لا توجد رسوم أكاديميات مستحقة
-            </div>
+{t("noacademy")}            </div>
 
           ) : (
 
@@ -416,8 +409,7 @@ const Outstanding = ({ data }) => {
                         </p>
 
                         <p className="text-sm text-gray-400 mt-1">
-                          رقم الرسوم:{" "}
-                          {item.id}
+                          {t("fee_number")}: {item.id}
                         </p>
 
                       </div>
@@ -505,8 +497,8 @@ const Outstanding = ({ data }) => {
 
                       <span className="font-semibold">
                         {item.isDependant
-                          ? "عضو تابع"
-                          : "العضو الأساسي"}
+                          ? t("dependent_member")
+                          : t("primary_member")}
                       </span>
 
                     </div>
@@ -632,8 +624,8 @@ const Outstanding = ({ data }) => {
 
                   {selectedPaymentItem?.type ===
                   "fee"
-                    ? "رقم الرسوم"
-                    : "رقم الفاتورة"}
+                    ? t("fee_number")
+                    : t("invoice_number")}
 
                 </span>
 
@@ -719,7 +711,7 @@ const Outstanding = ({ data }) => {
                 <div className="border rounded-xl p-6 text-center">
 
                   <p className="text-gray-600">
-                        الدفع باستخدام البطاقة البنكية
+                        {t("payment_by_card")}
                   </p>
 
                 </div>
@@ -736,8 +728,8 @@ const Outstanding = ({ data }) => {
                 >
 
                   {paymentLoading
-                    ? "جاري التحويل..."
-                    : "تأكيد الدفع"}
+                    ? t("processing")
+                    : t("confirm_payment")}
 
                 </button>
 
@@ -776,8 +768,8 @@ const Outstanding = ({ data }) => {
                 >
 
                   {paymentLoading
-                    ? "جاري التحويل..."
-                    : "ادفع عن طريق فوري"}
+                    ? t("processing")
+                    : t("pay_via_fawry")}
 
                 </button>
 
@@ -799,7 +791,7 @@ const Outstanding = ({ data }) => {
               }
               className="w-full mt-3 border border-[#00BFA6] text-[#00BFA6] rounded-xl py-3 disabled:opacity-50"
             >
-              إلغاء
+              {t("cancel")}
             </button>
 
           </div>

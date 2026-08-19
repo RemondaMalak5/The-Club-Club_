@@ -245,7 +245,7 @@ const AchievementsTimeline = () => {
                         </span>
 
                         <span className="flex flex-col">
-                          {t("الكؤوس الذهبية")}
+                          {t("golden_cups")}
 
                           <span className="text-center font-bold text-[#1E2939]">
                             {item.wins}
@@ -259,7 +259,7 @@ const AchievementsTimeline = () => {
                         </span>
 
                         <span className="flex flex-col">
-                          {t("المراكز المتقدمة")}
+                          {t("Top_positions")}
 
                           <span className="text-center font-bold text-[#1E2939]">
                             {item.runnerUp}
@@ -273,7 +273,7 @@ const AchievementsTimeline = () => {
                         </span>
 
                         <span className="flex flex-col">
-                          {t("البطولات")}
+                          {t("champions")}
 
                           <span className="text-center font-bold text-[#1E2939]">
                             {item.third}

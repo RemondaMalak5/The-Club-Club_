@@ -8,6 +8,7 @@ import { GiTrophyCup } from "react-icons/gi";
 
 const Left_side_chamin = ({ data }) => {
   const { t } = useTranslation();
+  console.log()
   return (
     <div className="space-y-5">
       {/* About */}
@@ -52,6 +53,7 @@ const Left_side_chamin = ({ data }) => {
               <div className="flex flex-col ">
                 <span className="text-[20px] font-bold text-gray-800">{award?.teamName}</span>
                 <p className="text-[#6A7282] text-[16px]">{award.prize}</p>
+                
               </div>
             </div>
           ))}

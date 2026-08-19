@@ -18,7 +18,7 @@ const Member_Register = () => {
   const { t } = useTranslation();
   const { saveToken } = useContext(UserTokenContext);
   const [currentStep, setCurrentStep] = useState(1);
-  const{  branches} = useBranch();
+  const { branches } = useBranch();
   const [formData, setFormData] = useState({
     branch: '',
     full_name: '',
@@ -26,17 +26,17 @@ const Member_Register = () => {
     phone: '',
     card_number: '',
     email: "",
-      is_dependant: 0,
+    is_dependant: 0,
 
     language: i18next.language,
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-const branchOptions =
-  branches?.map((branch) => ({
-    value: branch.id,
-    label: branch.name,
-  })) ;
+  const branchOptions =
+    branches?.map((branch) => ({
+      value: branch.id,
+      label: branch.name,
+    }));
 
   const fields = [
     {
@@ -137,66 +137,52 @@ const branchOptions =
 
   return (
     <div className='py-10  flex flex-col items-center justify-center'>
-      <Stepper_green currentStep={currentStep} totalSteps={4} title={t("Member_Registration")} onStepClick={(step) => setCurrentStep(step)}/> 
+      <Stepper_green currentStep={currentStep} totalSteps={4} title={t("Member_Registration")} onStepClick={(step) => setCurrentStep(step)} />
 
       <div className='border p-7 w-[55%] flex flex-col gap-3 items-center justify-center rounded-xl shadow-2xl'>
         <span className='bg-gradient-to-br from-[#08AC85DB] to-[#00786F] text-white p-5 rounded-full text-[30px]'><IoMdPerson />
         </span>
         <H_one_register title={t("Member_Registration")} />
         <p className=' text-[16px] text-[#5B626E]'> {t("member_registration_instructions")}</p>
+
+
         <div className=' w-full flex flex-wrap '>
-         {fields.map((field) => (
-  <div
-    key={field.name}
-    className="mb-3 md:w-1/2 w-full px-2"
-  >
-    <label className="font-medium text-[15px] text-[#364153] px-1">
-      {field.label}
-    </label>
+          {fields.map((field) => (
+            <div
+              key={field.name}
+              className="mb-3 md:w-1/2 w-full px-2"
+            >
+              <label className="font-medium text-[15px] text-[#364153] px-1">
+                {field.label}
+              </label>
 
-    <input
-      type="text"
-      name={field.name}
-      value={formData[field.name]}
-      onChange={handleChange}
-      placeholder={field.placeholder}
-      className="border p-3 my-2 rounded-lg w-full text-[14px] text-[#5B626E]"
-    />
+              <input
+                type="text"
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+                className="border p-3 my-2 rounded-lg w-full text-[14px] text-[#5B626E]"
+              />
 
-   {field.name === "card_number" && (
-  <div className="flex items-center gap-2 mt-1">
-    <input
-      type="checkbox"
-      checked={formData.is_dependant === 1}
-      onChange={(e) => {
-        setFormData((prev) => ({
-          ...prev,
-          is_dependant: e.target.checked ? 1 : 0,
-        }));
-      }}
-    />
 
-    <label className="text-sm text-[#5B626E]">
-      عضو تابع
-    </label>
-  </div>
-)}
-    {errors[field.name] && (
-      <p className="text-red-500 text-sm">
-        {errors[field.name]}
-      </p>
-    )}
-  </div>
-))}
+              {errors[field.name] && (
+                <p className="text-red-500 text-sm">
+                  {errors[field.name]}
+                </p>
+              )}
+            </div>
+          ))}
+          
           <div className='mb-3 w-1/2 px-2  '>
             <label className='font-medium text-[15px] text-[#364153] px-1 block mb-2'>
-              الفرع
+              {t("branch_label")}
             </label>
 
             <Select
-              placeholder="اختر الفرع"
+              placeholder={t("select_branch")}
               options={branchOptions}
-              
+
               value={
                 formData.branch
                   ? {
@@ -225,7 +211,22 @@ const branchOptions =
             )}
           </div>
 
+<div className="flex items-center gap-2 px-3">
+    <input
+      type="checkbox"
+      checked={formData.is_dependant === 1}
+      onChange={(e) => {
+        setFormData((prev) => ({
+          ...prev,
+          is_dependant: e.target.checked ? 1 : 0,
+        }));
+      }}
+    />
 
+    <label className="text-md text-[#5B626E]">
+{     t("dependent_member")  
+}    </label>
+  </div>
           {errors.general && <p className='text-red-500 text-sm text-center'>{errors.general}</p>}
 
           <button
@@ -234,11 +235,11 @@ const branchOptions =
             className='bg-gradient-to-r from-[#08AC85DB] to-[#00786F] text-white font-semibold py-3 px-5 rounded-xl hover:bg-[#005f5a] w-full mt-3 flex justify-center gap-3 disabled:opacity-50'
           >
             {loading ? 'جارٍ المعالجة...' : t("next")}
-            <span className='py-1'> {i18next.language === "ar" ? <IoIosArrowRoundBack/>: <IoIosArrowRoundForward/>} </span>
+            <span className='py-1'> {i18next.language === "ar" ? <IoIosArrowRoundBack /> : <IoIosArrowRoundForward />} </span>
           </button>
-        
+
         </div>
-                  <Already_Have_Account />
+        <Already_Have_Account />
 
       </div>
     </div>

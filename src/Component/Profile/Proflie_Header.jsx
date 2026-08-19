@@ -251,17 +251,22 @@ useEffect(() => {
                       className="border p-2 rounded-xl mt-2"
                     />
                   </div>
+<div className="flex flex-col xl:w-1/2 w-full px-2">
+  <label>{t("date_of_birth")}</label>
 
-                  <div className="flex flex-col xl:w-1/2 w-full px-2">
-                    <label>{t("date_of_birth")}</label>
-                    <input
-                      type="date"
-                      name="dateOfBirth"
-                      value={formData.dateOfBirth}
-                      onChange={handleChange}
-                      className="border p-2 rounded-xl mt-2"
-                    />
-                  </div>
+  <input
+    type="date"
+    name="dateOfBirth"
+    value={formData.dateOfBirth}
+    onChange={handleChange}
+    onClick={(e) => {
+      if (typeof e.currentTarget.showPicker === "function") {
+        e.currentTarget.showPicker();
+      }
+    }}
+    className="border p-2 rounded-xl mt-2 cursor-pointer"
+  />
+</div>
 
                   <div className="flex flex-col  w-full px-2">
                     <label>{t("gender")}</label>

@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Champins_details } from "../../../axiosConfig/APIs/Champanship/Champins_details";
 import { GiTrophyCup } from "react-icons/gi";
 import Left_side_chamin from "./Left_side_chamin";
@@ -8,6 +8,7 @@ import Right_side_champin from "./Right_side_champin";
 import { MdOutlineDateRange, MdPersonOutline } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
 import { useTranslation } from "react-i18next";
+import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 
 const Champin_header = () => {
   const [data, setData] = useState();
@@ -15,8 +16,8 @@ const Champin_header = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const location = useLocation();
-
-  const branchId = location.state?.branchId;
+  const navigation = useNavigate()
+    const branchId = location.state?.branchId;
 
   const params = {
     language: i18next.language,
@@ -47,8 +48,15 @@ const Champin_header = () => {
     { icon: <MdPersonOutline/>, value: `${data?.teamsCount} ${t("players")}` },
   ]
   return (
-    <div className="bg-[#f8f8f8] min-h-screen pb-10">
-      {/* Hero Image */}
+    <div className="bg-[#f8f8f8] min-h-screen pb-10"
+        onClick={()=>navigation(`/champions`)}>
+          <span className="flex gap-3 py-3">
+            <span className="flex items-center text-2xl"> {i18next.language === "ar" ? <IoMdArrowForward/> : <IoMdArrowBack/>}</span>
+        <h1 className="text-2xl font-bold text-[#1B1B1B]">
+            {data?.name}
+          </h1>
+          </span>
+        
       <img
         src={data?.image}
         alt="championship"
@@ -66,9 +74,7 @@ const Champin_header = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-14 py-5">
       
         <div>
-          <h1 className="text-2xl font-bold text-[#1B1B1B]">
-            {data?.name}
-          </h1>
+          
           <div className="flex flex-wrap gap-4 py-1">
               {info.map((e, index) => (
             <p

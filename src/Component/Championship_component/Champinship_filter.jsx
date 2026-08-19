@@ -29,17 +29,7 @@ const Champinship_filter = () => {
   const [error, setError] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 const isLoggedIn = !!user;
-  // const [branches, setBranches] = useState([]);
-
-  // const Get_Branches = async () => {
-  //   const params = {
-  //     language: i18next.language,
-  //   };
-  //   try {
-  //     const response = await AllBranches(params);
-  //     setBranches(response.message.data);
-  //   } catch (error) {}
-  // };
+  
 const { selectedBranch, changeBranch, branches } = useBranch();
   const Get_Champins_List = async () => {
     const params = {
@@ -145,7 +135,8 @@ const { selectedBranch, changeBranch, branches } = useBranch();
         </button>
       </div>
 
-      <div
+      <div 
+      
         className={`w-full flex flex-wrap ${
           viewMode === "list" ? "flex-col" : ""
         }`}
@@ -160,13 +151,21 @@ const { selectedBranch, changeBranch, branches } = useBranch();
       : "w-full mb-6"
   }
 >
-  <div
+  <div onClick={() =>
+            navigation(`/champions/${e.id}`, {
+              state: {
+                branchId: e.branchId,
+                branchName: e.branchName,
+              },
+            })
+          }
     className={`relative border rounded-lg shadow-md overflow-hidden bg-white ${
       viewMode === "list" ? "flex flex-col md:flex-row" : ""
     }`}
   >
     {/* الصورة */}
-    <div className="relative">
+    <div 
+    className="relative">
       <img
         src={e.image}
         alt={e.name}
@@ -214,7 +213,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           <span className="text-[#08AC85DB]">
             <MdOutlineSportsSoccer />
           </span>
-          {e.teamsCount} لاعبين
+          {e.teamsCount} {t("players")}
         </p>
 
         <p className="flex items-center gap-2">
@@ -227,14 +226,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
 
       <div className="px-4 py-4">
         <button
-          onClick={() =>
-            navigation(`/champions/${e.id}`, {
-              state: {
-                branchId: e.branchName,
-                branchName: e.branchName,
-              },
-            })
-          }
+          
           className="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 transition"
         >
 {t("view_details")}        </button>
@@ -245,7 +237,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           ))
         ) : (
           <div className="w-full text-center py-10 text-gray-500 text-lg">
-            لا توجد أكاديميات مطابقة
+{t("no_tournaments_found")}          
           </div>
         )}
       </div>
