@@ -23,7 +23,6 @@ const AboutUs = () => {
 
     try {
       const response = await About_us(params);
-console.log("language", i18next.language);
       setData(response.message.data);
       setTotalPages(response.message.total_pages);
     } catch (error) {

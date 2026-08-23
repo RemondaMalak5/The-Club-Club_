@@ -138,32 +138,26 @@ const Register_Geust = () => {
       };
 
       const response = await Send_OTP(body);
-      console.log("responseresponseresponseresponseresponse", response);
       navigate("/otp-guest", {
         state: {
           formData: formData,
         },
       });
     } catch (error) {
-      console.log(error?.response?.data);
     }
   };
   const handleSubmit = async () => {
-    console.log("formData", formData);
 
     if (!validateForm()) {
-      console.log("Validation Failed");
       return;
     }
 
-    console.log("Validation Passed");
 
     try {
       setLoading(true);
 
       const response = await Step_1_validation(formData);
 
-      console.log("Success:", response);
 
       const receivedToken = response?.message?.registration_token;
 
@@ -172,7 +166,6 @@ const Register_Geust = () => {
         await handleVerify(receivedToken);
       }
     } catch (error) {
-      console.log("Error:", error);
     } finally {
       setLoading(false);
     }

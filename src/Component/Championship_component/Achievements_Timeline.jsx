@@ -194,7 +194,6 @@ const AchievementsTimeline = () => {
 
       setTimeline(mapped);
     } catch (error) {
-      console.log("Timeline error:", error);
       setTimeline([]);
     }
   };

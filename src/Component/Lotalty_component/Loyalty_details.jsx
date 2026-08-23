@@ -41,7 +41,6 @@ const Loyalty_details = () => {
       (item) => String(item.id) === String(id)
     );
 
-    console.log("selectedItem:", selectedItem);
 
     setData(selectedItem || null);
   } catch (error) {

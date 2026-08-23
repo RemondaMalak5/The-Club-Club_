@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Branch_stats } from "../../axiosConfig/APIs/Home/Branch_stats";
 import { useTranslation } from "react-i18next";
+import H_one from "../Shared_component/H_one";
 
 const BranchStats = ({ branchId }) => {
   const [branchData, setBranchData] = useState(null);
@@ -24,7 +25,6 @@ const BranchStats = ({ branchId }) => {
 
       setBranchData(selectedBranch);
     } catch (error) {
-      console.log("Branch Stats Error:", error);
       setBranchData(null);
     } finally {
       setLoading(false);
@@ -63,30 +63,30 @@ const BranchStats = ({ branchId }) => {
 
     return [
       {
-        title: " {t('current_members')} ",
+        title: t('current_members'),
         value: values.currentMembers,
-        subtitle: `${values.occupancyRate}% نسبة الإشغال`,
+        subtitle: `${values.occupancyRate}% ${t("Occupancy_rate")}`,
         color: "#00A63E",
         percent: values.occupancyRate,
       },
       {
-        title: "إجمالي الزيارات",
+        title: t("Total_Visits"),
         value: values.todayEntry,
-        subtitle: "عدد زيارات اليوم",
+        subtitle: t("Number_of_visits_today"),
         color: "#D73502",
         percent: getPercent(values.todayEntry, maxNumber),
       },
       {
-        title: "إجمالي الخروج",
+        title: t("Total_Exit"),
         value: values.todayExit,
-        subtitle: "عدد الخروج اليوم",
+        subtitle: t("Number_of_departures_today"),
         color: "#F5B400",
         percent: getPercent(values.todayExit, maxNumber),
       },
       {
-        title: "متوسط مدة الزيارة",
-        value: `${values.averageVisitDuration} ساعات`,
-        subtitle: `آخر تحديث ${branchData.lastUpdated || ""}`,
+        title: t("Average_visit_duration"),
+        value: `${values.averageVisitDuration} ${t("hours")}`,
+        subtitle: `${t("Last_update")} ${branchData.lastUpdated }`,
         color: "#FF6900",
         percent: getPercent(values.averageVisitDuration, maxNumber),
       },
@@ -152,10 +152,8 @@ const BranchStats = ({ branchId }) => {
   }
 
   return (
-    <section dir="rtl" className="py-12 px-4">
-      <h2 className="text-center text-3xl font-bold text-[#1F2937] mb-10">
-        {t("branch_stats")}
-      </h2>
+    <section  className="py-12 px-4">
+      <H_one text= {t("branch_stats")}/>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {stats.map((item) => (

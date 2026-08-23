@@ -95,9 +95,7 @@ const Member_Register = () => {
       };
 
       const response = await Send_OTP(body);
-      console.log("responseresponseresponseresponseresponse", response)
     } catch (error) {
-      console.log(error?.response?.data);
     }
   };
   const handleSubmit = async () => {
@@ -114,9 +112,7 @@ const Member_Register = () => {
     try {
       setLoading(true);
       const response = await Step_1_validation(formData);
-      console.log(response)
       const receivedToken = response?.message?.registration_token;
-      console.log()
 
       if (receivedToken) {
         saveToken(receivedToken);

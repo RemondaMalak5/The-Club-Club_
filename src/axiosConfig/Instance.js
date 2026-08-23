@@ -12,12 +12,7 @@ const axiosInstance = axios.create({
   },
 });
 
-// axiosInstance.interceptors.request.use((config) => {
-//   const token = Cookies.get("token_the_club");
-//   console.log(Cookies.get("token_the_club"));
-//   if (token) config.headers.Authorization = `Bearer ${token}`;
-//   return config;
-// });
+
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 

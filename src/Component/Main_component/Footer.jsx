@@ -60,7 +60,7 @@ const Footer = () => {
             <img
               src={assets.theClub_Logo}
               alt={t("club_name")}
-              className="w-20 h-20"
+              className="w-20 h-20 object-contain"
               loading="lazy"
             />
             <h2 className="font-bold text-lg">{t("club_name")}</h2>

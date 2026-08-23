@@ -10,10 +10,10 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { Newslist } from "../../axiosConfig/APIs/News/News_list";
 
 const News_home = () => {
   const navigate = useNavigate();

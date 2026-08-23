@@ -27,18 +27,9 @@ const Academy_filter = () => {
   const paginationRef = useRef();
   const [Categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
-  // const [branches, setBranches] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = user;
-  // const Get_Branches = async () => {
-  //   const params = {
-  //     language: i18next.language,
-  //   };
-  //   try {
-  //     const response = await AllBranches(params);
-  //     setBranches(response.message.data);
-  //   } catch (error) { }
-  // };
+ 
 const{selectedBranch, changeBranch, branches} = useBranch();
 
   const Get_Academy_Category = async () => {
@@ -53,12 +44,10 @@ const{selectedBranch, changeBranch, branches} = useBranch();
           index === self.findIndex((c) => c.id === category.id),
       );
       setCategories(uniqueCategories);
-      console.log(selectedBranch, "selectedBranch");
     } catch (error) { }
   };
 
 const Get_Academy_List = async () => {
-  // const finalBranchId = !isLoggedIn ? selectedBranch || "all" : selectedBranch;
 
   const params = {
     language: i18next.language,
@@ -73,14 +62,11 @@ const Get_Academy_List = async () => {
     const response = await Academylist(params);
     setData(response.message.data || []);
     setTotalPages(response.message.total_pages);
-    console.log(response.message.data.branchId)
   } catch (error) {
     setError(true);
   }
 };
-  // useEffect(() => {
-  //   Get_Branches();
-  // }, [i18next.language]);
+ 
   useEffect(() => {
     Get_Academy_Category();
   }, [i18next.language , selectedBranch]);

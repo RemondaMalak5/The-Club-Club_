@@ -26,7 +26,6 @@ const [data, setData] = useState(null);
     try {
       const response = await Services_details(params);
       setData(response.message.data);
-      console.log("res",response.message.data)
     } catch (error) {
       setError(true);
     }

@@ -32,7 +32,6 @@ const {selectedBranch ,changeBranch , branches} = useBranch();
       setData(response?.message?.data );
       setTotalPages(response?.message?.total_pages);
     } catch (error) {
-      console.log("Academy Error:", error);
       setError(true);
     }
   };

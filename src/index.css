@@ -19,7 +19,9 @@
 .news-swiper .swiper-pagination-bullet-active {
   background: #4b5563;
 }
-
+.membership-swiper .swiper-pagination {
+  bottom: -20px !important;
+}
 .container{
    @apply lg:px-10 lg:py-10; 
 }

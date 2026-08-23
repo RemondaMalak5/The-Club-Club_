@@ -129,11 +129,9 @@ const otpToken = formData?.otpToken || location.state?.otpToken || "";
       language: i18n.language,
     };
 
-    console.log("verify body:", body);
 
     const response = await Verify_Forgot_Password_OTP(body);
 
-    console.log("verify response:", response);
 
  const resetToken = response?.message?.resetToken;
 

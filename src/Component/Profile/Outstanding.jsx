@@ -42,21 +42,16 @@ const Outstanding = ({ data }) => {
     }
   };
 
-  // ==========================================
-  // فتح Popup الدفع
-  // ==========================================
 
   const openPaymentPopup = (item) => {
-    console.log("Selected Payment Item:", item);
 
     setSelectedPaymentItem(item);
     setSelectedPaymentMethod("visa");
     setShowPaymentPopup(true);
   };
 
-  // ==========================================
-  // إغلاق Popup
-  // ==========================================
+
+
 
   const closePaymentPopup = () => {
     if (paymentLoading) return;
@@ -66,9 +61,6 @@ const Outstanding = ({ data }) => {
     setSelectedPaymentMethod("visa");
   };
 
-  // ==========================================
-  // الدفع
-  // ==========================================
 
   const handlePayment = async (paymentMethod) => {
     if (!selectedPaymentItem) return;
@@ -78,9 +70,7 @@ const Outstanding = ({ data }) => {
 
       let response;
 
-      // ======================================
-      // دفع رسوم الأنشطة / الأكاديميات
-      // ======================================
+     
 
       if (selectedPaymentItem.type === "fee") {
         const payMethod =
@@ -90,9 +80,7 @@ const Outstanding = ({ data }) => {
           selectedPaymentItem.payParams || {};
 
         if (!payMethod) {
-          console.log(
-            "payMethod غير موجود في بيانات النشاط"
-          );
+         
           return;
         }
 
@@ -101,15 +89,9 @@ const Outstanding = ({ data }) => {
           payment_method: paymentMethod,
         };
 
-        console.log(
-          "Academy Payment Method:",
-          payMethod
-        );
+      
 
-        console.log(
-          "Academy Payment Params:",
-          params
-        );
+     
 
         response = await academyFeePayment(
           payMethod,
@@ -127,37 +109,16 @@ const Outstanding = ({ data }) => {
             paymentMethod,
         };
 
-        console.log(
-          "Subscription Payment Body:",
-          body
-        );
+     
 
         response = await payment_Fawry(body);
       }
-
-    
-
-      console.log(
-        "Payment Response:",
-        response
-      );
 
       const status =
         response?.message?.status;
 
       const paymentLink =
         response?.message?.payment_link;
-
-      console.log(
-        "Payment Status:",
-        status
-      );
-
-      console.log(
-        "Payment Link:",
-        paymentLink
-      );
-
 
       if (
         status === "success" &&
@@ -166,20 +127,12 @@ const Outstanding = ({ data }) => {
         window.location.href =
           paymentLink;
       } else {
-        console.log(
-          "Payment link not found"
-        );
+        
       }
     } catch (error) {
-      console.log(
-        "Payment Error:",
-        error
-      );
+      
 
-      console.log(
-        "Backend Error:",
-        error?.response?.data
-      );
+     
     } finally {
       setPaymentLoading(false);
     }
@@ -187,18 +140,11 @@ const Outstanding = ({ data }) => {
 
   return (
     <div className="border rounded-3xl p-5 bg-white shadow-md">
-
-      
-
       <h2 className="text-2xl font-bold mb-5">
         {t("outstanding_payments")}
       </h2>
 
-      
-
       <div className="flex gap-3 border-b mb-6">
-
-
         <button
           type="button"
           onClick={() =>

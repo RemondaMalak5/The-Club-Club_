@@ -27,7 +27,6 @@ const Header_academy_details = () => {
     try {
       const response = await Academy_Detail(params);
       setData(response.message);
-          console.log(response.message.data.branchId)
 
     } catch (error) {
       setError(true);

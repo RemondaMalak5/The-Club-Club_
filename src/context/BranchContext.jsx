@@ -29,7 +29,6 @@ const { i18n } = useTranslation();
 
         setBranches(response.message.data || []);
       } catch (error) {
-        console.log(error);
       }
     };
 

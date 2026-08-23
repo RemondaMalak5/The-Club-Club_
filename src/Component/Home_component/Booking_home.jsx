@@ -59,7 +59,6 @@ const Booking_home = () => {
         branchId: selectedBranch === "all" ? "" : selectedBranch,
       }),
   });
- console.log(servicesData, "servicesData");
   const events = servicesData?.message?.data || [];
 
 const steps = events.slice(0, 3).map((item) => ({

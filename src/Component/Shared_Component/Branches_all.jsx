@@ -10,29 +10,9 @@ import { useBranch } from "../../context/BranchContext";
 
 const Branches_all = () => {
   const { t } = useTranslation();
-  // const [data, setData] = useState([]);
-  // const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { selectedBranch, changeBranch, branches } = useBranch();
-  // const Get_Branch_List = async () => {
-  //   const params = {
-  //     language: i18next.language,
-  //   };
-  //   try {
-  //     const response = await AllBranches(params);
-  //     setData(response.message.data);
-  //     console.log(response.message.data.workingHours)
-  //   } catch (error) {
-  //     setError(true);
-  //   }
-  // };
-  // useEffect(() => {
-  //   Get_Branch_List();
-  // }, [i18next.language]);
-
-
-
-
+ 
   return (
     <div className="w-full mt-10 px-4 ">
 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

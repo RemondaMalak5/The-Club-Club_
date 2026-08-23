@@ -49,7 +49,10 @@ const Slider_home = () => {
   <img
     src={data[currentSlide]?.image}
     className="w-full h-[550px] object-cover brightness-50"
-    loading="lazy"
+     loading="eager"
+  fetchPriority="high"
+  decoding="async"
+    // loading="lazy"
   />
 
   <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-textUp">

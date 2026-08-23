@@ -21,7 +21,6 @@ const About_home = () => {
     try {
       const response = await welcome_the_club(params);
       setData(response.message.data);
-      console.log("get_home_hero response:", response);
     } catch (error) {
       console.error("Error fetching get_home_hero:", error);
     }
@@ -84,11 +83,13 @@ const topLinks =
         <h1 className="text-[38px] font-bold">{data?.title}</h1>
 
         {/* services */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap  gap-4">
           {services?.map((item, index) => (
             <div
               key={index}
-              className="flex items-center gap-3 bg-white border rounded-xl p-3 shadow-sm"
+              className="flex items-center gap-3   w-full
+           sm:w-[48%]
+           lg:w-[31%] bg-white border rounded-xl p-3 shadow-sm "
             >
               <div className="p-3 rounded-md text-[22px] bg-gradient-to-l from-[#FFF7ED] via-[#EFF4F2] to-[#ECFEFF]">
                 {item.icon}
@@ -101,7 +102,7 @@ const topLinks =
             </div>
           ))}
         </div>
-        <div className="flex flex-wrap gap-3 mt-2 font-bold">
+        <div className="flex flex-wrap gap-3 mt-2 font-bold ">
           <button onClick={() => navigate("/register")}
            className="flex gap-2 items-center justify-center rounded-full px-10 py-4 
                    bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F] 

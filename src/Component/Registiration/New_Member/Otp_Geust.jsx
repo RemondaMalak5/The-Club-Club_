@@ -27,7 +27,6 @@ const Otp_Geust = ({ length = 6 }) => {
   const maskedPhone = formData.phone
     ? formData.phone.replace(/\d(?=\d{4})/g, "*")
     : "***5678";
-console.log(location.state?.formData)
   useEffect(() => {
     if (counter <= 0) return;
 

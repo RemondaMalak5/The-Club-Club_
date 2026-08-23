@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { LayoutGrid, List, Calendar, MapPin, Users } from "lucide-react";
 import { All_Services } from "../../../axiosConfig/APIs/Services/All_Services";
 import { Services_category } from "../../../axiosConfig/APIs/Services/Services_category";
-// import { AllBranches } from "../../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import Pagination_Component from "../../Shared_Component/Pagination_Component";
@@ -45,13 +44,7 @@ const { data: servicesData, isLoading, isError } = useQuery({
       }),
   });
 
-  // const { data: branchesData } = useQuery({
-  //   queryKey: ["branches", i18next.language],
-  //   queryFn: () =>
-  //     AllBranches({
-  //       language: i18next.language,
-  //     }),
-  // });
+ 
  useEffect(() => {
   if (servicesData?.message?.total_pages) {
     setTotalPages(servicesData.message.total_pages);
@@ -66,7 +59,7 @@ const categories = useMemo(() => {
     (category, index, self) =>
       index === self.findIndex((item) => item.id === category.id)
   );
-}, [categoriesData]);  // const branches = branchesData?.message?.data || [];
+}, [categoriesData]);  
 
 const tabs = useMemo(() => {
   return [
@@ -105,7 +98,7 @@ const tabs = useMemo(() => {
   }, [services, activeTab, selectedBranch, searchTerm]);
 
   const getPriceLabel = (price, currency) => {
-    return Number(price) === 0 ? "مجاني" : `${price} ${currency || "EGP"}`;
+    return Number(price) === 0 ? "" : `${price} ${currency || "EGP"}`;
   };
 
   if (isLoading) {
@@ -282,8 +275,7 @@ const tabs = useMemo(() => {
                       }
                       className="w-full bg-teal-600 text-white py-2.5 rounded-lg hover:bg-teal-700 transition"
                     >
-                      عرض التفاصيل
-                    </button>
+{t("view_more")}                    </button>
                   </div>
                 </div>
               </div>

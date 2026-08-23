@@ -41,7 +41,6 @@ const isLoggedIn = !!localStorage.getItem("token");
         localStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);
       } catch (error) {
-        console.log(error);
         setUser(parsedUser);
       }
     };
@@ -103,7 +102,9 @@ const isLoggedIn = !!localStorage.getItem("token");
             <img
               src={assets.logo}
               alt="logo"
-              className="w-14 h-14"
+              width={48}
+              height={48}
+              className="w-14 h-14 object-contain"
               loading="lazy"
             />
           </NavLink>

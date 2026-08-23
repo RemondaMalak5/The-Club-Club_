@@ -8,7 +8,6 @@ import { GiTrophyCup } from "react-icons/gi";
 
 const Left_side_chamin = ({ data }) => {
   const { t } = useTranslation();
-  console.log()
   return (
     <div className="space-y-5">
       {/* About */}

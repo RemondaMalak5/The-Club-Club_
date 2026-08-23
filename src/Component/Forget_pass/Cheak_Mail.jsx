@@ -53,7 +53,6 @@ const branchOptions =
                     },
                 },
             });
-            console.log("forget response:", response);
 
             // setSuccessMsg(
             //     response?.message?.message ||

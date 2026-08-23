@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { AllBranches } from "../../axiosConfig/APIs/Branches/All_Branches";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 
 const Branches_home = () => {
   const {t}= useTranslation();
@@ -47,8 +49,48 @@ const Branches_home = () => {
 </span>
         </button>
       </div>
+<div className="block md:hidden my-6">
+  <Swiper
+    modules={[Pagination, Autoplay]}
+    spaceBetween={16}
+    slidesPerView={1.1}
+    pagination={{ clickable: true }}
+    autoplay={{
+      delay: 3000,
+      disableOnInteraction: false,
+    }}
+  >
+    {branch?.map((e) => (
+      <SwiperSlide key={e.id}>
+<div  className="w-full md:w-1/3 px-3 py-3 ">
+            <div className="border rounded-xl shadow-2xl   ">
+              <img src={e.image} className="h-60 w-full object-cover rounded-xl" loading="lazy" />
 
-      <div className="w-full flex flex-wrap  ">
+              <div className="px-5 py-5 flex flex-col gap-3">
+                <p className="font-bold text-[18px]">{e.name}</p>
+
+                <p className="font-semibold text-[14px] text-[#4B4B4B]">
+                  {e.title}
+                </p>
+
+                <div className="flex flex-wrap gap-5">
+                  <Btn_bg btn={t("academy")} onClick={() => navigate(`/academy`)} />
+
+                  <button onClick={()=>navigate(`/about-branches/${e.id}` ,
+                  {state:{registryId: e.registryId ,
+                  branchName: e.name,
+                  }})} className="text-[16px] font-bold border border-[#00786F] px-7 py-3 rounded-xl">
+                    {t("details")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
+      <div className="hidden md:flex w-full  flex-wrap  ">
         {branch?.map((e, index) => (
           <div key={index} className="w-full md:w-1/3 px-3 py-3 ">
             <div className="border rounded-xl shadow-2xl   ">

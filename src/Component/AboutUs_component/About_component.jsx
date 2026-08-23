@@ -16,7 +16,7 @@ const About_component = ({ data }) => {
 }            </h2>
 
             <p className="text-[#4A5565] font-medium text-[20px] py-3">
-              {data?.ourClub?.intro}
+              {data?.clubDescription}
             </p>
           </div>
 

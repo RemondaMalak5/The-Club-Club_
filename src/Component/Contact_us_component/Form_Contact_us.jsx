@@ -66,12 +66,10 @@ const Form_Contact_us = () => {
       message: data.message,
     };
 
-    console.log("Contact body:", body);
 
     try {
       const response = await Contact_us(body);
 
-      console.log("Success:", response);
 
       return response;
     } catch (error) {

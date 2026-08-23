@@ -37,7 +37,7 @@ const Values = ({ data }) => {
           {data?.coreValues?.map((item, index) => (
             <div
               key={index}
-              className="bg-[#EEF6F5] rounded-2xl p-4 sm:p-5 shadow-md text-right"
+              className="bg-[#EEF6F5] rounded-2xl p-4 sm:p-5 shadow-md "
             >
               <h3 className="text-[#0A8F7A] font-bold text-lg sm:text-xl mb-2">
                    <span className="text-[#00BFA6]">{item.icon || "•"}</span>

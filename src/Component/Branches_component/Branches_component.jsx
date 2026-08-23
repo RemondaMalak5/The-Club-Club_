@@ -94,8 +94,7 @@ const Branches_component = () => {
           ))}
 
           <p className="bg-[#EFF4F2] p-4 rounded-lg mt-3 text-[#6A7282] text-[14px] md:text-[16px]">
-            * الإحداثيات المستخدمة تقريبية ويمكن تعديلها لعنوان الفرع الحقيقي.
-          </p>
+{t("note")}          </p>
         </div>
         <div className="w-full md:w-1/2 h-[400px] md:h-auto rounded-2xl overflow-hidden sticky ">
           <Map_component />

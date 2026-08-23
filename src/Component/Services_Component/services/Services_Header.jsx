@@ -3,21 +3,23 @@ import { Users, Activity, Layers } from "lucide-react";
 import SubTitle from "../../Shared_Component/SubTitle";
 import Title_1 from "../../Shared_Component/Title_1";
 import H_one from "../../Shared_Component/H_one";
+import { useTranslation } from "react-i18next";
 
 const Services_Header = () => {
+  const {t} =useTranslation();
   const stats = [
      {
-      title: "إجمالي عدد الخدمات",
+      title: t("Total_number_of_services"),
       value: 13,
       icon: <Layers/>,
     }, 
     {
-      title: "المشتركين",
+      title: t("Subscribers"),
       value: 320,
       icon: <Users />, 
     },
     {
-      title: "الخدمات النشطة",
+      title: t("Active_Services"),
       value: 12,
       icon: <Activity />,
     },
@@ -27,8 +29,8 @@ const Services_Header = () => {
   return (
    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
-        <H_one text={"خدمات النادي"} />
-        <SubTitle SubTitle={"اكتشف باقة متنوعة من الخدمات والأنشطة المميزة"} />
+        <H_one text={t("club_services")} />
+        <SubTitle SubTitle={t("services_dis")} />
         <div className="flex flex-wrap gap-7 mt-2">
           {stats?.map((item, index) => (
             <div

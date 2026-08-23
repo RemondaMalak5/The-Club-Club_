@@ -71,7 +71,6 @@ useEffect(() => {
   };
 
   reader.onerror = () => {
-    console.log("Failed to read image");
   };
 
   reader.readAsDataURL(file);
@@ -107,11 +106,9 @@ useEffect(() => {
 
     const response = await Update_profile(body);
 
-    console.log("Profile updated successfully", response);
 
     setOpen(false);
   } catch (error) {
-    console.log(error?.response?.data || error);
   } finally {
     setLoading(false);
   }

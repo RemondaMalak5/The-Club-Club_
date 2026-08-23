@@ -17,7 +17,7 @@ const Vision_Mission = ({ data }) => {
         <div className="flex flex-col lg:flex-row-reverse items-center gap-6">
 
           {/* Text */}
-          <div className="flex-1 bg-[#EEF6F5] rounded-3xl shadow-md p-6 sm:p-8 text-center lg:text-right">
+          <div className="flex-1 bg-[#EEF6F5] rounded-3xl shadow-md p-6 sm:p-8 ">
             <h2 className="text-[#0A8F7A] text-3xl sm:text-4xl font-bold mb-4">
               {data?.vision?.title}
             </h2>
@@ -44,7 +44,7 @@ const Vision_Mission = ({ data }) => {
           {/* Image */}
         
           {/* Text */}
-          <div className="flex-1 bg-[#EEF6F5] rounded-3xl shadow-md p-6 sm:p-8 text-center lg:text-right">
+          <div className="flex-1 bg-[#EEF6F5] rounded-3xl shadow-md p-6 sm:p-8 ">
             <h2 className="text-[#0A8F7A] text-3xl sm:text-4xl font-bold mb-4">
 {data?.mission?.title }
             </h2>

@@ -19,11 +19,9 @@ const AcademyApplications = () => {
 
       const response = await Myappicant(params);
 
-      console.log("Applications Response:", response);
 
       setApplications(response?.message?.data || []);
     } catch (error) {
-      console.log("Applications Error:", error);
       setApplications([]);
     } finally {
       setLoading(false);

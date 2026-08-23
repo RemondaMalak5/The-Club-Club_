@@ -52,11 +52,11 @@ const About_branches = () => {
         />
         <BranchStats branchId={branchId}/>
                 <Academy_branch registryId={branchId} />
+        <Memberships_branch branchId={branchId} />
 
         <News_branch branchId={branchId} />
         {/* <Services_branch branchId={branchId} />
         <Gallary_branche branchId={branchId} /> */}
-        <Memberships_branch branchId={branchId} />
         <Ready_home/>
       </div>
     </div>

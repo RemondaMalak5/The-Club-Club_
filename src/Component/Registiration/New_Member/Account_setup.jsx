@@ -134,11 +134,9 @@ const Account_setup = () => {
 
       const response = await Create_Account(body);
 
-      console.log(response);
 
       navigate("/profile-guest");
     } catch (error) {
-      console.log(error?.response?.data);
 
       setErrors({
         general:

@@ -12,7 +12,6 @@ const Academy_branch = ({ registryId }) => {
   const [error, setError] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
 
-  console.log("branchId in Academy_branch:", registryId);
   const Get_Academy_List = async () => {
     const params = {
       "language": i18next.language,
@@ -22,7 +21,6 @@ const Academy_branch = ({ registryId }) => {
     try {
       const response = await Academylist(params);
       setData(response.message.data);
-      console.log(response.message.data)
 
 
       setTotalPages(response.message.total_pages);
@@ -87,14 +85,12 @@ const Academy_branch = ({ registryId }) => {
             </div>
 
             {/* buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full md:w-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full md:w-auto">
               <button className="bg-[#0A8F7A] text-white px-4 py-2 rounded-2xl font-bold sm:w-28 hover:bg-white hover:text-[#0A8F7A] border border-[#0A8F7A] transition">
                 {t("book")}
               </button>
 
-              <button className="border border-[#0A8F7A] px-4 py-2 rounded-2xl text-sm sm:w-28 font-bold hover:bg-[#0A8F7A] hover:text-white transition">
-                {t("schedule")}
-              </button>
+              
 
               <button onClick={() =>
                 navigation(`/academy/${academy.id}`, {
