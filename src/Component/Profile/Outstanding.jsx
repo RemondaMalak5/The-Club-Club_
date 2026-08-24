@@ -18,7 +18,7 @@ const Outstanding = ({ data }) => {
   const [paymentLoading, setPaymentLoading] = useState(false);
 
   const subscriptions =
-    data?.outstandingSubscriptions || [];
+    data?.outstandingSubscriptions || [] ;
 
   const fees =
     data?.outstandingFees || [];
@@ -88,10 +88,6 @@ const Outstanding = ({ data }) => {
           ...payParams,
           payment_method: paymentMethod,
         };
-
-      
-
-     
 
         response = await academyFeePayment(
           payMethod,
@@ -183,9 +179,7 @@ const Outstanding = ({ data }) => {
 
       </div>
 
-      {/* ======================================
-          SUBSCRIPTIONS
-      ====================================== */}
+
 
       {activeTab ===
         "subscriptions" && (

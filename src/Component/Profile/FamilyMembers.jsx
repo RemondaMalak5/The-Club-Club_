@@ -27,8 +27,11 @@ const FamilyMembers = ({ data }) => {
             <div>
               <p className="font-medium">{e.name}</p>
 
-              <p className="text-xs text-gray-500">
-                {e.relation} • {e.age > 0 ? `${e.age} ${t("years")}` : t("not_specified")}
+              <p className="text-xs text-gray-500 flex gap-3">
+               <span>{e.relation} </span> <span>
+                • {e.age > 0 ? `${e.age} ${t("years")}` : t("not_specified")}
+
+               </span>
               </p>
             </div>
           </div>

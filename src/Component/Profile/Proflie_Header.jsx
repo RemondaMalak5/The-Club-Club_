@@ -134,10 +134,10 @@ useEffect(() => {
                 {data?.membershipType}
               </p>
 
-              <p className="flex items-center gap-1">
+              {/* <p className="flex items-center gap-1">
                 <CiStar />
                 {data?.membershipTier}
-              </p>
+              </p> */}
 
               <p className="flex items-center gap-1">
                 <CiLocationOn />
@@ -184,7 +184,7 @@ useEffect(() => {
                 </p>
               </div>
 
-              <div className="flex flex-col items-center mt-4">
+              <div className="flex flex-col items-center mt-3">
                 <div className="relative w-24 h-24">
                   <input
                     id="image"
@@ -198,8 +198,8 @@ useEffect(() => {
                     <img
                       src={
                         preview ||
-                        data?.image ||
-                        ""
+                        data?.image
+                        
                       }
                       alt="profile"
                       className="w-24 h-24 rounded-full object-cover border"
@@ -211,7 +211,7 @@ useEffect(() => {
                   </label>
                 </div>
 
-                <p className="mt-2 font-semibold">{formData.fullName}</p>
+                <p className="mt-1 font-semibold">{formData.fullName}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="mt-5">

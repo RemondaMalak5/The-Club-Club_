@@ -6,7 +6,7 @@ const Achievements = ({ data }) => {
   const { t } = useTranslation();
   return (
     <div className="bg-white rounded-xl p-4 shadow border">
-      <h3 className="font-bold text-[20px] mb-4 text-right">
+      <h3 className="font-bold text-[20px] mb-4">
         {t("achievements")}
       </h3>
 

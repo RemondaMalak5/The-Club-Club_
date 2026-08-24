@@ -15,8 +15,8 @@ const QuickActions = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const inputs = [
-    { title: t("book_activity_or_service"), linkto: "/contact", icon: <CiCirclePlus /> },
-    { title: t("renew_membership"), linkto: "/contact", icon: <FaRegIdCard /> },
+    { title: t("book_activity_or_service"), linkto: "/academy", icon: <CiCirclePlus /> },
+    { title: t("renew_membership"), linkto: "", icon: <FaRegIdCard /> },
     { title: t("contact_us"), linkto: "/contact", icon: <MdPermPhoneMsg /> },
   ];
   return (

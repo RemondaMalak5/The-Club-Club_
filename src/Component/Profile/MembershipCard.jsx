@@ -241,7 +241,7 @@ const sessionsPerMonth =
           {/* Empty Academies */}
           {academies.length === 0 && (
             <p className="mt-5 text-center text-xs text-gray-400">
-              {t("no_academies")}
+              {t("no_subscribed_academies")}
             </p>
           )}
         </div>

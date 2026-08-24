@@ -45,7 +45,7 @@ const Branches_all = () => {
   "
           >
             <span
-              className={`absolute left-4 top-4 px-4 py-1 rounded-full text-sm
+              className={`absolute ${i18next.language== "ar"? "left-4 top-4"  : "right-4 top-4"} px-4 py-1 rounded-full text-sm
     ${branch.isOpen
                   ? "bg-green-100 text-green-700"
                   : "bg-red-100 text-red-700"
@@ -54,7 +54,7 @@ const Branches_all = () => {
               {branch.isOpen ? t("open") : t("close")}
             </span>
 
-            <h2 className="text-xl font-bold text-gray-700 text-right mb-4">
+            <h2 className="text-xl font-bold text-gray-700 mb-4">
               {branch.name}
             </h2>
             <div className="flex flex-1 flex-col">

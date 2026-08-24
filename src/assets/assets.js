@@ -20,10 +20,11 @@ import background from './background.jpg' ;
 import about_services from './about_services.jpg';
 import goals from './goals.jpg';
 import club from './club.jpg';
+import logo_club from './logo_club.png'
 
 export const assets = {
   logo, slide_1, slide_2 , theClub_Logo, october, elasma, sheraton,
  news_1, news_2, news_3, v,
-  image_1, image_2, image_3, image_4,about_us,about, acdemy,background,about_services,goals, club ,
+  image_1, image_2, image_3, image_4,about_us,about, acdemy,background,about_services,goals, club , logo_club
 
 };

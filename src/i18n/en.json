@@ -453,5 +453,7 @@
   "Subscribers":"Subscribers" ,
   "Active_Services":"Active Services" ,
   "services_dis":"Discover a diverse range of distinctive services and activities." ,
-  "all_services":"all services"
+  "all_services":"all services" ,
+  "academic_year":"academic year" ,
+  "academic_term":"academic term"
 }

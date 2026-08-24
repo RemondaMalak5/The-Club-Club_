@@ -454,5 +454,8 @@
   "Subscribers":"المشتركين" ,
   "Active_Services":"الخدمات النشطة" ,
   "services_dis":"اكتشف باقة متنوعة من الخدمات والأنشطة المميزة" ,
-  "all_services":"كل الخدمات"
+  "all_services":"كل الخدمات" ,
+  "academic_year":" السنه الاكاديميه" ,
+  "academic_term":"الفتره الاكاديميه",
+  "close":"مغلق"
 }
