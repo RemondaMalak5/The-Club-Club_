@@ -457,5 +457,10 @@
   "all_services":"كل الخدمات" ,
   "academic_year":" السنه الاكاديميه" ,
   "academic_term":"الفتره الاكاديميه",
-  "close":"مغلق"
+  "close":"مغلق" ,
+  "apply_now":"قدم الان"  ,
+  "loyalty_discount_available": "خصم الولاء متاح",
+  "service_total_quantity_label": "العدد الإجمالي",
+  "free": "مجاني"
+
 }

@@ -200,7 +200,7 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           <span className="text-[#FFDF20] text-xl">
             <GiTrophyCup />
           </span>
-{e.type}        </button>
+{e.clubTeamPosition}        </button>
 
         <p className="flex items-center gap-2">
           <span className="text-[#08AC85DB]">

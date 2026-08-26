@@ -130,7 +130,7 @@ const Left_side = ({ data }) => {
     </div>
   ))}
 
-  {selectedProgram && (
+  {/* {selectedProgram && (
     <div
       onClick={() => setSelectedProgram(null)}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
@@ -213,7 +213,7 @@ const Left_side = ({ data }) => {
         </button>
       </div>
     </div>
-  )}
+  )} */}
 </div>
         
       </div>

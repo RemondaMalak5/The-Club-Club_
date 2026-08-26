@@ -1,33 +1,55 @@
-import React from "react";
-import { Users, Activity, Layers } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Users, Activity, Layers, Languages } from "lucide-react";
 import SubTitle from "../../Shared_Component/SubTitle";
 import Title_1 from "../../Shared_Component/Title_1";
 import H_one from "../../Shared_Component/H_one";
-import { useTranslation } from "react-i18next";
+import {  useTranslation } from "react-i18next";
+import { Services_stats } from "../../../axiosConfig/APIs/Services/Services_stats";
+import i18next from "i18next";
+  import { useBranch } from "../../../context/BranchContext";
 
 const Services_Header = () => {
-  const {t} =useTranslation();
-  const stats = [
+  const { t } = useTranslation();
+ 
+  const [data, setdata] = useState();
+  const {selectedBranch}=useBranch ();
+  const get_services_status = async () => {
+    const params = {
+    branchId: selectedBranch || "all",
+      language: i18next.language
+    }
+    try {
+      const response = await Services_stats(params);
+      setdata(response.message.data)
+    }
+    catch {
+
+    }
+  }
+
+  useEffect(() => {
+    get_services_status();
+  }, [i18next.language , selectedBranch]);
+   const stats = [
      {
       title: t("Total_number_of_services"),
-      value: 13,
+      value: data?.total_services,
       icon: <Layers/>,
     }, 
     {
       title: t("Subscribers"),
-      value: 320,
+      value: data?.total_booked,
       icon: <Users />, 
     },
     {
       title: t("Active_Services"),
-      value: 12,
+      value: data?.active_services,
       icon: <Activity />,
     },
-   
-  ];
 
+  ];
   return (
-   <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
+    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-10">
       <div className="py-5 px-10  flex flex-col gap-5 rounded-2xl bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] via-[#EBF3F1] to-[#DCF0EB9A] ">
         <H_one text={t("club_services")} />
         <SubTitle SubTitle={t("services_dis")} />
@@ -44,14 +66,14 @@ const Services_Header = () => {
                 <div>
                   <span className="text-[#4A5565]">{item.title}</span>
                   <Title_1 title={item.value} />
-                </div> 
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
-   
+
   );
 };
 

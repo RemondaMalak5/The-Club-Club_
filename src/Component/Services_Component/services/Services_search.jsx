@@ -195,6 +195,11 @@ const tabs = useMemo(() => {
         {filteredData.length > 0 ? (
           filteredData?.map((item) => (
             <div
+             onClick={() =>
+                        navigate(`/services/${item.service_id}`, {
+                          state: { service: item },
+                        })
+                      }
               key={`${item.service_id}-${item.branchId}`}
               className={
                 viewMode === "grid"
@@ -268,11 +273,7 @@ const tabs = useMemo(() => {
 
                   <div className="p-4 pt-0">
                     <button
-                      onClick={() =>
-                        navigate(`/services/${item.service_id}`, {
-                          state: { service: item },
-                        })
-                      }
+                     
                       className="w-full bg-teal-600 text-white py-2.5 rounded-lg hover:bg-teal-700 transition"
                     >
 {t("view_more")}                    </button>

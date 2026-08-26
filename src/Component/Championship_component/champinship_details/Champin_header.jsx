@@ -89,8 +89,7 @@ const Champin_header = () => {
         </div>
           <button className=" border-2 border-[#FFDF20] bg-[#FFF7ED] flex gap-2 items-center px-5 py-2 rounded-lg ">
             <span className="text-[#FFDF20] text-xl"><GiTrophyCup /></span>
-            المركز الاول
-          </button>
+{data?.clubTeamPosition}          </button>
 
       </div>
       {/* Layout */}

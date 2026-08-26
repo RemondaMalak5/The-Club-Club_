@@ -455,5 +455,10 @@
   "services_dis":"Discover a diverse range of distinctive services and activities." ,
   "all_services":"all services" ,
   "academic_year":"academic year" ,
-  "academic_term":"academic term"
+  "academic_term":"academic term" ,
+  "apply_now":"Apply Now" ,
+  "loyalty_discount_available": " loyalty discount available ",
+  "service_total_quantity_label": "service total quantity label ",
+  "free": "Free"
+
 }

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCheck, FaCheckCircle, FaTimes } from "react-icons/fa";
@@ -7,6 +8,8 @@ import { Application_prefill } from "../../../axiosConfig/APIs/Academy/Applicati
 import i18next from "i18next";
 import { Submit_Application } from "../../../axiosConfig/APIs/Academy/Submit_Appication";
 import { createPortal } from "react-dom";
+import Select from "react-select";
+
 
 const Right_side = ({ data }) => {
   const { t } = useTranslation();
@@ -26,7 +29,16 @@ const Right_side = ({ data }) => {
     message: "",
     type: "success",
   });
-
+const genderOptions = [
+  {
+    value: "Male",
+    label: t("male"),
+  },
+  {
+    value: "Female",
+    label: t("female"),
+  },
+];
   const bookingOpenedRef = useRef(false);
 
   const formFields = [
@@ -43,6 +55,7 @@ const Right_side = ({ data }) => {
   const openMessagePopup = (
     title,
     message,
+    
     type = "success"
   ) => {
     let safeMessage = message;
@@ -54,6 +67,10 @@ const Right_side = ({ data }) => {
         message.code ||
         "حدث خطأ غير متوقع";
     }
+    setTimeout(() => {
+  closeMessagePopup();
+  navigate("/profile");
+}, 2000);
 
     setMessagePopup({
       show: true,
@@ -425,6 +442,190 @@ const Right_side = ({ data }) => {
     }
   };
 
+  const renderApplicationFields = () => (
+    <>
+      <div>
+        <label className="block mb-2 font-medium">{t("full_name_label")}</label>
+        <input
+          type="text"
+          value={prefillData?.prefill?.fullName || ""}
+          readOnly={!isFieldEditable("fullName")}
+          required
+          onChange={(e) => handleFieldChange("fullName", e.target.value)}
+          className={`w-full border rounded-xl px-4 py-3 outline-none ${
+            isFieldEditable("fullName")
+              ? "border-[#00BFA6] bg-white"
+              : "bg-gray-100"
+          }`}
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium">{t("date_of_birth")}</label>
+        <input
+          type="date"
+          value={prefillData?.prefill?.dateOfBirth || ""}
+          readOnly={!isFieldEditable("dateOfBirth")}
+          required
+          onChange={(e) => handleFieldChange("dateOfBirth", e.target.value)}
+          className={`w-full border rounded-xl px-4 py-3 outline-none ${
+            isFieldEditable("dateOfBirth")
+              ? "border-[#00BFA6] bg-white"
+              : "bg-gray-100"
+          }`}
+        />
+      </div>
+
+    
+      <div>
+        <label className="block mb-2 font-medium">{t("phone")}</label>
+        <input
+          type="text"
+          value={prefillData?.prefill?.mobile || ""}
+          readOnly={!isFieldEditable("mobile")}
+          required
+          onChange={(e) => handleFieldChange("mobile", e.target.value)}
+          className={`w-full border rounded-xl px-4 py-3 outline-none ${
+            isFieldEditable("mobile")
+              ? "border-[#00BFA6] bg-white"
+              : "bg-gray-100"
+          }`}
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium">{t("email")}</label>
+        <input
+          type="email"
+          value={prefillData?.prefill?.email || ""}
+          readOnly={!isFieldEditable("email")}
+          required
+          onChange={(e) => handleFieldChange("email", e.target.value)}
+          className={`w-full border rounded-xl px-4 py-3 outline-none ${
+            isFieldEditable("email")
+              ? "border-[#00BFA6] bg-white"
+              : "bg-gray-100"
+          }`}
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium">{t("nationality")}</label>
+        <input
+          type="text"
+          value={prefillData?.prefill?.nationality || ""}
+          readOnly={!isFieldEditable("nationality")}
+          required
+          onChange={(e) => handleFieldChange("nationality", e.target.value)}
+          className={`w-full border rounded-xl px-4 py-3 outline-none ${
+            isFieldEditable("nationality")
+              ? "border-[#00BFA6] bg-white"
+              : "bg-gray-100"
+          }`}
+        />
+      </div>
+
+      <div>
+        <label className="block mb-2 font-medium">{t("address")}</label>
+        <input
+          type="text"
+          value={prefillData?.prefill?.address || ""}
+          readOnly={!isFieldEditable("address")}
+          required
+          onChange={(e) => handleFieldChange("address", e.target.value)}
+          className={`w-full border rounded-xl px-4 py-3 outline-none ${
+            isFieldEditable("address")
+              ? "border-[#00BFA6] bg-white"
+              : "bg-gray-100"
+          }`}
+        />
+      </div>
+<div>
+  <label className="block mb-2 font-medium">
+    {t("national_id_label")}
+  </label>
+
+  <input
+    type="text"
+    value={prefillData?.prefill?.nationalId || ""}
+    readOnly={!isFieldEditable("nationalId")}
+    required
+    onChange={(e) =>
+      handleFieldChange("nationalId", e.target.value)
+    }
+    placeholder={
+      isFieldEditable("nationalId")
+        ? t("national_id_placeholder")
+        : ""
+    }
+    className={`w-full border rounded-xl px-4 py-3 outline-none ${
+      isFieldEditable("nationalId")
+        ? "border-[#00BFA6] bg-white"
+        : "bg-gray-100"
+    }`}
+  />
+</div>
+
+<div >
+  <label className="block mb-2 font-medium">
+    {t("gender")}
+  </label>
+
+  {prefillData?.prefill?.gender ? (
+    <input
+      type="text"
+      value={prefillData.prefill.gender}
+      readOnly
+      className="w-full border rounded-xl px-4 py-3 bg-gray-100"
+    />
+  ) : (
+    <Select 
+      options={genderOptions}
+      value={
+        genderOptions.find(
+          (option) =>
+            option.value === (prefillData?.prefill?.gender || "")
+        ) || null
+      }
+      onChange={(selectedOption) =>
+        handleFieldChange(
+          "gender",
+          selectedOption?.value || ""
+        )
+      }
+      placeholder={t("select_gender")}
+      styles={
+        { control: (provided) => ({
+    ...provided,
+    minHeight: "52px", 
+        borderRadius: "12px",
+
+  }),
+        option: (provided, state) => ({
+          ...provided,
+          backgroundColor: state.isSelected
+            ? "#00786F"
+            : state.isFocused
+            ? "#EAF3F1"
+            : "white",
+          color: state.isSelected ? "white" : "black",
+        }),
+      }}
+    />
+  )}
+</div>
+
+      <div className="md:col-span-2">
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F] text-white py-3 rounded-xl font-semibold"
+        >
+          {t("apply_now")}
+        </button>
+      </div>
+    </>
+  );
+
   const closeBookingPopup = () => {
     setShowBookingForm(false);
     setSelectedDependant("");
@@ -463,8 +664,8 @@ const Right_side = ({ data }) => {
           </p>
 
           <p className="text-red-700 font-bold text-lg">
-            10%
-          </p>
+  {data?.programs?.[0]?.pricing?.[0]?.discount ?? 0}%
+</p>
         </div>
 
         <div className="space-y-3">
@@ -535,6 +736,7 @@ const Right_side = ({ data }) => {
           )}
 
           {showBookingForm &&
+            selectedType === "member" &&
             createPortal(
               <div className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center px-4">
                 <div className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl p-6 relative">
@@ -546,373 +748,110 @@ const Right_side = ({ data }) => {
                     <FaTimes />
                   </button>
 
-                  <h2 className="text-2xl font-bold text-center">
-                    {t("academy_book_now")}
+                  <h2 className="text-2xl font-bold text-center mb-6">
+                    {t("academy_book_now")} - {t("member")}
                   </h2>
 
-                  <div className="flex gap-4 my-4">
-                    <button
-                      type="button"
-                      onClick={handleMember}
-                      disabled={
-                        isRejected ||
-                        data?.myStatus?.canApply === false
-                      }
-                      className={`p-3 w-1/2 border rounded-xl font-semibold transition ${
-                        isRejected ||
-                        data?.myStatus?.canApply === false
-                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                          : selectedType === "member"
-                          ? "bg-[#00BFA6] text-white"
-                          : "bg-white"
-                      }`}
-                    >
-                      {t("member")}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleDependant}
-                      className={`p-3 w-1/2 border rounded-xl font-semibold ${
-                        selectedType === "dependant"
-                          ? "bg-[#00BFA6] text-white"
-                          : "bg-white"
-                      }`}
-                    >
-                      {t("dependant")}
-                    </button>
-                  </div>
-
-                  {selectedType === "dependant" && (
-                    <div className="mb-5">
-                      <label className="block mb-2 font-medium">
-                        {t("select_dependant")}
-                      </label>
-
-                      <select
-                        value={selectedDependant}
-                        onChange={handleDependantChange}
-                        className="w-full border border-[#00BFA6] rounded-xl px-4 py-3 outline-none"
-                      >
-                        <option value="">
-                          {t("select_dependant")}
-                        </option>
-
-                        {data?.myStatus?.dependants?.map(
-                          (item) => {
-                            const itemStatus =
-                              item?.statusText || "";
-
-                            const normalizedItemStatus =
-                              String(
-                                itemStatus
-                              ).toLowerCase();
-
-                            const itemRejected =
-                              normalizedItemStatus ===
-                                "rejected" ||
-                              normalizedItemStatus.includes(
-                                "reject"
-                              ) ||
-                              itemStatus === "مرفوض" ||
-                              itemStatus === "تم الرفض";
-
-                            return (
-                              <option
-                                key={item.addressId}
-                                value={item.addressId}
-                                disabled={
-                                  !item.canApply ||
-                                  itemRejected
-                                }
-                              >
-                                {item.name} -{" "}
-                                {item.relation}
-
-                                {itemRejected
-                                  ? " - مرفوض"
-                                  : !item.canApply
-                                  ? ` - ${
-                                      item.statusText ||
-                                      "تم التقديم"
-                                    }`
-                                  : ""}
-                              </option>
-                            );
-                          }
-                        )}
-                      </select>
-                    </div>
-                  )}
-
-                  {prefillData && (
+                  {prefillData ? (
                     <form
                       onSubmit={SubmitApplication}
                       className="grid grid-cols-1 md:grid-cols-2 gap-4"
                     >
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("full_name_label")}
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            prefillData?.prefill
-                              ?.fullName || ""
-                          }
-                          readOnly={
-                            !isFieldEditable("fullName")
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "fullName",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable("fullName")
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("date_of_birth")}
-                        </label>
-
-                        <input
-                          type="date"
-                          value={
-                            prefillData?.prefill
-                              ?.dateOfBirth || ""
-                          }
-                          readOnly={
-                            !isFieldEditable(
-                              "dateOfBirth"
-                            )
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "dateOfBirth",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable(
-                              "dateOfBirth"
-                            )
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("gender")}
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            prefillData?.prefill?.gender ||
-                            ""
-                          }
-                          readOnly={
-                            !isFieldEditable("gender")
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "gender",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable("gender")
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("phone")}
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            prefillData?.prefill?.mobile ||
-                            ""
-                          }
-                          readOnly={
-                            !isFieldEditable("mobile")
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "mobile",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable("mobile")
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("email")}
-                        </label>
-
-                        <input
-                          type="email"
-                          value={
-                            prefillData?.prefill?.email ||
-                            ""
-                          }
-                          readOnly={
-                            !isFieldEditable("email")
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "email",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable("email")
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("nationality")}
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            prefillData?.prefill
-                              ?.nationality || ""
-                          }
-                          readOnly={
-                            !isFieldEditable(
-                              "nationality"
-                            )
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "nationality",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable(
-                              "nationality"
-                            )
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("address")}
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            prefillData?.prefill?.address ||
-                            ""
-                          }
-                          readOnly={
-                            !isFieldEditable("address")
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "address",
-                              e.target.value
-                            )
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable("address")
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block mb-2 font-medium">
-                          {t("national_id_label")}
-                        </label>
-
-                        <input
-                          type="text"
-                          value={
-                            prefillData?.prefill
-                              ?.nationalId || ""
-                          }
-                          readOnly={
-                            !isFieldEditable(
-                              "nationalId"
-                            )
-                          }
-                          required
-                          onChange={(e) =>
-                            handleFieldChange(
-                              "nationalId",
-                              e.target.value
-                            )
-                          }
-                          placeholder={
-                            isFieldEditable(
-                              "nationalId"
-                            )
-                              ? t(
-                                  "national_id_placeholder"
-                                )
-                              : ""
-                          }
-                          className={`w-full border rounded-xl px-4 py-3 outline-none ${
-                            isFieldEditable(
-                              "nationalId"
-                            )
-                              ? "border-[#00BFA6] bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        />
-                      </div>
-
-                      <div className="md:col-span-2">
-                        <button
-                          type="submit"
-                          className="w-full bg-gradient-to-r from-[rgba(8,172,133,0.86)] to-[#00786F] text-white py-3 rounded-xl font-semibold"
-                        >
-                          {t("confirm_booking")}
-                        </button>
-                      </div>
+                      {renderApplicationFields()}
                     </form>
+                  ) : (
+                    <p className="text-center text-gray-500 py-8">
+                      جاري تحميل بيانات العضو...
+                    </p>
                   )}
+                </div>
+              </div>,
+              document.body
+            )}
+
+          {showBookingForm &&
+            selectedType === "dependant" &&
+            createPortal(
+              <div className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center px-4">
+                <div className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl p-6 relative">
+                  <button
+                    type="button"
+                    onClick={closeBookingPopup}
+                    className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-red-500"
+                  >
+                    <FaTimes />
+                  </button>
+
+                  <h2 className="text-2xl font-bold text-center mb-6">
+                    {t("academy_book_now")} - {t("dependant")}
+                  </h2>
+
+                  <div className="mb-5">
+                    <label className="block mb-2 font-medium">
+                      {t("select_dependant")}
+                    </label>
+
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    {data?.myStatus?.dependants?.map((item) => {
+      const itemStatus = item?.statusText || "";
+
+      const normalizedItemStatus = String(itemStatus).toLowerCase();
+
+      const itemRejected =
+        normalizedItemStatus === "rejected" ||
+        normalizedItemStatus.includes("reject") ||
+        itemStatus === "مرفوض" ||
+        itemStatus === "تم الرفض";
+
+      return (
+        <button
+          key={item.addressId}
+          type="button"
+          disabled={!item.canApply || itemRejected}
+          onClick={() =>
+            handleDependantChange({
+              target: { value: item.addressId },
+            })
+          }
+          className={`px-5 py-3 rounded-xl border transition-all
+            ${
+              selectedDependant === item.addressId
+                ? "bg-[#00786F] text-white border-[#00786F]"
+                : "bg-white border-gray-300 hover:border-[#00786F]"
+            }
+            ${
+              !item.canApply || itemRejected
+                ? "opacity-50 cursor-not-allowed"
+                : ""
+            }`}
+        >
+          <div className="font-semibold">
+            {item.name}
+          </div>
+
+          <div className="text-sm opacity-80">
+            {item.relation}
+          </div>
+        </button>
+      );
+    })}
+  </div>
+                  </div>
+
+{selectedDependant && (
+  prefillData ? (
+    <form
+      onSubmit={SubmitApplication}
+      className="grid grid-cols-1 md:grid-cols-2 gap-4"
+    >
+      {renderApplicationFields()}
+    </form>
+  ) : (
+    <p className="text-center text-gray-500 py-8">
+      جاري تحميل بيانات العضو التابع...
+    </p>
+  )
+)}
                 </div>
               </div>,
               document.body

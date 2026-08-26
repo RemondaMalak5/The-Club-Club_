@@ -231,7 +231,7 @@ const Get_Academy_List = async () => {
                       <span className="text-[#08AC85DB]">
                         <MdOutlineSportsSoccer />
                       </span>
-                      {academy.reviewCount} {t("trainer")}
+                      {academy.studentsCount} {t("trainer")}
                     </p>
 
                     <p className="flex items-center gap-2">
