@@ -6,7 +6,7 @@ import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from "react-icons/f
 import i18next from "i18next";
 import { FiUsers } from "react-icons/fi";
 
-const FamilyMembers = ({ data }) => {
+const FamilyMembers = ({ data ,onSelectMember}) => {
   const { t } = useTranslation();
   return (
     <div className="bg-white rounded-xl p-4 shadow border">
@@ -15,6 +15,8 @@ const FamilyMembers = ({ data }) => {
       {data?.map((e) => (
         <div
           key={e.id}
+                    onClick={() => onSelectMember(e)}
+
           className="flex justify-between items-center py-3 border-b last:border-b-0"
         >
           <div className="flex items-center gap-3">

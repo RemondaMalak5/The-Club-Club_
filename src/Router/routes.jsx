@@ -29,6 +29,7 @@ import Reset_pass from "../Component/Forget_pass/Reset_pass";
 import Profile_Guest from "../Pages/Profile_Guest";
 import Loyalty_point from "../Component/Home_component/Loyalty_point";
 import Loyalty_details from "../Component/Lotalty_component/Loyalty_details";
+import Profile_trainer from "../Pages/Profile_trainer";
 
 export const router = createBrowserRouter([
   {
@@ -63,7 +64,8 @@ export const router = createBrowserRouter([
       {path:"reset-pass", element:<Reset_pass/>},
       {path: "profile-guest" , element: <Profile_Guest/>},
       {path:"loyalty" , element:<Loyalty_point/>},
-      {path:"loyalty-details/:id" , element:<Loyalty_details/>}
+      {path:"loyalty-details/:id" , element:<Loyalty_details/>} ,
+      {  path:"/profile-trainer/:id", element: <Profile_trainer/>}
     ]
   }
 ]);

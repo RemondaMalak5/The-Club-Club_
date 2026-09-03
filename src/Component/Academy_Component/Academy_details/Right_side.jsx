@@ -876,6 +876,7 @@ const genderOptions = [
           {data?.trainers?.map((trainer, index) => (
             <div
               key={trainer?.id || index}
+              onClick={() => navigate(`/profile-trainer/${trainer?.id}`)}
               className="border rounded-2xl p-4 hover:shadow-md transition"
             >
               <div className="flex items-center gap-4">

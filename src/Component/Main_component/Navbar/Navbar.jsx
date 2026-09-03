@@ -432,7 +432,7 @@ const Navbar = () => {
               alt="logo"
               width={56}
               height={56}
-              className="h-14 w-14 object-contain"
+              className="h-16 w-16 object-contain"
               loading="eager"
             />
           </NavLink>
@@ -492,7 +492,7 @@ const Navbar = () => {
                 <button
                   type="button"
                   aria-label="Notifications"
-                  className="rounded-full bg-[#EBF1F1] p-3 text-lg text-[#364153] transition hover:text-[#08AC85]"
+                  className="rounded-full bg-[#EBF1F1] p-3 text-lg text-[#364153] transition hover:text-[#00786F]"
                 >
                   <IoNotificationsOutline />
                 </button>

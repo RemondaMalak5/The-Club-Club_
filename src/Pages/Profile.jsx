@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Proflie_Header from "../Component/Profile/Proflie_Header";
 import Membership_Stats from "../Component/Profile/Membership_Stats";
@@ -35,6 +35,29 @@ const Profile = () => {
 
 const profile = data?.message?.data;
 
+const [selectedMember, setSelectedMember] = useState(null);
+
+const displayedData = selectedMember
+  ? {
+      ...profile,
+
+      fullName: selectedMember?.name,
+      profileImage: selectedMember?.photo,
+      studentId: selectedMember?.studentId,
+      qrImage: selectedMember?.qrImage,
+
+      academies:
+        selectedMember?.academyStatus?.programs || [],
+
+      digitalCard: {
+        ...profile?.digitalCard,
+        status: selectedMember?.subscriptionStatus,
+        memberCode:
+          selectedMember?.qrIdentifier ||
+          selectedMember?.id,
+      },
+    }
+  : profile;
 
   if (isLoading) {
     return <Spinner/>;
@@ -51,8 +74,10 @@ const profile = data?.message?.data;
 
        <div className="flex flex-wrap ">
   <div className=" xl:w-[55%] w-full px-5 space-y-4">
-          <MembershipCard data={profile} />
-          <Outstanding data={profile}/>
+          <MembershipCard data={displayedData} 
+/>
+          <Outstanding data={profile}/> 
+
           {/* <Bookings data={profile.upcomingBookings} /> */}
                       <Payments data={profile} />
         </div>
@@ -61,7 +86,9 @@ const profile = data?.message?.data;
           {/* <Notifications data={profile.notifications} /> */}
                     <AcademySubscriptions data={profile.academyStatus.programs} />
 
-          <FamilyMembers data={profile?.familyMembers} />
+          <FamilyMembers data={profile?.familyMembers}
+                            onSelectMember={setSelectedMember}
+ />
           {/* <AcademyApplications/> */}
           <Achievements data={profile?.achievements} />
           <QuickActions data={profile} />

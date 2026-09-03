@@ -47,7 +47,7 @@ const News_home = () => {
   }, [i18next.language]);
 
   return (
-    <section className="py-16">
+    <section >
       <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="bg-gradient-to-r from-[#08AC85] to-[#00786F] bg-clip-text text-[36px] font-bold text-transparent">

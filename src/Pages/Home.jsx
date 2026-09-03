@@ -71,9 +71,9 @@ useEffect(() => {
         <Booking_home />
       </div>
 
-      <div data-aos="fade-up">
+      {/* <div data-aos="fade-up">
         <Statistics_home />
-      </div>
+      </div> */}
 
       <div data-aos="fade-up">
         <Academy_home />
