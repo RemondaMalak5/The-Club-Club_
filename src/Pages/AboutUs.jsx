@@ -8,8 +8,8 @@ import Values from "../Component/AboutUs_component/Values";
 import Vision_Mission from "../Component/AboutUs_component/Vision_Mission";
 import i18next from "i18next";
 import { About_us } from "../axiosConfig/APIs/About";
-import Spinner from "../Component/Shared_component/Spinner";
 import { useTranslation } from "react-i18next";
+import Spinner from "../Component/Shared_Component/Spinner";
 
 const AboutUs = () => {
   const [data, setData] = useState(null);

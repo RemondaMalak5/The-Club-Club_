@@ -266,7 +266,7 @@ const tabs = useMemo(() => {
                         <Users size={16} className="text-teal-500" />
                         {item.is_unlimited
                           ? "غير محدود"
-                          : `${item.available_count} مقاعد`}
+                          : `${item.available_count} ${t("service_available_seats")}`}
                       </p>
                     </div>
                   </div>
@@ -284,7 +284,7 @@ const tabs = useMemo(() => {
           ))
         ) : (
           <div className="w-full text-center py-10 text-gray-500 text-lg">
-            لا توجد نتائج مطابقة
+            {t("no_matching_services")}
           </div>
         )}
       </div>

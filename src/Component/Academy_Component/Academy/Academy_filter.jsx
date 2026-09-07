@@ -172,13 +172,13 @@ const Get_Academy_List = async () => {
           data.map((academy, index) => (
             <div
               onClick={() =>
-                navigation(`/academy/${academy.id}`, {
-                  state: {
-                    branchId: academy.branchName,
-                    branchName: academy.branchName,
-                  },
-                })
-              }
+  navigation(`/academy/${academy.id}`, {
+    state: {
+      branchId: academy.branchId,
+      branchName: academy.branchName,
+    },
+  })
+}
               key={index}
               className={
                 viewMode === "grid"

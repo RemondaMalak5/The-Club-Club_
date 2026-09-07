@@ -255,6 +255,22 @@
     "branch_value_october_6": "نادي النادي - 6 أكتوبر",
     "loading": "جاري التحميل...",
     "generic_error": "حدث خطأ، يرجى المحاولة مرة أخرى.",
+    "booking_details_load_error": "حدث خطأ أثناء تحميل بيانات الحجز.",
+    "application_status": "حالة الطلب: {{status}}",
+    "academy_application_rejected": "تم رفض طلب التقديم على هذه الأكاديمية.",
+    "already_applied": "تم التقديم مسبقًا",
+    "already_applied_academy": "لقد تم التقديم على هذه الأكاديمية بالفعل.",
+    "dependent_application_status": "حالة طلب {{name}}: {{status}}",
+    "dependent_application_rejected": "تم رفض طلب هذا العضو.",
+    "dependent_already_applied": "تم التقديم لهذا العضو بالفعل.",
+    "application_submit_error": "حدث خطأ أثناء إرسال الطلب.",
+    "incomplete_academy_data": "بيانات الأكاديمية غير مكتملة",
+    "academy_id_missing": "معرّف الأكاديمية غير موجود، تأكدي من تحميل بيانات الأكاديمية بشكل صحيح.",
+    "application_submitted": "تم إرسال الطلب",
+    "academy_application_success": "تم التقديم على الأكاديمية بنجاح.",
+    "application_number": "رقم الطلب",
+    "loading_member_details": "جاري تحميل بيانات العضو...",
+    "loading_dependent_details": "جاري تحميل بيانات العضو التابع...",
     "welcome_branch": "مرحبًا بكم في فرع {{branchName}}",
     "membership_number": "رقم العضوية",
     "membership_type": "نوع العضوية",
@@ -461,6 +477,7 @@
   "apply_now":"قدم الان"  ,
   "loyalty_discount_available": "خصم الولاء متاح",
   "service_total_quantity_label": "العدد الإجمالي",
-  "free": "مجاني"
+  "free": "مجاني" ,
+  "trainer_team":"فريق المشرفين"
 
 }

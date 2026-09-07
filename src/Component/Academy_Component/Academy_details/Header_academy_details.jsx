@@ -1,4 +1,3 @@
-import i18next from "i18next";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Academy_Detail } from "../../../axiosConfig/APIs/Academy/Academy_Details";
@@ -10,25 +9,35 @@ import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 
 const Header_academy_details = () => {
-  const { i18n, t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
   const navigation = useNavigate();
-  const [data, setData] = useState();
-  const [error, setError] = useState(false);
   const { id } = useParams();
   const location = useLocation();
+
   const branchId = location.state?.branchId;
-  const params = {
-    language: i18next.language,
-    id: id,
-    branchId: branchId,
-  };
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(false);
 
   const Get_Academy_Details = async () => {
-    try {
-      const response = await Academy_Detail(params);
-      setData(response.message);
+    const params = {
+      language: i18n.language,
+      id,
+      branchId,
+    };
 
+    try {
+      setError(false);
+
+
+      const response = await Academy_Detail(params);
+
+
+      setData(response?.message);
     } catch (error) {
+     
+
       setError(true);
     }
   };
@@ -37,45 +46,66 @@ const Header_academy_details = () => {
     if (id) {
       Get_Academy_Details();
     }
-  }, [id, i18next.language, branchId]);
+  }, [id, i18n.language, branchId]);
 
   return (
     <div>
-      <div onClick={()=>navigation(`/academy`)} className="w-full flex text-[30px] items-center py-3">
-        {i18n.language === "ar" ? <IoMdArrowForward /> : <IoMdArrowBack />}
-        <p className=" font-bold ">{data?.name}</p>
+      <div
+        onClick={() => navigation("/academy")}
+        className="w-full flex text-[30px] items-center py-3 cursor-pointer"
+      >
+        {i18n.language === "ar" ? (
+          <IoMdArrowForward />
+        ) : (
+          <IoMdArrowBack />
+        )}
+
+        <p className="font-bold">
+          {data?.name}
+        </p>
       </div>
+
       <img
         src={data?.image}
         alt="Academy"
-        className="w-full h-[350px]"
+        className="w-full h-[350px] object-cover"
         loading="lazy"
       />
+
       <div className="px-14">
-        {/* <p className=" font-bold text-[30px]">{data?.name}</p> */}
-        <div className=" flex items-center gap-6 mt-4">
+        <div className="flex items-center gap-6 mt-4">
           <div className="flex items-center gap-1">
             <FaStar className="text-yellow-400" />
-            <span className="text-[18px] font-bold ">{data?.rating}</span>
+
+            <span className="text-[18px] font-bold">
+              {data?.rating}
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
             <MdOutlineDateRange />
-            <span className="text-gray-600 text-sm">{t('academy_since')}</span>
+
+            <span className="text-gray-600 text-sm">
+              {t("academy_since")}
+            </span>
+
             <span className="text-gray-600 font-semibold">
               {data?.sinceYear}
             </span>
           </div>
+
           <div className="flex items-center gap-1">
             <span className="text-[18px]">
-              <MdPersonOutline />{" "}
+              <MdPersonOutline />
             </span>
+
             <span className="text-gray-600 text-sm">
-              {data?.trainersCount} {t('academy_trainee')}
+              {data?.trainersCount} {t("academy_trainee")}
             </span>
           </div>
         </div>
       </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 px-4 lg:px-14 py-8">
         <div className="lg:col-span-7">
           <Left_side data={data} />

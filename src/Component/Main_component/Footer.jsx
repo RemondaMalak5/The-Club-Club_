@@ -11,17 +11,23 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Social_Media from "../Shared_Component/Social_Media";
+import { useBranch } from "../../context/BranchContext";
 const Footer = () => {
   const { id } = useParams();
     const user = JSON.parse(localStorage.getItem("user"));
-
+const { branches } = useBranch();
   const { t } = useTranslation();
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
-  const branches = [
-    { value: t("branch_6_october") , link: `/about-branches/${id}` },
-    { value: t("branch_shiraton") , link: `/about-branches/${id}` },
-    { value: t("branch_capital") , link: `/about-branches/${id}` },
-  ];
+  // const branches = [
+  //   { value: t("branch_6_october") , link: `/about-branches/${id}` },
+  //   { value: t("branch_shiraton") , link: `/about-branches/${id}` },
+  //   { value: t("branch_capital") , link: `/about-branches/${id}` },
+  // ];
+ const branchOptions = branches?.map((branch) => ({
+  id: branch.id,
+  name: branch.name,
+  link: `/about-branches/${branch.id}`,
+})) || [];
   const quick_links = [
     { value: t("home") },
     { value: t("about"), link: "/about" },
@@ -85,27 +91,32 @@ const Footer = () => {
           </div>
 
           {/* Branches */}
-          <div className="xl:w-1/5 md:w-1/2 w-full  ">
-            <h3 className="font-bold text-[20px] mb-4">{t("branches")}</h3>
-            <ul className="space-y-2 text-sm text-gray-200">
-              {branches.map((item) => (
-                <li
-                  key={item.id}
-                  className="hover:text-white text-[#FFFFFFCC] cursor-pointer transition"
-                >
-                  <Link
-                    to={item.link}
-                    className="flex items-center gap-1"
-                  >
-                    <span>
-                      <MdOutlineKeyboardArrowLeft />
-                    </span>
-                    {item.value}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+{/* Branches */}
+<div className="xl:w-1/5 md:w-1/2 w-full">
+  <h3 className="font-bold text-[20px] mb-4">
+    {t("branches")}
+  </h3>
+
+  <ul className="space-y-2 text-sm text-gray-200">
+    {branchOptions.map((item) => (
+      <li
+        key={item.id}
+        className="hover:text-white text-[#FFFFFFCC] cursor-pointer transition"
+      >
+        <Link
+          to={item.link}
+          className="flex items-center gap-1"
+        >
+          <span>
+            <MdOutlineKeyboardArrowLeft />
+          </span>
+
+          {item.name}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</div>
 
           {/* Quick Links */}
           <div className="xl:w-1/5 md:w-1/2 w-full  ">

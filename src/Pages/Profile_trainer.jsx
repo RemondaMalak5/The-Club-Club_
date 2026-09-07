@@ -29,7 +29,6 @@ const Profile_trainer = () => {
 
       const response = await profile_tranier(params);
 
-      console.log("Trainer profile data:", response);
 
       setData(response?.message);
     } catch (error) {

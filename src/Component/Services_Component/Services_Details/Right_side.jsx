@@ -194,11 +194,11 @@ const Right_side = ({ data }) => {
    */
   const dates = [
     {
-      label: "التاريخ",
+      label: t("date"),
       value: data?.date?.start_date || "-",
     },
     {
-      label: "الوقت",
+      label: t("time"),
       value:
         data?.date?.start_time &&
         data?.date?.end_time
@@ -810,14 +810,7 @@ const Right_side = ({ data }) => {
       setBookingLoading(true);
       setBookingError(null);
 
-      console.log(
-        "Booking payload:",
-        JSON.stringify(
-          bookingData,
-          null,
-          2
-        )
-      );
+
 
       const response =
         await Create_booking(
@@ -827,10 +820,7 @@ const Right_side = ({ data }) => {
       const result =
         extractApiResponse(response);
 
-      console.log(
-        "Booking response:",
-        result
-      );
+      
 
       setShowBookingPopup(false);
 
@@ -1096,7 +1086,7 @@ const Right_side = ({ data }) => {
       {/* Dates */}
       <section className="rounded-2xl border bg-white p-6 shadow-sm">
         <h2 className="mb-5 text-xl font-bold text-gray-800">
-          {t("المواعيد")}
+          {t("academy_schedule_title")}
         </h2>
 
         {dates.map(
@@ -1123,7 +1113,7 @@ const Right_side = ({ data }) => {
           <section className="rounded-2xl border bg-white p-6 shadow-sm">
             <h2 className="mb-5 text-xl font-bold text-gray-800">
               {t(
-                "فريق المشرفين"
+                "trainer_team"
               )}
             </h2>
 
@@ -1174,8 +1164,7 @@ const Right_side = ({ data }) => {
               {/* Header */}
               <div className="flex items-center justify-between border-b bg-white px-5 py-4">
                 <h2 className="text-xl font-bold text-gray-800">
-                  حجز الخدمة
-                </h2>
+{t("booking_service")}                </h2>
 
                 <button
                   type="button"

@@ -65,7 +65,7 @@ const genderOptions = [
         message.error ||
         message.message ||
         message.code ||
-        "حدث خطأ غير متوقع";
+        t("generic_error");
     }
     setTimeout(() => {
   closeMessagePopup();
@@ -93,8 +93,8 @@ const genderOptions = [
   const isRejected =
     normalizedStatus === "rejected" ||
     normalizedStatus.includes("reject") ||
-    statusText === "مرفوض" ||
-    statusText === "تم الرفض";
+    statusText === "\u0645\u0631\u0641\u0648\u0636" ||
+    statusText === "\u062a\u0645 \u0627\u0644\u0631\u0641\u0636";
 
   const Prefill = async (dependantAddressId = "") => {
     const params = {
@@ -127,8 +127,8 @@ const genderOptions = [
     } catch (error) {
 
       openMessagePopup(
-        "حدث خطأ",
-        "حدث خطأ أثناء تحميل بيانات الحجز",
+        t("generic_error"),
+        t("booking_details_load_error"),
         "error"
       );
     }
@@ -166,10 +166,10 @@ const genderOptions = [
       setShowBookingForm(false);
 
       openMessagePopup(
-        "تم رفض الطلب",
+        t("rejected_application"),
         data?.myStatus?.statusText
-          ? `حالة الطلب: ${data.myStatus.statusText}`
-          : "تم رفض طلب التقديم على هذه الأكاديمية",
+          ? t("application_status", { status: data.myStatus.statusText })
+          : t("academy_application_rejected"),
         "error"
       );
 
@@ -180,10 +180,10 @@ const genderOptions = [
       setShowBookingForm(false);
 
       openMessagePopup(
-        "تم التقديم مسبقًا",
+        t("already_applied"),
         data?.myStatus?.statusText
-          ? `حالة الطلب: ${data.myStatus.statusText}`
-          : "لقد تم التقديم على هذه الأكاديمية بالفعل",
+          ? t("application_status", { status: data.myStatus.statusText })
+          : t("already_applied_academy"),
         "warning"
       );
 
@@ -254,8 +254,8 @@ const genderOptions = [
     const dependantRejected =
       normalizedDependantStatus === "rejected" ||
       normalizedDependantStatus.includes("reject") ||
-      dependantStatus === "مرفوض" ||
-      dependantStatus === "تم الرفض";
+      dependantStatus === "\u0645\u0631\u0641\u0648\u0636" ||
+      dependantStatus === "\u062a\u0645 \u0627\u0644\u0631\u0641\u0636";
 
     if (dependantRejected) {
       setSelectedDependant("");
@@ -263,10 +263,13 @@ const genderOptions = [
       setEditableFields([]);
 
       openMessagePopup(
-        "تم رفض الطلب",
+        t("rejected_application"),
         dependant?.statusText
-          ? `حالة طلب ${dependant.name}: ${dependant.statusText}`
-          : "تم رفض طلب هذا العضو",
+          ? t("dependent_application_status", {
+              name: dependant.name,
+              status: dependant.statusText,
+            })
+          : t("dependent_application_rejected"),
         "error"
       );
 
@@ -279,10 +282,13 @@ const genderOptions = [
       setEditableFields([]);
 
       openMessagePopup(
-        "تم التقديم مسبقًا",
+        t("already_applied"),
         dependant?.statusText
-          ? `حالة طلب ${dependant.name}: ${dependant.statusText}`
-          : "تم التقديم لهذا العضو بالفعل",
+          ? t("dependent_application_status", {
+              name: dependant.name,
+              status: dependant.statusText,
+            })
+          : t("dependent_already_applied"),
         "warning"
       );
 
@@ -309,7 +315,7 @@ const genderOptions = [
         backendMessage.error ||
         backendMessage.message ||
         backendMessage.code ||
-        "حدث خطأ أثناء إرسال الطلب"
+        t("application_submit_error")
       );
     }
 
@@ -333,20 +339,20 @@ const genderOptions = [
           nestedMessage.error ||
           nestedMessage.message ||
           nestedMessage.code ||
-          "حدث خطأ أثناء إرسال الطلب"
+          t("application_submit_error")
         );
       }
 
       return (
         responseData.error ||
         responseData.message ||
-        "حدث خطأ أثناء إرسال الطلب"
+        t("application_submit_error")
       );
     }
 
     return (
       error?.message ||
-      "حدث خطأ أثناء إرسال الطلب"
+      t("application_submit_error")
     );
   };
 
@@ -405,8 +411,8 @@ const genderOptions = [
 
     if (!programId) {
       openMessagePopup(
-        "بيانات الأكاديمية غير مكتملة",
-        "معرّف الأكاديمية غير موجود، تأكدي أن بيانات الأكاديمية تم تحميلها بشكل صحيح.",
+        t("incomplete_academy_data"),
+        t("academy_id_missing"),
         "error"
       );
 
@@ -423,8 +429,8 @@ const genderOptions = [
       setEditableFields([]);
 
       openMessagePopup(
-        "تم إرسال الطلب",
-        "تم التقديم على الأكاديمية بنجاح",
+        t("application_submitted"),
+        t("academy_application_success"),
         "success"
       );
     } catch (error) {
@@ -435,7 +441,7 @@ const genderOptions = [
      
 
       openMessagePopup(
-        "حدث خطأ",
+        t("generic_error"),
         errorMessage,
         "error"
       );
@@ -681,13 +687,13 @@ const genderOptions = [
 
               {data?.myStatus?.statusText && (
                 <p className="text-sm text-gray-600 mt-1">
-                  الحالة: {data.myStatus.statusText}
+                  {t("status")}: {data.myStatus.statusText}
                 </p>
               )}
 
               {data?.myStatus?.applicantId && (
                 <p className="text-xs text-gray-500 mt-1">
-                  رقم الطلب:{" "}
+                  {t("application_number")}:{" "}
                   {data.myStatus.applicantId}
                 </p>
               )}
@@ -699,18 +705,18 @@ const genderOptions = [
               </div>
 
               <p className="font-bold text-green-700">
-                تم التقديم على الطلب
+                {t("application_submitted")}
               </p>
 
               {data?.myStatus?.statusText && (
                 <p className="text-sm text-gray-600 mt-1">
-                  الحالة: {data.myStatus.statusText}
+                  {t("status")}: {data.myStatus.statusText}
                 </p>
               )}
 
               {data?.myStatus?.applicantId && (
                 <p className="text-xs text-gray-500 mt-1">
-                  رقم الطلب:{" "}
+                  {t("application_number")}:{" "}
                   {data.myStatus.applicantId}
                 </p>
               )}
@@ -761,7 +767,7 @@ const genderOptions = [
                     </form>
                   ) : (
                     <p className="text-center text-gray-500 py-8">
-                      جاري تحميل بيانات العضو...
+                      {t("loading_member_details")}
                     </p>
                   )}
                 </div>
@@ -800,8 +806,8 @@ const genderOptions = [
       const itemRejected =
         normalizedItemStatus === "rejected" ||
         normalizedItemStatus.includes("reject") ||
-        itemStatus === "مرفوض" ||
-        itemStatus === "تم الرفض";
+        itemStatus === "\u0645\u0631\u0641\u0648\u0636" ||
+        itemStatus === "\u062a\u0645 \u0627\u0644\u0631\u0641\u0636";
 
       return (
         <button
@@ -848,7 +854,7 @@ const genderOptions = [
     </form>
   ) : (
     <p className="text-center text-gray-500 py-8">
-      جاري تحميل بيانات العضو التابع...
+      {t("loading_dependent_details")}
     </p>
   )
 )}
@@ -1052,7 +1058,7 @@ const genderOptions = [
                 {typeof messagePopup.message ===
                 "string"
                   ? messagePopup.message
-                  : "حدث خطأ غير متوقع"}
+                  : t("generic_error")}
               </p>
 
               <button

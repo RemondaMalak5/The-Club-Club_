@@ -1,50 +1,3 @@
-// import React from 'react'
-// import { RiShieldUserLine } from "react-icons/ri";
-// import { CiLocationOn } from "react-icons/ci";
-// import H_one from '../../Component/Shared_component/H_one';
-
-// const Header_t_profie = ({data}) => {
-//   return (
-//       <div>
-//       <div className="py-5 px-10 rounded-2xl flex flex-wrap bg-gradient-to-br from-[#DBEFEAB2] via-[#E2F1ED24] to-[#DCF0EB9A]">
-//          <div className="flex gap-4 items-center xl:w-1/2 w-full">
-//           <img
-//             src={data?.image || "/images/default-user.png"}
-//             className="w-28 h-28 rounded-full object-cover"
-//             loading="lazy"
-//             alt="profile"
-//           />
-
-
-//           <div className="flex flex-col gap-2">
-//             <H_one text={data?.name} />
-
-//               <p className="flex items-center gap-1 ">
-//                 {data?.bio}
-//               </p>
-//                <div className="flex items-center gap-2">
-//                 <p className="bg-white p-3 rounded-2xl">
-//                   {data?.tags?.map((tag, index) => (
-//                     <span key={index} className="text-sm ">
-//                       {tag}
-//                     </span>
-//                   ))}
-//                 </p>
-//                </div>
-                
-//           </div>
-//         </div>
-//         <div className="hidden md:flex xl:w-1/2 w-full gap-4 justify-end py-5 h-fit">
-//                <button className="bg-[#0D6E5A] text-[#ffffff] px-4 py-2 rounded-2xl hover:bg-[#ffffff] hover:text-[#0D6E5A] transition">
-//                 اترك تعليق</button>  
-                 
-//          </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Header_t_profie
 import React, { useState } from "react";
 import { FaStar, FaTimes } from "react-icons/fa";
 import i18next from "i18next";
@@ -81,7 +34,6 @@ const Header_t_profie = ({ data, trainerId, branchId, onReviewAdded }) => {
 
       const response = await Add_Trainer_Review(body);
 
-      console.log("Add review response:", response);
 
       setShowReview(false);
       setReviewerName("");
@@ -137,7 +89,8 @@ const Header_t_profie = ({ data, trainerId, branchId, onReviewAdded }) => {
               onClick={() => setShowReview(true)}
               className="bg-[#0D6E5A] text-white px-4 py-2 rounded-2xl hover:bg-white hover:text-[#0D6E5A] transition"
             >
-              اترك تعليق
+              اترك تعليق <BsChatText />
+
             </button>
           </div>
         </div>

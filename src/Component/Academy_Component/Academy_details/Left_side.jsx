@@ -72,8 +72,7 @@ const Left_side = ({ data }) => {
         </div>
 
         <div className="text-center">
-          <p className="text-[#00BFA6] font-bold text-3xl">
-           <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
   {program.pricing?.map((price, priceIndex) => (
     <div key={priceIndex} className="text-center">
       
@@ -92,7 +91,7 @@ const Left_side = ({ data }) => {
     </div>
   ))}
 </div>
-          </p>
+          
         </div>
       </div>
 
