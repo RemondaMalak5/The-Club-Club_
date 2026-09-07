@@ -1,13 +1,18 @@
-
-
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaShareNodes, FaStar } from "react-icons/fa6";
 import { FaDownload } from "react-icons/fa";
 import { assets } from "../../assets/assets";
+import { toPng } from "html-to-image";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
-const MembershipCard = ({ data }) => {
+const MembershipCard = ({
+  data,
+  selectedMember,
+  onBackToMain,
+}) => {
   const { t } = useTranslation();
+const cardRef = useRef(null);
 
   const card = data?.digitalCard || {};
 
@@ -30,10 +35,77 @@ const attendedCount = Number(selectedAcademyData?.attended) || 0;
 const sessionsPerMonth =
   Number(selectedAcademyData?.sessionsPerMonth) || 0;
 
+const handleDownload = async () => {
+  if (!cardRef.current) {
+    alert("Card not found");
+    return;
+  }
+
+  try {
+    const images = Array.from(
+      cardRef.current.querySelectorAll("img")
+    );
+
+    console.table(
+      images.map((img) => ({
+        src: img.src,
+        complete: img.complete,
+        naturalWidth: img.naturalWidth,
+        naturalHeight: img.naturalHeight,
+      }))
+    );
+
+    const dataUrl = await toPng(cardRef.current, {
+      pixelRatio: 2,
+      backgroundColor: "#ffffff",
+      cacheBust: false,
+      skipFonts: true,
+    });
+
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = `membership-card-${
+      data?.membershipNo || "member"
+    }.png`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error("DOWNLOAD ERROR:", error);
+  }
+};
+
+const handleShare = async () => {
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: "Membership Card",
+        text: "Check out my membership card",
+        url: window.location.href,
+      });
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copied to clipboard");
+    }
+  } catch (error) {
+    console.error("Share failed:", error);
+  }
+};
+
   return (
     <div className="w-full rounded-2xl border border-gray-200 bg-[#F7F7F7] p-3">
       {/* Header */}
       <div className="mb-4 flex items-center justify-between">
+       {selectedMember && (
+  <span
+    onClick={onBackToMain}
+    className="text-2xl font-bold text-[#009689] cursor-pointer"
+  >
+    <MdKeyboardDoubleArrowRight />
+  </span>
+)}
+
         <h2 className="text-sm font-bold text-gray-700">
           {t("digital_membership_card")}
         </h2>
@@ -43,6 +115,8 @@ const sessionsPerMonth =
             type="button"
             aria-label="Download membership card"
             className="transition hover:opacity-70"
+                onClick={handleDownload}
+
           >
             <FaDownload />
           </button>
@@ -51,6 +125,7 @@ const sessionsPerMonth =
             type="button"
             aria-label="Share membership card"
             className="transition hover:opacity-70"
+            onClick={handleShare}
           >
             <FaShareNodes />
           </button>
@@ -58,7 +133,8 @@ const sessionsPerMonth =
       </div>
 
       {/* Card */}
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white"   ref={cardRef}
+>
         {/* Top Banner */}
         <div className="bg-gradient-to-r from-[#2DC6B3] to-[#00786F] px-5 py-5">
           {/* Stars */}

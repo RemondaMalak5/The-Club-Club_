@@ -18,27 +18,27 @@ import AcademyApplications from "../Component/Profile/AcademyApplications";
 import Outstanding from "../Component/Profile/Outstanding";
 
 const Profile = () => {
-    const {  } = useTranslation();
+  const { } = useTranslation();
 
   const {
-  data,
-  isLoading,
-  isError,
-  error,
-} = useQuery({
-  queryKey: ["profile", i18next.language],
-  queryFn: () =>
-    Get_profile({
-      language: i18next.language,
-    }),
-});
+    data,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["profile", i18next.language],
+    queryFn: () =>
+      Get_profile({
+        language: i18next.language,
+      }),
+  });
 
-const profile = data?.message?.data;
+  const profile = data?.message?.data;
 
-const [selectedMember, setSelectedMember] = useState(null);
+  const [selectedMember, setSelectedMember] = useState(null);
 
-const displayedData = selectedMember
-  ? {
+  const displayedData = selectedMember
+    ? {
       ...profile,
 
       fullName: selectedMember?.name,
@@ -57,10 +57,10 @@ const displayedData = selectedMember
           selectedMember?.id,
       },
     }
-  : profile;
+    : profile;
 
   if (isLoading) {
-    return <Spinner/>;
+    return <Spinner />;
   }
 
   if (isError) {
@@ -72,28 +72,28 @@ const displayedData = selectedMember
       <Proflie_Header data={profile} />
       <Membership_Stats data={profile} />
 
-       <div className="flex flex-wrap ">
-  <div className=" xl:w-[55%] w-full px-5 space-y-4">
-          <MembershipCard data={displayedData} 
-/>
-          <Outstanding data={profile}/> 
+      <div className="flex flex-wrap ">
+        <div className=" xl:w-[55%] w-full px-5 space-y-4">
+          <MembershipCard
+            data={displayedData}
+            selectedMember={selectedMember}
+            onBackToMain={() => setSelectedMember(null)}
+          />
+          <Outstanding data={profile} />
 
-          {/* <Bookings data={profile.upcomingBookings} /> */}
-                      <Payments data={profile} />
+          <Payments data={profile} />
         </div>
 
         <div className="xl:w-[45%] w-full px-5 space-y-4">
           {/* <Notifications data={profile.notifications} /> */}
-                    <AcademySubscriptions data={profile.academyStatus.programs} />
+          <AcademySubscriptions data={profile.academyStatus.programs} />
 
           <FamilyMembers data={profile?.familyMembers}
-                            onSelectMember={setSelectedMember}
- />
-          {/* <AcademyApplications/> */}
+            onSelectMember={setSelectedMember} />
           <Achievements data={profile?.achievements} />
           <QuickActions data={profile} />
         </div>
-      </div> 
+      </div>
     </div>
   );
 };

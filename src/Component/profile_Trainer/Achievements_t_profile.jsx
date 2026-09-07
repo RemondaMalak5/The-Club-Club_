@@ -1,44 +1,99 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { FaTrophy, FaMedal } from "react-icons/fa";
 
 const Achievements_t_profile = ({ data }) => {
-    const { t } = useTranslation();
-  return (
-      <div className="bg-white rounded-xl p-4 shadow border">
-          <h3 className="font-bold text-[20px] mb-4">
-            {t("achievements")}
-          </h3>
-    
-          <div className="space-y-3">
-            {data?.length > 0 ? (
-              data.slice(0, 3).map((item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-2xl p-4 flex items-center justify-between"
-                >
-                  {/* <div className="w-12 h-12 rounded-full bg-[#009689] text-white flex items-center justify-center text-2xl">
-                    <RiMedalLine />
-                  </div> */}
-    
-                  <div className="text-right flex-1 mr-4">
-                    {/* <h4 className="font-bold text-[#1F2937]">
-                      {item.title}
-                    </h4> */}
-    
-                    <p className="text-sm text-gray-500 mt-1">
-                      {item}
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500 py-4">
-                {t("no_achievements")}
-              </p>
-            )}
-          </div>
-        </div>
-  )
-}
+  const achievements = Array.isArray(data?.achievements?.data)
+    ? data.achievements.data
+    : [];
 
-export default Achievements_t_profile
+  const awards = Array.isArray(data?.awards)
+    ? data.awards
+    : [];
+
+  return (
+    <div className="space-y-4">
+
+      {/* Bio */}
+      <section className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+        <h2 className="text-[30px] font-bold text-gray-900 mb-3">
+          نبذة عن المدرب
+        </h2>
+
+        <p className="text-xl text-gray-600 leading-7">
+          {data?.bio || "لا توجد نبذة متاحة عن المدرب"}
+        </p>
+      </section>
+
+      {/* Achievements */}
+      <section className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+        <h2 className="text-[30px] font-bold text-gray-900 mb-4">
+          الإنجازات المحققة
+        </h2>
+
+        {achievements.length > 0 ? (
+          <div className="space-y-3">
+            {achievements.map((achievement, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3 border border-[#ead77a] bg-[#fffdf3] rounded-xl px-4 py-3"
+              >
+                <div className="w-9 h-9 rounded-full bg-[#fff3b5] flex items-center justify-center shrink-0">
+                  <FaMedal className="text-[#c99a00]" />
+                </div>
+
+                <p className="text-sm text-gray-700">
+                  {achievement}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400 text-center py-4">
+            لا توجد إنجازات حتى الآن
+          </p>
+        )}
+      </section>
+
+      {/* Awards */}
+      <section className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+        <h2 className="text-[30px] font-bold text-gray-900 mb-4">
+          الجوائز الحاصل عليها
+        </h2>
+
+        {awards.length > 0 ? (
+          <div className="space-y-3">
+            {awards.map((award, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between gap-4 border border-gray-200 rounded-xl px-4 py-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-[#fff5db] flex items-center justify-center shrink-0">
+                    <FaTrophy className="text-[#d39b00]" />
+                  </div>
+
+                  <p className="text-sm font-medium text-gray-700">
+                    {award?.title}
+                  </p>
+                </div>
+
+                {award?.year && (
+                  <span className="text-xs text-gray-400 whitespace-nowrap">
+                    {award.year}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400 text-center py-4">
+            لا توجد جوائز حتى الآن
+          </p>
+        )}
+      </section>
+
+    </div>
+  );
+};
+
+export default Achievements_t_profile;
