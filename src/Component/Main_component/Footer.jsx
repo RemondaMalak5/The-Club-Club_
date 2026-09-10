@@ -6,7 +6,6 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { assets } from "../../assets/assets";
-import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -23,11 +22,14 @@ const { branches } = useBranch();
   //   { value: t("branch_shiraton") , link: `/about-branches/${id}` },
   //   { value: t("branch_capital") , link: `/about-branches/${id}` },
   // ];
- const branchOptions = branches?.map((branch) => ({
-  id: branch.id,
-  name: branch.name,
-  link: `/about-branches/${branch.id}`,
-})) || [];
+ const branchOptions =
+  branches?.map((branch) => ({
+    id: branch.id,
+    registryId: branch.registryId,
+    name: branch.name,
+    link: `/about-branches/${branch.id}`,
+  })) || [];
+
   const quick_links = [
     { value: t("home") },
     { value: t("about"), link: "/about" },
@@ -39,11 +41,11 @@ const { branches } = useBranch();
     { value: t("contact"), link: "/contact" },
   ];
   const services_club = [
-    { value: t("book_courts"), link: "/" },
+    { value: t("book_courts"), link: "/academy" },
     { value: t("membership"), link: "/services" },
-    { value: t("trips"), link: "/" },
-    { value: t("tournaments"), link: "/" },
-    { value: t("events"), link: "/" },
+    { value: t("trips"), link: "/services" },
+    { value: t("tournaments"), link: "/services" },
+    { value: t("events"), link: "/services" },
     { value: t("academies"), link: "/academy" },
   ];
   const Services_member = [ 
@@ -51,7 +53,7 @@ const { branches } = useBranch();
     { value: user? t("profile"): t("login"), link: user ? "/profile" : "/login" },
     { value: t("register"), link: "/register" },
     { value: t("manage_membership"), link: "/" },
-    { value: t("book_activities"), link: "/" },
+    { value: t("book_activities"), link: "/academy" },
   ];
   const bottom = [
     { value: t("privacy_policy") },
@@ -103,16 +105,20 @@ const { branches } = useBranch();
         key={item.id}
         className="hover:text-white text-[#FFFFFFCC] cursor-pointer transition"
       >
-        <Link
-          to={item.link}
-          className="flex items-center gap-1"
-        >
-          <span>
-            <MdOutlineKeyboardArrowLeft />
-          </span>
+       <Link
+  to={item.link}
+  state={{
+    registryId: item.registryId,
+    branchName: item.name,
+  }}
+  className="flex items-center gap-1"
+>
+  <span>
+    <MdOutlineKeyboardArrowLeft />
+  </span>
 
-          {item.name}
-        </Link>
+  {item.name}
+</Link>
       </li>
     ))}
   </ul>

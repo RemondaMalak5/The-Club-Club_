@@ -3,18 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 import Proflie_Header from "../Component/Profile/Proflie_Header";
 import Membership_Stats from "../Component/Profile/Membership_Stats";
 import MembershipCard from "../Component/Profile/MembershipCard";
-import Notifications from "../Component/Profile/Notifications";
+// import Notifications from "../Component/Profile/Notifications";
 import FamilyMembers from "../Component/Profile/FamilyMembers";
 import Achievements from "../Component/Profile/Achievements";
 import QuickActions from "../Component/Profile/QuickActions";
-import Bookings from "../Component/Profile/Bookings";
 import Payments from "../Component/Profile/Payments";
 import AcademySubscriptions from "../Component/Profile/AcademySubscriptions";
 import Spinner from "./../Component/Shared_Component/Spinner";
 import { Get_profile } from "../axiosConfig/APIs/Profile/Profile";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
-import AcademyApplications from "../Component/Profile/AcademyApplications";
 import Outstanding from "../Component/Profile/Outstanding";
 
 const Profile = () => {
@@ -86,7 +84,7 @@ const Profile = () => {
 
         <div className="xl:w-[45%] w-full px-5 space-y-4">
           {/* <Notifications data={profile.notifications} /> */}
-          <AcademySubscriptions data={profile.academyStatus.programs} />
+          <AcademySubscriptions data={profile?.academyStatus?.programs} />
 
           <FamilyMembers data={profile?.familyMembers}
             onSelectMember={setSelectedMember} />

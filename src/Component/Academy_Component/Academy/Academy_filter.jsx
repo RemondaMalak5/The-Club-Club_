@@ -29,7 +29,7 @@ const Academy_filter = () => {
   const [error, setError] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = user;
- 
+ const academyTopRef = useRef(null);
 const{selectedBranch, changeBranch, branches} = useBranch();
 
   const Get_Academy_Category = async () => {
@@ -83,8 +83,18 @@ const Get_Academy_List = async () => {
   searchTerm,
 ]);
 
+useEffect(() => {
+  if (currentPage > 1) {
+    academyTopRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}, [currentPage]);
+
   return (
-    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4">
+    <div className="xl:py-6 md:py-5 py-3 xl:px-16 md:px-10 px-4"     ref={academyTopRef}
+>
       <div className="flex flex-wrap gap-3 mb-4 justify-center">
         <button
           onClick={() => {
