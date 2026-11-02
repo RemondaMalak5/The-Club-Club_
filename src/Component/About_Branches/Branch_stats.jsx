@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Branch_stats } from "../../axiosConfig/APIs/Home/Branch_stats";
 import { useTranslation } from "react-i18next";
-import H_one from "../Shared_component/H_one";
+import Spinner from "../Shared_Component/Spinner";
+import H_one from "../Shared_Component/H_one";
 
 const BranchStats = ({ branchId }) => {
   const [branchData, setBranchData] = useState(null);
@@ -144,7 +145,7 @@ const BranchStats = ({ branchId }) => {
   };
 
   if (loading) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <div className="text-center py-10"> <Spinner/> </div>;
   }
 
   if (!branchData) {

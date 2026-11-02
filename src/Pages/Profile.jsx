@@ -1,43 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Proflie_Header from "../Component/Profile/Proflie_Header";
 import Membership_Stats from "../Component/Profile/Membership_Stats";
 import MembershipCard from "../Component/Profile/MembershipCard";
-import Notifications from "../Component/Profile/Notifications";
+// import Notifications from "../Component/Profile/Notifications";
 import FamilyMembers from "../Component/Profile/FamilyMembers";
 import Achievements from "../Component/Profile/Achievements";
 import QuickActions from "../Component/Profile/QuickActions";
-import Bookings from "../Component/Profile/Bookings";
 import Payments from "../Component/Profile/Payments";
 import AcademySubscriptions from "../Component/Profile/AcademySubscriptions";
 import Spinner from "./../Component/Shared_Component/Spinner";
 import { Get_profile } from "../axiosConfig/APIs/Profile/Profile";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
-import AcademyApplications from "../Component/Profile/AcademyApplications";
 import Outstanding from "../Component/Profile/Outstanding";
 
 const Profile = () => {
-    const {  } = useTranslation();
+  const { } = useTranslation();
 
   const {
-  data,
-  isLoading,
-  isError,
-  error,
-} = useQuery({
-  queryKey: ["profile", i18next.language],
-  queryFn: () =>
-    Get_profile({
-      language: i18next.language,
-    }),
-});
+    data,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["profile", i18next.language],
+    queryFn: () =>
+      Get_profile({
+        language: i18next.language,
+      }),
+  });
 
-const profile = data?.message?.data;
+  const profile = data?.message?.data;
 
+  const [selectedMember, setSelectedMember] = useState(null);
+
+  const displayedData = selectedMember
+    ? {
+      ...profile,
+
+      fullName: selectedMember?.name,
+      profileImage: selectedMember?.photo,
+      studentId: selectedMember?.studentId,
+      qrImage: selectedMember?.qrImage,
+
+      academies:
+        selectedMember?.academyStatus?.programs || [],
+
+      digitalCard: {
+        ...profile?.digitalCard,
+        status: selectedMember?.subscriptionStatus,
+        memberCode:
+          selectedMember?.qrIdentifier ||
+          selectedMember?.id,
+      },
+    }
+    : profile;
 
   if (isLoading) {
-    return <Spinner/>;
+    return <Spinner />;
   }
 
   if (isError) {
@@ -49,24 +70,28 @@ const profile = data?.message?.data;
       <Proflie_Header data={profile} />
       <Membership_Stats data={profile} />
 
-       <div className="flex flex-wrap ">
-  <div className=" xl:w-[55%] w-full px-5 space-y-4">
-          <MembershipCard data={profile} />
-          <Outstanding data={profile}/>
-          {/* <Bookings data={profile.upcomingBookings} /> */}
-                      <Payments data={profile} />
+      <div className="flex flex-wrap ">
+        <div className=" xl:w-[55%] w-full px-5 space-y-4">
+          <MembershipCard
+            data={displayedData}
+            selectedMember={selectedMember}
+            onBackToMain={() => setSelectedMember(null)}
+          />
+          <Outstanding data={profile} />
+
+          <Payments data={profile} />
         </div>
 
         <div className="xl:w-[45%] w-full px-5 space-y-4">
           {/* <Notifications data={profile.notifications} /> */}
-                    <AcademySubscriptions data={profile.academyStatus.programs} />
+          <AcademySubscriptions data={profile?.academyStatus?.programs} />
 
-          <FamilyMembers data={profile?.familyMembers} />
-          {/* <AcademyApplications/> */}
+          <FamilyMembers data={profile?.familyMembers}
+            onSelectMember={setSelectedMember} />
           <Achievements data={profile?.achievements} />
           <QuickActions data={profile} />
         </div>
-      </div> 
+      </div>
     </div>
   );
 };

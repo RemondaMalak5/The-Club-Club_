@@ -26,11 +26,11 @@ const Slider_branch = ({branchName}) => {
     loading="lazy"
   />
 
-  <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-textUp">
+  <h2 className=" text-3xl md:text-4xl lg:text-4xl font-bold text-white text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-textUp">
   {t("welcome_branch", { branchName: slides[currentSlide].title })}
   </h2>
 
-  <p className="text-md md:text-lg lg:text-xl text-center text-[#F3F4F6] absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-textUp">
+  <p className="text-md md:text-lg lg:text-xl text-center text-[#F3F4F6]  absolute top-[62%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-textUp">
     {slides[currentSlide].description}
   </p>
 </div>

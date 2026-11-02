@@ -68,7 +68,7 @@ const About_branches = () => {
           data={data}
         />
 
-        <BranchStats branchId={branchId} />
+        {/* <BranchStats branchId={branchId} /> */}
         <Academy_branch registryId={branchId} />
         <Memberships_branch branchId={branchId} />
         <News_branch branchId={branchId} />

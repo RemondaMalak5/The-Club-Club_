@@ -1,8 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Right_side_champin = ({ data }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div className="space-y-6">
@@ -38,8 +40,9 @@ const Right_side_champin = ({ data }) => {
         <div className="space-y-4">
           {data?.technicalStaff?.map((e, index) => (
             <div
+              onClick={() => navigate(`/profile-trainer/${e.id}`)}
               key={e?.id || index}
-              className="flex items-center gap-3 pb-3 bg-[#F9FAFB] hover:bg-gray-50 p-2 border rounded-lg"
+              className="flex items-center gap-3 pb-3 bg-[#F9FAFB] hover:bg-gray-50 p-2 border rounded-lg cursor-pointer"
             >
               <img
                 src={e?.logo}

@@ -6,22 +6,30 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { assets } from "../../assets/assets";
-import Services from "./../../Pages/Services";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Social_Media from "../Shared_Component/Social_Media";
+import { useBranch } from "../../context/BranchContext";
 const Footer = () => {
   const { id } = useParams();
     const user = JSON.parse(localStorage.getItem("user"));
-
+const { branches } = useBranch();
   const { t } = useTranslation();
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
-  const branches = [
-    { value: t("branch_6_october") , link: `/about-branches/${id}` },
-    { value: t("branch_shiraton") , link: `/about-branches/${id}` },
-    { value: t("branch_capital") , link: `/about-branches/${id}` },
-  ];
+  // const branches = [
+  //   { value: t("branch_6_october") , link: `/about-branches/${id}` },
+  //   { value: t("branch_shiraton") , link: `/about-branches/${id}` },
+  //   { value: t("branch_capital") , link: `/about-branches/${id}` },
+  // ];
+ const branchOptions =
+  branches?.map((branch) => ({
+    id: branch.id,
+    registryId: branch.registryId,
+    name: branch.name,
+    link: `/about-branches/${branch.id}`,
+  })) || [];
+
   const quick_links = [
     { value: t("home") },
     { value: t("about"), link: "/about" },
@@ -33,11 +41,11 @@ const Footer = () => {
     { value: t("contact"), link: "/contact" },
   ];
   const services_club = [
-    { value: t("book_courts"), link: "/" },
+    { value: t("book_courts"), link: "/academy" },
     { value: t("membership"), link: "/services" },
-    { value: t("trips"), link: "/" },
-    { value: t("tournaments"), link: "/" },
-    { value: t("events"), link: "/" },
+    { value: t("trips"), link: "/services" },
+    { value: t("tournaments"), link: "/services" },
+    { value: t("events"), link: "/services" },
     { value: t("academies"), link: "/academy" },
   ];
   const Services_member = [ 
@@ -45,7 +53,7 @@ const Footer = () => {
     { value: user? t("profile"): t("login"), link: user ? "/profile" : "/login" },
     { value: t("register"), link: "/register" },
     { value: t("manage_membership"), link: "/" },
-    { value: t("book_activities"), link: "/" },
+    { value: t("book_activities"), link: "/academy" },
   ];
   const bottom = [
     { value: t("privacy_policy") },
@@ -85,27 +93,36 @@ const Footer = () => {
           </div>
 
           {/* Branches */}
-          <div className="xl:w-1/5 md:w-1/2 w-full  ">
-            <h3 className="font-bold text-[20px] mb-4">{t("branches")}</h3>
-            <ul className="space-y-2 text-sm text-gray-200">
-              {branches.map((item) => (
-                <li
-                  key={item.id}
-                  className="hover:text-white text-[#FFFFFFCC] cursor-pointer transition"
-                >
-                  <Link
-                    to={item.link}
-                    className="flex items-center gap-1"
-                  >
-                    <span>
-                      <MdOutlineKeyboardArrowLeft />
-                    </span>
-                    {item.value}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+{/* Branches */}
+<div className="xl:w-1/5 md:w-1/2 w-full">
+  <h3 className="font-bold text-[20px] mb-4">
+    {t("branches")}
+  </h3>
+
+  <ul className="space-y-2 text-sm text-gray-200">
+    {branchOptions.map((item) => (
+      <li
+        key={item.id}
+        className="hover:text-white text-[#FFFFFFCC] cursor-pointer transition"
+      >
+       <Link
+  to={item.link}
+  state={{
+    registryId: item.registryId,
+    branchName: item.name,
+  }}
+  className="flex items-center gap-1"
+>
+  <span>
+    <MdOutlineKeyboardArrowLeft />
+  </span>
+
+  {item.name}
+</Link>
+      </li>
+    ))}
+  </ul>
+</div>
 
           {/* Quick Links */}
           <div className="xl:w-1/5 md:w-1/2 w-full  ">
