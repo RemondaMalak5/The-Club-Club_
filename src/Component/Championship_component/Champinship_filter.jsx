@@ -20,7 +20,7 @@ const Champinship_filter = () => {
   const [data, setData] = useState([]);
   const [activecategory, setActiveCategory] = useState("all");
   // const [selectedBranch, setSelectedBranch] = useState("all");
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [viewMode, setViewMode] = useState("grid");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
@@ -30,7 +30,12 @@ const Champinship_filter = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 const isLoggedIn = !!user;
   
-const { selectedBranch, changeBranch, branches } = useBranch();
+const { selectedBranch, changeBranch, branches, resetToLoginBranch } = useBranch();
+
+  useEffect(() => {
+    resetToLoginBranch?.();
+  }, []);
+
   const Get_Champins_List = async () => {
     const params = {
       language: i18next.language,
@@ -41,14 +46,12 @@ const { selectedBranch, changeBranch, branches } = useBranch();
     };
     try {
       const response = await Champins_list(params);
-      setData(response.message.data);
-      setTotalPages(response.message.total_pages);
+      setData(response?.message?.data || []);
+      setTotalPages(response?.message?.total_pages);
     } catch (error) {
       setError(true);
+      setData([]);
     }
-    // finally{
-    //     setLoading(false)
-    // }
   };
   // useEffect(() => {
   //   Get_Branches();
@@ -93,13 +96,13 @@ const { selectedBranch, changeBranch, branches } = useBranch();
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
         />
-{!isLoggedIn&&(
-   <select
-          value={selectedBranch}
+        <select
+          value={selectedBranch || "all"}
           onChange={(e) => {
             changeBranch(e.target.value);
             setCurrentPage(1);
           }}
+          className="px-4 py-2 border rounded-lg bg-white outline-none"
         >
           <option value="all"> {t("all_branches")} </option>
 
@@ -109,7 +112,6 @@ const { selectedBranch, changeBranch, branches } = useBranch();
             </option>
           ))}
         </select>
-)}
        
 
         <button

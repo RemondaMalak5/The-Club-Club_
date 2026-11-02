@@ -22,9 +22,9 @@ const Academy_headers = () => {
 
   try {
     const response = await Academy_Stats(params);
-    setData(response.message);
+    setData(response?.message || {});
   } catch (error) {
-    setError(true);
+    setData({});
   }
 };
     useEffect(() => {

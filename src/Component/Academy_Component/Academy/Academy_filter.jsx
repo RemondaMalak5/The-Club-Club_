@@ -29,8 +29,12 @@ const Academy_filter = () => {
   const [error, setError] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = user;
- const academyTopRef = useRef(null);
-const{selectedBranch, changeBranch, branches} = useBranch();
+  const academyTopRef = useRef(null);
+  const { selectedBranch, changeBranch, branches, resetToLoginBranch } = useBranch();
+
+  useEffect(() => {
+    resetToLoginBranch?.();
+  }, []);
 
   const Get_Academy_Category = async () => {
     try {
@@ -134,24 +138,23 @@ useEffect(() => {
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none"
         />
 
-       {!isLoggedIn && (
- <select
-  value={selectedBranch || "all"}
-  onChange={(e) => {
-    changeBranch(e.target.value);
-    setCurrentPage(1);
-  }}
-  
->
-    <option value="all">{t("all_branches")}</option>
+        <select
+          value={selectedBranch || "all"}
+          onChange={(e) => {
+            changeBranch(e.target.value);
+            setActiveCategory("all");
+            setCurrentPage(1);
+          }}
+          className="px-4 py-2 border rounded-lg bg-white outline-none"
+        >
+          <option value="all">{t("all_branches")}</option>
 
-    {branches.map((e) => (
-      <option key={e.id} value={e.id}>
-        {e.name}
-      </option>
-    ))}
-  </select>
-)}
+          {branches.map((e) => (
+            <option key={e.id} value={e.id}>
+              {e.name}
+            </option>
+          ))}
+        </select>
 
         <button
           onClick={() => setViewMode("grid")}

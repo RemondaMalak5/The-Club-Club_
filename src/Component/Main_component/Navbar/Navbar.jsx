@@ -336,6 +336,11 @@ const Navbar = () => {
         const updatedUser = {
           ...parsedUser,
           ...profileData,
+          branchId:
+            profileData?.branchId ||
+            parsedUser?.branchId ||
+            localStorage.getItem("loginBranchId") ||
+            "",
         };
 
         localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -371,6 +376,8 @@ const Navbar = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("customer");
+    localStorage.removeItem("branchId");
+    localStorage.removeItem("loginBranchId");
 
     setUser(null);
     closeMenu();

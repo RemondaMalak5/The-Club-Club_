@@ -19,9 +19,13 @@ const Services_search = () => {
    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
     const paginationRef = useRef();
-  const { selectedBranch, changeBranch, branches } = useBranch();
+  const { selectedBranch, changeBranch, branches, resetToLoginBranch } = useBranch();
     const user = JSON.parse(localStorage.getItem("user"));
   const isLoggedIn = user;
+
+  useEffect(() => {
+    resetToLoginBranch?.();
+  }, []);
 
 const { data: servicesData, isLoading, isError } = useQuery({
   queryKey: ["all-services", i18next.language, currentPage ,selectedBranch],
@@ -76,13 +80,19 @@ const tabs = useMemo(() => {
 
   const filteredData = useMemo(() => {
     return services.filter((item) => {
+      const selectedCatName = categories.find((c) => c.id === activeTab)?.name;
       const matchesCategory =
-        activeTab === "all" || item.category === activeTab;
+        activeTab === "all" ||
+        item.category === activeTab ||
+        item.category_id === activeTab ||
+        (selectedCatName && item.category === selectedCatName);
 
       const matchesBranch =
-  selectedBranch === "all" ||
-  String(item.branchId).toLowerCase() ===
-    String(selectedBranch).toLowerCase();
+        !selectedBranch ||
+        selectedBranch === "all" ||
+        !item.branchId ||
+        String(item.branchId).toLowerCase() ===
+          String(selectedBranch).toLowerCase();
 
       const searchValue = `
         ${item.title || ""}
@@ -95,7 +105,7 @@ const tabs = useMemo(() => {
 
       return matchesCategory && matchesBranch && matchesSearch;
     });
-  }, [services, activeTab, selectedBranch, searchTerm]);
+  }, [services, categories, activeTab, selectedBranch, searchTerm]);
 
   const getPriceLabel = (price, currency) => {
     return Number(price) === 0 ? "" : `${price} ${currency || "EGP"}`;
@@ -140,30 +150,28 @@ const tabs = useMemo(() => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 min-w-[220px] px-4 py-2 border rounded-lg outline-none bg-white"
         />
-{!isLoggedIn && (
-  <select
-    value={selectedBranch || "all"}
-    onChange={(e) => {
-      changeBranch(e.target.value);
-      setCurrentPage(1);
-      setActiveTab("all");
-    }}
-    className="px-4 py-2 border rounded-lg bg-white"
-  >
-    <option value="all">
-      {t("all_branches")}
-    </option>
+        <select
+          value={selectedBranch || "all"}
+          onChange={(e) => {
+            changeBranch(e.target.value);
+            setCurrentPage(1);
+            setActiveTab("all");
+          }}
+          className="px-4 py-2 border rounded-lg bg-white outline-none"
+        >
+          <option value="all">
+            {t("all_branches")}
+          </option>
 
-    {branches.map((branch) => (
-      <option
-        key={branch.id}
-        value={branch.id}
-      >
-        {branch.name}
-      </option>
-    ))}
-  </select>
-)}
+          {branches.map((branch) => (
+            <option
+              key={branch.id}
+              value={branch.id}
+            >
+              {branch.name}
+            </option>
+          ))}
+        </select>
         <button
           onClick={() => setViewMode("grid")}
           className={`p-2 rounded-lg border transition ${

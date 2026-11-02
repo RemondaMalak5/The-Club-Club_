@@ -45,8 +45,7 @@ const Championship_component = () => {
         }
         try {
             const response = await Champins_State (params);
-            setData(response.message.data);
-            setTotalPages(response.message.total_pages);
+            setData(response?.message?.data || {});
         }
         catch (error) {
             setError(true) ;

@@ -413,6 +413,7 @@ const Login = () => {
       let savedUser = {
         ...customer,
         ...user,
+        branchId,
 
         fullName:
           user?.fullName ||
@@ -429,6 +430,7 @@ const Login = () => {
           "",
       };
 
+      localStorage.setItem("loginBranchId", branchId);
       localStorage.setItem("user", JSON.stringify(savedUser));
 
       /*
@@ -448,6 +450,7 @@ const Login = () => {
           savedUser = {
             ...savedUser,
             ...profileData,
+            branchId: profileData?.branchId || branchId,
 
             fullName:
               profileData?.fullName ||
