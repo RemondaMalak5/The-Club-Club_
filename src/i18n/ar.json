@@ -478,6 +478,8 @@
   "loyalty_discount_available": "خصم الولاء متاح",
   "service_total_quantity_label": "العدد الإجمالي",
   "free": "مجاني" ,
-  "trainer_team":"فريق المشرفين"
+  "trainer_team":"فريق المشرفين",
+  "main_member": "عضو عامل",
+  "follow_member": "عضو تابع"
 
 }

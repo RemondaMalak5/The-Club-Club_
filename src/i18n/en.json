@@ -477,6 +477,8 @@
   "service_total_quantity_label": "service total quantity label ",
   "free": "Free",
   "trainer_team":"Trainer Team",
-  "time":"Time"
+  "time":"Time",
+  "main_member": "Main Member",
+  "follow_member": "Follow Member"
 
 }
