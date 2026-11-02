@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main_layout from "../Layout/Main_layout";
 import Home from "../Pages/Home";
-import Branches from "../Pages/Branches";
 import News from "../Pages/News";
 import AboutUs from "../Pages/AboutUs";
 import Champions from "../Pages/Champions";
@@ -21,6 +20,7 @@ import Profile from "../Pages/Profile";
 import Header_academy_details from "../Component/Academy_Component/Academy_details/Header_academy_details";
 import Header_services_details from "../Component/Services_Component/Services_Details/Header_services_details";
 import Champin_header from "../Component/Championship_component/champinship_details/Champin_header";
+import Team_member_details from "../Component/Championship_component/champinship_details/Team_member_details";
 import News_details from "../Component/News_component/News_Details/News_details";
 import About_branches from "../Pages/About_branches";
 import Cheak_Mail from "../Component/Forget_pass/Cheak_Mail";
@@ -29,6 +29,7 @@ import Reset_pass from "../Component/Forget_pass/Reset_pass";
 import Profile_Guest from "../Pages/Profile_Guest";
 import Loyalty_point from "../Component/Home_component/Loyalty_point";
 import Loyalty_details from "../Component/Lotalty_component/Loyalty_details";
+import Branches from "../Pages/Branches";
 
 export const router = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
     element: <Main_layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "branches", element: <Branches /> },
+      { path: "branches", element: <Branches/> },
       { path: "news", element: <News /> },
       { path: "about", element: <AboutUs /> },
       { path: "champions", element: <Champions /> },
@@ -56,6 +57,7 @@ export const router = createBrowserRouter([
       {path:"profile", element: <Profile/>},
       {path:"academy/:id", element: <Header_academy_details/>} ,
       {path:"champions/:id", element: <Champin_header/>} ,
+      {path:"champions/member/:id", element: <Team_member_details/>} ,
       {path:"news/:id", element: <News_details/>} ,
       {path:"about-branches/:id", element: <About_branches/>},
       {path:"forget-pass" , element:<Cheak_Mail/>},

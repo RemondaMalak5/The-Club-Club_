@@ -43,7 +43,7 @@ const [data, setData] = useState(null);
         className="w-full flex items-center gap-2 text-[24px] md:text-[30px] py-4 px-4 md:px-10 cursor-pointer"
       >
         {i18n.language === "ar" ? <IoMdArrowForward /> : <IoMdArrowBack />}
-        <p className="font-bold text-gray-800">{service?.title || t('service_details_title')}</p>
+        <p className="font-bold text-gray-800">{service?.title }</p>
       </div>
 
       <img
@@ -55,9 +55,9 @@ const [data, setData] = useState(null);
 
       <div className="px-4 md:px-10 py-6">
         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-4">
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{data?.category.name} </span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{data?.category?.name} </span>
           <span className="rounded-full bg-white border px-3 py-1 shadow-sm">{data?.branchName} </span>
-          <span className="rounded-full bg-white border px-3 py-1 shadow-sm"> {data?.date.start_date}</span>
+          <span className="rounded-full bg-white border px-3 py-1 shadow-sm"> {data?.date?.start_date}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

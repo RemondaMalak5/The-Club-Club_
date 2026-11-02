@@ -876,7 +876,17 @@ const genderOptions = [
           {data?.trainers?.map((trainer, index) => (
             <div
               key={trainer?.id || index}
-              className="border rounded-2xl p-4 hover:shadow-md transition"
+              onClick={() => {
+                const trainerId = trainer?.id || trainer?.name;
+                if (!trainerId) return;
+                navigate("/champions/member/" + encodeURIComponent(trainerId), {
+                  state: {
+                    member: trainer,
+                    branchId: data?.branchId || location.state?.branchId,
+                  },
+                });
+              }}
+              className="border rounded-2xl p-4 hover:shadow-md transition cursor-pointer"
             >
               <div className="flex items-center gap-4">
                 <img

@@ -25,6 +25,8 @@ import {
 import { assets } from "./../../../assets/assets";
 
 import { Create_booking } from "../../../axiosConfig/APIs/Services/Get_booking";
+import { payment_Fawry } from "../../../axiosConfig/APIs/Supscription_payment/Create_fawry";
+import { academyFeePayment } from "../../../axiosConfig/APIs/Academy/Academy_Payment";
 
 const Right_side = ({ data }) => {
   const { t, i18n } = useTranslation();
@@ -57,6 +59,14 @@ const Right_side = ({ data }) => {
 
   const [guests, setGuests] = useState([]);
 
+  const [
+    addAllToWaitingListOption,
+    setAddAllToWaitingListOption,
+  ] = useState(false);
+
+  const [useLoyaltyPoints, setUseLoyaltyPoints] =
+    useState(false);
+
   const [resultPopup, setResultPopup] = useState({
     show: false,
     type: "success",
@@ -64,6 +74,25 @@ const Right_side = ({ data }) => {
     message: "",
     data: null,
   });
+
+  const [showPaymentPopup, setShowPaymentPopup] =
+    useState(false);
+
+  const [
+    selectedPaymentMethod,
+    setSelectedPaymentMethod,
+  ] = useState("visa");
+
+  const [
+    selectedPaymentItem,
+    setSelectedPaymentItem,
+  ] = useState(null);
+
+  const [paymentLoading, setPaymentLoading] =
+    useState(false);
+
+  const [paymentError, setPaymentError] =
+    useState("");
 
   /*
    * Pricing tiers
@@ -114,6 +143,100 @@ const Right_side = ({ data }) => {
       tier?.is_allowed === false ||
       tier?.available === false
     );
+  };
+
+  const getTierSubscriberCategory = (tier) => {
+    const raw = String(
+      tier?.subscriber_type ||
+        tier?.subscriberType ||
+        tier?.label ||
+        tier?.tier_id ||
+        ""
+    ).toLowerCase();
+
+    if (
+      raw.includes("guest") ||
+      raw.includes("non-member") ||
+      raw.includes("non member") ||
+      raw.includes("non_member") ||
+      raw.includes("ضيف") ||
+      raw.includes("ضيوف") ||
+      raw.includes("غير عضو") ||
+      raw.includes("غير الأعضاء") ||
+      raw.includes("زائر")
+    ) {
+      return "guests";
+    }
+
+    if (
+      raw.includes("dependant") ||
+      raw.includes("dependent") ||
+      raw.includes("relative") ||
+      raw.includes("family") ||
+      raw.includes("تابع") ||
+      raw.includes("تابعين") ||
+      raw.includes("أقارب") ||
+      raw.includes("اقارب")
+    ) {
+      return "relatives";
+    }
+
+    if (
+      raw.includes("member") ||
+      raw.includes("self") ||
+      raw.includes("primary") ||
+      raw.includes("عضو") ||
+      raw.includes("أعضاء") ||
+      raw.includes("اعضاء")
+    ) {
+      return "self";
+    }
+
+    return "all";
+  };
+
+  const findMatchingTierId = (applicantType) => {
+    const allowedTiers = pricingTiers.filter(
+      (tier) =>
+        getTierId(tier) && !isTierDisabled(tier)
+    );
+
+    const exactMatch = allowedTiers.find(
+      (tier) =>
+        getTierSubscriberCategory(tier) ===
+        applicantType
+    );
+
+    if (exactMatch) {
+      return getTierId(exactMatch);
+    }
+
+    if (applicantType === "relatives") {
+      const memberMatch = allowedTiers.find(
+        (tier) =>
+          getTierSubscriberCategory(tier) ===
+          "self"
+      );
+
+      if (memberMatch) {
+        return getTierId(memberMatch);
+      }
+    }
+
+    const generalMatch = allowedTiers.find(
+      (tier) =>
+        getTierSubscriberCategory(tier) ===
+        "all"
+    );
+
+    if (generalMatch) {
+      return getTierId(generalMatch);
+    }
+
+    return selectedTierId ||
+      (allowedTiers[0]
+        ? getTierId(allowedTiers[0])
+        : "");
   };
 
   const prices = pricingTiers
@@ -192,22 +315,37 @@ const Right_side = ({ data }) => {
   /*
    * Date data
    */
-  const dates = [
-    {
-      label: "التاريخ",
-      value: data?.date?.start_date || "-",
-    },
-    {
-      label: "الوقت",
-      value:
-        data?.date?.start_time &&
-        data?.date?.end_time
-          ? `${data.date.start_time} - ${data.date.end_time}`
-          : data?.date?.start_time ||
-            data?.date?.end_time ||
-            "-",
-    },
-  ];
+  const dates = useMemo(() => {
+    if (!data?.date) return [];
+
+    if (Array.isArray(data.date)) {
+      return data.date;
+    }
+
+    const items = [];
+
+    const dateValue =
+      data.date.start_date && data.date.end_date
+        ? `${data.date.start_date} - ${data.date.end_date}`
+        : data.date.start_date || data.date.end_date || "-";
+
+    items.push({
+      label: t("date", "التاريخ"),
+      value: dateValue,
+    });
+
+    const timeValue =
+      data.date.start_time && data.date.end_time
+        ? `${data.date.start_time} - ${data.date.end_time}`
+        : data.date.start_time || data.date.end_time || "-";
+
+    items.push({
+      label: t("service_time_label", "الوقت"),
+      value: timeValue,
+    });
+
+    return items;
+  }, [data, t]);
 
   /*
    * Helpers
@@ -245,7 +383,58 @@ const Right_side = ({ data }) => {
       error?.response?.data || {};
 
     const nestedMessage =
-      responseData?.message || {};
+      responseData?.message &&
+      typeof responseData.message === "object"
+        ? responseData.message
+        : {};
+
+    let serverMessage =
+      nestedMessage?.error ||
+      nestedMessage?.message ||
+      responseData?.error ||
+      (typeof responseData?.message === "string"
+        ? responseData.message
+        : "");
+
+    if (
+      !serverMessage &&
+      typeof responseData?._server_messages ===
+        "string"
+    ) {
+      try {
+        const parsed = JSON.parse(
+          responseData._server_messages
+        );
+        if (
+          Array.isArray(parsed) &&
+          parsed.length > 0
+        ) {
+          const firstMsg =
+            typeof parsed[0] === "string"
+              ? JSON.parse(parsed[0])
+              : parsed[0];
+          serverMessage =
+            firstMsg?.message ||
+            firstMsg?.error ||
+            String(parsed[0]);
+        }
+      } catch {
+        serverMessage =
+          responseData._server_messages;
+      }
+    }
+
+    if (
+      !serverMessage &&
+      typeof responseData?.exception === "string"
+    ) {
+      const lines = responseData.exception
+        .trim()
+        .split("\n");
+      serverMessage =
+        lines[lines.length - 1] ||
+        responseData.exception;
+    }
 
     return {
       status:
@@ -259,10 +448,7 @@ const Right_side = ({ data }) => {
         "unknown_error",
 
       message:
-        nestedMessage?.error ||
-        nestedMessage?.message ||
-        responseData?.error ||
-        responseData?.message ||
+        serverMessage ||
         error?.message ||
         "حدث خطأ أثناء إنشاء الحجز",
 
@@ -367,7 +553,8 @@ const Right_side = ({ data }) => {
   useEffect(() => {
     const anyPopupOpen =
       showBookingPopup ||
-      resultPopup.show;
+      resultPopup.show ||
+      showPaymentPopup;
 
     if (!anyPopupOpen) {
       document.body.style.overflow = "";
@@ -379,7 +566,11 @@ const Right_side = ({ data }) => {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [showBookingPopup, resultPopup.show]);
+  }, [
+    showBookingPopup,
+    resultPopup.show,
+    showPaymentPopup,
+  ]);
 
   /*
    * Close booking popup
@@ -398,6 +589,8 @@ const Right_side = ({ data }) => {
 
     setSelectedRelatives([]);
     setGuests([]);
+    setAddAllToWaitingListOption(false);
+    setUseLoyaltyPoints(false);
   };
 
   /*
@@ -423,10 +616,34 @@ const Right_side = ({ data }) => {
         setGuests([]);
       }
 
-      return {
+      const nextState = {
         ...previous,
         [type]: newValue,
       };
+
+      if (newValue) {
+        const currentCategory = selectedTier
+          ? getTierSubscriberCategory(
+              selectedTier
+            )
+          : "all";
+
+        if (
+          currentCategory !== "all" &&
+          currentCategory !== type
+        ) {
+          const matchedTierId =
+            findMatchingTierId(type);
+
+          if (matchedTierId) {
+            setSelectedTierId(
+              matchedTierId
+            );
+          }
+        }
+      }
+
+      return nextState;
     });
   };
 
@@ -568,7 +785,6 @@ const Right_side = ({ data }) => {
 
   const canContinue =
     totalApplicants > 0 &&
-    Boolean(selectedTierId) &&
     !hasIncompleteGuests;
 
   /*
@@ -600,10 +816,221 @@ const Right_side = ({ data }) => {
   };
 
   /*
+   * Payment popup & request
+   */
+  const extractPaymentError = (error) => {
+    const errorData =
+      error?.response?.data || {};
+
+    const nestedMessage =
+      errorData?.message;
+
+    const message =
+      nestedMessage?.error ||
+      nestedMessage?.message ||
+      errorData?.error ||
+      errorData?.message ||
+      error?.message ||
+      "حدث خطأ أثناء بدء عملية الدفع.";
+
+    return typeof message === "string"
+      ? message
+      : "حدث خطأ أثناء بدء عملية الدفع.";
+  };
+
+  const openPaymentPopup = (result) => {
+    const tierIndex = pricingTiers.findIndex(
+      (tier) =>
+        String(getTierId(tier)) ===
+        String(selectedTierId)
+    );
+
+    const tierTitle =
+      result?.tier ||
+      result?.tier_id ||
+      (selectedTier
+        ? getTierTitle(
+            selectedTier,
+            tierIndex >= 0 ? tierIndex : 0
+          )
+        : "غير محدد");
+
+    setSelectedPaymentItem({
+      ...result,
+      serviceName:
+        result?.service_name ||
+        result?.serviceName ||
+        data?.title ||
+        "-",
+      tier: tierTitle,
+      bookingId:
+        result?.booking_id ||
+        result?.bookingId ||
+        "-",
+      id:
+        result?.invoice_id ||
+        result?.invoiceId ||
+        result?.payParams?.invoice_id ||
+        result?.id ||
+        "",
+      amount:
+        result?.final_price ??
+        result?.total_price ??
+        result?.grandTotal ??
+        result?.amount ??
+        0,
+      currency:
+        result?.currency ||
+        data?.pricing?.currency ||
+        "EGP",
+      payMethod: result?.payMethod,
+      payParams: result?.payParams || {},
+    });
+
+    setSelectedPaymentMethod("visa");
+    setPaymentError("");
+    setShowPaymentPopup(true);
+  };
+
+  const closePaymentPopup = () => {
+    if (paymentLoading) return;
+
+    setShowPaymentPopup(false);
+    setSelectedPaymentItem(null);
+    setSelectedPaymentMethod("visa");
+    setPaymentError("");
+  };
+
+  const handlePayment = async (
+    paymentMethod
+  ) => {
+    if (
+      !selectedPaymentItem ||
+      paymentLoading
+    ) {
+      return;
+    }
+
+    try {
+      setPaymentLoading(true);
+      setPaymentError("");
+
+      const rawPayMethod =
+        selectedPaymentItem?.payMethod;
+
+      const payMethod = rawPayMethod
+        ? String(rawPayMethod).replace(
+            /^\/?(api\/)?method\//,
+            ""
+          )
+        : "";
+
+      const payParams =
+        selectedPaymentItem?.payParams ||
+        {};
+
+      const invoiceId =
+        payParams?.invoice_id ||
+        selectedPaymentItem?.invoice_id ||
+        selectedPaymentItem?.invoiceId ||
+        selectedPaymentItem?.id;
+
+      let response;
+
+      if (payMethod) {
+        response =
+          await academyFeePayment(
+            payMethod,
+            {
+              ...payParams,
+              ...(invoiceId &&
+              !payParams.invoice_id
+                ? { invoice_id: invoiceId }
+                : {}),
+              payment_method:
+                paymentMethod,
+            }
+          );
+      } else {
+        if (!invoiceId) {
+          setPaymentError(
+            "رقم الفاتورة غير موجود."
+          );
+
+          return;
+        }
+
+        response =
+          await payment_Fawry({
+            invoice_id: invoiceId,
+            payment_method:
+              paymentMethod,
+          });
+      }
+
+      const responseData =
+        response?.message?.data ||
+        response?.message ||
+        response?.data ||
+        response ||
+        {};
+
+      const status =
+        responseData?.status;
+
+      const paymentLink =
+        responseData?.payment_link ||
+        responseData?.paymentLink;
+
+      if (
+        String(status).toLowerCase() ===
+          "success" &&
+        paymentLink
+      ) {
+        window.location.href =
+          paymentLink;
+
+        return;
+      }
+
+      if (paymentLink) {
+        window.location.href =
+          paymentLink;
+
+        return;
+      }
+
+      const responseMessage =
+        responseData?.message ||
+        responseData?.error ||
+        "لم يتم استلام رابط الدفع.";
+
+      setPaymentError(
+        typeof responseMessage ===
+          "string"
+          ? responseMessage
+          : "لم يتم استلام رابط الدفع."
+      );
+    } catch (error) {
+      console.error(
+        "Payment error:",
+        error?.response?.data ||
+          error
+      );
+
+      setPaymentError(
+        extractPaymentError(error)
+      );
+    } finally {
+      setPaymentLoading(false);
+    }
+  };
+
+  /*
    * Booking request
    */
   const handleContinue = async ({
-    addAllToWaitingList = false,
+    addAllToWaitingList,
   } = {}) => {
     if (
       !canContinue ||
@@ -623,16 +1050,6 @@ const Right_side = ({ data }) => {
         code: "validation_error",
         message:
           "رقم الخدمة غير موجود.",
-      });
-
-      return;
-    }
-
-    if (!selectedTierId) {
-      setBookingError({
-        code: "invalid_tier",
-        message:
-          "اختاري الفئة السعرية المناسبة أولًا.",
       });
 
       return;
@@ -723,11 +1140,7 @@ const Right_side = ({ data }) => {
     const bookingData = {
       service_id: serviceId,
 
-      /*
-       * The API expects price_plan_name,
-       * for example: adults
-       */
-      tier_id: selectedTierId,
+      tier_id: "",
 
       book_for_myself:
         selectedApplicantTypes.self,
@@ -739,9 +1152,11 @@ const Right_side = ({ data }) => {
         guestAttendees.length > 0,
 
       add_all_to_waiting_list:
-        addAllToWaitingList,
+        addAllToWaitingList ??
+        addAllToWaitingListOption,
 
-      use_loyalty_points: false,
+      use_loyalty_points:
+        useLoyaltyPoints,
 
       branchId:
         data?.branchId ||
@@ -868,18 +1283,9 @@ const Right_side = ({ data }) => {
         showResultMessage({
           type: "success",
           title:
-            "تم إنشاء الحجز بنجاح",
-          message: `تم إنشاء الحجز${
-            result?.booking_id
-              ? ` رقم ${result.booking_id}`
-              : ""
-          }، والمبلغ المطلوب ${
-            result?.final_price ??
-            result?.total_price ??
-            ""
-          } ${
-            result?.currency || ""
-          }.`,
+            "تم إنشاء الطلب بنجاح",
+          message:
+            "أكمل الدفع لتأكيد الحجز",
 
           resultData: result,
         });
@@ -904,6 +1310,12 @@ const Right_side = ({ data }) => {
         "Booking error:",
         error
       );
+      if (error?.response?.data) {
+        console.error(
+          "Booking error response data:",
+          error.response.data
+        );
+      }
 
       const errorInfo =
         extractErrorData(error);
@@ -1088,34 +1500,35 @@ const Right_side = ({ data }) => {
             }
             className="w-full rounded-xl border border-[#00786F] bg-white py-3 font-semibold text-[#00786F] transition hover:bg-gray-50"
           >
-            {t("service_info")}
+            {t("academy_info")}
           </button>
         </div>
       </section>
 
       {/* Dates */}
-      <section className="rounded-2xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-5 text-xl font-bold text-gray-800">
-          {t("المواعيد")}
-        </h2>
+      {data?.features?.show_date !== false &&
+        dates.length > 0 && (
+          <section className="rounded-2xl border bg-white p-6 shadow-sm">
+            <h2 className="mb-5 text-xl font-bold text-gray-800">
+              {data?.date?.label || t("schedule", "المواعيد")}
+            </h2>
 
-        {dates.map(
-          (item, index) => (
-            <div
-              key={index}
-              className="mb-3 flex flex-col gap-2 rounded-xl border bg-transparent p-3"
-            >
-              <p className="font-bold text-[#1E2939]">
-                {item.label}
-              </p>
+            {dates.map((item, index) => (
+              <div
+                key={index}
+                className="mb-3 flex flex-col gap-2 rounded-xl border bg-transparent p-3"
+              >
+                <p className="font-bold text-[#1E2939]">
+                  {item.label}
+                </p>
 
-              <p className="text-[#5B626E]">
-                {item.value}
-              </p>
-            </div>
-          )
+                <p className="text-[#5B626E]">
+                  {item.value}
+                </p>
+              </div>
+            ))}
+          </section>
         )}
-      </section>
 
       {/* Trainers */}
       {data?.show_trainers &&
@@ -1194,114 +1607,94 @@ const Right_side = ({ data }) => {
               {/* Content */}
               <div className="flex-1 overflow-y-auto px-4 py-5">
                 <div className="space-y-4">
-                  {/* Pricing tiers */}
-                  <div className="rounded-2xl border bg-white p-5">
-                    <h3 className="mb-4 text-lg font-bold text-gray-800">
-                      اختر الفئة السعرية
-                    </h3>
-
-                    {pricingTiers.length >
-                    0 ? (
-                      <div className="space-y-3">
-                        {pricingTiers.map(
-                          (
-                            tier,
-                            index
-                          ) => {
-                            const tierId =
-                              getTierId(
-                                tier
-                              );
-
-                            const disabled =
-                              isTierDisabled(
-                                tier
-                              );
-
-                            const selected =
-                              String(
-                                selectedTierId
-                              ) ===
-                              String(
-                                tierId
-                              );
-
-                            return (
-                              <button
-                                key={
-                                  tierId ||
-                                  index
-                                }
-                                type="button"
-                                disabled={
-                                  disabled
-                                }
-                                onClick={() => {
-                                  setSelectedTierId(
-                                    tierId
-                                  );
-
-                                  setBookingError(
-                                    null
-                                  );
-                                }}
-                                className={`flex w-full items-center justify-between rounded-xl border-2 p-4 text-right transition ${
-                                  disabled
-                                    ? "cursor-not-allowed border-gray-200 bg-gray-50 opacity-50"
-                                    : selected
-                                    ? "border-[#008C82] bg-[#EAF8F6]"
-                                    : "border-gray-200 bg-white hover:border-[#008C82]"
-                                }`}
-                              >
-                                <div>
-                                  <p className="font-bold text-gray-800">
-                                    {getTierTitle(
-                                      tier,
-                                      index
-                                    )}
-                                  </p>
-
-                                  <p className="mt-1 text-sm text-gray-500">
-                                    {getTierPrice(
-                                      tier
-                                    )}{" "}
-                                    {data
-                                      ?.pricing
-                                      ?.currency ||
-                                      "EGP"}
-                                  </p>
-
-                                  {disabled && (
-                                    <p className="mt-1 text-xs text-red-500">
-                                      غير متاحة
-                                      لنوع
-                                      عضويتك
-                                    </p>
-                                  )}
-                                </div>
-
-                                <span
-                                  className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
-                                    selected
-                                      ? "border-[#008C82] bg-[#008C82] text-white"
-                                      : "border-gray-400"
-                                  }`}
-                                >
-                                  {selected && (
-                                    <FaCheck className="text-xs" />
-                                  )}
-                                </span>
-                              </button>
-                            );
-                          }
-                        )}
-                      </div>
-                    ) : (
-                      <p className="text-center text-sm text-gray-500">
-                        لا توجد فئات
-                        سعرية متاحة.
-                      </p>
+                  {/* Service Header Card */}
+                  <div className="flex items-center gap-3 rounded-2xl border bg-white p-4">
+                    {(data?.cover_photo ||
+                      data?.image) && (
+                      <img
+                        src={
+                          data?.cover_photo ||
+                          data?.image
+                        }
+                        alt={
+                          data?.title ||
+                          "Service"
+                        }
+                        className="h-14 w-14 shrink-0 rounded-xl object-cover"
+                      />
                     )}
+                    <div className="flex-1 text-right">
+                      <h3 className="text-lg font-bold text-gray-800">
+                        {data?.title ||
+                          data?.name ||
+                          "الخدمة"}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Options: Waiting list & Loyalty points */}
+                  <div className="space-y-3 rounded-2xl border bg-white p-4">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setAddAllToWaitingListOption(
+                          (prev) => !prev
+                        )
+                      }
+                      className="flex w-full items-center justify-between gap-3 text-right"
+                    >
+                      <span className="text-sm font-medium text-gray-800">
+                        إضافة الجميع لقائمة الانتظار
+                      </span>
+
+                      <span
+                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded border-2 ${
+                          addAllToWaitingListOption
+                            ? "border-[#008C82] bg-[#008C82] text-white"
+                            : "border-gray-500 bg-white"
+                        }`}
+                      >
+                        {addAllToWaitingListOption && (
+                          <FaCheck className="text-xs" />
+                        )}
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setUseLoyaltyPoints(
+                          (prev) => !prev
+                        )
+                      }
+                      className="flex w-full items-center justify-between gap-3 text-right"
+                    >
+                      <span className="text-sm font-medium text-gray-800">
+                        استخدام نقاط الولاء
+                      </span>
+
+                      <span
+                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded border-2 ${
+                          useLoyaltyPoints
+                            ? "border-[#008C82] bg-[#008C82] text-white"
+                            : "border-gray-500 bg-white"
+                        }`}
+                      >
+                        {useLoyaltyPoints && (
+                          <FaCheck className="text-xs" />
+                        )}
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Who are you applying for? */}
+                  <div className="pt-2 text-right">
+                    <h3 className="text-xl font-bold text-gray-800">
+                      لمن تقدم الطلب؟
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      يمكنك اختيار متقدم واحد أو أكثر
+                    </p>
                   </div>
 
                   <ApplicantOption
@@ -1615,6 +2008,35 @@ const Right_side = ({ data }) => {
                       }
                     </p>
 
+                    {String(
+                      bookingError.message
+                    ).includes(
+                      "لا توجد فئة سعرية مناسبة"
+                    ) &&
+                      pricingTiers.length >
+                        0 && (
+                        <p className="mt-2 text-xs text-red-600">
+                          الفئات السعرية المتاحة في هذه الخدمة:{" "}
+                          {pricingTiers
+                            .map(
+                              (
+                                tier,
+                                idx
+                              ) =>
+                                `${getTierTitle(
+                                  tier,
+                                  idx
+                                )}${
+                                  tier?.subscriber_type
+                                    ? ` (${tier.subscriber_type})`
+                                    : ""
+                                }`
+                            )
+                            .join("، ")}
+                          . يرجى اختيار متقدمين متوافقين مع الفئات المتاحة للخدمة.
+                        </p>
+                      )}
+
                     {bookingError.code ===
                       "not_enough_places" && (
                       <div className="mt-2 space-y-1 text-xs">
@@ -1703,7 +2125,7 @@ const Right_side = ({ data }) => {
                 className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full text-2xl ${
                   resultPopup.type ===
                   "success"
-                    ? "bg-green-100 text-green-600"
+                    ? "bg-[#EAF8F6] text-[#008C82]"
                     : "bg-red-100 text-red-600"
                 }`}
               >
@@ -1719,30 +2141,166 @@ const Right_side = ({ data }) => {
                 {resultPopup.title}
               </h2>
 
-              <p className="mt-3 leading-7 text-gray-600">
+              <p className="mt-2 text-sm leading-7 text-gray-500">
                 {resultPopup.message}
               </p>
 
               {resultPopup.data
-                ?.booking_id && (
-                <p className="mt-3 rounded-xl bg-gray-50 p-3 text-sm text-gray-600">
-                  رقم الحجز:{" "}
-                  <span className="font-bold">
-                    {
-                      resultPopup
-                        .data
-                        .booking_id
-                    }
-                  </span>
-                </p>
+                ?.status ===
+              "Pending Payment" ? (
+                <div className="mt-5 space-y-2.5 rounded-2xl bg-[#F4F6F9] p-4 text-sm">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-500">
+                      رقم الحجز
+                    </span>
+                    <span className="font-bold text-gray-800">
+                      {resultPopup.data
+                        ?.booking_id ||
+                        resultPopup.data
+                          ?.bookingId ||
+                        "-"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-500">
+                      الفئة
+                    </span>
+                    <span className="font-bold text-gray-800">
+                      {resultPopup.data
+                        ?.tier ||
+                        resultPopup.data
+                          ?.tier_id ||
+                        "غير محدد"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-500">
+                      عدد المتقدمين
+                    </span>
+                    <span className="font-bold text-gray-800">
+                      {resultPopup.data
+                        ?.attendees_count ??
+                        resultPopup.data
+                          ?.attendee_count ??
+                        resultPopup.data
+                          ?.attendees ??
+                        totalApplicants}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-500">
+                      سعر الوحدة
+                    </span>
+                    <span className="font-bold text-gray-800">
+                      {resultPopup.data
+                        ?.unit_price ??
+                        resultPopup.data
+                          ?.price ??
+                        0}{" "}
+                      {resultPopup.data
+                        ?.currency ||
+                        data?.pricing
+                          ?.currency ||
+                        "EGP"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-500">
+                      السعر الإجمالي
+                    </span>
+                    <span className="font-bold text-gray-800">
+                      {resultPopup.data
+                        ?.total_price ??
+                        resultPopup.data
+                          ?.final_price ??
+                        0}{" "}
+                      {resultPopup.data
+                        ?.currency ||
+                        data?.pricing
+                          ?.currency ||
+                        "EGP"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-semibold text-gray-800">
+                      السعر النهائي
+                    </span>
+                    <span className="font-bold text-[#008C82]">
+                      {resultPopup.data
+                        ?.final_price ??
+                        resultPopup.data
+                          ?.total_price ??
+                        0}{" "}
+                      {resultPopup.data
+                        ?.currency ||
+                        data?.pricing
+                          ?.currency ||
+                        "EGP"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-500">
+                      رقم الفاتورة
+                    </span>
+                    <span className="font-bold text-gray-800">
+                      {resultPopup.data
+                        ?.invoice_id ||
+                        resultPopup.data
+                          ?.invoiceId ||
+                        resultPopup.data
+                          ?.payParams
+                          ?.invoice_id ||
+                        "-"}
+                    </span>
+                  </div>
+
+                  {resultPopup.data
+                    ?.payment_expires_at && (
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-gray-500">
+                        تاريخ انتهاء الدفع
+                      </span>
+                      <span className="font-bold text-gray-800">
+                        {
+                          resultPopup.data
+                            .payment_expires_at
+                        }
+                      </span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                resultPopup.data
+                  ?.booking_id && (
+                  <p className="mt-3 rounded-xl bg-gray-50 p-3 text-sm text-gray-600">
+                    رقم الحجز:{" "}
+                    <span className="font-bold">
+                      {
+                        resultPopup
+                          .data
+                          .booking_id
+                      }
+                    </span>
+                  </p>
+                )
               )}
 
               {resultPopup.data
                 ?.status ===
                 "Pending Payment" &&
-              resultPopup.data
-                ?.payParams ? (
-                <div className="mt-6 space-y-3">
+              (resultPopup.data
+                ?.payParams ||
+                resultPopup.data
+                  ?.invoice_id ||
+                resultPopup.data
+                  ?.payMethod) ? (
+                <div className="mt-6 flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => {
@@ -1750,32 +2308,13 @@ const Right_side = ({ data }) => {
                         resultPopup.data;
 
                       closeResultPopup();
-
-                      navigate(
-                        "/payment",
-                        {
-                          state: {
-                            bookingId:
-                              result?.booking_id,
-
-                            invoiceId:
-                              result?.invoice_id,
-
-                            payMethod:
-                              result?.payMethod,
-
-                            payParams:
-                              result?.payParams,
-
-                            bookingResponse:
-                              result,
-                          },
-                        }
+                      openPaymentPopup(
+                        result
                       );
                     }}
-                    className="w-full rounded-xl bg-[#008C82] py-3 font-bold text-white transition hover:bg-[#00776F]"
+                    className="flex-1 rounded-xl bg-[#008C82] py-3.5 font-bold text-white transition hover:bg-[#00776F]"
                   >
-                    الانتقال للدفع
+                    ادفع الآن
                   </button>
 
                   <button
@@ -1787,7 +2326,7 @@ const Right_side = ({ data }) => {
                         "/profile"
                       );
                     }}
-                    className="w-full rounded-xl border border-gray-300 py-3 font-semibold text-gray-700"
+                    className="flex-1 rounded-xl border border-gray-300 bg-white py-3.5 font-semibold text-gray-700 transition hover:bg-gray-50"
                   >
                     الدفع لاحقًا
                   </button>
@@ -1807,6 +2346,183 @@ const Right_side = ({ data }) => {
                   تم
                 </button>
               )}
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* Payment Popup */}
+      {showPaymentPopup &&
+        createPortal(
+          <div
+            dir="rtl"
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 px-4"
+          >
+            <div className="relative max-h-[95vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-6">
+              <button
+                type="button"
+                onClick={closePaymentPopup}
+                disabled={paymentLoading}
+                className="absolute right-4 top-4 text-2xl text-gray-500 hover:text-red-500 disabled:opacity-50"
+              >
+                ×
+              </button>
+
+              <h2 className="mb-5 text-center text-xl font-bold">
+                {t("select_payment_method")}
+              </h2>
+
+              {/* Item Info */}
+              <div className="mb-5 rounded-xl bg-gray-50 p-4">
+                <div className="mb-4 border-b pb-4">
+                  <p className="text-sm text-gray-500">
+                    {t("service", {
+                      defaultValue: "الخدمة",
+                    })}
+                  </p>
+
+                  <p className="mt-1 font-bold">
+                    {selectedPaymentItem?.serviceName}
+                  </p>
+
+                  <p className="mt-2 text-sm text-gray-500">
+                    {t("service_tier", {
+                      defaultValue: "الفئة",
+                    })}
+                    : {selectedPaymentItem?.tier || "-"}
+                  </p>
+
+                  <p className="mt-1 text-sm text-gray-500">
+                    {t("booking_number", {
+                      defaultValue: "رقم الحجز",
+                    })}
+                    : {selectedPaymentItem?.bookingId || "-"}
+                  </p>
+                </div>
+
+                {/* Amount */}
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-500">
+                    {t("amount")}
+                  </span>
+
+                  <span className="font-bold text-[#00BFA6]">
+                    {selectedPaymentItem?.amount ?? 0}{" "}
+                    {selectedPaymentItem?.currency}
+                  </span>
+                </div>
+
+                {/* Invoice ID */}
+                {selectedPaymentItem?.id && (
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-gray-500">
+                      {t("invoice_number")}
+                    </span>
+
+                    <span className="font-semibold">
+                      {selectedPaymentItem.id}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {paymentError && (
+                <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-center text-sm text-red-700">
+                  {paymentError}
+                </div>
+              )}
+
+              {/* Payment Methods */}
+              <div className="mb-6 grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPaymentMethod("visa");
+                    setPaymentError("");
+                  }}
+                  disabled={paymentLoading}
+                  className={`rounded-xl border p-5 transition disabled:opacity-50 ${
+                    selectedPaymentMethod === "visa"
+                      ? "border-[#00BFA6] shadow-md"
+                      : "border-gray-200"
+                  }`}
+                >
+                  <div className="text-4xl font-black text-blue-900">
+                    VISA
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPaymentMethod("fawry");
+                    setPaymentError("");
+                  }}
+                  disabled={paymentLoading}
+                  className={`rounded-xl border p-5 transition disabled:opacity-50 ${
+                    selectedPaymentMethod === "fawry"
+                      ? "border-[#00BFA6] shadow-md"
+                      : "border-gray-200"
+                  }`}
+                >
+                  <div className="inline-block rounded bg-yellow-300 px-4 py-2 font-bold text-blue-800">
+                    Fawry
+                  </div>
+                </button>
+              </div>
+
+              {/* Visa */}
+              {selectedPaymentMethod === "visa" && (
+                <div className="space-y-4">
+                  <div className="rounded-xl border p-6 text-center">
+                    <p className="text-gray-600">
+                      {t("payment_by_card")}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handlePayment("CARD")}
+                    disabled={paymentLoading}
+                    className="w-full rounded-xl bg-[#00BFA6] py-3 font-semibold text-white transition hover:bg-[#009f8c] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {paymentLoading
+                      ? t("processing")
+                      : t("confirm_payment")}
+                  </button>
+                </div>
+              )}
+
+              {/* Fawry */}
+              {selectedPaymentMethod === "fawry" && (
+                <div className="space-y-5">
+                  <div className="flex justify-center rounded-xl border p-8">
+                    <div className="rounded bg-yellow-300 px-5 py-3 text-xl font-bold text-blue-800">
+                      Fawry
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handlePayment("PayAtFawry")}
+                    disabled={paymentLoading}
+                    className="w-full rounded-xl bg-[#00BFA6] py-3 font-semibold text-white transition hover:bg-[#009f8c] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {paymentLoading
+                      ? t("processing")
+                      : t("pay_via_fawry")}
+                  </button>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={closePaymentPopup}
+                disabled={paymentLoading}
+                className="mt-3 w-full rounded-xl border border-[#00BFA6] py-3 text-[#00BFA6] disabled:opacity-50"
+              >
+                {t("cancel")}
+              </button>
             </div>
           </div>,
           document.body

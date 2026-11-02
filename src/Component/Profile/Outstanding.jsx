@@ -125,19 +125,33 @@ const Outstanding = ({ data }) => {
 
       let response;
 
+      const rawPayMethod =
+        selectedPaymentItem?.payMethod;
+
+      const payMethod = rawPayMethod
+        ? String(rawPayMethod).replace(
+            /^\/?(api\/)?method\//,
+            ""
+          )
+        : "";
+
+      const payParams =
+        selectedPaymentItem?.payParams ||
+        {};
+
+      const invoiceId =
+        payParams?.invoice_id ||
+        selectedPaymentItem?.invoice_id ||
+        selectedPaymentItem?.invoiceId ||
+        selectedPaymentItem?.id;
+
       /*
-       * رسوم الأكاديميات تستخدم API منفصل.
+       * رسوم الأكاديميات أو أي عنصر يحتوي على payMethod مخصص.
        */
       if (
-        selectedPaymentItem.type === "fee"
+        selectedPaymentItem.type === "fee" ||
+        payMethod
       ) {
-        const payMethod =
-          selectedPaymentItem?.payMethod;
-
-        const payParams =
-          selectedPaymentItem?.payParams ||
-          {};
-
         if (!payMethod) {
           setPaymentError(
             "طريقة دفع رسوم الأكاديمية غير موجودة."
@@ -151,6 +165,12 @@ const Outstanding = ({ data }) => {
             payMethod,
             {
               ...payParams,
+              ...(invoiceId &&
+              selectedPaymentItem.type !==
+                "fee" &&
+              !payParams.invoice_id
+                ? { invoice_id: invoiceId }
+                : {}),
               payment_method:
                 paymentMethod,
             }
@@ -160,11 +180,6 @@ const Outstanding = ({ data }) => {
          * الاشتراكات والخدمات تستخدم
          * payment_Fawry.
          */
-        const invoiceId =
-          selectedPaymentItem
-            ?.payParams?.invoice_id ||
-          selectedPaymentItem?.id;
-
         if (!invoiceId) {
           setPaymentError(
             "رقم الفاتورة غير موجود."
