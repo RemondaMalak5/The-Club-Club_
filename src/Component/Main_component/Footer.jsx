@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaFacebookF,
   FaInstagram,
@@ -9,12 +9,43 @@ import { assets } from "../../assets/assets";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Social_Media from "../Shared_Component/Social_Media";
+import Social_Media from "../Shared_component/Social_Media";
 import { useBranch } from "../../context/BranchContext";
+import { isGuestUser } from "../../utils/userType";
+
 const Footer = () => {
   const { id } = useParams();
-    const user = JSON.parse(localStorage.getItem("user"));
-const { branches } = useBranch();
+  const [user, setUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
+      return saved && token ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    const syncUser = () => {
+      try {
+        const saved = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+        setUser(saved && token ? JSON.parse(saved) : null);
+      } catch {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener("userUpdated", syncUser);
+    window.addEventListener("storage", syncUser);
+    return () => {
+      window.removeEventListener("userUpdated", syncUser);
+      window.removeEventListener("storage", syncUser);
+    };
+  }, []);
+
+  const isGuest = Boolean(user) && isGuestUser(user);
+  const { branches } = useBranch();
   const { t } = useTranslation();
   const contact = [{ value: "16647" }, { value: "info@theclub.com.eg" }];
   // const branches = [
@@ -48,11 +79,16 @@ const { branches } = useBranch();
     { value: t("events"), link: "/services" },
     { value: t("academies"), link: "/academy" },
   ];
-  const Services_member = [ 
-
-    { value: user? t("profile"): t("login"), link: user ? "/profile" : "/login" },
-    { value: t("register"), link: "/register" },
-    { value: t("manage_membership"), link: "/" },
+  const Services_member = [
+    {
+      value: user ? (isGuest ? t("guest_page") : t("profile")) : t("login"),
+      link: user ? (isGuest ? "/guest" : "/profile") : "/login",
+    },
+    ...(!user ? [{ value: t("register"), link: "/register" }] : []),
+    {
+      value: isGuest ? t("upgrade_membership") : t("manage_membership"),
+      link: isGuest ? "/guest" : "/profile",
+    },
     { value: t("book_activities"), link: "/academy" },
   ];
   const bottom = [

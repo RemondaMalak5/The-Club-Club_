@@ -9,6 +9,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Create_Account } from "../../../axiosConfig/APIs/Auth/Register/Create_Account";
 import { UserTokenContext } from "../../../context/UserContext";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { extractApiErrorMessage } from "../../../utils/apiError";
 
 const Account_setup = () => {
   const { t, i18n } = useTranslation();
@@ -134,13 +135,35 @@ const Account_setup = () => {
 
       const response = await Create_Account(body);
 
+      if (response?.message?.success === false) {
+        setErrors({
+          general: extractApiErrorMessage(response, t("create_account_error")),
+        });
+        return;
+      }
 
-      navigate("/profile-guest");
+      const createdData = response?.message?.data || response?.message || {};
+
+      localStorage.setItem("accountType", "guest");
+
+      if (createdData?.token) {
+        localStorage.setItem("token", createdData.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify(
+            createdData?.user || {
+              username: formData.username,
+              isGuest: true,
+            }
+          )
+        );
+        window.dispatchEvent(new Event("userUpdated"));
+      }
+
+      navigate("/guest");
     } catch (error) {
-
       setErrors({
-        general:
-          error?.response?.data?.message?.error || t("create_account_error"),
+        general: extractApiErrorMessage(error, t("create_account_error")),
       });
     } finally {
       setLoading(false);

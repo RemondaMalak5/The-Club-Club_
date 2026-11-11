@@ -276,6 +276,8 @@ import { Get_profile } from "../../axiosConfig/APIs/Profile/Profile";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import i18next from "i18next";
 import { useBranch } from "../../context/BranchContext";
+import { isGuestUser } from "../../utils/userType";
+import { extractApiErrorMessage } from "../../utils/apiError";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -382,7 +384,7 @@ const Login = () => {
 
       if (!response?.message?.success) {
         setApiError(
-          response?.message?.message || "Invalid username or password"
+          extractApiErrorMessage(response, "Invalid username or password")
         );
         return;
       }
@@ -404,6 +406,7 @@ const Login = () => {
         لازم نحفظ الـ token الأول لأن Get_profile
         غالبًا يحتاجه داخل Authorization Header.
       */
+      localStorage.removeItem("accountType");
       localStorage.setItem("token", token);
 
       /*
@@ -478,6 +481,10 @@ const Login = () => {
       }
 
       localStorage.setItem("customer", JSON.stringify(customer));
+      localStorage.setItem(
+        "accountType",
+        isGuestUser(savedUser, customer, loginData) ? "guest" : "member"
+      );
 
       changeBranch(branchId);
 
@@ -500,12 +507,8 @@ const Login = () => {
     } catch (error) {
       console.error("Login error:", error);
 
-      const errorData = error?.response?.data;
-
       setApiError(
-        errorData?.message?.message ||
-          errorData?.message ||
-          "Invalid username or password"
+        extractApiErrorMessage(error, "Invalid username or password")
       );
     } finally {
       setIsLoading(false);

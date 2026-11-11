@@ -9,6 +9,7 @@ import i18next from "i18next";
 import { Submit_Application } from "../../../axiosConfig/APIs/Academy/Submit_Appication";
 import { createPortal } from "react-dom";
 import Select from "react-select";
+import { getUserDashboardPath } from "../../../utils/userType";
 
 
 const Right_side = ({ data }) => {
@@ -68,9 +69,9 @@ const genderOptions = [
         t("generic_error");
     }
     setTimeout(() => {
-  closeMessagePopup();
-  navigate("/profile");
-}, 2000);
+      closeMessagePopup();
+      navigate(getUserDashboardPath());
+    }, 2000);
 
     setMessagePopup({
       show: true,

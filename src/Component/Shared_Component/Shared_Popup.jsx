@@ -1,9 +1,20 @@
 import React from 'react'
 import { usePopup } from '../../context/PopupContext';
+import { extractApiErrorMessage } from '../../utils/apiError';
 
 const Shared_Popup = () => {
       const { popup, closePopup } = usePopup();
   if (!popup.open) return null;
+
+  const safeTitle =
+    typeof popup.title === "object" && popup.title !== null && !React.isValidElement(popup.title)
+      ? extractApiErrorMessage(popup.title, "")
+      : popup.title;
+
+  const safeMessage =
+    typeof popup.message === "object" && popup.message !== null && !React.isValidElement(popup.message)
+      ? extractApiErrorMessage(popup.message, "")
+      : popup.message;
 
   return (
       <div className="fixed inset-0 bg-black/40 z-[9999] flex items-center justify-center">
@@ -12,11 +23,11 @@ const Shared_Popup = () => {
             {popup.icon}
         </span>
         <h2 className="text-xl font-bold mb-3">
-          {popup.title}
+          {safeTitle}
         </h2>
 
         <p className="text-[#6A7282] mb-6">
-          {popup.message}
+          {safeMessage}
         </p>
 
        {(popup.confirmText || popup.cancelText) && (

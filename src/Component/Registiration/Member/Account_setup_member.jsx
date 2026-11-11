@@ -9,6 +9,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Create_Account } from "../../../axiosConfig/APIs/Auth/Register/Create_Account";
 import { UserTokenContext } from "../../../context/UserContext";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { extractApiErrorMessage } from "../../../utils/apiError";
 
 const Account_setup_member = () => {
   const { t, i18n } = useTranslation();
@@ -138,18 +139,29 @@ const Account_setup_member = () => {
         language: i18n.language,
       };
 
-      await Create_Account(body);
+      const response = await Create_Account(body);
+      if (response?.message?.success === false) {
+        setErrors({
+          general: extractApiErrorMessage(response, t("create_account_error")),
+        });
+        return;
+      }
+      const createdData = response?.message?.data || response?.message || {};
+
+      localStorage.setItem("accountType", "member");
+
+      if (createdData?.token) {
+        localStorage.setItem("token", createdData.token);
+        if (createdData?.user) {
+          localStorage.setItem("user", JSON.stringify(createdData.user));
+        }
+        window.dispatchEvent(new Event("userUpdated"));
+      }
 
       navigate("/profile");
     } catch (error) {
-      const apiError =
-        error?.response?.data?.message?.error ||
-        error?.response?.data?.message ||
-        error?.response?.data?.error ||
-        t("create_account_error");
-
       setErrors({
-        general: apiError,
+        general: extractApiErrorMessage(error, t("create_account_error")),
       });
     } finally {
       setLoading(false);

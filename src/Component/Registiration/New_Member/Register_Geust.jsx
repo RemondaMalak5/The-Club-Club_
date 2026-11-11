@@ -12,6 +12,7 @@ import { Send_OTP } from "../../../axiosConfig/APIs/Auth/Register/Send_OTP";
 import i18next from "i18next";
 import Select from "react-select";
 import { useBranch } from "../../../context/BranchContext";
+import { extractApiErrorMessage } from "../../../utils/apiError";
 
 const Register_Geust = () => {
   const navigate = useNavigate();
@@ -138,12 +139,21 @@ const Register_Geust = () => {
       };
 
       const response = await Send_OTP(body);
+      if (response?.message?.success === false) {
+        setErrors({
+          general: extractApiErrorMessage(response, t("form_error_retry")),
+        });
+        return;
+      }
       navigate("/otp-guest", {
         state: {
           formData: formData,
         },
       });
     } catch (error) {
+      setErrors({
+        general: extractApiErrorMessage(error, t("form_error_retry")),
+      });
     }
   };
   const handleSubmit = async () => {
@@ -155,17 +165,31 @@ const Register_Geust = () => {
 
     try {
       setLoading(true);
+      setErrors((prev) => ({ ...prev, general: "" }));
 
       const response = await Step_1_validation(formData);
 
+      if (response?.message?.success === false) {
+        setErrors({
+          general: extractApiErrorMessage(response, t("form_error_retry")),
+        });
+        return;
+      }
 
       const receivedToken = response?.message?.registration_token;
 
       if (receivedToken) {
         saveToken(receivedToken);
         await handleVerify(receivedToken);
+      } else {
+        setErrors({
+          general: extractApiErrorMessage(response, t("form_error_retry")),
+        });
       }
     } catch (error) {
+      setErrors({
+        general: extractApiErrorMessage(error, t("form_error_retry")),
+      });
     } finally {
       setLoading(false);
     }

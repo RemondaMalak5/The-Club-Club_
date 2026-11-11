@@ -7,6 +7,7 @@ import { Reset_password } from "../../axiosConfig/APIs/Auth/Forget_pass/Reset_pa
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { usePopup } from "../../context/PopupContext";
 import { GiConfirmed } from "react-icons/gi";
+import { extractApiErrorMessage } from "../../utils/apiError";
 
 const Reset_pass = () => {
   const { t, i18n } = useTranslation();
@@ -68,14 +69,7 @@ setTimeout(() => {
   navigate("/login");
 }, 2200);
   } catch (error) {
-    
-
-    setError(
-      error?.response?.data?.message?.error ||
-      error?.response?.data?.message?.message ||
-      error?.response?.data?.error ||
-      t("reset_error_message")
-    );
+    setError(extractApiErrorMessage(error, t("reset_error_message")));
   } finally {
     setLoading(false);
   }

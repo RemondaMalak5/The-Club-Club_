@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Send_OTP } from "../../../axiosConfig/APIs/Auth/Register/Send_OTP";
 import { UserTokenContext } from "../../../context/UserContext";
 import { Verify_Otp } from "../../../axiosConfig/APIs/Auth/Register/Step_2_Verify_OTP";
+import { extractApiErrorMessage } from "../../../utils/apiError";
 
 const Otp_Geust = ({ length = 6 }) => {
   const { t, i18n } = useTranslation();
@@ -103,16 +104,16 @@ const Otp_Geust = ({ length = 6 }) => {
         language: i18n.language,
       };
 
-      await Verify_Otp(body);
+      const response = await Verify_Otp(body);
+
+      if (response?.message?.success === false) {
+        setError(extractApiErrorMessage(response, t("invalid_otp")));
+        return;
+      }
 
       navigation("/account-setup");
     } catch (error) {
-      const apiError =
-        typeof error?.response?.data?.message === "string"
-          ? error.response.data.message
-          : error?.response?.data?.error || t("invalid_otp");
-
-      setError(apiError);
+      setError(extractApiErrorMessage(error, t("invalid_otp")));
     } finally {
       setLoading(false);
     }
@@ -127,10 +128,17 @@ const Otp_Geust = ({ length = 6 }) => {
     try {
       setLoading(true);
 
-      await Send_OTP({
+      const response = await Send_OTP({
         registration_token: token,
         language: i18n.language,
       });
+
+      if (response?.message?.success === false) {
+        setError(
+          extractApiErrorMessage(response, "حدث خطأ أثناء إعادة الإرسال")
+        );
+        return;
+      }
 
       setCounter(56);
       setOtp(Array(length).fill(""));
@@ -138,9 +146,7 @@ const Otp_Geust = ({ length = 6 }) => {
       setError("");
     } catch (error) {
       setError(
-        error?.response?.data?.message ||
-          error?.response?.data?.error ||
-          "حدث خطأ أثناء إعادة الإرسال"
+        extractApiErrorMessage(error, "حدث خطأ أثناء إعادة الإرسال")
       );
     } finally {
       setLoading(false);

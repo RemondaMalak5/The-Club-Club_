@@ -8,6 +8,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { Send_OTP } from "../../../axiosConfig/APIs/Auth/Register/Send_OTP";
 import { Verify_Otp } from "../../../axiosConfig/APIs/Auth/Register/Step_2_Verify_OTP";
 import { UserTokenContext } from "../../../context/UserContext";
+import { extractApiErrorMessage } from "../../../utils/apiError";
 
 const Send_Otp = ({ length = 6 }) => {
   const { t, i18n } = useTranslation();
@@ -71,15 +72,14 @@ const Send_Otp = ({ length = 6 }) => {
         otp_code: otpCode,
         language: i18n.language,
       };
-      await Verify_Otp(body);
+      const response = await Verify_Otp(body);
+      if (response?.message?.success === false) {
+        setError(extractApiErrorMessage(response, t("invalid_otp")));
+        return;
+      }
       navigation("/account-setup-member");
     } catch (error) {
-      const apiError =
-        typeof error?.response?.data?.message === "string"
-          ? error.response.data.message
-          : error?.response?.data?.error ||
-            t("invalid_otp");
-      setError(apiError);
+      setError(extractApiErrorMessage(error, t("invalid_otp")));
     } finally {
       setLoading(false);
     }
@@ -92,12 +92,16 @@ const Send_Otp = ({ length = 6 }) => {
     }
     try {
       setLoading(true);
-      await Send_OTP({ registration_token: token, language: i18n.language });
+      const response = await Send_OTP({ registration_token: token, language: i18n.language });
+      if (response?.message?.success === false) {
+        setError(extractApiErrorMessage(response, "حدث خطأ أثناء إعادة الإرسال"));
+        return;
+      }
       setCounter(56);
       setOtp(Array(length).fill(""));
       inputsRef.current[0]?.focus();
     } catch (error) {
-      setError(error?.response?.data?.message || error?.response?.data?.error || "حدث خطأ أثناء إعادة الإرسال");
+      setError(extractApiErrorMessage(error, "حدث خطأ أثناء إعادة الإرسال"));
     } finally {
       setLoading(false);
     }

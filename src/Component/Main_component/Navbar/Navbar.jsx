@@ -272,6 +272,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { Get_profile } from "../../../axiosConfig/APIs/Profile/Profile";
 import { CgProfile } from "react-icons/cg";
 import { MdLanguage } from "react-icons/md";
+import { isGuestUser } from "../../../utils/userType";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -344,6 +345,10 @@ const Navbar = () => {
         };
 
         localStorage.setItem("user", JSON.stringify(updatedUser));
+        localStorage.setItem(
+          "accountType",
+          isGuestUser(updatedUser) ? "guest" : "member"
+        );
         setUser(updatedUser);
       } catch (error) {
         console.error("Profile loading error:", error);
@@ -378,6 +383,7 @@ const Navbar = () => {
     localStorage.removeItem("customer");
     localStorage.removeItem("branchId");
     localStorage.removeItem("loginBranchId");
+    localStorage.removeItem("accountType");
 
     setUser(null);
     closeMenu();
@@ -400,6 +406,10 @@ const Navbar = () => {
       event.currentTarget.style.display = "none";
     }
   };
+
+  const isGuest = Boolean(user) && isGuestUser(user);
+  const accountPagePath = isGuest ? "/guest" : "/profile";
+  const accountPageLabel = isGuest ? t("guest_page") : t("profile");
 
   const navItems = [
     { name: t("home"), path: "/" },
@@ -467,31 +477,39 @@ const Navbar = () => {
               <>
                 <button
                   type="button"
-                  onClick={() => navigate("/profile")}
+                  onClick={() => navigate(accountPagePath)}
                   className="flex items-center gap-2 text-start"
                 >
                   {user?.profileImage ? (
                     <img
                       src={user.profileImage}
-                      alt={user?.fullName || "Profile"}
+                      alt={user?.fullName || accountPageLabel}
                       width={48}
                       height={48}
                       className="h-12 w-12 rounded-full object-cover"
                       onError={handleProfileImageError}
                     />
                   ) : (
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#EBF1F1] text-2xl text-[#00786F]">
+                    <span
+                      className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl ${
+                        isGuest
+                          ? "bg-[#FFF3DB] text-[#C46A14]"
+                          : "bg-[#EBF1F1] text-[#00786F]"
+                      }`}
+                    >
                       <CgProfile />
                     </span>
                   )}
 
                   <div className="flex flex-col">
-                    <p className="text-sm text-gray-500">{t("hello")}</p>
+                    <p className="text-xs text-gray-500">
+                      {isGuest ? t("guest_account_badge") : t("hello")}
+                    </p>
 
                     <p className="max-w-[150px] truncate font-medium text-[#364153]">
                       {user?.fullName
                         ? user.fullName.split(" ").slice(0, 2).join(" ")
-                        : t("profile")}
+                        : accountPageLabel}
                     </p>
                   </div>
                 </button>
@@ -569,10 +587,10 @@ const Navbar = () => {
               {user && (
                 <button
                   type="button"
-                  aria-label="Profile"
+                  aria-label={accountPageLabel}
                   onClick={() => {
                     closeMenu();
-                    navigate("/profile");
+                    navigate(accountPagePath);
                   }}
                   className="rounded-full p-3 text-lg font-bold text-white bg-gradient-to-r from-[#08AC85DB] to-[#00786F]"
                 >

@@ -7,6 +7,7 @@ import { forget } from "../../axiosConfig/APIs/Auth/Forget_pass/Forget";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useBranch } from "../../context/BranchContext";
+import { extractApiErrorMessage } from "../../utils/apiError";
 
 
 const Cheak_Mail = () => {
@@ -61,8 +62,7 @@ const branchOptions =
             // );
         } catch (error) {
             setApiError(
-                error?.response?.data?.message ||
-                t("forget_password_failed")
+                extractApiErrorMessage(error, t("forget_password_failed"))
             );
         } finally {
             setLoading(false);

@@ -1,22 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosArrowRoundBack, IoIosFlower } from "react-icons/io";
 import { FaSquare } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
 import { LuCalendarCheck } from "react-icons/lu";
 import { MdOutlineSportsSoccer } from "react-icons/md";
-import Title_1 from "../Shared_Component/Title_1";
-import SubTitle from "../Shared_Component/SubTitle";
+import Title_1 from "../Shared_component/Title_1";
+import SubTitle from "../Shared_component/SubTitle";
 import { useNavigate } from "react-router-dom";
 import { All_Services } from "../../axiosConfig/APIs/Services/All_Services";
 import { useQuery } from "@tanstack/react-query";
 import { useBranch } from "../../context/BranchContext";
+import { isGuestUser } from "../../utils/userType";
 
 const Booking_home = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const { selectedBranch } = useBranch();
+
+  const [isGuest, setIsGuest] = useState(() => {
+    const token = localStorage.getItem("token");
+    return Boolean(token) && isGuestUser();
+  });
+
+  useEffect(() => {
+    const syncRole = () => {
+      const token = localStorage.getItem("token");
+      setIsGuest(Boolean(token) && isGuestUser());
+    };
+
+    window.addEventListener("userUpdated", syncRole);
+    window.addEventListener("storage", syncRole);
+    return () => {
+      window.removeEventListener("userUpdated", syncRole);
+      window.removeEventListener("storage", syncRole);
+    };
+  }, []);
 
   const services = [
     {
@@ -33,15 +53,15 @@ const Booking_home = () => {
     },
     {
       icon: <MdOutlineSportsSoccer />,
-      title: t("renew_membership"),
-      desc: t("renewal_description"),
-      linkTo: "/profile",
+      title: isGuest ? t("upgrade_membership") : t("renew_membership"),
+      desc: isGuest ? t("upgrade_membership_desc") : t("renewal_description"),
+      linkTo: isGuest ? "/guest" : "/profile",
     },
     {
       icon: <TiGroupOutline />,
-      title: t("member_profile"),
-      desc: t("member_profile_description"),
-      linkTo: "/profile",
+      title: isGuest ? t("guest_page") : t("member_profile"),
+      desc: isGuest ? t("guest_dashboard_desc") : t("member_profile_description"),
+      linkTo: isGuest ? "/guest" : "/profile",
     },
   ];
 
@@ -122,10 +142,10 @@ const steps = events.slice(0, 3).map((item) => ({
 
         <button
           type="button"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate(isGuest ? "/guest" : "/profile")}
           className="mx-5 mt-5 bg-[#00786F] text-white py-4 rounded-xl hover:bg-[#00645c] transition"
         >
-          {t("view_member_dashboard")}
+          {isGuest ? t("view_guest_dashboard") : t("view_member_dashboard")}
         </button>
       </div>
 
